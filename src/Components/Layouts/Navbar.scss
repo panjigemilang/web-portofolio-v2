@@ -1,0 +1,33 @@
+@import "../Commons/variables";
+
+nav {
+  position: relative;
+
+  ul {
+    margin: 30px;
+    text-align: center;
+
+    li {
+      display: inline;
+      margin: 15px;
+
+      &.active {
+        border-bottom: 1px solid black;
+        pointer-events: none;
+      }
+
+      &:hover {
+        background-color: $light-primary;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      div {
+        cursor: pointer;
+        display: inline;
+      }
+    }
+  }
+}

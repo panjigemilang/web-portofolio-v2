@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import IndexContext from "./Context"
+import Landing from "./Components/Pages/Landing"
+import Portofolio from "./Components/Pages/Items/Portofolio"
+import Navbar from "./Components/Layouts/Navbar"
 
-function App() {
+function App({ location }) {
+  const [transition, setTransition] = React.useState(true)
+  const [active, setActive] = React.useState(1)
+  const [toggleLoading, setToggleLoading] = React.useState(false)
+  const contextProvider = React.useMemo(
+    () => ({
+      transition,
+      setTransition,
+      toggleLoading,
+      setToggleLoading,
+      active,
+      setActive,
+    }),
+    [
+      transition,
+      setTransition,
+      toggleLoading,
+      setToggleLoading,
+      active,
+      setActive,
+    ]
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <IndexContext.Provider value={contextProvider}>
+        <div className="App">
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/portofolio" component={Portofolio} />
+          </Switch>
+        </div>
+      </IndexContext.Provider>
+    </Router>
+  )
 }
 
-export default App;
+export default App

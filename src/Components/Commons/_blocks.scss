@@ -1,0 +1,93 @@
+@each $block in $blocks {
+  .block-#{$block} {
+    background-color: $block-one;
+    left: -30vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    width: 30vw;
+    z-index: 99;
+  }
+}
+
+@mixin keyframes($str) {
+  @-webkit-keyframes #{$str} {
+    @content;
+  }
+  @-moz-keyframes #{$str} {
+    @content;
+  }
+  @-ms-keyframes #{$str} {
+    @content;
+  }
+  @keyframes #{$str} {
+    @content;
+  }
+}
+
+@mixin animation($str, $delay) {
+  animation: #{$str};
+  animation-delay: #{$delay};
+  -webkit-animation: #{$str};
+  -webkit-animation-delay: #{$delay};
+  -moz-animation: #{$str};
+  -moz-animation-delay: #{$delay};
+  -o-animation: #{$str};
+  -o-animation-delay: #{$delay};
+}
+
+@include keyframes(closing) {
+  50% {
+    transform: translateX(80vw);
+  }
+  90% {
+    transform: translateX(140vw);
+  }
+  100% {
+    transform: translateX(150vw);
+  }
+}
+
+@include keyframes(clip-show) {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  50% {
+    clip-path: polygon(0% 0, 70% 0, 70% 100%, 0 100%);
+  }
+  90% {
+    clip-path: polygon(0% 0, 95% 0, 95% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@include keyframes(clip-close) {
+  0% {
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  50% {
+    clip-path: polygon(70% 0, 100% 0, 100% 100%, 70% 100%);
+  }
+  90% {
+    clip-path: polygon(95% 0, 100% 0, 100% 100%, 95% 100%);
+  }
+  100% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+}
+
+.block-3.close {
+  @include animation("closing 1s linear 1 forwards", 0.6s);
+}
+
+.loading-container {
+  &.show {
+    @include animation("clip-show .5s linear 1 forwards", 0.3s);
+  }
+
+  &.close {
+    @include animation("clip-close .5s ease-in-out 1 forwards", 0.4s);
+  }
+}
