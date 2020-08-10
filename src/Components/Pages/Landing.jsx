@@ -1,19 +1,16 @@
 import React from "react"
-import ReactAnime from "react-animejs"
 import Index from "../../Context"
 import Loading from "../Commons/Loading"
+import SectionOne from "./SubPages/SectionOne"
+import "./landing.scss"
 
 export default function Landing() {
-  const { Anime } = ReactAnime
-  const {
-    transition,
-    setTransition,
-    toggleLoading,
-    setToggleLoading,
-  } = React.useContext(Index)
+  const { transition, toggleLoading, setToggleLoading } = React.useContext(
+    Index
+  )
 
   React.useEffect(() => {
-    const time = 1000
+    const time = 300
 
     const timeoutId = setTimeout(() => {
       setToggleLoading(!toggleLoading)
@@ -25,9 +22,9 @@ export default function Landing() {
   }, [])
 
   return (
-    <div>
+    <div className="app">
       {transition && <Loading />}
-      <h1>Landing</h1>
+      <SectionOne />
     </div>
   )
 }

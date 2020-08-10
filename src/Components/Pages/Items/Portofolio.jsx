@@ -3,15 +3,12 @@ import Index from "../../../Context"
 import Loading from "../../Commons/Loading"
 
 export default function Portofolio() {
-  const {
-    transition,
-    setTransition,
-    toggleLoading,
-    setToggleLoading,
-  } = React.useContext(Index)
+  const { transition, toggleLoading, setToggleLoading } = React.useContext(
+    Index
+  )
 
   React.useEffect(() => {
-    const time = 1000
+    const time = 300
 
     const timeoutId = setTimeout(() => {
       setToggleLoading(!toggleLoading)
@@ -23,9 +20,11 @@ export default function Portofolio() {
   }, [])
 
   return (
-    <div>
+    <div className="app">
       {transition && <Loading />}
-      <h1>Portofolio</h1>
+      <div className="content">
+        <h1>Portofolio</h1>
+      </div>
     </div>
   )
 }

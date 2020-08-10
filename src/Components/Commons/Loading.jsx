@@ -3,38 +3,27 @@ import ReactAnime from "react-animejs"
 import Index from "../../Context"
 import "./loading.scss"
 
-// export default class Loading extends Component {
-
-//   render() {
-//     return (
-//       <div>
-//         <h1>Loading</h1>
-//       </div>
-//     )
-//   }
-// }
-
 export default function Loading() {
   const {
     toggleLoading,
     setToggleLoading,
-    transition,
     setTransition,
+    setActive,
   } = React.useContext(Index)
   const [closing, setClosing] = React.useState(false)
   const { Anime } = ReactAnime
 
   React.useEffect(() => {
-    console.log("UseEffect { Loading }", transition)
-    let time = 2000
+    let time = 900
+
+    if (window.location.pathname.includes("/portofolio")) setActive(2)
+    else setActive(1)
 
     if (toggleLoading) {
-      console.log("CLOSING (toggle Loading)", transition)
       setClosing(!closing)
     }
 
     const timeoutId = setTimeout(() => {
-      console.log("set Transition")
       setTransition(false)
       setToggleLoading(!toggleLoading)
     }, time)
@@ -54,19 +43,15 @@ export default function Loading() {
             targets: ".block-1",
             keyframes: [
               {
-                translateX: "80vw",
-                width: "20vw",
-              },
-              {
                 translateX: "120vw",
-                width: "5vw",
+                width: "20vw",
               },
               {
                 translateX: "130vw",
                 width: "1vw",
               },
             ],
-            duration: 800,
+            duration: 500,
             easing: "linear",
           },
         ]}
@@ -79,12 +64,8 @@ export default function Loading() {
             targets: ".block-2",
             keyframes: [
               {
-                translateX: "80vw",
-                width: "20vw",
-              },
-              {
                 translateX: "120vw",
-                width: "5vw",
+                width: "20vw",
               },
               {
                 translateX: "130vw",
@@ -92,7 +73,7 @@ export default function Loading() {
               },
             ],
             delay: 50,
-            duration: 800,
+            duration: 500,
             easing: "linear",
           },
         ]}

@@ -6,7 +6,7 @@
     position: absolute;
     top: 0;
     width: 30vw;
-    z-index: 99;
+    z-index: 9999;
   }
 }
 
@@ -52,20 +52,17 @@
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   }
-  50% {
-    clip-path: polygon(0% 0, 70% 0, 70% 100%, 0 100%);
-  }
-  90% {
-    clip-path: polygon(0% 0, 95% 0, 95% 100%, 0 100%);
+  30% {
+    clip-path: polygon(0 0, 95% 0, 95% 100%, 0 100%);
   }
   100% {
-    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 }
 
 @include keyframes(clip-close) {
   0% {
-    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
   50% {
     clip-path: polygon(70% 0, 100% 0, 100% 100%, 70% 100%);
@@ -79,15 +76,17 @@
 }
 
 .block-3.close {
-  @include animation("closing 1s linear 1 forwards", 0.6s);
+  @include animation("closing .8s linear 1 forwards", 0.09s);
 }
 
 .loading-container {
+  z-index: -2;
   &.show {
-    @include animation("clip-show .5s linear 1 forwards", 0.3s);
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    @include animation("clip-show .8s linear 1 forwards", 0.05s);
   }
 
   &.close {
-    @include animation("clip-close .5s ease-in-out 1 forwards", 0.4s);
+    @include animation("clip-close .8s ease-in-out 1 forwards", 0.08s);
   }
 }

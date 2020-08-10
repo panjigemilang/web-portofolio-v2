@@ -33,7 +33,7 @@ function App({ location }) {
       <IndexContext.Provider value={contextProvider}>
         <div className="App">
           <Navbar />
-          <Switch>
+          <Switch location={location}>
             <Route exact path="/" component={Landing} />
             <Route exact path="/portofolio" component={Portofolio} />
           </Switch>

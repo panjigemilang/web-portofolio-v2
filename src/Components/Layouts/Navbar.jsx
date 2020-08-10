@@ -6,19 +6,13 @@ import "./Navbar.scss"
 function Navbar() {
   const {
     active,
-    setActive,
     transition,
     setTransition,
-    toggleLoading,
     setToggleLoading,
   } = React.useContext(Index)
-  const delay = 1000
+  const delay = 0
 
   React.useEffect(() => {
-    console.log("UseEffect { Navbar }", toggleLoading)
-    if (window.location.pathname.includes("/portofolio")) setActive(2)
-    else setActive(1)
-
     if (transition) setToggleLoading(!setToggleLoading)
   }, [transition])
 
