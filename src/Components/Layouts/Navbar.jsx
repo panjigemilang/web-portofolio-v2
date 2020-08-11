@@ -2,38 +2,46 @@ import React from "react"
 import Index from "../../Context"
 import DelayLink from "react-delay-link"
 import "./Navbar.scss"
+import useDelayedUnmounting from "../Utils/useDelayComponent"
 
 function Navbar() {
-  const {
-    active,
-    transition,
-    setTransition,
-    setToggleLoading,
-  } = React.useContext(Index)
-  const delay = 0
+  const { active, setToggleLoading } = React.useContext(Index)
+  const firstRender = React.useRef(true)
+  const [transition, show] = useDelayedUnmounting(1200)
+  const delay = 400
 
   React.useEffect(() => {
-    if (transition) setToggleLoading(!setToggleLoading)
-  }, [transition])
+    let timeoutId,
+      timeout = 300
 
-  const handleClick = (e) => {
-    setTransition(!transition)
-  }
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+
+    if (transition === "mounting") setToggleLoading(!setToggleLoading)
+
+    if (transition === "mounted") {
+      timeoutId = setTimeout(() => {
+        setToggleLoading(!setToggleLoading)
+      }, timeout)
+    }
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [transition])
 
   return (
     <nav>
       <ul>
         <li className={active === 1 ? "active" : ""}>
-          <DelayLink delay={delay} clickAction={(e) => handleClick(e)} to="/">
+          <DelayLink delay={delay} clickAction={show} to="/">
             Home
           </DelayLink>
         </li>
         <li className={active === 2 ? "active" : ""}>
-          <DelayLink
-            delay={delay}
-            clickAction={(e) => handleClick(e)}
-            to="/portofolio"
-          >
+          <DelayLink delay={delay} clickAction={show} to="/portofolio">
             About
           </DelayLink>
         </li>

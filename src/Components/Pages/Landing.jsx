@@ -10,20 +10,12 @@ export default function Landing() {
   )
 
   React.useEffect(() => {
-    const time = 300
-
-    const timeoutId = setTimeout(() => {
-      setToggleLoading(!toggleLoading)
-    }, time)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
+    setToggleLoading(!toggleLoading)
   }, [])
 
   return (
     <div className="app">
-      {transition && <Loading />}
+      {transition !== "mounted" && <Loading />}
       <SectionOne />
     </div>
   )

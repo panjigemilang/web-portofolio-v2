@@ -8,20 +8,12 @@ export default function Portofolio() {
   )
 
   React.useEffect(() => {
-    const time = 300
-
-    const timeoutId = setTimeout(() => {
-      setToggleLoading(!toggleLoading)
-    }, time)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
+    setToggleLoading(!toggleLoading)
   }, [])
 
   return (
     <div className="app">
-      {transition && <Loading />}
+      {transition !== "mounted" && <Loading />}
       <div className="content">
         <h1>Portofolio</h1>
       </div>

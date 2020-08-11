@@ -6,7 +6,7 @@ import Portofolio from "./Components/Pages/Items/Portofolio"
 import Navbar from "./Components/Layouts/Navbar"
 
 function App({ location }) {
-  const [transition, setTransition] = React.useState(true)
+  const [transition, setTransition] = React.useState("mounting")
   const [active, setActive] = React.useState(1)
   const [toggleLoading, setToggleLoading] = React.useState(false)
   const contextProvider = React.useMemo(

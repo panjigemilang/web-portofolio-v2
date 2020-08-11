@@ -7,14 +7,18 @@ export default function Loading() {
   const {
     toggleLoading,
     setToggleLoading,
-    setTransition,
+    transition,
     setActive,
   } = React.useContext(Index)
   const [closing, setClosing] = React.useState(false)
+  const firstRender = React.useRef(true)
   const { Anime } = ReactAnime
 
   React.useEffect(() => {
-    let time = 900
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
 
     if (window.location.pathname.includes("/portofolio")) setActive(2)
     else setActive(1)
@@ -23,19 +27,14 @@ export default function Loading() {
       setClosing(!closing)
     }
 
-    const timeoutId = setTimeout(() => {
-      setTransition(false)
+    if (transition === "mounted" || transition === "unmounted") {
       setToggleLoading(!toggleLoading)
-    }, time)
-
-    return () => {
-      clearTimeout(timeoutId)
     }
   }, [toggleLoading])
 
   return (
     <>
-      <Anime
+      {/* <Anime
         className="block-1"
         type="div"
         initial={[
@@ -77,7 +76,13 @@ export default function Loading() {
             easing: "linear",
           },
         ]}
-      ></Anime>
+      ></Anime> */}
+      <div
+        className={`block-1 ${transition === "mounting" ? "show" : ""}`}
+      ></div>
+      <div
+        className={`block-2 ${transition === "mounting" ? "show" : ""}`}
+      ></div>
       <div className={`block-3 ${closing ? "close" : ""}`}></div>
       <div className={`loading-container ${closing ? "close" : "show"}`}>
         <div className="container">
