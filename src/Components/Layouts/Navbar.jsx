@@ -7,8 +7,9 @@ import useDelayedUnmounting from "../Utils/useDelayComponent"
 function Navbar() {
   const { active, setToggleLoading } = React.useContext(Index)
   const firstRender = React.useRef(true)
-  const [transition, show] = useDelayedUnmounting(1200)
-  const delay = 400
+  const [arrow, setArrow] = React.useState(false)
+  const [transition, show] = useDelayedUnmounting(1300)
+  const delay = 500
 
   React.useEffect(() => {
     let timeoutId,
@@ -33,7 +34,10 @@ function Navbar() {
   }, [transition])
 
   return (
-    <nav>
+    <nav className={`navbar-app ${active === 1 ? "hide" : ""}`}>
+      <button className={arrow ? "show" : ""} onClick={() => setArrow(!arrow)}>
+        arrow
+      </button>
       <ul>
         <li className={active === 1 ? "active" : ""}>
           <DelayLink delay={delay} clickAction={show} to="/">

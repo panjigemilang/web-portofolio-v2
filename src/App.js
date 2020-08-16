@@ -2,10 +2,12 @@ import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import IndexContext from "./Context"
 import Landing from "./Components/Pages/Landing"
+import About from "./Components/Pages/About"
 import Portofolio from "./Components/Pages/Items/Portofolio"
 import Navbar from "./Components/Layouts/Navbar"
+import Loading from "./Components/Commons/Loading"
 
-function App({ location }) {
+function App() {
   const [transition, setTransition] = React.useState("mounting")
   const [active, setActive] = React.useState(1)
   const [toggleLoading, setToggleLoading] = React.useState(false)
@@ -33,9 +35,11 @@ function App({ location }) {
       <IndexContext.Provider value={contextProvider}>
         <div className="App">
           <Navbar />
-          <Switch location={location}>
+          {transition !== "mounted" && <Loading />}
+          <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/portofolio" component={Portofolio} />
+            <Route exact path="/about" component={About} />
           </Switch>
         </div>
       </IndexContext.Provider>

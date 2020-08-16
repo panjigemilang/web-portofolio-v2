@@ -1,6 +1,6 @@
 import React from "react"
 import Index from "../../Context"
-import Loading from "../Commons/Loading"
+// import Loading from "../Commons/Loading"
 import SectionOne from "./SubPages/SectionOne"
 import "./landing.scss"
 
@@ -15,7 +15,6 @@ export default function Landing() {
 
   return (
     <div className="app">
-      {transition !== "mounted" && <Loading />}
       <SectionOne />
     </div>
   )

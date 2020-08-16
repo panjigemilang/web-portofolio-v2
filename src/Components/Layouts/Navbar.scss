@@ -1,18 +1,50 @@
 @import "../Commons/variables";
+@import "../../prefix";
 
-nav {
-  position: absolute;
+.navbar-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: auto 0;
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  bottom: 0;
   z-index: 1;
 
+  button {
+    @include prefix(
+      transition,
+      0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+      webkit moz o
+    );
+    background-color: transparent;
+    position: absolute;
+    top: 45%;
+    right: 0;
+
+    &.show {
+      right: -100%;
+    }
+  }
+
+  &.hide {
+    display: none;
+  }
+
   ul {
-    margin: 30px;
+    @include prefix(transform, translate(-100%, 40%), webkit moz ms o);
+    @include prefix(
+      transition,
+      0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+      webkit moz o
+    );
+    height: 100%;
+    margin: 0;
     text-align: center;
 
     li {
-      display: inline;
+      list-style: none;
       margin: 15px;
 
       &.active {
@@ -30,7 +62,7 @@ nav {
 
       div {
         cursor: pointer;
-        display: inline;
+        display: table-row;
       }
     }
   }
