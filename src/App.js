@@ -2,13 +2,17 @@ import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import IndexContext from "./Context"
 import Landing from "./Components/Pages/Landing"
+import About from "./Components/Pages/About"
 import Portofolio from "./Components/Pages/Items/Portofolio"
 import Navbar from "./Components/Layouts/Navbar"
+import Loading from "./Components/Commons/Loading"
+import Experience from "./Components/Pages/Experience"
 
-function App({ location }) {
-  const [transition, setTransition] = React.useState(true)
+function App() {
+  const [transition, setTransition] = React.useState("mounting")
   const [active, setActive] = React.useState(1)
   const [toggleLoading, setToggleLoading] = React.useState(false)
+  const [navShown, setNavShown] = React.useState(false)
   const contextProvider = React.useMemo(
     () => ({
       transition,
@@ -17,6 +21,8 @@ function App({ location }) {
       setToggleLoading,
       active,
       setActive,
+      navShown,
+      setNavShown,
     }),
     [
       transition,
@@ -25,6 +31,8 @@ function App({ location }) {
       setToggleLoading,
       active,
       setActive,
+      navShown,
+      setNavShown,
     ]
   )
 
@@ -33,8 +41,11 @@ function App({ location }) {
       <IndexContext.Provider value={contextProvider}>
         <div className="App">
           <Navbar />
+          {transition !== "mounted" && <Loading />}
           <Switch>
             <Route exact path="/" component={Landing} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/experience" component={Experience} />
             <Route exact path="/portofolio" component={Portofolio} />
           </Switch>
         </div>

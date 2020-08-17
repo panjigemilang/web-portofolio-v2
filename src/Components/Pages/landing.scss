@@ -1,0 +1,7 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+
+.app {
+  @include app;
+  background-color: $light-primary;
+}

@@ -1,0 +1,15 @@
+@mixin app {
+  min-height: 100vh;
+  position: relative;
+
+  &.blur {
+    filter: blur(5px);
+  }
+}
+
+@mixin overlay {
+  background-color: black;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}

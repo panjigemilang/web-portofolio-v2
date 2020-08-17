@@ -1,0 +1,34 @@
+@mixin prefix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+
+  // Output standard non-prefixed declaration
+  #{$property}: $value;
+}
+
+@mixin keyframes($str) {
+  @-webkit-keyframes #{$str} {
+    @content;
+  }
+  @-moz-keyframes #{$str} {
+    @content;
+  }
+  @-ms-keyframes #{$str} {
+    @content;
+  }
+  @keyframes #{$str} {
+    @content;
+  }
+}
+
+@mixin animation($str, $delay) {
+  animation: #{$str};
+  animation-delay: #{$delay};
+  -webkit-animation: #{$str};
+  -webkit-animation-delay: #{$delay};
+  -moz-animation: #{$str};
+  -moz-animation-delay: #{$delay};
+  -o-animation: #{$str};
+  -o-animation-delay: #{$delay};
+}
