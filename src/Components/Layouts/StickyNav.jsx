@@ -5,8 +5,8 @@ import useDelayedUnmounting from "../Utils/useDelayComponent"
 
 export default function StickyNav() {
   const { active } = React.useContext(Index)
-  const [transition, show] = useDelayedUnmounting(1300)
-  const delay = 800
+  const [transition, show] = useDelayedUnmounting(1600)
+  const delay = 500
 
   return (
     <nav className={`sticky-nav-app ${active !== 1 ? "hide" : ""}`}>
@@ -17,7 +17,7 @@ export default function StickyNav() {
           </DelayLink>
         </li>
         <li>
-          <DelayLink delay={delay} clickAction={show} to="/experiences">
+          <DelayLink delay={delay} clickAction={show} to="/experience">
             Experiences
           </DelayLink>
         </li>

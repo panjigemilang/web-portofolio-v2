@@ -8,6 +8,7 @@ export default function Loading() {
     toggleLoading,
     setToggleLoading,
     transition,
+    setTransition,
     setActive,
   } = React.useContext(Index)
   const [closing, setClosing] = React.useState(false)
@@ -16,6 +17,7 @@ export default function Loading() {
   React.useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false
+      setToggleLoading(!toggleLoading)
       return
     }
 
@@ -40,11 +42,7 @@ export default function Loading() {
     if (toggleLoading) {
       setClosing(!closing)
     }
-
-    if (transition === "mounted" || transition === "unmounted") {
-      setToggleLoading(!toggleLoading)
-    }
-  }, [toggleLoading])
+  }, [toggleLoading, transition])
 
   return (
     <>

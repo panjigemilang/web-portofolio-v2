@@ -1,15 +1,18 @@
 import React from "react"
 import Index from "../../Context"
-// import Loading from "../Commons/Loading"
 import SectionOne from "./SubPages/SectionOne"
 import "./landing.scss"
 
 export default function Landing() {
-  const { transition, toggleLoading, setToggleLoading } = React.useContext(
-    Index
-  )
+  const {
+    setActive,
+    transition,
+    toggleLoading,
+    setToggleLoading,
+  } = React.useContext(Index)
 
   React.useEffect(() => {
+    setActive(1)
     setToggleLoading(!toggleLoading)
   }, [])
 

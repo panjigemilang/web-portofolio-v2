@@ -13,7 +13,7 @@
     }
 
     .left {
-      height: 100vh;
+      min-height: 93vh;
 
       .exp {
         height: 40%;
@@ -24,7 +24,6 @@
       }
 
       .timeline {
-        height: 60%;
       }
     }
   }

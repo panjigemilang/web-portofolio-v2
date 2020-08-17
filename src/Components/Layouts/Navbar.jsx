@@ -6,9 +6,13 @@ import Arrow from "../../Assets/img/Arrow.svg"
 import useDelayedUnmounting from "../Utils/useDelayComponent"
 
 function Navbar() {
-  const { active, setToggleLoading, navShown, setNavShown } = React.useContext(
-    Index
-  )
+  const {
+    active,
+    toggleLoading,
+    setToggleLoading,
+    navShown,
+    setNavShown,
+  } = React.useContext(Index)
   const firstRender = React.useRef(true)
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
@@ -17,32 +21,6 @@ function Navbar() {
     setNavShown(!navShown)
     show()
   }
-
-  React.useEffect(() => {
-    console.log("Nav Shown", navShown)
-  }, [navShown])
-
-  React.useEffect(() => {
-    let timeoutId,
-      timeout = 300
-
-    if (firstRender.current) {
-      firstRender.current = false
-      return
-    }
-
-    if (transition === "mounting") setToggleLoading(!setToggleLoading)
-
-    if (transition === "mounted") {
-      timeoutId = setTimeout(() => {
-        setToggleLoading(!setToggleLoading)
-      }, timeout)
-    }
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [transition])
 
   return (
     <>

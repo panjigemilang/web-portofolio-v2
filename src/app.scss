@@ -28,6 +28,7 @@ body {
   height: 100%;
   margin: 0;
   outline: none;
+  overflow-x: hidden;
   padding: 0;
   width: 100%;
 
@@ -124,9 +125,11 @@ button {
   @include overlay;
   @include prefix(transition, 0.3s linear, webkit moz ms o);
   opacity: 0;
+  visibility: hidden;
   z-index: 1;
 
   &.show {
     opacity: 0.5;
+    visibility: visible;
   }
 }
