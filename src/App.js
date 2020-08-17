@@ -6,11 +6,13 @@ import About from "./Components/Pages/About"
 import Portofolio from "./Components/Pages/Items/Portofolio"
 import Navbar from "./Components/Layouts/Navbar"
 import Loading from "./Components/Commons/Loading"
+import Experience from "./Components/Pages/Experience"
 
 function App() {
   const [transition, setTransition] = React.useState("mounting")
   const [active, setActive] = React.useState(1)
   const [toggleLoading, setToggleLoading] = React.useState(false)
+  const [navShown, setNavShown] = React.useState(false)
   const contextProvider = React.useMemo(
     () => ({
       transition,
@@ -19,6 +21,8 @@ function App() {
       setToggleLoading,
       active,
       setActive,
+      navShown,
+      setNavShown,
     }),
     [
       transition,
@@ -27,6 +31,8 @@ function App() {
       setToggleLoading,
       active,
       setActive,
+      navShown,
+      setNavShown,
     ]
   )
 
@@ -38,8 +44,9 @@ function App() {
           {transition !== "mounted" && <Loading />}
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/portofolio" component={Portofolio} />
             <Route exact path="/about" component={About} />
+            <Route exact path="/experience" component={Experience} />
+            <Route exact path="/portofolio" component={Portofolio} />
           </Switch>
         </div>
       </IndexContext.Provider>

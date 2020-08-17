@@ -1,7 +1,7 @@
 @import "../Commons/variables";
+@import "../Commons/template";
 
 .app {
+  @include app;
   background-color: $light-primary;
-  height: 100vh;
-  position: relative;
 }

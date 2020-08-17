@@ -1,0 +1,31 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.experience-app {
+  @include app;
+
+  .content {
+    padding-top: 7vh;
+
+    h1 {
+      color: $light-primary-lighter;
+    }
+
+    .left {
+      height: 100vh;
+
+      .exp {
+        height: 40%;
+
+        h1 {
+          color: $light-boundary;
+        }
+      }
+
+      .timeline {
+        height: 60%;
+      }
+    }
+  }
+}

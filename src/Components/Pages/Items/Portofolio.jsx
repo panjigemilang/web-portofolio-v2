@@ -1,13 +1,12 @@
 import React from "react"
 import Index from "../../../Context"
-// import Loading from "../../Commons/Loading"
 
 export default function Portofolio() {
-  const { transition, toggleLoading, setToggleLoading } = React.useContext(
-    Index
-  )
+  const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
 
   React.useEffect(() => {
+    setActive(4)
+
     setToggleLoading(!toggleLoading)
   }, [])
 

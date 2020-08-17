@@ -12,7 +12,6 @@ export default function Loading() {
   } = React.useContext(Index)
   const [closing, setClosing] = React.useState(false)
   const firstRender = React.useRef(true)
-  const { Anime } = ReactAnime
 
   React.useEffect(() => {
     if (firstRender.current) {
@@ -20,8 +19,23 @@ export default function Loading() {
       return
     }
 
-    if (window.location.pathname.includes("/about")) setActive(2)
-    else setActive(1)
+    switch (window.location.pathname) {
+      case "/":
+        setActive(1)
+        break
+      case "/about":
+        setActive(2)
+        break
+      case "/experience":
+        setActive(3)
+        break
+      case "/portofolio":
+        setActive(4)
+        break
+      default:
+        setActive(1)
+        break
+    }
 
     if (toggleLoading) {
       setClosing(!closing)

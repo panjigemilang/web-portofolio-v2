@@ -3,7 +3,12 @@ import Index from "../../Context"
 import "./about.scss"
 
 export default function About() {
-  const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
+  const {
+    navShown,
+    setActive,
+    toggleLoading,
+    setToggleLoading,
+  } = React.useContext(Index)
 
   React.useEffect(() => {
     setActive(2)
@@ -11,7 +16,7 @@ export default function About() {
   }, [])
 
   return (
-    <div className="about-app">
+    <div className={`about-app ${navShown ? "blur" : ""}`}>
       <div className="block"></div>
       <div className="about">
         <div className="content">
