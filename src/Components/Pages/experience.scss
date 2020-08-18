@@ -24,6 +24,73 @@
       }
 
       .timeline {
+        .button-box {
+          text-align: center;
+        }
+
+        button {
+          background-color: $light-primary;
+          font-size: 2.5em;
+          padding: 5px 0;
+
+          &::before {
+            border: 2px $light-secondary-darken solid;
+            height: 60px;
+          }
+
+          &.show {
+            border-radius: 25px;
+            font-size: 2em;
+            pointer-events: none;
+          }
+
+          &.show:hover {
+            margin-top: inherit;
+          }
+
+          &.show:hover::before {
+            top: 10px;
+          }
+
+          &.show::before {
+            box-shadow: none;
+            border-radius: 20px;
+            border: 2px $light-primary solid;
+            left: -4vw;
+            height: 30vh;
+            width: 250px;
+          }
+        }
+
+        .lists-app {
+          display: none;
+
+          &.show {
+            display: block;
+          }
+
+          ul {
+            text-align: left;
+
+            li {
+              border-bottom: 0;
+              cursor: pointer;
+              font-size: 1.75em;
+              list-style: none;
+              width: fit-content;
+
+              &:hover {
+                @include prefix(transform, scale(1.1), webkit moz ms o);
+                @include prefix(transition, 0.3s linear, webkit moz ms o);
+              }
+
+              &.active {
+                color: $light-boundary;
+                border-bottom: 1px $light-boundary solid;
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -6,14 +6,7 @@ import Arrow from "../../Assets/img/Arrow.svg"
 import useDelayedUnmounting from "../Utils/useDelayComponent"
 
 function Navbar() {
-  const {
-    active,
-    toggleLoading,
-    setToggleLoading,
-    navShown,
-    setNavShown,
-  } = React.useContext(Index)
-  const firstRender = React.useRef(true)
+  const { active, navShown, setNavShown } = React.useContext(Index)
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
 
