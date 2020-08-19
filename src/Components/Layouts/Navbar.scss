@@ -31,14 +31,13 @@
     cursor: pointer;
     position: absolute;
     top: 45%;
-    right: -4vw;
+    right: -5vw;
     opacity: 0.5;
     width: 2em;
 
     &:hover {
       @include prefix(transform, scale(1.2), webkit ms moz o);
       opacity: 1;
-      right: -3.8vw;
     }
 
     &.rotate {

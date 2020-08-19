@@ -10,7 +10,12 @@ export default function ExperiencesContent({
   link,
   index,
   length,
+  containerRef,
 }) {
+  const onClick = () => {
+    console.log("Container Ref", containerRef)
+  }
+
   return (
     <>
       <h1>{title || <Skeleton />}</h1>
@@ -18,13 +23,13 @@ export default function ExperiencesContent({
       <p>{date || <Skeleton count={1} />}</p>
       <div className="img-box">
         {length > 1 && index === 0 && (
-          <a href={`#item-${index + 1}`}>
+          <a role="button" onClick={() => onClick()}>
             <i className="fas fa-arrow-right"></i>
           </a>
         )}
         {<img src={src} alt="image.jpeg" /> || <Skeleton circle={true} />}
         {length > 1 && index === 1 && (
-          <a href={`#item-${index - 1}`}>
+          <a role="button" onClick={() => onClick()}>
             <i className="fas fa-arrow-left"></i>
           </a>
         )}

@@ -9,6 +9,7 @@ import ExperiencesContent from "./ExperiencesContent"
 
 export default function ExperiencesItem({ active }) {
   const [content, setContent] = React.useState([])
+  const containerRef = React.useRef()
 
   const content2019 = [
     {
@@ -111,14 +112,17 @@ export default function ExperiencesItem({ active }) {
       default:
         return
     }
-
-    console.log("Content", content)
   }, [active])
 
   return (
     <>
       {content.map((item, i) => (
-        <div className="experiences-content-app" id={`item-${i}`} key={i}>
+        <div
+          className="experiences-content-app"
+          id={`item-${i}`}
+          key={i}
+          ref={containerRef}
+        >
           <ExperiencesContent
             title={item.title}
             job={item.job}
@@ -128,6 +132,7 @@ export default function ExperiencesItem({ active }) {
             link={item.link}
             index={i}
             length={content.length}
+            containerRef={containerRef}
           />
         </div>
       ))}
