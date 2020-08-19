@@ -56,9 +56,9 @@
             box-shadow: none;
             border-radius: 20px;
             border: 2px $light-primary solid;
-            left: -4vw;
+            left: -3vw;
             height: 30vh;
-            width: 250px;
+            width: 220px;
           }
         }
 
@@ -88,6 +88,49 @@
                 color: $light-boundary;
                 border-bottom: 1px $light-boundary solid;
               }
+            }
+          }
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      overflow-x: hidden;
+
+      .experiences-content-app {
+        margin: 0 15px;
+        min-width: 100%;
+
+        .img-box {
+          position: relative;
+          text-align: center;
+
+          img {
+            border-radius: 20px;
+            height: 20em;
+            max-width: 28em;
+            object-fit: cover;
+          }
+
+          i {
+            @include prefix(transform, translateY(-50%), webkit moz ms o);
+            @include prefix(transition, 0.3s linear, webkit moz ms o);
+            color: $text-light-primary;
+            position: absolute;
+            top: 50%;
+
+            &:hover {
+              @include prefix(transform, scale(1.3), webkit moz ms o);
+              top: 48%;
+            }
+
+            &.fa-arrow-right {
+              right: 0;
+            }
+
+            &.fa-arrow-left {
+              left: 0;
             }
           }
         }
