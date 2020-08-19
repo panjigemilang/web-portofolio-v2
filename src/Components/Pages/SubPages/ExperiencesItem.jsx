@@ -9,6 +9,7 @@ import ExperiencesContent from "./ExperiencesContent"
 
 export default function ExperiencesItem({ active }) {
   const [content, setContent] = React.useState([])
+  const [rotate, setRotate] = React.useState(false)
 
   const content2019 = [
     {
@@ -111,14 +112,17 @@ export default function ExperiencesItem({ active }) {
       default:
         return
     }
-
-    console.log("Content", content)
   }, [active])
 
   return (
     <>
       {content.map((item, i) => (
-        <div className="experiences-content-app" id={`item-${i}`} key={i}>
+        <div
+          className={`experiences-content-app item-${i} ${
+            rotate ? "state-two" : "state-one"
+          }`}
+          key={i}
+        >
           <ExperiencesContent
             title={item.title}
             job={item.job}
@@ -127,6 +131,8 @@ export default function ExperiencesItem({ active }) {
             description={item.description}
             link={item.link}
             index={i}
+            rotate={rotate}
+            setRotate={setRotate}
             length={content.length}
           />
         </div>

@@ -96,11 +96,48 @@
 
     .right {
       display: flex;
-      overflow-x: hidden;
+      overflow: hidden;
 
       .experiences-content-app {
+        @include prefix(transition, 0.5s ease-in-out, webkit moz ms o);
         margin: 0 15px;
         min-width: 100%;
+
+        &.item-0.state-one {
+          @include prefix(
+            transform,
+            translate(0px, 0px) rotate(0deg),
+            webkit moz ms o
+          );
+          opacity: 1;
+        }
+
+        &.item-0.state-two {
+          @include prefix(
+            transform,
+            translate(-45em, -25em) rotate(90deg),
+            webkit moz ms o
+          );
+          opacity: 0;
+        }
+
+        &.item-1.state-one {
+          @include prefix(
+            transform,
+            translate(10em, -20em) rotate(-90deg),
+            webkit moz ms o
+          );
+          opacity: 0;
+        }
+
+        &.item-1.state-two {
+          @include prefix(
+            transform,
+            translate(-36em, 0em) rotate(0deg),
+            webkit moz ms o
+          );
+          opacity: 1;
+        }
 
         .img-box {
           position: relative;
@@ -116,6 +153,7 @@
           i {
             @include prefix(transform, translateY(-50%), webkit moz ms o);
             @include prefix(transition, 0.3s linear, webkit moz ms o);
+            cursor: pointer;
             color: $text-light-primary;
             position: absolute;
             top: 50%;
