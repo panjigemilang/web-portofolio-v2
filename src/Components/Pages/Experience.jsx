@@ -2,7 +2,7 @@ import React from "react"
 import Index from "../../Context"
 import "./experience.scss"
 import Lists from "./SubPages/Lists"
-import ExperiencesContent from "./SubPages/ExperiencesContent"
+import ExperiencesContent from "./Items/ExperiencesContent"
 import ExperiencesItem from "./SubPages/ExperiencesItem"
 
 export default function Experience() {
