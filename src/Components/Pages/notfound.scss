@@ -1,0 +1,6 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+
+.not-found-app {
+  @include app;
+}

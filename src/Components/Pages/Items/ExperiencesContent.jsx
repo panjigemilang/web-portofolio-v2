@@ -6,6 +6,7 @@ export default function ExperiencesContent({
   job,
   date,
   src,
+  src2,
   description,
   link,
   index,
@@ -24,7 +25,9 @@ export default function ExperiencesContent({
             <i className="fas fa-arrow-right"></i>
           </a>
         )}
-        {<img src={src} alt="image.jpeg" /> || <Skeleton circle={true} />}
+        {<img src={title.includes("PTPN") ? src2 : src} alt="image.jpeg" /> || (
+          <Skeleton circle={true} />
+        )}
         {length > 1 && index === 1 && (
           <a role="button" onClick={() => setRotate(!rotate)}>
             <i className="fas fa-arrow-left"></i>

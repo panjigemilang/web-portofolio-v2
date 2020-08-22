@@ -1,0 +1,31 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.content-app {
+  @include app;
+
+  .title {
+    color: $light-boundary;
+    text-align: center;
+  }
+
+  .img-box {
+    text-align: center;
+
+    img {
+      border-radius: 20px;
+      box-shadow: 15px 15px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+      margin: 15px;
+      object-fit: cover;
+      width: 50%;
+    }
+  }
+
+  .description {
+    font-size: 14pt;
+    margin: 0 15%;
+    text-align: justify;
+  }
+}

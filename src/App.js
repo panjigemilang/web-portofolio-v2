@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import IndexContext from "./Context"
 import Landing from "./Components/Pages/Landing"
 import About from "./Components/Pages/About"
-import Portofolio from "./Components/Pages/Items/Portofolio"
+import Portofolio from "./Components/Pages/Portofolio"
 import Navbar from "./Components/Layouts/Navbar"
 import Loading from "./Components/Commons/Loading"
 import Experience from "./Components/Pages/Experience"
+import NotFound from "./Components/Pages/NotFound"
+import Content from "./Components/Pages/Content"
 
 function App() {
   const [transition, setTransition] = React.useState("mounting")
@@ -47,6 +49,8 @@ function App() {
             <Route exact path="/about" component={About} />
             <Route exact path="/experience" component={Experience} />
             <Route exact path="/portofolio" component={Portofolio} />
+            <Route exact path="/portofolio/:title" component={Content} />
+            <Route exact path="*" component={NotFound} />
           </Switch>
         </div>
       </IndexContext.Provider>

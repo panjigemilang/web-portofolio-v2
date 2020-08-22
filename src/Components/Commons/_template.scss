@@ -10,6 +10,6 @@
 @mixin overlay {
   background-color: black;
   height: 100%;
-  position: absolute;
+  position: fixed;
   width: 100%;
 }

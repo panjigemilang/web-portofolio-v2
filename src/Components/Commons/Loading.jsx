@@ -45,7 +45,7 @@ export default function Loading() {
   }, [toggleLoading, transition])
 
   return (
-    <>
+    <div className="loading-app">
       <div
         className={`block-1 ${transition === "mounting" ? "show" : ""}`}
       ></div>
@@ -58,6 +58,6 @@ export default function Loading() {
           <h1>Loading</h1>
         </div>
       </div>
-    </>
+    </div>
   )
 }

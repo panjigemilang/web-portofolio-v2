@@ -48,7 +48,11 @@ function Navbar() {
             </DelayLink>
           </li>
           <li className={active === 4 ? "active" : ""}>
-            <DelayLink delay={delay} clickAction={show} to="/portofolio">
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to="/portofolio"
+            >
               Portofolio
             </DelayLink>
           </li>
