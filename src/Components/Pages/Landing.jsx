@@ -19,6 +19,9 @@ export default function Landing() {
   return (
     <div className="app">
       <SectionOne />
+      <footer>
+        <small className="footer">Beta_v.0.9</small>
+      </footer>
     </div>
   )
 }
