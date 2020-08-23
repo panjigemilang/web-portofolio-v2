@@ -4,6 +4,8 @@
 
 .portofolio-app {
   @include app;
+  min-height: 100vh;
+  position: relative;
 
   .block-1,
   .block-2,

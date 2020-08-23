@@ -1,5 +1,4 @@
 import React from "react"
-import ReactAnime from "react-animejs"
 import Index from "../../Context"
 import "./loading.scss"
 
@@ -8,7 +7,6 @@ export default function Loading() {
     toggleLoading,
     setToggleLoading,
     transition,
-    setTransition,
     setActive,
   } = React.useContext(Index)
   const [closing, setClosing] = React.useState(false)

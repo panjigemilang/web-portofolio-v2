@@ -4,12 +4,18 @@ import Fkhapps from "../../Assets/img/fkhapps.png"
 import Ptpnx from "../../Assets/img/Ptpnx.png"
 import Presentation from "../../Assets/img/Presentation.jpg"
 import Hoping from "../../Assets/img/hoping.jpg"
+import Company from "../../Assets/img/company.jpg"
+import Bandara from "../../Assets/img/Bandara Kansai.jpeg"
+import OsakaCastle from "../../Assets/img/Osaka castle.jpeg"
+import Jembatan from "../../Assets/img/jembatan.jpeg"
+import Balik from "../../Assets/img/balik.JPG"
 import KampungDesa from "../../Assets/img/kampung desa.png"
+import PapaBlog from "../../Assets/img/Papa Blog.png"
 
 const content2019 = [
   {
     title: "Devkami (Project)",
-    job: "Fullstack Engineer",
+    job: "Fullstack Developer",
     date: "Mar - May 2019 . 2 Mos",
     src: DevKami,
     description:
@@ -23,6 +29,7 @@ const content2019 = [
       "Make a comment",
       "Like and dislike a post",
     ],
+    descriptionTwo: null,
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: [
@@ -71,7 +78,7 @@ const content2019 = [
   },
   {
     title: "Kampung Desa (Project)",
-    job: "Fullstack Developer",
+    job: "Fullstack Engineer",
     date: "Aug - Oct 2019 . 2 Mos",
     src: KampungDesa,
     description:
@@ -106,9 +113,11 @@ const content2020 = [
     job: "Software Engineer",
     date: "Feb - Mar 2020 . 5 Weeks",
     src: Hoping,
-    src2: Hoping,
-    src3: Hoping,
-    src4: Hoping,
+    src2: Bandara,
+    src3: Company,
+    src4: OsakaCastle,
+    src5: Jembatan,
+    src6: Balik,
     description:
       "I was working as software engineer using Java, MySQL, Javascript, and Visual Basic to build a  desktop apps. It was supposed to be 2 months internship but I left early because of Corona Outbreak.",
     descriptionOne:
@@ -125,7 +134,7 @@ const content2020 = [
   },
   {
     title: "FKH Apps (Project)",
-    job: "Frontend Developer",
+    job: "Frontend Engineer",
     date: "Feb - May 2020 . 3 Mos",
     src: Fkhapps,
     src2: Fkhapps,
@@ -149,7 +158,7 @@ const content2020 = [
   },
   {
     title: "Bloom Browser (Project)",
-    job: "Frontend Developer",
+    job: "Frontend Engineer",
     date: `May - Present 2020 . ${new Date().getMonth() - 5} Mos`,
     src: BloomBrowser,
     description:
@@ -157,6 +166,7 @@ const content2020 = [
     descriptionOne:
       "\xa0\xa0I got a project based on USA client. I was assigned to be a front-end engineer. This project creates browser extensions to remove ads and changing the ads into our custom picture. Currently my task is to make a landing page. Bloom is a free, fast, open - source, web browser. It blocks ads and website trackers, and provides a way for users to customize their search experience with images that inspire from content creators. \nUsers decide what - if any - promoted content they elect to see and ad revenue goes to charity",
     functions: [],
+    descriptionTwo: null,
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: ["Javascript", "React JS", "CSS"],
@@ -167,7 +177,7 @@ const content2020 = [
     title: "Papa Blog (Project)",
     job: "Fullstack Developer",
     date: `May - Present 2020 . ${new Date().getMonth() - 5} Mos`,
-    src: Fkhapps,
+    src: PapaBlog,
     description:
       "Papa Blog is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
     descriptionOne:
@@ -178,6 +188,7 @@ const content2020 = [
       "Create a comment",
       "Like a post",
     ],
+    descriptionTwo: null,
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: [

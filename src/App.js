@@ -15,6 +15,7 @@ function App() {
   const [active, setActive] = React.useState(1)
   const [toggleLoading, setToggleLoading] = React.useState(false)
   const [navShown, setNavShown] = React.useState(false)
+  // const [firstRender, setFirstRender] = React.useState(true)
   const contextProvider = React.useMemo(
     () => ({
       transition,
@@ -25,6 +26,8 @@ function App() {
       setActive,
       navShown,
       setNavShown,
+      // firstRender,
+      // setFirstRender,
     }),
     [
       transition,
@@ -35,6 +38,8 @@ function App() {
       setActive,
       navShown,
       setNavShown,
+      // firstRender,
+      // setFirstRender,
     ]
   )
 

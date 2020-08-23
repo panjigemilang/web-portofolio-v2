@@ -1,17 +1,20 @@
 import React from "react"
-import DelayLink from "react-delay-link"
 import Index from "../../Context"
-import useDelayedUnmounting from "../Utils/useDelayComponent"
 import { content2019, content2020 } from "../Utils/ContentVariables"
 import "./content.scss"
+import Default from "./Items/Default"
+import Hoping from "./Items/Hoping"
+import Modal from "../Commons/Modal"
 
 export default function Content({ match }) {
   const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
   const [content, setContent] = React.useState([])
+  const [item, setItem] = React.useState()
+  const [show, setShow] = React.useState(false)
+  const [src, setSrc] = React.useState(
+    "/static/media/Bandara Kansai.50cb9107.jpeg"
+  )
   const { title } = match.params
-  const [transition, show] = useDelayedUnmounting(1600)
-  const delay = 800
-
   React.useEffect(() => {
     setActive(0)
     setToggleLoading(!toggleLoading)
@@ -24,32 +27,44 @@ export default function Content({ match }) {
     setContent(temp)
   }, [])
 
+  React.useEffect(() => {
+    if (content[0]) {
+      switch (content[0].title) {
+        case "(有) ホーピング Hoping (Internship)":
+          setItem(
+            <Hoping
+              content={content[0]}
+              show={show}
+              setShow={setShow}
+              setSrc={setSrc}
+            />
+          )
+          break
+        default:
+          setItem(<Default content={content[0]} />)
+          console.log("default")
+          break
+      }
+    }
+  }, [content])
+
   return (
-    <div className="content-app">
-      <DelayLink clickAction={show} delay={delay} to="/portofolio">
-        Go Back
-      </DelayLink>
-      <div className="block-left-main"></div>
-      <div className="block-left-boundary"></div>
-      <div className="block-right-main"></div>
-      <div className="block-right-boundary"></div>
-      <div className="content">
-        <div className="container">
-          <div className="title">
-            <h1>{title}</h1>
-          </div>
-          {content[0] && (
-            <div className="content-description">
-              <div className="img-box">
-                <img src={content[0].src} alt="image.jpg" />
-              </div>
-              <div className="description">
-                <p>{content[0].description}</p>
-              </div>
+    <>
+      <Modal src={src} show={show} setShow={setShow} />
+      <div className="content-app">
+        <div className="block-left-main"></div>
+        <div className="block-left-boundary"></div>
+        <div className="block-right-main"></div>
+        <div className="block-right-boundary"></div>
+        <div className="content">
+          <div className="container">
+            <div className="title">
+              <h1>{title}</h1>
             </div>
-          )}
+            {item}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

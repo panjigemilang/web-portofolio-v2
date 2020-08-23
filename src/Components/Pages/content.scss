@@ -4,6 +4,11 @@
 
 .content-app {
   @include app;
+  padding: 0.67em 0;
+
+  .container {
+    max-width: 800px;
+  }
 
   .title {
     color: $light-boundary;
@@ -14,18 +19,36 @@
     text-align: center;
 
     img {
+      @include prefix(transition, 0.1s linear, webkit moz ms o);
       border-radius: 20px;
       box-shadow: 15px 15px 11px 0 rgba(0, 0, 0, 0.18),
         0 4px 15px 0 rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      max-height: 400px;
       margin: 15px;
       object-fit: cover;
-      width: 50%;
+      width: 80%;
+
+      &:hover {
+        @include prefix(transform, scale(1.03), webkit moz ms o);
+      }
     }
   }
 
-  .description {
-    font-size: 14pt;
-    margin: 0 15%;
+  p {
+    color: whitesmoke;
+    font-size: 16pt;
+    margin: 0;
+    line-height: 1.7;
     text-align: justify;
+  }
+
+  // khusus double image
+  .row {
+    .col-lg-6 {
+      img {
+        width: 100%;
+      }
+    }
   }
 }

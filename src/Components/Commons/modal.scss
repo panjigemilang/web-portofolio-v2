@@ -1,0 +1,44 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.modal-app {
+  @include prefix(transition, 0.3s linear, webkit moz ms o);
+  @include overlay;
+  background-color: rgba(0, 0, 0, 0.8);
+  visibility: hidden;
+  z-index: 2;
+
+  hr {
+    @include prefix(transition, 0.5s linear 0.3s, webkit moz ms o);
+    width: 0%;
+  }
+
+  .img-box {
+    text-align: center;
+
+    img {
+      @include prefix(
+        transition,
+        1s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+        webkit moz o
+      );
+      @include prefix(transform, translateY(-50em), webkit moz mos o);
+      max-height: 90vh;
+      object-fit: cover;
+      min-width: 30%;
+    }
+  }
+
+  &.show {
+    visibility: visible;
+
+    hr {
+      width: 80%;
+    }
+
+    img {
+      @include prefix(transform, translateY(0), webkit moz mos o);
+    }
+  }
+}
