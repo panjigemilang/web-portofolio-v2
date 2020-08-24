@@ -78,6 +78,15 @@ function Navbar({ history }) {
               Portofolio
             </DelayLink>
           </li>
+          <li className={active === 5 ? "active" : ""}>
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to="/contact"
+            >
+              Contact
+            </DelayLink>
+          </li>
         </ul>
       </nav>
       <div className={`overlay ${navShown ? "show" : ""}`}></div>

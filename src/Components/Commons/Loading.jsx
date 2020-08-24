@@ -14,6 +14,8 @@ export default function Loading() {
 
   React.useEffect(() => {
     if (firstRender.current) {
+      document.getElementsByTagName("body")[0].style.overflow = "hidden scroll"
+
       firstRender.current = false
       setToggleLoading(!toggleLoading)
       return

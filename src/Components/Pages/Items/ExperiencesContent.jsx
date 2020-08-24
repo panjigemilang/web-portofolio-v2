@@ -29,8 +29,8 @@ export default function ExperiencesContent({
         <DelayLink clickAction={show} delay={delay} to={`/portofolio/${title}`}>
           <div
             className="img-overlay"
-            onMouseEnter={() => setHover(!hover)}
-            onMouseLeave={() => setHover(!hover)}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
           >
             <div className="button-box">
               <button>Detail</button>
