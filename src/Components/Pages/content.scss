@@ -34,13 +34,62 @@
       }
     }
   }
+  a,
+  li,
+  p {
+    font-size: 16pt;
+  }
 
   p {
     color: whitesmoke;
-    font-size: 16pt;
     margin: 0;
     line-height: 1.7;
     text-align: justify;
+  }
+
+  li {
+    line-height: 1.7;
+    margin-bottom: 15px;
+  }
+
+  a {
+    color: $light-primary-lighter;
+  }
+
+  .javascript {
+    color: $javascript;
+  }
+
+  .react-js {
+    color: $reactjs;
+  }
+
+  .expressjs {
+    color: $light-background;
+  }
+
+  .node-js {
+    color: $nodejs;
+  }
+
+  .mongodb {
+    color: $mongodb;
+  }
+
+  .bootstrap-4 {
+    color: $bootstrap;
+  }
+
+  .laravel {
+    color: $laravel;
+  }
+
+  .mysql {
+    color: $mysql;
+  }
+
+  .mdbootstrap {
+    color: $mdbootstrap;
   }
 
   // khusus double image

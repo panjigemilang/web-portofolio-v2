@@ -20,7 +20,7 @@
     img {
       @include prefix(
         transition,
-        1s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+        1s cubic-bezier(0.64, 0.57, 0.67, 1.7) 0.5s,
         webkit moz o
       );
       @include prefix(transform, translateY(-50em), webkit moz mos o);

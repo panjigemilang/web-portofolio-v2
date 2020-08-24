@@ -13,21 +13,49 @@
   }
 
   ul {
-    margin: 30px;
+    margin: 0 15px;
     text-align: center;
 
     li {
+      @include prefix(transition, 0.2s ease-in-out, webkit moz o);
       cursor: pointer;
-      display: inline;
+      display: inline-block;
       margin: 35px;
+      padding-bottom: 15px;
+      position: relative;
 
       &.active {
         border-bottom: 1px solid black;
         pointer-events: none;
       }
 
+      &::before {
+        @include prefix(
+          transition,
+          0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+          webkit moz o
+        );
+        background: rgb(45, 70, 71);
+        background: linear-gradient(
+          86deg,
+          rgba(45, 70, 71, 1) 0%,
+          rgba(220, 225, 240, 1) 100%
+        );
+        content: "";
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        position: absolute;
+        width: 0%;
+      }
+
       &:hover {
+        color: $light-boundary;
+      }
+
+      &:hover::before {
         background-color: $light-primary;
+        width: 100%;
       }
 
       &:focus {
@@ -55,7 +83,7 @@
 
     .name {
       button {
-        margin-top: 15vh;
+        margin-top: 13vh;
 
         &:hover {
           margin-top: 15.3vh;
@@ -73,6 +101,23 @@
 
       h1 {
         font-size: 4em;
+        padding-bottom: 30px;
+        position: relative;
+
+        &::before {
+          @include prefix(
+            transition,
+            0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+            webkit moz o
+          );
+          background: $light-boundary;
+          content: "";
+          left: 0.5em;
+          bottom: 0;
+          height: 5px;
+          position: absolute;
+          width: 10%;
+        }
       }
     }
 

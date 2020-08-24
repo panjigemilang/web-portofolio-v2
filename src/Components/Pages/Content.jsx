@@ -5,6 +5,7 @@ import "./content.scss"
 import Default from "./Items/Default"
 import Hoping from "./Items/Hoping"
 import Modal from "../Commons/Modal"
+import Fkhapps from "./Items/Fkhapps"
 
 export default function Content({ match }) {
   const {
@@ -16,9 +17,7 @@ export default function Content({ match }) {
   const [content, setContent] = React.useState([])
   const [item, setItem] = React.useState()
   const [show, setShow] = React.useState(false)
-  const [src, setSrc] = React.useState(
-    "/static/media/Bandara Kansai.50cb9107.jpeg"
-  )
+  const [src, setSrc] = React.useState("")
   const { title } = match.params
 
   React.useEffect(() => {
@@ -46,8 +45,25 @@ export default function Content({ match }) {
             />
           )
           break
+        case "FKH Apps (Project)":
+          setItem(
+            <Fkhapps
+              content={content[0]}
+              show={show}
+              setShow={setShow}
+              setSrc={setSrc}
+            />
+          )
+          break
         default:
-          setItem(<Default content={content[0]} />)
+          setItem(
+            <Default
+              content={content[0]}
+              show={show}
+              setShow={setShow}
+              setSrc={setSrc}
+            />
+          )
           break
       }
     }

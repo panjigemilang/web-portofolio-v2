@@ -1,6 +1,8 @@
 import BloomBrowser from "../../Assets/img/Bloombrowser.png"
 import DevKami from "../../Assets/img/Dev Kami.png"
 import Fkhapps from "../../Assets/img/fkhapps.png"
+import Login from "../../Assets/img/login_page.jpg"
+import Dashboard from "../../Assets/img/dashboard.jpg"
 import Ptpnx from "../../Assets/img/Ptpnx.png"
 import Presentation from "../../Assets/img/Presentation.jpg"
 import Hoping from "../../Assets/img/hoping.jpg"
@@ -29,7 +31,7 @@ const content2019 = [
       "Make a comment",
       "Like and dislike a post",
     ],
-    descriptionTwo: null,
+    descriptionTwo: " ",
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: [
@@ -137,23 +139,24 @@ const content2020 = [
     job: "Frontend Engineer",
     date: "Feb - May 2020 . 3 Mos",
     src: Fkhapps,
-    src2: Fkhapps,
-    src3: Fkhapps,
-    src4: Fkhapps,
+    src2: Login,
+    src3: Dashboard,
     description:
       "I'm working as a frontend engineer on this project. this project is about skripsi online or research paper online based inside the Veterinary Medicine Faculty of Brawijaya University environment. I'm using React JS as frontend framework. It was a little bit complex project that has 3 Users (admin, student, and lecturer) and a business-process feature.",
     descriptionOne:
-      "\xa0\xa0Me and my team got a project from the Brawijaya University Faculty of Veterinary Medicine. We build a progressive web apps for the Veterinary Professional Education thesis. I was assigned to be front-end engineer.",
+      "\xa0\xa0Me and my team got a project from the Brawijaya University Faculty of Veterinary Medicine. We build a responsive and progressive web apps for the Veterinary Professional Education thesis. I was assigned to be front-end engineer.",
     descriptionTwo:
       "\xa0\xa0This application has 3 types of user, it is student, lecturer, and admin. The system workflow described on the points below :",
-    function: [
+    functions: [
       "Student -> Students can register profession and then upload the proposal or final report document to a selected lecturer",
-      "Lecturer -> Lecturer received the documents and then do valdation or revision",
+      "Lecturer -> Lecturer received the documents and then do validation or revision",
       "Admin -> Admin can monitoring everything like seeing all histories of the uploaded documents, seeing how many students that every lecturer guided, etc. Admin can also lock access for the students if they were exceeding the deadline.",
     ],
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: ["Javascript", "React JS", "Laravel", "Mysql", "MDBootstrap"],
+    outro:
+      "\xa0\xa0This application will be released in September 2020 and ready to be used for the user.",
     link: null,
   },
   {
@@ -166,7 +169,7 @@ const content2020 = [
     descriptionOne:
       "\xa0\xa0I got a project based on USA client. I was assigned to be a front-end engineer. This project creates browser extensions to remove ads and changing the ads into our custom picture. Currently my task is to make a landing page. Bloom is a free, fast, open - source, web browser. It blocks ads and website trackers, and provides a way for users to customize their search experience with images that inspire from content creators. \nUsers decide what - if any - promoted content they elect to see and ad revenue goes to charity",
     functions: [],
-    descriptionTwo: null,
+    descriptionTwo: " ",
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: ["Javascript", "React JS", "CSS"],
@@ -188,7 +191,7 @@ const content2020 = [
       "Create a comment",
       "Like a post",
     ],
-    descriptionTwo: null,
+    descriptionTwo: " ",
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: [

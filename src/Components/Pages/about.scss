@@ -121,6 +121,7 @@
 
       a {
         color: white;
+        margin-bottom: 15px;
         text-decoration: none;
 
         &:focus {
@@ -129,13 +130,20 @@
 
         .circle {
           background-color: white;
-          background-image: url("../../Assets/img/Icons/Linkedin.png");
           background-position: 50% 50%;
           background-repeat: no-repeat;
           background-size: 30px;
           border-radius: 50%;
           height: 50px;
           width: 50px;
+        }
+
+        .linkedin {
+          background-image: url("../../Assets/img/Icons/Linkedin.png");
+        }
+
+        .cv {
+          background-image: url("../../Assets/img/Icons/CV.png");
         }
 
         p {

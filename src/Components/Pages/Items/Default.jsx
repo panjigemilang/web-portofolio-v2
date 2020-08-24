@@ -3,6 +3,7 @@ import Skeleton from "react-loading-skeleton"
 
 export default function Default({ content, show, setShow, setSrc }) {
   const {
+    title,
     descriptionOne,
     descriptionTwo,
     src,
@@ -26,7 +27,7 @@ export default function Default({ content, show, setShow, setSrc }) {
           <Skeleton height={150} />
         )}
         <br />
-        {<small className="text-muted">Arrived at Osaka, Japan</small> || (
+        {<small className="text-muted">{title}</small> || (
           <Skeleton count={1} />
         )}
       </div>
@@ -37,9 +38,20 @@ export default function Default({ content, show, setShow, setSrc }) {
         ))}
       </ul>
       <p>{descriptionTwo || <Skeleton count={4} />}</p>
+      {src2 !== undefined && (
+        <div className="img-box">
+          {<img src={src2} alt="image.jpg" onClick={() => onClick(src)} /> || (
+            <Skeleton height={150} />
+          )}
+          <br />
+          {<small className="text-muted">{title}</small> || (
+            <Skeleton count={1} />
+          )}
+        </div>
+      )}
       <p>{technologyIntro || <Skeleton count={4} />}</p>
       <ul>
-        {functions.map((item, i) => (
+        {technologies.map((item, i) => (
           <li className={item.toLowerCase().replace(" ", "-")} key={i}>
             {item || <Skeleton count={1} />}
           </li>
@@ -49,6 +61,8 @@ export default function Default({ content, show, setShow, setSrc }) {
       <a href={link} target="_blank">
         {link}
       </a>
+      <br />
+      <br />
     </>
   )
 }

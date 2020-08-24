@@ -69,8 +69,15 @@ export default function About() {
               </div>
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12">
+              <a
+                href="https://www.docdroid.net/i0chlcz/cv-may-2020-pdf"
+                target="_blank"
+              >
+                <div className="circle cv"></div>
+                <p>&emsp;CV</p>
+              </a>
               <a href="https://www.linkedin.com/in/panji-g/" target="_blank">
-                <div className="circle linkedind"></div>
+                <div className="circle linkedin"></div>
                 <p>&emsp;Linkedin</p>
               </a>
             </div>
