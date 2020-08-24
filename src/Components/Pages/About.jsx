@@ -30,11 +30,11 @@ export default function About() {
             I'll be glad to be a part of your awesome projects and let's do good
             together!
           </p>
-          <a href="#about-right">
-            <div className="button-box">
+          <div className="button-box">
+            <a href="#about-right">
               <button>ABOUT ME</button>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
       <div className="about-right" id="about-right">

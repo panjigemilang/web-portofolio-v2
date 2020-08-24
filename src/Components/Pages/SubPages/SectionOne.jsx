@@ -1,9 +1,14 @@
 import React from "react"
-import "./sectionOne.scss"
+import DelayLink from "react-delay-link"
+import useDelayedUnmounting from "../../Utils/useDelayComponent"
+import profilePicture from "../../../Assets/img/SectionOne.png"
 import StickyNav from "../../Layouts/StickyNav"
+import "./sectionOne.scss"
 
 export default function SectionOne() {
-  const profilePicture = require("../../../Assets/img/SectionOne.png")
+  const [transition, show] = useDelayedUnmounting(1600)
+  const delay = 500
+
   return (
     <>
       <StickyNav />
@@ -16,9 +21,11 @@ export default function SectionOne() {
               <br />
               Gemilang
             </h1>
-            <div className="button-box">
-              <button>CONTACT ME</button>
-            </div>
+            <DelayLink delay={delay} clickAction={show} to="/contact">
+              <div className="button-box">
+                <button>CONTACT ME</button>
+              </div>
+            </DelayLink>
           </div>
           <div className="col-sm-12 col-md-5 description">
             <h1>Web Developer and Android Developer</h1>

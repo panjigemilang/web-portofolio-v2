@@ -9,6 +9,7 @@ import Loading from "./Components/Commons/Loading"
 import Experience from "./Components/Pages/Experience"
 import NotFound from "./Components/Pages/NotFound"
 import Content from "./Components/Pages/Content"
+import Contact from "./Components/Pages/Contact"
 
 function App() {
   const [transition, setTransition] = React.useState("mounting")
@@ -18,26 +19,26 @@ function App() {
   // const [firstRender, setFirstRender] = React.useState(true)
   const contextProvider = React.useMemo(
     () => ({
-      transition,
-      setTransition,
-      toggleLoading,
-      setToggleLoading,
       active,
       setActive,
       navShown,
       setNavShown,
+      toggleLoading,
+      setToggleLoading,
+      transition,
+      setTransition,
       // firstRender,
       // setFirstRender,
     }),
     [
-      transition,
-      setTransition,
-      toggleLoading,
-      setToggleLoading,
       active,
       setActive,
       navShown,
       setNavShown,
+      toggleLoading,
+      setToggleLoading,
+      transition,
+      setTransition,
       // firstRender,
       // setFirstRender,
     ]
@@ -55,6 +56,7 @@ function App() {
             <Route exact path="/experience" component={Experience} />
             <Route exact path="/portofolio" component={Portofolio} />
             <Route exact path="/portofolio/:title" component={Content} />
+            <Route exact path="/contact" component={Contact} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </div>

@@ -1,0 +1,123 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.contact-app {
+  @include app;
+
+  .block {
+    background-color: $light-primary;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 20% 50%);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .content {
+    padding: 15px 0;
+
+    h1 {
+      color: $light-boundary;
+      text-align: center;
+    }
+
+    .row {
+      padding-top: 1em;
+    }
+
+    .img-box {
+      @include prefix(transition, 0.3s ease-in-out, webkit moz o);
+      @include prefix(transform-style, preserve-3d, webkit);
+      position: relative;
+
+      &::before,
+      &::after {
+        @include pseudo-outer-line;
+      }
+
+      &::before {
+        left: -3em;
+        top: -2em;
+      }
+
+      &::after {
+        right: -3em;
+        bottom: -2em;
+      }
+
+      img {
+        box-shadow: 15px 15px 15px -5px rgba(0, 0, 0, 0.18),
+          0 4px 15px 0 rgba(0, 0, 0, 0.15);
+        height: 70vh;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+
+    .items {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      margin-left: 5em;
+      justify-content: space-around;
+
+      .item {
+        display: flex;
+
+        .square {
+          @include prefix(transform-style, preserve-3d, webkit);
+          background-color: $light-background;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: 40px;
+          height: 70px;
+          position: relative;
+          width: 70px;
+          z-index: 5;
+
+          &::after {
+            @include pseudo-outer-line;
+          }
+
+          &::after {
+            right: -0.5em;
+            bottom: -0.5em;
+          }
+        }
+
+        .gmail {
+          background-image: url("../../Assets/img/Icons/Gmail.png");
+        }
+
+        .linkedin {
+          background-image: url("../../Assets/img/Icons/Linkedin.png");
+        }
+
+        .upwork {
+          background-image: url("../../Assets/img/Icons/Upwork.png");
+        }
+
+        .whatsapp {
+          background-image: url("../../Assets/img/Icons/Whatsapp.png");
+        }
+
+        .line {
+          background-image: url("../../Assets/img/Icons/Line.png");
+        }
+
+        .cv {
+          background-image: url("../../Assets/img/Icons/CV.png");
+        }
+
+        a {
+          cursor: pointer;
+          text-decoration: none;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}

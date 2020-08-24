@@ -72,12 +72,11 @@ button {
 .button-box {
   button {
     @include prefix(transition, 0.3s ease-in-out, webkit moz o);
+    @include prefix(transform-style, preserve-3d, webkit);
     background-color: $light-secondary;
     color: $text-light-primary;
     position: relative;
     width: 130px;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
 
     &::before {
       @include prefix(transform, translateZ(-1px), webkit);

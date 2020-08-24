@@ -40,7 +40,7 @@ function Navbar({ history }) {
   return (
     <>
       <nav
-        className={`navbar-app ${active === 1 ? "hide" : ""}
+        className={`navbar-app ${active === 1 || active === 0 ? "hide" : ""}
       ${navShown ? "show" : ""}`}
       >
         <img

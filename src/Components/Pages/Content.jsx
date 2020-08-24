@@ -7,7 +7,12 @@ import Hoping from "./Items/Hoping"
 import Modal from "../Commons/Modal"
 
 export default function Content({ match }) {
-  const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
+  const {
+    navShown,
+    setActive,
+    toggleLoading,
+    setToggleLoading,
+  } = React.useContext(Index)
   const [content, setContent] = React.useState([])
   const [item, setItem] = React.useState()
   const [show, setShow] = React.useState(false)
@@ -15,6 +20,7 @@ export default function Content({ match }) {
     "/static/media/Bandara Kansai.50cb9107.jpeg"
   )
   const { title } = match.params
+
   React.useEffect(() => {
     setActive(0)
     setToggleLoading(!toggleLoading)
@@ -42,7 +48,6 @@ export default function Content({ match }) {
           break
         default:
           setItem(<Default content={content[0]} />)
-          console.log("default")
           break
       }
     }
@@ -51,7 +56,7 @@ export default function Content({ match }) {
   return (
     <>
       <Modal src={src} show={show} setShow={setShow} />
-      <div className="content-app">
+      <div className={`content-app ${navShown ? "blur" : ""}`}>
         <div className="block-left-main"></div>
         <div className="block-left-boundary"></div>
         <div className="block-right-main"></div>

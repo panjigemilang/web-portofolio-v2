@@ -1,9 +1,8 @@
 import React from "react"
 import Index from "../../Context"
-import "./experience.scss"
 import Lists from "./SubPages/Lists"
-import ExperiencesContent from "./Items/ExperiencesContent"
 import ExperiencesItem from "./SubPages/ExperiencesItem"
+import "./experience.scss"
 
 export default function Experience() {
   const {

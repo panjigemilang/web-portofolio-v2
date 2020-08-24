@@ -1,3 +1,5 @@
+@import "../../prefix";
+
 @mixin app {
   min-height: 100vh;
   position: relative;
@@ -11,5 +13,19 @@
   background-color: black;
   height: 100%;
   position: fixed;
+  width: 100%;
+}
+
+@mixin pseudo-outer-line {
+  @include prefix(transform, translateZ(-1px), webkit);
+  @include prefix(
+    transition,
+    0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+    webkit moz o
+  );
+  border: 1px rgba($color: $light-background, $alpha: 0.4) solid;
+  content: "";
+  height: 90%;
+  position: absolute;
   width: 100%;
 }
