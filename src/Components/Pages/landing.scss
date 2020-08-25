@@ -1,9 +1,38 @@
 @import "../Commons/variables";
 @import "../Commons/template";
 
-.app {
+.landing-app {
   @include app;
   background-color: $light-primary;
+
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .square {
+    background-image: url("../../Assets/img/Patterns/Particle1-square.svg");
+  }
+
+  .circle-and-plus {
+    background-image: url("../../Assets/img/Patterns/Particle2-circle-and-plus.png");
+  }
+
+  .wave {
+    background-image: url("../../Assets/img/Patterns/Particle3-wave.svg");
+  }
+
+  .small-circle {
+    background-image: url("../../Assets/img/Patterns/Particle4-small-circle.png");
+  }
+
+  .circle-outer {
+    background-image: url("../../Assets/img/Patterns/Particle5-circle-outer.svg");
+  }
+
+  .triangle {
+    background-image: url("../../Assets/img/Patterns/Particle6-triangle.svg");
+  }
 
   footer {
     left: 0;

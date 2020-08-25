@@ -29,3 +29,10 @@
   position: absolute;
   width: 100%;
 }
+
+@mixin particle {
+  position: absolute;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}

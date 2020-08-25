@@ -20,6 +20,7 @@ export default function SectionOne() {
               Panji
               <br />
               Gemilang
+              <span className="particle circle-and-plus"></span>
             </h1>
             <DelayLink delay={delay} clickAction={show} to="/contact">
               <div className="button-box">
@@ -32,6 +33,7 @@ export default function SectionOne() {
             <p>
               I'm 21 years old and enthusiast about web development and android
               development.
+              <span className="particle wave"></span>
             </p>
           </div>
         </div>

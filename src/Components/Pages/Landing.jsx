@@ -17,10 +17,14 @@ export default function Landing() {
   }, [])
 
   return (
-    <div className="app">
+    <div className="landing-app">
+      <span className="particle square"></span>
+      <span className="particle small-circle"></span>
+      <span className="particle circle-outer"></span>
+      <span className="particle triangle"></span>
       <SectionOne />
       <footer>
-        <small className="footer">Beta_v.0.9</small>
+        <small className="footer">Beta_v.1.0</small>
       </footer>
     </div>
   )
