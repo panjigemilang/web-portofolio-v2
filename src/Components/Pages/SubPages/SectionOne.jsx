@@ -34,6 +34,7 @@ export default function SectionOne() {
               I'm 21 years old and enthusiast about web development and android
               development.
               <span className="particle wave"></span>
+              <span className="particle circle-outer"></span>
             </p>
           </div>
         </div>

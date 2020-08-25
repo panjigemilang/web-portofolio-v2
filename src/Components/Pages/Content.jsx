@@ -77,6 +77,10 @@ export default function Content({ match }) {
         <div className="block-left-boundary"></div>
         <div className="block-right-main"></div>
         <div className="block-right-boundary"></div>
+        <span className="particle square"></span>
+        <span className="particle triangle-circle"></span>
+        <span className="particle triangle"></span>
+        <span className="particle circle-wave"></span>
         <div className="content">
           <div className="container">
             <div className="title">

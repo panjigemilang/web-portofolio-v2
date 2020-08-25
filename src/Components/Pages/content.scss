@@ -4,7 +4,95 @@
 
 .content-app {
   @include app;
-  padding: 0.67em 0;
+
+  .block-left-main {
+    @include particle;
+    background-color: $light-primary;
+    clip-path: polygon(0 0, 0 20em, 16% 0);
+    height: 100%;
+    width: 100%;
+  }
+
+  .block-left-boundary {
+    @include particle;
+    background: rgb(45, 70, 71);
+    background: linear-gradient(
+      130deg,
+      rgba(45, 70, 71, 1) 0%,
+      rgba(61, 180, 71, 1) 6%,
+      rgba(73, 225, 66, 1) 10%,
+      rgba(63, 244, 54, 1) 100%
+    );
+    clip-path: polygon(0 0, 0 23em, 17% 0);
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+  }
+
+  .block-right-main {
+    @include particle;
+    background-color: $light-primary;
+    clip-path: polygon(84% 0, 100% 20em, 100% 0);
+    height: 100%;
+    width: 100%;
+  }
+
+  .block-right-boundary {
+    @include particle;
+    background: rgb(45, 70, 71);
+    background: linear-gradient(
+      230deg,
+      rgba(45, 70, 71, 1) 0%,
+      rgba(61, 180, 71, 1) 6%,
+      rgba(73, 225, 66, 1) 10%,
+      rgba(63, 244, 54, 1) 100%
+    );
+    clip-path: polygon(83% 0, 100% 23em, 100% 0);
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+  }
+
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .square {
+    @include square;
+    top: 50%;
+    right: -8em;
+  }
+
+  .triangle-circle {
+    @include triangle-circle;
+    top: 40%;
+    left: -3em;
+  }
+
+  .triangle {
+    @include triangle;
+    bottom: 5em;
+    right: 2em;
+  }
+
+  .circle-wave {
+    @include circle-wave;
+    top: 80%;
+    left: 2em;
+  }
+
+  .square-outer {
+    @include square-outer;
+    top: 0;
+    right: 0;
+  }
+
+  .circle-and-plus {
+    @include circle-and-plus;
+    left: 0;
+    bottom: 0;
+  }
 
   .container {
     max-width: 800px;
@@ -12,10 +100,12 @@
 
   .title {
     color: $light-boundary;
+    padding: 0.67em 0;
     text-align: center;
   }
 
   .img-box {
+    position: relative;
     text-align: center;
 
     img {

@@ -5,11 +5,49 @@
 .experience-app {
   @include app;
 
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .triangle-circle {
+    @include triangle-circle;
+    left: -2em;
+    bottom: -2em;
+  }
+
+  .double-circle {
+    @include double-circle;
+    top: -8em;
+    right: -8em;
+  }
+
+  .circle-wave {
+    @include circle-wave;
+    top: -1em;
+    left: -4em;
+  }
+
+  .square-combine {
+    @include square-combine;
+    top: -1em;
+    left: 2em;
+  }
+
+  .square-outer {
+    @include square-outer;
+  }
+
+  .line-rectangle {
+    @include line-rectangle;
+  }
+
   .content {
     padding-top: 7vh;
 
     h1 {
       color: $light-primary-lighter;
+      position: relative;
     }
 
     .left {
@@ -106,7 +144,7 @@
         &.item-0.state-one {
           @include prefix(
             transform,
-            translate(0px, 0px) rotate(0deg),
+            translate(-1em, 0px) rotate(0deg),
             webkit moz ms o
           );
           opacity: 1;
@@ -133,7 +171,7 @@
         &.item-1.state-two {
           @include prefix(
             transform,
-            translate(-36em, 0em) rotate(0deg),
+            translate(-33em, 0em) rotate(0deg),
             webkit moz ms o
           );
           opacity: 1;
@@ -184,7 +222,7 @@
             border-radius: 20px;
             box-shadow: 20px 20px 40px -20px black;
             height: 20em;
-            max-width: 28em;
+            max-width: 27em;
             position: relative;
             object-fit: cover;
 

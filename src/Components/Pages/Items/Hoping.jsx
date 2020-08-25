@@ -24,9 +24,11 @@ export default function Hoping({ content, show, setShow, setSrc }) {
   return (
     <>
       <div className="img-box">
+        <span className="particle square-outer"></span>
         {<img src={src2} alt="image.jpg" onClick={() => onClick(src2)} /> || (
           <Skeleton height={150} />
         )}
+        <span className="particle circle-and-plus"></span>
         <br />
         {<small className="text-muted">Arrived at Osaka, Japan</small> || (
           <Skeleton count={1} />

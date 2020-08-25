@@ -42,13 +42,17 @@ export default function ExperiencesContent({
             <i className="fas fa-arrow-right"></i>
           </a>
         )}
-        {(
-          <img
-            className={hover ? "hover" : ""}
-            src={title.includes("PTPN") ? src2 : src}
-            alt="image.jpeg"
-          />
-        ) || <Skeleton circle={true} />}
+        <div className="img-box">
+          {(
+            <img
+              className={hover ? "hover" : ""}
+              src={title.includes("PTPN") ? src2 : src}
+              alt="image.jpeg"
+            />
+          ) || <Skeleton circle={true} />}
+          <span className="particle square-outer"></span>
+          <span className="particle line-rectangle"></span>
+        </div>
         {length > 1 && index === 1 && (
           <a role="button" onClick={() => setRotate(!rotate)}>
             <i className="fas fa-arrow-left"></i>

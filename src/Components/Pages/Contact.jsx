@@ -18,9 +18,16 @@ export default function Contact() {
 
   return (
     <div className={`contact-app ${navShown ? "blur" : ""}`}>
+      <span className="particle square-pattern"></span>
+      <span className="particle small-circle"></span>
+      <span className="particle wave"></span>
+      <span className="particle triangle"></span>
       <div className="block"></div>
       <div className="content container">
-        <h1>Contact Me</h1>
+        <h1>
+          Contact Me
+          <span className="particle circle-outer"></span>
+        </h1>
         <div className="row">
           <div className="col-lg-4 col-md-6 col-sm-12">
             <div className="img-box">

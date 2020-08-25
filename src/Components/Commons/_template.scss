@@ -3,6 +3,7 @@
 @mixin app {
   min-height: 100vh;
   position: relative;
+  z-index: 1;
 
   &.blur {
     filter: blur(5px);
@@ -33,6 +34,75 @@
 @mixin particle {
   position: absolute;
   background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
+  z-index: -1;
+}
+
+@mixin square {
+  background-image: url("../../Assets/img/Patterns/Particle1-square.svg");
+  height: 310px;
+  width: 350px;
+}
+
+@mixin circle-and-plus {
+  background-image: url("../../Assets/img/Patterns/Particle2-circle-and-plus.png");
+  height: 200px;
+  width: 220px;
+}
+
+@mixin wave {
+  background-image: url("../../Assets/img/Patterns/Particle3-wave.svg");
+  height: 65px;
+  width: 90px;
+}
+
+@mixin small-circle {
+  background-image: url("../../Assets/img/Patterns/Particle4-small-circle.png");
+  height: 170px;
+  width: 200px;
+}
+
+@mixin circle-outer {
+  background-image: url("../../Assets/img/Patterns/Particle5-circle-outer.svg");
+  height: 100px;
+  width: 90px;
+}
+
+@mixin triangle {
+  background-image: url("../../Assets/img/Patterns/Particle6-triangle.svg");
+  height: 195px;
+  width: 145px;
+}
+
+@mixin triangle-circle {
+  background-image: url("../../Assets/img/Patterns/Particle10-triangle-circle.svg");
+  height: 190px;
+  width: 235px;
+}
+
+@mixin double-circle {
+  background-image: url("../../Assets/img/Patterns/Particle7-double-circle.svg");
+  height: 255px;
+  width: 255px;
+}
+
+@mixin circle-wave {
+  background-image: url("../../Assets/img/Patterns/Particle8-circle-wave.svg");
+  height: 255px;
+  width: 255px;
+}
+
+@mixin square-combine {
+  background-image: url("../../Assets/img/Patterns/Particle9-square-combine.svg");
+  height: 90px;
+  width: 90px;
+}
+
+@mixin square-outer {
+  background-image: url("../../Assets/img/Patterns/Particle11-square-outer.png");
+  height: 87px;
+  width: 174px;
+}
+
+@mixin line-rectangle {
+  background-image: url("../../Assets/img/Patterns/Particle12-line-rectangle.png");
 }

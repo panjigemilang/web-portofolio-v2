@@ -5,12 +5,48 @@
 .contact-app {
   @include app;
 
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .circle-outer {
+    @include circle-outer;
+    @include prefix(transform, scaleX(-1), webkit moz ms o);
+    right: 38%;
+  }
+
+  .square-pattern {
+    @include square;
+    top: -8em;
+    right: -8em;
+  }
+
+  .small-circle {
+    @include small-circle;
+    right: 10%;
+    bottom: 20%;
+  }
+
+  .wave {
+    @include wave;
+    right: 20%;
+    bottom: 35%;
+  }
+
+  .triangle {
+    @include triangle;
+    right: 5%;
+    bottom: 10%;
+  }
+
   .block {
     background-color: $light-primary;
     clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 20% 50%);
     height: 100%;
     position: absolute;
     width: 100%;
+    z-index: -2;
   }
 
   .content {
@@ -18,7 +54,9 @@
 
     h1 {
       color: $light-boundary;
+      position: relative;
       text-align: center;
+      z-index: 1;
     }
 
     .row {

@@ -11,27 +11,35 @@
   }
 
   .square {
-    background-image: url("../../Assets/img/Patterns/Particle1-square.svg");
+    @include square;
+    top: -12em;
+    left: 13em;
   }
 
   .circle-and-plus {
-    background-image: url("../../Assets/img/Patterns/Particle2-circle-and-plus.png");
+    @include circle-and-plus;
+    left: -2em;
   }
 
   .wave {
-    background-image: url("../../Assets/img/Patterns/Particle3-wave.svg");
+    @include wave;
+    left: 2em;
   }
 
   .small-circle {
-    background-image: url("../../Assets/img/Patterns/Particle4-small-circle.png");
+    @include small-circle;
+    bottom: 25%;
+    right: 8em;
   }
 
   .circle-outer {
-    background-image: url("../../Assets/img/Patterns/Particle5-circle-outer.svg");
+    @include circle-outer;
   }
 
   .triangle {
-    background-image: url("../../Assets/img/Patterns/Particle6-triangle.svg");
+    @include triangle;
+    right: 5em;
+    bottom: 5em;
   }
 
   footer {
