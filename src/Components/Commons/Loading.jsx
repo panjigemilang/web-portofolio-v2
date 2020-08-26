@@ -1,42 +1,21 @@
 import React from "react"
-import ReactAnime from "react-animejs"
 import Index from "../../Context"
 import "./loading.scss"
 
 export default function Loading() {
-  const {
-    toggleLoading,
-    setToggleLoading,
-    transition,
-    setTransition,
-    setActive,
-  } = React.useContext(Index)
+  const { toggleLoading, setToggleLoading, transition } = React.useContext(
+    Index
+  )
   const [closing, setClosing] = React.useState(false)
   const firstRender = React.useRef(true)
 
   React.useEffect(() => {
     if (firstRender.current) {
+      document.getElementsByTagName("body")[0].style.overflow = "hidden auto"
+
       firstRender.current = false
       setToggleLoading(!toggleLoading)
       return
-    }
-
-    switch (window.location.pathname) {
-      case "/":
-        setActive(1)
-        break
-      case "/about":
-        setActive(2)
-        break
-      case "/experience":
-        setActive(3)
-        break
-      case "/portofolio":
-        setActive(4)
-        break
-      default:
-        setActive(1)
-        break
     }
 
     if (toggleLoading) {
@@ -45,7 +24,7 @@ export default function Loading() {
   }, [toggleLoading, transition])
 
   return (
-    <>
+    <div className="loading-app">
       <div
         className={`block-1 ${transition === "mounting" ? "show" : ""}`}
       ></div>
@@ -58,6 +37,6 @@ export default function Loading() {
           <h1>Loading</h1>
         </div>
       </div>
-    </>
+    </div>
   )
 }

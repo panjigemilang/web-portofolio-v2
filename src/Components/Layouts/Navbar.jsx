@@ -1,14 +1,36 @@
 import React from "react"
+import { withRouter } from "react-router-dom"
 import Index from "../../Context"
 import DelayLink from "react-delay-link"
-import "./Navbar.scss"
 import Arrow from "../../Assets/img/Arrow.svg"
 import useDelayedUnmounting from "../Utils/useDelayComponent"
+import "./Navbar.scss"
 
-function Navbar() {
-  const { active, navShown, setNavShown } = React.useContext(Index)
+function Navbar({ history }) {
+  const { active, navShown, setNavShown, setToggleLoading } = React.useContext(
+    Index
+  )
+  const [locationKeys, setLocationKeys] = React.useState([])
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
+
+  React.useEffect(() => {
+    return history.listen((location) => {
+      if (history.action === "PUSH") {
+        setLocationKeys([location.key])
+      }
+
+      if (history.action === "POP") {
+        if (locationKeys[1] === location.key) {
+          setLocationKeys(([_, ...keys]) => keys)
+        } else {
+          setLocationKeys((keys) => [location.key, ...keys])
+        }
+
+        setToggleLoading(true)
+      }
+    })
+  }, [locationKeys])
 
   const onClick = () => {
     setNavShown(!navShown)
@@ -18,7 +40,7 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`navbar-app ${active === 1 ? "hide" : ""}
+        className={`navbar-app ${active === 1 || active === 0 ? "hide" : ""}
       ${navShown ? "show" : ""}`}
       >
         <img
@@ -48,8 +70,21 @@ function Navbar() {
             </DelayLink>
           </li>
           <li className={active === 4 ? "active" : ""}>
-            <DelayLink delay={delay} clickAction={show} to="/portofolio">
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to="/portofolio"
+            >
               Portofolio
+            </DelayLink>
+          </li>
+          <li className={active === 5 ? "active" : ""}>
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to="/contact"
+            >
+              Contact
             </DelayLink>
           </li>
         </ul>
@@ -59,4 +94,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default withRouter(Navbar)

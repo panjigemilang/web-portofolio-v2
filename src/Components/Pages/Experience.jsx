@@ -1,9 +1,8 @@
 import React from "react"
 import Index from "../../Context"
-import "./experience.scss"
 import Lists from "./SubPages/Lists"
-import ExperiencesContent from "./SubPages/ExperiencesContent"
 import ExperiencesItem from "./SubPages/ExperiencesItem"
+import "./experience.scss"
 
 export default function Experience() {
   const {
@@ -18,6 +17,8 @@ export default function Experience() {
   React.useEffect(() => {
     setActive(3)
     setToggleLoading(!toggleLoading)
+
+    document.getElementsByTagName("body")[0].style.overflow = "hidden"
   }, [])
 
   const onClick = (index) => {
@@ -30,18 +31,26 @@ export default function Experience() {
 
   return (
     <div className={`experience-app ${navShown ? "blur" : ""}`}>
+      <span className="particle triangle-circle"></span>
+      <span className="particle double-circle"></span>
       <div className="container">
         <div className="row content">
           <div className="col-sm-12 col-lg-6 left">
             <div className="exp">
-              <h1>Experiences</h1>
+              <h1>
+                <span className="particle circle-wave"></span>
+                Experiences
+              </h1>
               <p>
                 Working experiences and projects in the informatics engineering
                 field in 1 year.
               </p>
             </div>
             <div className="timeline">
-              <h1>Timeline</h1>
+              <h1>
+                Timeline
+                <span className="particle square-combine"></span>
+              </h1>
               <div className="row">
                 <div className="col-6">
                   <div className="button-box">

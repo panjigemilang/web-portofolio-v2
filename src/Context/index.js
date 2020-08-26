@@ -2,8 +2,11 @@ import React from "react"
 
 export default React.createContext({
   active: 1,
-  transition: false,
+  navShown: false,
   toggleLoading: false,
-  setTransition: () => {},
+  transition: false,
+  setActive: () => {},
+  setNavShown: () => {},
   setToggleLoading: () => {},
+  setTransition: () => {},
 })

@@ -8,6 +8,7 @@ export default function useDelayedUnmounting(time = 100) {
     if (transition === "mounting") {
       return
     }
+
     setTransition("mounting")
   }
 

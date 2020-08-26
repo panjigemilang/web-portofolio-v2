@@ -14,6 +14,7 @@
     rgba(22, 52, 53, 1) 100%
   );
   height: 100%;
+  font-size: 12pt;
   position: fixed;
   left: -13vw;
   z-index: 99;
@@ -50,7 +51,7 @@
   }
 
   ul {
-    @include prefix(transform, translateY(30%), webkit moz ms o);
+    @include prefix(transform, translateY(24%), webkit moz ms o);
     @include prefix(
       transition,
       0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),

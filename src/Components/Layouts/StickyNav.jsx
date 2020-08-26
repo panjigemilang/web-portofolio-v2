@@ -9,7 +9,11 @@ export default function StickyNav() {
   const delay = 500
 
   return (
-    <nav className={`sticky-nav-app ${active !== 1 ? "hide" : ""}`}>
+    <nav
+      className={`sticky-nav-app ${active !== 1 ? "hide" : ""}${
+        transition === "mounted" ? "show" : ""
+      }`}
+    >
       <ul>
         <li>
           <DelayLink delay={delay} clickAction={show} to="/about">

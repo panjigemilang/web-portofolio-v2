@@ -3,7 +3,7 @@
 @import "blocks";
 
 .block-2 {
-  background-color: $block-two;
+  background-color: black;
 }
 
 .block-3 {
@@ -14,7 +14,7 @@
   background-color: $dark-primary;
   color: $text-light-primary;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100vw;
   z-index: 99;

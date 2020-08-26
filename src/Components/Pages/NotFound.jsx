@@ -1,20 +1,18 @@
 import React from "react"
-import Index from "../../../Context"
+import Index from "../../Context"
+import "./notfound.scss"
 
-export default function Portofolio() {
+export default function NotFound() {
   const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
 
   React.useEffect(() => {
-    setActive(4)
-
+    setActive(99)
     setToggleLoading(!toggleLoading)
   }, [])
 
   return (
-    <div className="app">
-      <div className="content">
-        <h1>Portofolio</h1>
-      </div>
+    <div className="not-found-app">
+      <h1>Not Found ea</h1>
     </div>
   )
 }

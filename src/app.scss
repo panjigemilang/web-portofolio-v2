@@ -19,7 +19,7 @@
 :root {
   color: $text-light-primary;
   font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
+  font-size: 13pt;
 }
 
 body {
@@ -64,6 +64,7 @@ button {
 
   &:focus {
     border: 1px solid rgba(123, 198, 183, 0.5);
+    border-radius: 0;
     outline: none;
   }
 }
@@ -71,12 +72,11 @@ button {
 .button-box {
   button {
     @include prefix(transition, 0.3s ease-in-out, webkit moz o);
+    @include prefix(transform-style, preserve-3d, webkit);
     background-color: $light-secondary;
     color: $text-light-primary;
     position: relative;
-    width: 130px;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
+    width: 140px;
 
     &::before {
       @include prefix(transform, translateZ(-1px), webkit);
@@ -99,11 +99,13 @@ button {
     }
 
     &:hover::before {
-      -webkit-box-shadow: 0px 0px 300px -3px rgba(255, 255, 255, 1);
-      -moz-box-shadow: 0px 0px 300px -3px rgba(255, 255, 255, 1);
-      box-shadow: 0px 0px 300px -3px rgba(255, 255, 255, 1);
-      left: -2px;
-      top: -2px;
+      @include prefix(
+        box-shadow,
+        0px 0px 300px -3px rgba(255, 255, 255, 1),
+        webkit moz
+      );
+      left: -1px;
+      top: 0px;
       width: 100%;
     }
   }
@@ -114,10 +116,17 @@ button {
   @include prefix(transition, 0.3s linear, webkit moz ms o);
   opacity: 0;
   visibility: hidden;
-  z-index: 1;
+  z-index: 2;
 
   &.show {
     opacity: 0.5;
     visibility: visible;
   }
+}
+
+.text-muted {
+  color: #6c757d !important;
+  display: inline-block;
+  font-size: 100%;
+  margin: 5px 0 10px;
 }
