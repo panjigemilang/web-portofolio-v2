@@ -17,8 +17,6 @@ export default function Experience() {
   React.useEffect(() => {
     setActive(3)
     setToggleLoading(!toggleLoading)
-
-    document.getElementsByTagName("body")[0].style.overflow = "hidden"
   }, [])
 
   const onClick = (index) => {
@@ -46,13 +44,16 @@ export default function Experience() {
                 field in 1 year.
               </p>
             </div>
+            <div className="col-sm-12 mobile">
+              <ExperiencesItem active={timelineActive} />
+            </div>
             <div className="timeline">
               <h1>
                 Timeline
                 <span className="particle square-combine"></span>
               </h1>
               <div className="row">
-                <div className="col-6">
+                <div className="col-sm-12 col-lg-6">
                   <div className="button-box">
                     <button
                       className={buttonTrigger[0] ? "show" : ""}
@@ -68,7 +69,7 @@ export default function Experience() {
                     />
                   </div>
                 </div>
-                <div className="col-6">
+                <div className="col-sm-12 col-lg-6">
                   <div className="button-box">
                     <button
                       className={buttonTrigger[1] ? "show" : ""}

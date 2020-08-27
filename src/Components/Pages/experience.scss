@@ -12,8 +12,10 @@
 
   .triangle-circle {
     @include triangle-circle;
+    clip: rect(auto, auto, 145px, auto);
     left: -2em;
-    bottom: -2em;
+    bottom: 0;
+    height: 145px;
   }
 
   .double-circle {
@@ -52,6 +54,10 @@
 
     .left {
       min-height: 93vh;
+
+      .mobile {
+        display: none;
+      }
 
       .exp {
         height: 40%;
@@ -132,7 +138,8 @@
       }
     }
 
-    .right {
+    .right,
+    .mobile {
       display: flex;
       overflow: hidden;
 
@@ -177,7 +184,7 @@
           opacity: 1;
         }
 
-        .img-box {
+        .img-container {
           display: table;
           margin: 0 auto;
           position: relative;
@@ -253,6 +260,11 @@
               left: -3em;
             }
           }
+        }
+
+        a {
+          color: $link;
+          word-wrap: break-word;
         }
       }
     }

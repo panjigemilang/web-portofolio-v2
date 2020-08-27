@@ -11,7 +11,7 @@
   .about,
   .about-right {
     @include app;
-    @include prefix(transition, 1s ease-in-out, webkit moz ms o);
+    @include prefix(transition, 1s ease-in-out 0.5s, webkit moz ms o);
     transform-style: preserve-3d;
     min-width: 100vw;
   }

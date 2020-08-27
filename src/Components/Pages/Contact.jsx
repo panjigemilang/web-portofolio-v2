@@ -10,11 +10,18 @@ export default function Contact() {
     toggleLoading,
     setToggleLoading,
   } = React.useContext(Index)
+  const [textClipboard, setTextClipboard] = React.useState("")
 
   React.useEffect(() => {
     setActive(5)
     setToggleLoading(!toggleLoading)
+
+    document.getElementsByTagName("body")[0].style.overflow = "hidden"
   }, [])
+
+  const copyClipboard = () => {
+    setTextClipboard("kocak")
+  }
 
   return (
     <div className={`contact-app ${navShown ? "blur" : ""}`}>
@@ -37,18 +44,24 @@ export default function Contact() {
           <div className="col-lg-4 col-md-6 col-sm-12">
             <div className="items">
               <div className="item">
-                <a role="button">
-                  <div className="square gmail"></div>
+                <a role="button" onClick={() => copyClipboard()}>
+                  <div className="icons gmail"></div>
+                  <div className="square"></div>
+                  <p>panjigemilang31298@gmail.com</p>
                 </a>
               </div>
               <div className="item">
                 <a href="https://www.linkedin.com/in/panji-g/" target="_blank">
-                  <div className="square linkedin"></div>
+                  <div className="icons linkedin"></div>
+                  <div className="square"></div>
+                  <p>https://www.linkedin.com/in/panji-g/</p>
                 </a>
               </div>
               <div className="item">
                 <a href="https://bit.ly/UpworkPanji" target="_blank">
-                  <div className="square upwork"></div>
+                  <div className="icons upwork"></div>
+                  <div className="square"></div>
+                  <p>https://bit.ly/UpworkPanji</p>
                 </a>
               </div>
             </div>
@@ -56,13 +69,17 @@ export default function Contact() {
           <div className="col-lg-4 col-md-12 col-sm-12">
             <div className="items">
               <div className="item">
-                <a role="button">
-                  <div className="square whatsapp"></div>
+                <a role="button" onClick={() => copyClipboard()}>
+                  <div className="icons whatsapp"></div>
+                  <div className="square"></div>
+                  <p>+62895801111085</p>
                 </a>
               </div>
               <div className="item">
-                <a role="button">
-                  <div className="square line"></div>
+                <a role="button" onClick={() => copyClipboard()}>
+                  <div className="icons line"></div>
+                  <div className="square"></div>
+                  <p>skidipapapsawadikhap</p>
                 </a>
               </div>
               <div className="item">
@@ -70,7 +87,9 @@ export default function Contact() {
                   href="https://www.docdroid.net/i0chlcz/cv-may-2020-pdf"
                   target="_blank"
                 >
-                  <div className="square cv"></div>
+                  <div className="icons cv"></div>
+                  <div className="square"></div>
+                  <p>CV Juni 2020</p>
                 </a>
               </div>
             </div>

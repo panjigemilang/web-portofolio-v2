@@ -13,10 +13,11 @@
     rgba(22, 52, 53, 0.8856136204481793) 0%,
     rgba(22, 52, 53, 1) 100%
   );
+  display: block;
   height: 100%;
   font-size: 12pt;
   position: fixed;
-  left: -13vw;
+  left: -13em;
   z-index: 99;
 
   &.show {

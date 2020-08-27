@@ -102,18 +102,21 @@
       .item {
         display: flex;
 
-        .square {
-          @include prefix(transform-style, preserve-3d, webkit);
-          background-color: $light-background;
-          background-position: 50% 50%;
-          background-repeat: no-repeat;
-          background-size: 40px;
+        .square,
+        .icons,
+        p {
+          @include prefix(transition, all 0.8s ease-in-out, webkit moz o);
+          position: absolute;
           height: 70px;
-          position: relative;
           width: 70px;
-          z-index: 5;
+        }
+
+        .square {
+          @include prefix(transform, rotate(0), webkit moz o);
+          background-color: $light-background;
 
           &::after {
+            @include prefix(transition, all 0.8s ease-in-out, webkit moz o);
             @include pseudo-outer-line;
           }
 
@@ -121,6 +124,21 @@
             right: -0.5em;
             bottom: -0.5em;
           }
+        }
+
+        .icons {
+          @include prefix(transition, all 0.3s ease-in-out, webkit moz o);
+          @include prefix(transform-style, preserve-3d, webkit);
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: 40px;
+          z-index: 5;
+        }
+
+        p {
+          margin-left: 75px;
+          line-height: 30px;
+          opacity: 0;
         }
 
         .gmail {
@@ -149,10 +167,36 @@
 
         a {
           cursor: pointer;
+          color: $text-light-primary;
+          position: relative;
           text-decoration: none;
 
           &:focus {
             outline: none;
+          }
+
+          &:hover {
+            .square {
+              @include prefix(
+                transform,
+                rotate(1080deg) scale(0),
+                webkit moz o
+              );
+
+              &::after {
+                height: 0;
+                width: 0;
+              }
+            }
+
+            .icons {
+              @include prefix(transform, scale(1.2), webkit moz o);
+            }
+
+            p {
+              @include prefix(transform, scale(1.1), webkit moz o);
+              opacity: 1;
+            }
           }
         }
       }

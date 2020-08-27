@@ -25,7 +25,7 @@ export default function ExperiencesContent({
       <h1>{title || <Skeleton />}</h1>
       <h3>{job || <Skeleton count={1} />}</h3>
       <p>{date || <Skeleton count={1} />}</p>
-      <div className="img-box">
+      <div className="img-container">
         <DelayLink clickAction={show} delay={delay} to={`/portofolio/${title}`}>
           <div
             className="img-overlay"

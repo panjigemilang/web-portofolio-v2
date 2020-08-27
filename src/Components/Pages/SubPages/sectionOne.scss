@@ -14,13 +14,8 @@
     opacity: 1;
 
     li {
-      @include prefix(transition, 1s ease-in-out, webkit moz o);
       @include prefix(transform, translateY(0px), webkit moz o);
     }
-  }
-
-  &.hide {
-    display: none;
   }
 
   ul {
@@ -35,6 +30,10 @@
       margin: 35px;
       padding-bottom: 15px;
       position: relative;
+
+      &.mobile-li {
+        display: none;
+      }
 
       &.active {
         border-bottom: 1px solid black;
@@ -76,7 +75,12 @@
 
       div {
         cursor: pointer;
-        display: inline;
+        display: flex;
+        flex-direction: column;
+
+        i {
+          display: none;
+        }
       }
     }
   }
@@ -96,15 +100,21 @@
     opacity: 1;
   }
 
-  img {
-    bottom: 0;
-    left: 10%;
-    object-fit: contain;
-    position: absolute;
+  .img-box {
+    img {
+      bottom: 0;
+      left: 10%;
+      object-fit: contain;
+      position: absolute;
 
-    &.show {
-      left: 13%;
+      &.show {
+        left: 13%;
+      }
     }
+  }
+
+  .mobile {
+    display: none;
   }
 
   .content {

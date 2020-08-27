@@ -1,7 +1,311 @@
-@media (max-width: 575px) {
+@media (max-width: 1400px) {
   .section-one-app {
+    img.show {
+      left: 5%;
+    }
+
+    .content {
+      padding: 6em 10em;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar-app {
+    display: none;
+  }
+
+  .sticky-nav-app {
+    background-color: $light-secondary-darken;
+    display: flex;
+    opacity: 1;
+    position: fixed;
+    font-size: 10pt;
+    top: initial;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
+
+    .mobile-li {
+      display: inline-block !important;
+
+      &.hide {
+        display: none !important;
+      }
+    }
+
+    ul {
+      padding: 0;
+      width: 100%;
+
+      li {
+        @include prefix(transform, translateY(0px), webkit moz ms o);
+        margin: 10px;
+        padding: 5px 0 10px;
+
+        div {
+          i {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .section-one-app {
+    .img-box {
+      img {
+        display: none;
+      }
+    }
+
+    button {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .section-one-app {
+    .row {
+      margin: 0;
+    }
+
+    .content {
+      padding: 3em;
+    }
+  }
+
+  .experience-app {
+    .double-circle {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    font-size: 7pt;
+  }
+
+  h1 {
+    font-size: 7pt;
+  }
+
+  .navbar-app {
+    display: none;
+  }
+
+  .landing-app {
+    .particle {
+      background-size: 70%;
+    }
+
+    .square {
+      top: -3em;
+      width: 149px;
+    }
+
+    .circle-outer {
+      right: 0;
+    }
+
+    .small-circle {
+      right: 0;
+      bottom: 0;
+      width: 145px;
+    }
+
+    .triangle {
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  .section-one-app {
+    max-height: 100vh;
+
     .content {
       padding: 1em;
+
+      .mobile {
+        display: block;
+        position: relative;
+
+        .mobile-img-box {
+          img {
+            @include prefix(transform, translateX(50%), webkit moz ms o);
+            border-radius: 20px;
+            box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+              0 4px 15px 0 rgba(0, 0, 0, 0.15);
+            margin-left: 15px;
+            width: 45%;
+          }
+        }
+      }
+
+      .name {
+        h1 {
+          font-size: 2.75em;
+          margin-bottom: 15px;
+        }
+
+        br {
+          display: none;
+        }
+      }
+
+      .description {
+        h1 {
+          margin-top: 0;
+        }
+
+        p {
+          margin-right: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .experience-app {
+    .container {
+      padding: 0 35px 7em;
+    }
+
+    .particle {
+      background-size: 70%;
+    }
+
+    .square-outer {
+      height: 60px;
+    }
+
+    .content {
+      .left {
+        .mobile {
+          display: flex;
+
+          .experiences-content-app {
+            &.item-0.state-one {
+              @include prefix(
+                transform,
+                translate(-1.5em, 0px) rotate(0deg),
+                webkit moz ms o
+              );
+              opacity: 1;
+            }
+
+            &.item-0.state-two {
+              @include prefix(
+                transform,
+                translate(-28em, -14em) rotate(90deg),
+                webkit moz ms o
+              );
+              opacity: 0;
+            }
+
+            &.item-1.state-one {
+              @include prefix(
+                transform,
+                translate(26em, -50em) rotate(-90deg),
+                webkit moz ms o
+              );
+              opacity: 0;
+            }
+
+            &.item-1.state-two {
+              @include prefix(
+                transform,
+                translate(-18em, 0em) rotate(0deg),
+                webkit moz ms o
+              );
+              opacity: 1;
+            }
+
+            .img-container {
+              i {
+                &.fa-arrow-right {
+                  right: -1.5em;
+                }
+
+                &.fa-arrow-left {
+                  left: -1.5em;
+                }
+              }
+              img {
+                height: 9em;
+                max-width: 13em;
+              }
+            }
+
+            button {
+              font-size: 9pt;
+              width: 100px;
+
+              &::before {
+                left: -12px;
+                height: 43px;
+              }
+
+              &:hover::before {
+                left: -1px;
+              }
+            }
+          }
+        }
+
+        .exp,
+        .timeline {
+          height: auto;
+
+          .button-box {
+            margin-bottom: 50px;
+
+            button {
+              &.show {
+                margin-bottom: 25px;
+
+                &::before {
+                  left: -20vw;
+                }
+              }
+            }
+
+            ul {
+              margin: 0 15px;
+            }
+          }
+        }
+      }
+
+      .right {
+        display: none;
+        margin-top: 25px;
+
+        .experiences-content-app {
+          .img-box {
+            img {
+              height: 10.5em;
+            }
+          }
+
+          button {
+            font-size: 9pt;
+            width: 100px;
+
+            &::before {
+              left: -12px;
+              height: 43px;
+            }
+
+            &:hover::before {
+              left: -1px;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ import React from "react"
 import DelayLink from "react-delay-link"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
 import profilePicture from "../../../Assets/img/SectionOne.png"
+import mobileProfile from "../../../Assets/img/About.jpeg"
 import StickyNav from "../../Layouts/StickyNav"
 import "./sectionOne.scss"
 
@@ -15,16 +16,23 @@ export default function SectionOne() {
       <div
         className={`section-one-app ${transition === "mounted" ? "show" : ""}`}
       >
-        <img
-          src={profilePicture}
-          className={transition === "mounted" ? "show" : ""}
-        />
+        <div className="img-box">
+          <img
+            src={profilePicture}
+            className={transition === "mounted" ? "show" : ""}
+          />
+        </div>
         <div className="content row">
-          <div className="col-sm-12 col-md-7 name">
+          <div className="col-sm-12 col-md-12 mobile">
+            <div className="mobile-img-box">
+              <img src={mobileProfile} />
+            </div>
+          </div>
+          <div className="col-sm-12 col-md-12 col-lg-7 name">
             <h1 className={transition === "mounted" ? "show" : ""}>
               Panji
               <br />
-              Gemilang
+              &nbsp;Gemilang
               <span className="particle circle-and-plus"></span>
             </h1>
             <div
@@ -40,7 +48,7 @@ export default function SectionOne() {
               </DelayLink>
             </div>
           </div>
-          <div className="col-sm-12 col-md-5 description">
+          <div className="col-sm-12 col-md-12 col-lg-5 description">
             <h1>Web Developer and Android Developer</h1>
             <p>
               I'm 21 years old and enthusiast about web development and android

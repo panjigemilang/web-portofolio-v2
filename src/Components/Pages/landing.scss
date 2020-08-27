@@ -10,6 +10,10 @@
     @include particle;
   }
 
+  .kotak {
+    position: relative;
+  }
+
   .square {
     @include square;
     top: -12em;
