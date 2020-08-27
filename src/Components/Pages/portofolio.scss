@@ -69,6 +69,7 @@
         0 4px 15px 0 rgba(0, 0, 0, 0.15);
       height: 240px;
       margin: 2em 8em;
+      position: relative;
       overflow: hidden;
       z-index: 5;
 
@@ -84,8 +85,6 @@
         height: 100%;
 
         img {
-          border-top-left-radius: 20px;
-          border-bottom-left-radius: 20px;
           object-fit: cover;
           height: 100%;
           width: 100%;

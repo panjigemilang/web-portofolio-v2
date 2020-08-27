@@ -13,6 +13,8 @@ export default function Contact() {
   const [textClipboard, setTextClipboard] = React.useState("")
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+
     setActive(5)
     setToggleLoading(!toggleLoading)
 

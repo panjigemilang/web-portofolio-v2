@@ -15,6 +15,8 @@ export default function Experience() {
   const [timelineActive, setTimelineActive] = React.useState(1)
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+
     setActive(3)
     setToggleLoading(!toggleLoading)
   }, [])

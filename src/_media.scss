@@ -124,10 +124,10 @@
   }
 
   .section-one-app {
-    max-height: 100vh;
+    min-height: 110vh;
 
     .content {
-      padding: 1em;
+      padding: 0.67em;
 
       .mobile {
         display: block;
@@ -147,7 +147,7 @@
 
       .name {
         h1 {
-          font-size: 2.75em;
+          font-size: 2.5em;
           margin-bottom: 15px;
         }
 
@@ -266,10 +266,6 @@
             button {
               &.show {
                 margin-bottom: 25px;
-
-                &::before {
-                  left: -20vw;
-                }
               }
             }
 
@@ -302,6 +298,39 @@
 
             &:hover::before {
               left: -1px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .portofolio-app {
+    margin-bottom: 2em;
+
+    .portofolio {
+      .title,
+      .card-app {
+        @include prefix(transform, translateZ(0), webkit moz ms o);
+      }
+
+      .card-app {
+        height: auto;
+        margin: 1.67em;
+
+        .button-box {
+          div {
+            display: inline;
+          }
+
+          button {
+            @include prefix(transform, translateX(80%), webkit moz ms o);
+            font-size: 12pt;
+            margin: 5px 0 25px;
+            width: 7em;
+
+            &::before {
+              left: -0.8em;
             }
           }
         }

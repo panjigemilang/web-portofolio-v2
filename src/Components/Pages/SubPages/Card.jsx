@@ -29,15 +29,15 @@ export default function Card({ item }) {
               <Skeleton count={4} />
             )}
           </p>
-          <DelayLink
-            clickAction={show}
-            delay={delay}
-            to={`/portofolio/${item.title}`}
-          >
-            <div className="button-box">
+          <div className="button-box">
+            <DelayLink
+              clickAction={show}
+              delay={delay}
+              to={`/portofolio/${item.title}`}
+            >
               <button>Details</button>
-            </div>
-          </DelayLink>
+            </DelayLink>
+          </div>
         </div>
       </div>
     </div>

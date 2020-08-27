@@ -7,6 +7,8 @@ export default function Landing() {
   const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+
     setActive(1)
     setToggleLoading(!toggleLoading)
   }, [])

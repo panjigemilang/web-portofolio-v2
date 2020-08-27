@@ -8,8 +8,12 @@
   font-family: "Product Sans";
   font-style: normal;
   font-weight: 400;
-  src: local("Product Sans"), local("ProductSans"),
-    url("./Assets/fonts/Product-Sans-Regular.ttf") format("truetype"); /* Safari, Android, iOS */
+  src: local("Product Sans"),
+    url("./Assets/fonts/Product-Sans-Regular.ttf") format("truetype")
+      /* Safari, Android, iOS */,
+    url("./Assets/fonts/product_sans_regular-webfont.woff") format("woff")
+      /* Pretty Modern Browsers */,
+    url("./Assets/fonts/product_sans_regular-webfont.woff2") format("woff2"); /* Super Modern Browsers */
 }
 
 * {

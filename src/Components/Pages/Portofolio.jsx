@@ -35,6 +35,8 @@ export default function Portofolio() {
   // })
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+
     setActive(4)
     setToggleLoading(!toggleLoading)
 
