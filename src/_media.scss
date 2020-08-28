@@ -93,6 +93,13 @@
     font-size: 7pt;
   }
 
+  .loading-container {
+    h1 {
+      left: calc(45% - 40px);
+      top: calc(50vh - 40px);
+    }
+  }
+
   .navbar-app {
     display: none;
   }
@@ -164,6 +171,53 @@
         p {
           margin-right: 0;
           padding: 0;
+        }
+      }
+    }
+  }
+
+  .about-app {
+    .about {
+      max-height: 100vh;
+
+      .block {
+        clip-path: polygon(72% 0, 100% 0, 100% 30%, 34% 50%, 0 100%, 0 50%);
+      }
+
+      .block-2 {
+        clip-path: polygon(0 0, 52% 0, 100% 40%, 100% 100%, 0% 100%);
+      }
+
+      .content {
+        top: 25%;
+
+        p {
+          padding: 0 15px;
+        }
+      }
+    }
+
+    .about-right {
+      max-height: 100vh;
+
+      &.show {
+        max-height: unset;
+      }
+
+      .block {
+        clip-path: polygon(0 0, 0 15%, 31% 0);
+        z-index: -1;
+      }
+
+      .content {
+        padding: 5vh 25px 25vh;
+
+        .img-box {
+          text-align: center;
+
+          img {
+            width: 80%;
+          }
         }
       }
     }
@@ -332,9 +386,70 @@
             &::before {
               left: -0.8em;
             }
+
+            &:hover::before {
+              left: -0.1em;
+            }
           }
         }
       }
+    }
+  }
+
+  .content-app {
+    .block-left-main {
+      clip-path: polygon(0 0, 0 5em, 18% 0);
+    }
+
+    .block-left-boundary {
+      clip-path: polygon(0 0, 0 8em, 20% 0);
+      z-index: -2;
+    }
+
+    .block-right-main {
+      clip-path: polygon(82% 0, 100% 5em, 100% 0);
+    }
+
+    .block-right-boundary {
+      clip-path: polygon(80% 0, 100% 8em, 100% 0);
+      z-index: -2;
+    }
+
+    .particle {
+      background-size: 70%;
+    }
+
+    .circle-and-plus {
+      left: -2em;
+    }
+
+    .square-outer {
+      background-position-x: 100%;
+      right: 0;
+    }
+
+    .square {
+      background-position-x: 200%;
+      right: 0;
+    }
+
+    .circle-wave {
+      left: -2em;
+    }
+
+    .triangle {
+      background-position-x: 150%;
+      right: 0;
+    }
+
+    .container {
+      padding: 0 25px 10vh;
+    }
+  }
+
+  .modal-app {
+    img {
+      max-width: 80%;
     }
   }
 }

@@ -6,11 +6,10 @@
   @include app;
   display: flex;
   overflow: hidden;
-  position: unset;
 
   .about,
   .about-right {
-    @include app;
+    position: relative;
     @include prefix(transition, 1s ease-in-out 0.5s, webkit moz ms o);
     transform-style: preserve-3d;
     min-width: 100vw;

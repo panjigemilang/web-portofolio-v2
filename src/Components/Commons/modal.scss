@@ -7,7 +7,7 @@
   @include overlay;
   background-color: rgba(0, 0, 0, 0.8);
   visibility: hidden;
-  z-index: 2;
+  z-index: 99;
 
   hr {
     @include prefix(transition, 0.5s linear 0.3s, webkit moz ms o);
@@ -24,7 +24,7 @@
         webkit moz o
       );
       @include prefix(transform, translateY(-50em), webkit moz mos o);
-      max-height: 90vh;
+      max-height: 80vh;
       object-fit: cover;
       min-width: 30%;
     }

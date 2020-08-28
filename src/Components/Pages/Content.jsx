@@ -21,6 +21,8 @@ export default function Content({ match }) {
   const { title } = match.params
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+
     setActive(0)
     setToggleLoading(!toggleLoading)
 

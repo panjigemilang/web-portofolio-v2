@@ -13,10 +13,12 @@ export default function About() {
   const [swipe, setSwipe] = React.useState(false)
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+
     setActive(2)
     setToggleLoading(!toggleLoading)
 
-    document.getElementsByTagName("body")[0].style.overflow = "hidden"
+    document.getElementsByTagName("body")[0].style.overflow = "hidden auto"
   }, [])
 
   return (
@@ -36,7 +38,7 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div className="about-right" id="about-right">
+      <div className={`about-right ${swipe ? "show" : ""}`} id="about-right">
         <div className="city"></div>
         <div className="block"></div>
         <div className={`content container ${swipe ? "show" : ""}`}>
