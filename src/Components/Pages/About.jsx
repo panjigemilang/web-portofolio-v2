@@ -39,7 +39,7 @@ export default function About() {
       <div className="about-right" id="about-right">
         <div className="city"></div>
         <div className="block"></div>
-        <div className="content container">
+        <div className={`content container ${swipe ? "show" : ""}`}>
           <div className="row">
             <div className="col-lg-3 col-md-6 col-sm-12">
               <div className="img-box">
@@ -71,11 +71,16 @@ export default function About() {
               <a
                 href="https://www.docdroid.net/i0chlcz/cv-may-2020-pdf"
                 target="_blank"
+                className="items"
               >
                 <div className="circle cv"></div>
                 <p>&emsp;CV</p>
               </a>
-              <a href="https://www.linkedin.com/in/panji-g/" target="_blank">
+              <a
+                href="https://www.linkedin.com/in/panji-g/"
+                target="_blank"
+                className="items"
+              >
                 <div className="circle linkedin"></div>
                 <p>&emsp;Linkedin</p>
               </a>
