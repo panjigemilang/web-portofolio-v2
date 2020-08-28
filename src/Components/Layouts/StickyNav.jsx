@@ -17,31 +17,31 @@ export default function StickyNav() {
       }`}
     >
       <ul>
-        <li className={`mobile-li ${active === 1 ? "hide" : ""}`}>
+        <li className={`mobile-li ${active === 1 ? "hide active" : ""}`}>
           <DelayLink delay={delay} clickAction={show} to="/">
             <i className="fas fa-home"></i>
             Home
           </DelayLink>
         </li>
-        <li>
+        <li className={active === 2 ? "active" : ""}>
           <DelayLink delay={delay} clickAction={show} to="/about">
             <i className="fas fa-address-card"></i>
             About
           </DelayLink>
         </li>
-        <li>
+        <li className={active === 3 ? "active" : ""}>
           <DelayLink delay={delay} clickAction={show} to="/experience">
             <i className="fas fa-user-tie"></i>
             Experiences
           </DelayLink>
         </li>
-        <li>
+        <li className={active === 4 ? "active" : ""}>
           <DelayLink delay={delay} clickAction={show} to="/portofolio">
             <i className="fas fa-file-alt"></i>
             Portofolio
           </DelayLink>
         </li>
-        <li className="mobile-li">
+        <li className={`mobile-li ${active === 5 ? "active" : ""}`}>
           <DelayLink delay={delay} clickAction={show} to="/contact">
             <i className="fas fa-phone"></i>
             Contact

@@ -38,7 +38,7 @@ export default function Contact() {
           <span className="particle circle-outer"></span>
         </h1>
         <div className="row">
-          <div className="col-lg-4 col-md-6 col-sm-12">
+          <div className="col-lg-4 col-md-6 col-sm-0">
             <div className="img-box">
               <img src={PP} alt="image.jpg" />
             </div>

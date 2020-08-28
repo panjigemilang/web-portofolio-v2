@@ -44,6 +44,15 @@
         margin: 10px;
         padding: 5px 0 10px;
 
+        &.active {
+          color: $light-boundary;
+
+          &::before {
+            @include sticky-active;
+            pointer-events: none;
+          }
+        }
+
         div {
           i {
             display: block;
@@ -378,7 +387,7 @@
           }
 
           button {
-            @include prefix(transform, translateX(80%), webkit moz ms o);
+            @include prefix(transform, translateX(100%), webkit moz ms o);
             font-size: 12pt;
             margin: 5px 0 25px;
             width: 7em;
@@ -450,6 +459,49 @@
   .modal-app {
     img {
       max-width: 80%;
+    }
+  }
+
+  .contact-app {
+    .particle {
+      background-size: 80%;
+    }
+
+    .square-pattern {
+      display: none;
+    }
+
+    .content {
+      h1 {
+        .circle-outer {
+          right: 20%;
+        }
+      }
+
+      .row {
+        margin: 0;
+      }
+
+      .img-box {
+        display: none;
+      }
+
+      .items {
+        flex-direction: row;
+        margin-left: 25px;
+        margin-bottom: 10vh;
+
+        .item {
+          a {
+            height: 100px;
+            width: 100px;
+          }
+
+          p {
+            display: none;
+          }
+        }
+      }
     }
   }
 }

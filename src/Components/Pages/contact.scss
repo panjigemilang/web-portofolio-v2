@@ -112,7 +112,7 @@
         }
 
         .square {
-          @include prefix(transform, rotate(0), webkit moz o);
+          @include prefix(transform, rotate(0), webkit moz ms o);
           background-color: $light-background;
 
           &::after {
@@ -180,7 +180,7 @@
               @include prefix(
                 transform,
                 rotate(1080deg) scale(0),
-                webkit moz o
+                webkit moz ms o
               );
 
               &::after {
