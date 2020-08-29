@@ -14,18 +14,40 @@ export default function Default({ content, show, setShow, setSrc }) {
     outro,
     link,
   } = content
+  const imgRef = React.useRef()
+  const [imgLoad, setImgLoad] = React.useState(false)
+
+  React.useEffect(() => {
+    const img = imgRef.current
+
+    if (img && img.complete) {
+      imageLoaded()
+    }
+  }, [])
 
   const onClick = (source) => {
     setShow(!show)
     setSrc(source)
   }
 
+  const imageLoaded = () => {
+    if (!imgLoad) {
+      setImgLoad(true)
+    }
+  }
+
   return (
     <>
       <div className="img-box">
-        {<img src={src} alt="image.jpg" onClick={() => onClick(src)} /> || (
-          <Skeleton height={150} />
-        )}
+        <img
+          src={src}
+          alt="image.jpg"
+          onClick={() => onClick(src)}
+          onLoad={imageLoaded}
+          ref={imgRef}
+          style={{ display: imgLoad ? "block" : "none" }}
+        />
+        {!imgLoad && <i className="fas fa-spinner fa-spin"></i>}
         <br />
         {<small className="text-muted">{title}</small> || (
           <Skeleton count={1} />

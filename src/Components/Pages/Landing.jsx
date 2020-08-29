@@ -21,7 +21,7 @@ export default function Landing() {
       <span className="particle triangle"></span>
       <SectionOne />
       <footer>
-        <small className="footer">Beta_v.1.2</small>
+        <small className="footer">Beta_v.1.3</small>
       </footer>
     </div>
   )

@@ -7,8 +7,24 @@ import StickyNav from "../../Layouts/StickyNav"
 import "./sectionOne.scss"
 
 export default function SectionOne() {
+  const imgRef = React.useRef()
+  const [imgLoad, setImgLoad] = React.useState(false)
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
+
+  React.useEffect(() => {
+    const img = imgRef.current
+
+    if (img && img.complete) {
+      imageLoaded()
+    }
+  }, [])
+
+  const imageLoaded = () => {
+    if (!imgLoad) {
+      setImgLoad(true)
+    }
+  }
 
   return (
     <>
@@ -25,14 +41,24 @@ export default function SectionOne() {
         <div className="content row">
           <div className="col-sm-12 col-md-12 mobile">
             <div className="mobile-img-box">
-              <img src={mobileProfile} />
+              <img
+                ref={imgRef}
+                src={mobileProfile}
+                onLoad={imageLoaded}
+                style={{ display: imgLoad ? "block" : "none" }}
+              />
+              {!imgLoad && (
+                <div style={{ textAlign: "center" }}>
+                  <i className="fas fa-spinner fa-spin"></i>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-sm-12 col-md-12 col-lg-7 name">
             <h1 className={transition === "mounted" ? "show" : ""}>
-              Panji
+              Panji&nbsp;
               <br />
-              &nbsp;Gemilang
+              Gemilang
               <span className="particle circle-and-plus"></span>
             </h1>
             <div

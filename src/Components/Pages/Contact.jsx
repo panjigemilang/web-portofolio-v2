@@ -21,8 +21,21 @@ export default function Contact() {
     document.getElementsByTagName("body")[0].style.overflow = "hidden"
   }, [])
 
-  const copyClipboard = () => {
-    setTextClipboard("kocak")
+  React.useEffect(() => {
+    if (textClipboard.length > 1) {
+      const input = document.getElementsByTagName("input")[0]
+
+      input.select()
+      document.execCommand("Copy")
+      window.alert("Contact copied to clipboard!")
+    }
+  }, [textClipboard])
+
+  const copyClipboard = (selector) => {
+    const value = document.querySelector(`.${selector} p`).childNodes[0]
+      .textContent
+
+    if (value) setTextClipboard(value)
   }
 
   return (
@@ -45,8 +58,8 @@ export default function Contact() {
           </div>
           <div className="col-lg-4 col-md-6 col-sm-12">
             <div className="items">
-              <div className="item">
-                <a role="button" onClick={() => copyClipboard()}>
+              <div className="item email">
+                <a role="button" onClick={() => copyClipboard("email")}>
                   <div className="icons gmail"></div>
                   <div className="square"></div>
                   <p>panjigemilang31298@gmail.com</p>
@@ -70,15 +83,15 @@ export default function Contact() {
           </div>
           <div className="col-lg-4 col-md-12 col-sm-12">
             <div className="items">
-              <div className="item">
-                <a role="button" onClick={() => copyClipboard()}>
+              <div className="item no-hp">
+                <a role="button" onClick={() => copyClipboard("no-hp")}>
                   <div className="icons whatsapp"></div>
                   <div className="square"></div>
                   <p>+62895801111085</p>
                 </a>
               </div>
-              <div className="item">
-                <a role="button" onClick={() => copyClipboard()}>
+              <div className="item kontak-line">
+                <a role="button" onClick={() => copyClipboard("kontak-line")}>
                   <div className="icons line"></div>
                   <div className="square"></div>
                   <p>skidipapapsawadikhap</p>
@@ -97,6 +110,13 @@ export default function Contact() {
             </div>
           </div>
         </div>
+        <input
+          type="text"
+          value={textClipboard}
+          style={{ height: 0, opacity: 0 }}
+          contentEditable={true}
+          readOnly={false}
+        />
       </div>
     </div>
   )

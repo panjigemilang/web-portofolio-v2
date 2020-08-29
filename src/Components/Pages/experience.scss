@@ -224,24 +224,30 @@
             }
           }
 
-          img {
-            @include prefix(transition, 0.2s linear, webkit moz ms o);
-            border-radius: 20px;
-            box-shadow: 20px 20px 40px -20px black;
-            height: 20em;
-            max-width: 27em;
-            position: relative;
-            object-fit: cover;
+          .img-box {
+            img {
+              @include prefix(transition, 0.2s linear, webkit moz ms o);
+              border-radius: 20px;
+              box-shadow: 20px 20px 40px -20px black;
+              height: 20em;
+              max-width: 27em;
+              position: relative;
+              object-fit: cover;
 
-            &.hover {
-              @include prefix(transform, scale(1.03), webkit moz ms o);
+              &.hover {
+                @include prefix(transform, scale(1.03), webkit moz ms o);
+              }
+            }
+
+            i {
+              margin: 10vh 0;
+              position: relative;
             }
           }
 
           i {
             @include prefix(transform, translateY(-50%), webkit moz ms o);
             @include prefix(transition, 0.3s linear, webkit moz ms o);
-            cursor: pointer;
             color: $text-light-primary;
             cursor: pointer;
             position: absolute;

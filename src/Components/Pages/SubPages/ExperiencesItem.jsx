@@ -9,6 +9,9 @@ export default function ExperiencesItem({ active }) {
   React.useEffect(() => {
     const temp = []
 
+    // set Rotate to default
+    setRotate(false)
+
     switch (active) {
       case 1:
         temp.push(content2019[0])

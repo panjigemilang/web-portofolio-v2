@@ -16,9 +16,25 @@ export default function ExperiencesContent({
   setRotate,
   length,
 }) {
+  const imgRef = React.useRef()
   const [hover, setHover] = React.useState(false)
+  const [imgLoad, setImgLoad] = React.useState(false)
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
+
+  React.useEffect(() => {
+    const img = imgRef.current
+
+    if (img && img.complete) {
+      imageLoaded()
+    }
+  }, [])
+
+  const imageLoaded = () => {
+    if (!imgLoad) {
+      setImgLoad(true)
+    }
+  }
 
   return (
     <>
@@ -43,13 +59,15 @@ export default function ExperiencesContent({
           </a>
         )}
         <div className="img-box">
-          {(
-            <img
-              className={hover ? "hover" : ""}
-              src={title.includes("PTPN") ? src2 : src}
-              alt="image.jpeg"
-            />
-          ) || <Skeleton circle={true} />}
+          <img
+            ref={imgRef}
+            className={hover ? "hover" : ""}
+            src={title.includes("PTPN") ? src2 : src}
+            alt="image.jpeg"
+            onLoad={imageLoaded}
+            style={{ display: imgLoad ? "block" : "none" }}
+          />
+          {!imgLoad && <i className="fas fa-spinner fa-spin"></i>}
           <span className="particle square-outer"></span>
           <span className="particle line-rectangle"></span>
         </div>

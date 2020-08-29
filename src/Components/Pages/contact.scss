@@ -22,16 +22,16 @@
     right: -8em;
   }
 
-  .small-circle {
-    @include small-circle;
-    right: 10%;
-    bottom: 20%;
-  }
-
   .wave {
     @include wave;
     right: 20%;
     bottom: 35%;
+  }
+
+  .small-circle {
+    @include small-circle;
+    right: 10%;
+    bottom: 20%;
   }
 
   .triangle {

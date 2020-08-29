@@ -114,6 +114,8 @@
   }
 
   .landing-app {
+    padding-top: 15px;
+
     .particle {
       background-size: 70%;
     }
@@ -469,6 +471,20 @@
 
     .square-pattern {
       display: none;
+    }
+
+    .wave {
+      left: 30%;
+    }
+
+    .small-circle {
+      right: 5%;
+    }
+
+    .triangle {
+      background-position-x: 100%;
+      right: 0;
+      bottom: 5%;
     }
 
     .content {
