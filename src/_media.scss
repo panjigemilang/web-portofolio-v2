@@ -201,10 +201,7 @@
 
       .content {
         top: 25%;
-
-        p {
-          padding: 0 15px;
-        }
+        padding: 0 15px;
       }
     }
 
@@ -256,7 +253,7 @@
             &.item-0.state-one {
               @include prefix(
                 transform,
-                translate(-1.5em, 0px) rotate(0deg),
+                translate(-0.5em, 0px) rotate(0deg),
                 webkit moz ms o
               );
               opacity: 1;
@@ -371,7 +368,7 @@
   }
 
   .portofolio-app {
-    margin-bottom: 2em;
+    padding-bottom: 4em;
 
     .portofolio {
       .title,
@@ -389,7 +386,7 @@
           }
 
           button {
-            @include prefix(transform, translateX(100%), webkit moz ms o);
+            @include prefix(transform, translateX(80%), webkit moz ms o);
             font-size: 12pt;
             margin: 5px 0 25px;
             width: 7em;
@@ -523,6 +520,11 @@
 }
 
 @media (min-width: 576px) {
+  .portofolio-app {
+    min-height: 100vh;
+    position: relative;
+  }
+
   .container {
     max-width: 540px;
   }

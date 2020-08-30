@@ -45,7 +45,7 @@ export default function Default({ content, show, setShow, setSrc }) {
           onClick={() => onClick(src)}
           onLoad={imageLoaded}
           ref={imgRef}
-          style={{ display: imgLoad ? "block" : "none" }}
+          style={{ display: imgLoad ? "inline-block" : "none" }}
         />
         {!imgLoad && <i className="fas fa-spinner fa-spin"></i>}
         <br />
@@ -62,7 +62,7 @@ export default function Default({ content, show, setShow, setSrc }) {
       <p>{descriptionTwo || <Skeleton count={4} />}</p>
       {src2 !== undefined && (
         <div className="img-box">
-          {<img src={src2} alt="image.jpg" onClick={() => onClick(src)} /> || (
+          {<img src={src2} alt="image.jpg" onClick={() => onClick(src2)} /> || (
             <Skeleton height={150} />
           )}
           <br />

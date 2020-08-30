@@ -113,9 +113,10 @@ export default function Contact() {
         <input
           type="text"
           value={textClipboard}
-          style={{ height: 0, opacity: 0 }}
+          style={{ height: 0, opacity: 0, width: 0 }}
           contentEditable={true}
           readOnly={false}
+          disabled
         />
       </div>
     </div>

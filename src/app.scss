@@ -26,6 +26,11 @@
   font-size: 13pt;
 }
 
+html,
+body {
+  position: relative;
+}
+
 body {
   background-color: $light-secondary;
   font-family: "Product Sans";

@@ -10,6 +10,7 @@ export default function Experience() {
     setActive,
     toggleLoading,
     setToggleLoading,
+    width,
   } = React.useContext(Index)
   const [buttonTrigger, setButtonTrigger] = React.useState([false, false])
   const [timelineActive, setTimelineActive] = React.useState(1)
@@ -55,7 +56,11 @@ export default function Experience() {
                 <span className="particle square-combine"></span>
               </h1>
               <div className="row">
-                <div className="col-sm-12 col-lg-6">
+                <div
+                  className={`col-sm-12 col-lg-6 ${
+                    width < 768 ? "order-2" : null
+                  }`}
+                >
                   <div className="button-box">
                     <button
                       className={buttonTrigger[0] ? "show" : ""}
@@ -71,7 +76,11 @@ export default function Experience() {
                     />
                   </div>
                 </div>
-                <div className="col-sm-12 col-lg-6">
+                <div
+                  className={`col-sm-12 col-lg-6 ${
+                    width < 768 ? "order-1" : null
+                  }`}
+                >
                   <div className="button-box">
                     <button
                       className={buttonTrigger[1] ? "show" : ""}
