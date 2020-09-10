@@ -15,24 +15,25 @@ export default function Portofolio() {
   const [content, setContent] = React.useState([])
   let imgElements
 
-  // useScrollPosition(({ prevPos, currPos }) => {
-  //   const y = currPos.y * -1
-  //   imgElements = document.querySelectorAll(".card-app")
-  //   console.log("Position", y)
+  useScrollPosition(({ prevPos, currPos }) => {
+    const y = currPos.y * -1
+    imgElements = document.querySelectorAll(".card-app")
+    console.log("Position", y)
 
-  //   if (y < 200) {
-  //     imgElements[2].style.opacity = 0
-  //     setVendor(imgElements[2], "Transform", "translateX(-40em)")
-  //     imgElements[3].style.opacity = 0
-  //     setVendor(imgElements[3], "Transform", "translateX(40em)")
-  //   } else if (y >= 200) {
-  //     imgElements[2].style.opacity = 1
-  //     setVendor(imgElements[2], "Transform", "translateX(0)")
-  //     imgElements[3].style.opacity = 1
-  //     setVendor(imgElements[3], "Transform", "translateX(0)")
-  //   } else if (y >= 800) {
-  //   }
-  // })
+    if (y < 200) {
+      for (let i = 2; i < imgElements.length; i++) {
+        imgElements[i].classList.remove("show")
+      }
+    } else if (y >= 200 && y < 750) {
+      for (let i = 2; i < imgElements.length - 2; i++) {
+        imgElements[i].classList.add("show")
+      }
+    } else if (y >= 750) {
+      for (let i = 4; i < imgElements.length; i++) {
+        imgElements[i].classList.add("show")
+      }
+    }
+  })
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
@@ -48,13 +49,6 @@ export default function Portofolio() {
     setContent(temp)
   }, [])
 
-  const setVendor = (element, property, value) => {
-    element.style["webkit" + property] = value
-    element.style["moz" + property] = value
-    element.style["ms" + property] = value
-    element.style["o" + property] = value
-  }
-
   return (
     <div className={`portofolio-app ${navShown ? "blur" : ""}`}>
       <div className="block-1"></div>
@@ -67,7 +61,12 @@ export default function Portofolio() {
               <h1>Portofolio</h1>
             </div>
             {content.map((item, i) => (
-              <div className="card-app" key={i}>
+              <div
+                className={`card-app ${i > 1 && i % 2 !== 0 ? "right" : ""}${
+                  i > 1 && i % 2 === 0 ? "left" : ""
+                }`}
+                key={i}
+              >
                 <Card item={item} />
               </div>
             ))}

@@ -73,6 +73,28 @@
       overflow: hidden;
       z-index: 5;
 
+      &.left {
+        @include prefix(transform, translateX(-50em), webkit ms moz o);
+        opacity: 0;
+      }
+
+      &.right {
+        @include prefix(transform, translateX(50em), webkit ms moz o);
+        opacity: 0;
+      }
+
+      &.show {
+        &:nth-child(even) {
+          @include prefix(transform, translateX(0), webkit ms moz o);
+          opacity: 1;
+        }
+
+        &:nth-child(odd) {
+          @include prefix(transform, translateX(0), webkit ms moz o);
+          opacity: 1;
+        }
+      }
+
       .col-lg-6:first-child {
         padding-right: 0;
       }

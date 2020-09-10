@@ -1,5 +1,6 @@
 import React from "react"
 import DelayLink from "react-delay-link"
+import ReactSmoothImage from "../../Commons/ReactSmoothImage"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
 import Skeleton from "react-loading-skeleton"
 
@@ -18,7 +19,7 @@ export default function Card({ item }) {
     <div className="row">
       <div className="col-lg-6 col-md-12">
         <div className="img-box">
-          {<img src={item.src} alt="Image.jpg" /> || <Skeleton height={150} />}
+          <ReactSmoothImage src={item.src} />
         </div>
       </div>
       <div className="col-lg-6 col-md-12">
