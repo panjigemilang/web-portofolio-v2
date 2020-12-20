@@ -71,7 +71,7 @@ export default function About() {
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12">
               <a
-                href="https://www.docdroid.net/i0chlcz/cv-may-2020-pdf"
+                href="https://www.docdroid.net/eWB4HN2/cv-panji-gemilang-dec-2020-pdf"
                 target="_blank"
                 className="items"
               >

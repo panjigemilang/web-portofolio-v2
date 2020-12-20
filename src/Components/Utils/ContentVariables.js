@@ -1,3 +1,4 @@
+import moment from "moment"
 import BloomBrowser from "../../Assets/img/Bloombrowser.png"
 import DevKami from "../../Assets/img/Dev Kami.png"
 import Fkhapps from "../../Assets/img/fkhapps.png"
@@ -18,7 +19,7 @@ const content2019 = [
   {
     title: "Devkami (Project)",
     job: "Fullstack Developer",
-    date: "Mar - May 2019 . 2 Mos",
+    date: `Mar - May 2019 . ${new moment('2019-05-01').diff('2019-03-01', 'months')} Mos`,
     src: DevKami,
     description:
       "This project is my first time making an apps as a fullstack engineer. This apps is like social media app but for developer. you can make a post and comment and like a post and seeing someone profile. you can check the project at the link below.",
@@ -180,6 +181,35 @@ const content2020 = [
     title: "Papa Blog (Project)",
     job: "Fullstack Developer",
     date: `May - Present 2020 . ${new Date().getMonth() - 5} Mos`,
+    src: PapaBlog,
+    description:
+      "Papa Blog is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
+    descriptionOne:
+      "\xa0\xa0Papa Blog is a blog website. This is my personal project to make a blog website for my father. He wanted to share his experiences about everything, any life lessons he had, or just a common knowledge to share. This website currently has functionality like the following :",
+    functions: [
+      "Authentication with token",
+      "Create a post share a post via social media or share link",
+      "Create a comment",
+      "Like a post",
+    ],
+    descriptionTwo: " ",
+    technologyIntro:
+      "This project was built using the following programming languages and frameworks : ",
+    technologies: [
+      "Javascript",
+      "Vue JS",
+      "Expressjs",
+      "Node JS",
+      "Mysql",
+      "Sequelize",
+    ],
+    outro: " ",
+    link: " ",
+  },
+  {
+    title: "Boleh Dicoba Digital",
+    job: "Fullstack Developer",
+    date: `September - December 2020 . 2 Mos`,
     src: PapaBlog,
     description:
       "Papa Blog is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",

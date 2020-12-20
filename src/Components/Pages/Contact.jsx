@@ -23,11 +23,39 @@ export default function Contact() {
 
   React.useEffect(() => {
     if (textClipboard.length > 1) {
-      const input = document.getElementsByTagName("input")[0]
+      const inputContainer = document.getElementsByTagName("textarea")[0]
+      let range, selection
 
-      input.select()
-      document.execCommand("Copy")
-      window.alert("Contact copied to clipboard!")
+      if (navigator.userAgent.match(/ipad|iphone/i)) {
+        window.setTimeout(() => {
+          range = document.createRange()
+          range.selectNodeContents(inputContainer)
+          selection = window.getSelection()
+          selection.removeAllRanges()
+          selection.addRange(range)
+          inputContainer.setSelectionRange(0, 999999)
+        }, 1000)
+      } else {
+        inputContainer.focus()
+        inputContainer.select()
+      }
+
+      // navigator.clipboard
+      //   .writeText(inputContainer.value)
+      //   .then(() => {
+      //     console.log("Done")
+      //   })
+      //   .catch((err) => {
+      //     console.log("ERr", err)
+      //   })
+
+      try {
+        let successful = document.execCommand("copy")
+        // let msg = successful ? "successful" : "unsuccessful"
+        // window.alert("Copied to clipboard!")
+      } catch (err) {
+        // window.alert("Error occured when copying!")
+      }
     }
   }, [textClipboard])
 
@@ -98,26 +126,23 @@ export default function Contact() {
                 </a>
               </div>
               <div className="item">
-                <a
-                  href="https://www.docdroid.net/i0chlcz/cv-may-2020-pdf"
-                  target="_blank"
-                >
+                <a href="https://docdro.id/eWB4HN2" target="_blank">
                   <div className="icons cv"></div>
                   <div className="square"></div>
-                  <p>CV Juni 2020</p>
+                  <p>CV</p>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <input
+        <textarea value={textClipboard}></textarea>
+        {/* <input
           type="text"
           value={textClipboard}
-          style={{ height: 0, opacity: 0, width: 0 }}
+          style={{ position: "absolute", left: "-9999px" }}
           contentEditable={true}
-          readOnly={false}
-          disabled
-        />
+          readOnly={true}
+        /> */}
       </div>
     </div>
   )
