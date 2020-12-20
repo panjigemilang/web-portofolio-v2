@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import Index from "../../Context"
 import PP from "../../Assets/img/Footer.jpeg"
 import "./contact.scss"
@@ -10,7 +10,6 @@ export default function Contact() {
     toggleLoading,
     setToggleLoading,
   } = React.useContext(Index)
-  const [textClipboard, setTextClipboard] = React.useState("")
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
@@ -21,50 +20,37 @@ export default function Contact() {
     document.getElementsByTagName("body")[0].style.overflow = "hidden"
   }, [])
 
-  React.useEffect(() => {
-    if (textClipboard.length > 1) {
-      const inputContainer = document.getElementsByTagName("textarea")[0]
-      let range, selection
-
-      if (navigator.userAgent.match(/ipad|iphone/i)) {
-        window.setTimeout(() => {
-          range = document.createRange()
-          range.selectNodeContents(inputContainer)
-          selection = window.getSelection()
-          selection.removeAllRanges()
-          selection.addRange(range)
-          inputContainer.setSelectionRange(0, 999999)
-        }, 1000)
-      } else {
-        inputContainer.focus()
-        inputContainer.select()
-      }
-
-      // navigator.clipboard
-      //   .writeText(inputContainer.value)
-      //   .then(() => {
-      //     console.log("Done")
-      //   })
-      //   .catch((err) => {
-      //     console.log("ERr", err)
-      //   })
-
-      try {
-        let successful = document.execCommand("copy")
-        // let msg = successful ? "successful" : "unsuccessful"
-        // window.alert("Copied to clipboard!")
-      } catch (err) {
-        // window.alert("Error occured when copying!")
-      }
-    }
-  }, [textClipboard])
-
-  const copyClipboard = (selector) => {
+  const copyClipboard = useCallback((selector) => {
     const value = document.querySelector(`.${selector} p`).childNodes[0]
       .textContent
 
-    if (value) setTextClipboard(value)
-  }
+    if (value) {
+      if (window.clipboardData && window.clipboardData.setData) {
+        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+        return window.clipboardData.setData("Text", value)
+      } else if (
+        document.queryCommandSupported &&
+        document.queryCommandSupported("copy")
+      ) {
+        var textarea = document.createElement("textarea")
+        textarea.textContent = value
+        textarea.style.position = "fixed" // Prevent scrolling to bottom of page in Microsoft Edge.
+        document.body.appendChild(textarea)
+        textarea.select()
+
+        try {
+          return document.execCommand("copy") // Security exception may be thrown by some browsers.
+        } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex)
+          return false
+        } finally {
+          document.body.removeChild(textarea)
+
+          window.alert("Copied to clipboard!")
+        }
+      }
+    }
+  }, [])
 
   return (
     <div className={`contact-app ${navShown ? "blur" : ""}`}>
@@ -135,14 +121,6 @@ export default function Contact() {
             </div>
           </div>
         </div>
-        <textarea value={textClipboard}></textarea>
-        {/* <input
-          type="text"
-          value={textClipboard}
-          style={{ position: "absolute", left: "-9999px" }}
-          contentEditable={true}
-          readOnly={true}
-        /> */}
       </div>
     </div>
   )
