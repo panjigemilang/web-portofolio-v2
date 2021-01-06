@@ -39,6 +39,12 @@ export default function Lists({ active, setActive, show, year }) {
           >
             May
           </li>
+          <li
+            className={active === 6 ? "active" : ""}
+            onClick={() => setActive(6)}
+          >
+            Sep
+          </li>
         </ul>
       )}
     </div>

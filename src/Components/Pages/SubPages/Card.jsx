@@ -34,7 +34,7 @@ export default function Card({ item }) {
             <DelayLink
               clickAction={show}
               delay={delay}
-              to={`/portofolio/${item.title}`}
+              to={`/portofolio/${item.title.replace(/ /g, '-')}`}
             >
               <button>Details</button>
             </DelayLink>

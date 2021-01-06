@@ -12,9 +12,6 @@ export default function ExperiencesContent({
   length,
   containerRef,
 }) {
-  const onClick = () => {
-    console.log("Container Ref", containerRef)
-  }
 
   return (
     <>

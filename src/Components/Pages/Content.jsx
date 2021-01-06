@@ -28,15 +28,15 @@ export default function Content({ match }) {
 
     const temp = []
 
-    temp.push(...content2019.filter((item) => item.title === title))
-    temp.push(...content2020.filter((item) => item.title === title))
+    temp.push(...content2019.filter((item) => item.title === title.replace(/-/g, ' ')))
+    temp.push(...content2020.filter((item) => item.title === title.replace(/-/g, ' ')))
 
     setContent(temp)
   }, [])
 
   React.useEffect(() => {
     if (content[0]) {
-      switch (content[0].title) {
+      switch (content[0].title.replace(/-/g, ' ')) {
         case "(有) ホーピング Hoping (Internship)":
           setItem(
             <Hoping
@@ -48,6 +48,16 @@ export default function Content({ match }) {
           )
           break
         case "FKH Apps (Project)":
+          setItem(
+            <Fkhapps
+              content={content[0]}
+              show={show}
+              setShow={setShow}
+              setSrc={setSrc}
+            />
+          )
+          break
+        case "Boleh Dicoba Digital":
           setItem(
             <Fkhapps
               content={content[0]}
@@ -86,7 +96,7 @@ export default function Content({ match }) {
         <div className="content">
           <div className="container">
             <div className="title">
-              <h1>{title}</h1>
+              <h1>{title.replace(/-/g, ' ')}</h1>
             </div>
             {item}
           </div>
