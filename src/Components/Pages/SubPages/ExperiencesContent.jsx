@@ -10,12 +10,7 @@ export default function ExperiencesContent({
   link,
   index,
   length,
-  containerRef,
 }) {
-  const onClick = () => {
-    console.log("Container Ref", containerRef)
-  }
-
   return (
     <>
       <h1>{title || <Skeleton />}</h1>

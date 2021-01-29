@@ -14,7 +14,7 @@ export default function Contact() {
   React.useEffect(() => {
     window.scrollTo(0, 0)
 
-    setActive(5)
+    setActive(6)
     setToggleLoading(!toggleLoading)
 
     document.getElementsByTagName("body")[0].style.overflow = "hidden"

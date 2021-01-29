@@ -36,12 +36,18 @@ export default function StickyNav() {
           </DelayLink>
         </li>
         <li className={active === 4 ? "active" : ""}>
+          <DelayLink delay={delay} clickAction={show} to="/gallery">
+            <i className="far fa-images"></i>
+            Gallery
+          </DelayLink>
+        </li>
+        <li className={active === 5 ? "active" : ""}>
           <DelayLink delay={delay} clickAction={show} to="/portofolio">
             <i className="fas fa-file-alt"></i>
             Portofolio
           </DelayLink>
         </li>
-        <li className={`mobile-li ${active === 5 ? "active" : ""}`}>
+        <li className={`mobile-li ${active === 6 ? "active" : ""}`}>
           <DelayLink delay={delay} clickAction={show} to="/contact">
             <i className="fas fa-phone"></i>
             Contact

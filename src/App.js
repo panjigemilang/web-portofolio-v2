@@ -4,6 +4,7 @@ import IndexContext from "./Context"
 import Landing from "./Components/Pages/Landing"
 import About from "./Components/Pages/About"
 import Portofolio from "./Components/Pages/Portofolio"
+import Gallery from "./Components/Pages/Gallery"
 import Navbar from "./Components/Layouts/Navbar"
 import StickyNav from "./Components/Layouts/StickyNav"
 import Loading from "./Components/Commons/Loading"
@@ -57,6 +58,7 @@ function App() {
             <Route exact path="/" component={Landing} />
             <Route exact path="/about" component={About} />
             <Route exact path="/experience" component={Experience} />
+            <Route exact path="/gallery" component={Gallery} />
             <Route exact path="/portofolio" component={Portofolio} />
             <Route exact path="/portofolio/:title" component={Content} />
             <Route exact path="/contact" component={Contact} />
