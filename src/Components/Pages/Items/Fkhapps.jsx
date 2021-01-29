@@ -8,11 +8,14 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
     descriptionTwo,
     src,
     src2,
+    src2description,
     src3,
+    src3description,
     functions,
     technologyIntro,
     technologies,
     outro,
+    link
   } = content
 
   const onClick = (source) => {
@@ -45,7 +48,7 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
               <img src={src2} alt="image.jpg" onClick={() => onClick(src2)} />
             ) || <Skeleton height={150} />}
             <br />
-            {<small className="text-muted">Login Page</small> || (
+            {<small className="text-muted">{src2description}</small> || (
               <Skeleton count={1} />
             )}
           </div>
@@ -56,7 +59,7 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
               <img src={src3} alt="image.jpg" onClick={() => onClick(src3)} />
             ) || <Skeleton height={150} />}
             <br />
-            {<small className="text-muted">Dashboard Lecturer</small> || (
+            {<small className="text-muted">{src3description}</small> || (
               <Skeleton count={1} />
             )}
           </div>
@@ -71,6 +74,12 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
         ))}
       </ul>
       <p>{outro || <Skeleton count={4} />}</p>
+      &emsp;
+      <a href={link} target="_blank">
+        {link}
+      </a>
+      <br />
+      <br />
       <br />
       <br />
     </>

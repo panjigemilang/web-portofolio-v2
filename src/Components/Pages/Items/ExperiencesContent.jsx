@@ -42,7 +42,7 @@ export default function ExperiencesContent({
       <h3>{job || <Skeleton count={1} />}</h3>
       <p>{date || <Skeleton count={1} />}</p>
       <div className="img-container">
-        <DelayLink clickAction={show} delay={delay} to={`/portofolio/${title}`}>
+        <DelayLink clickAction={show} delay={delay} to={`/portofolio/${title.replace(/ /g, '-')}`}>
           <div
             className="img-overlay"
             onMouseEnter={() => setHover(true)}

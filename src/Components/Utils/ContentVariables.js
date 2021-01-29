@@ -13,13 +13,20 @@ import OsakaCastle from "../../Assets/img/Osaka castle.jpeg"
 import Jembatan from "../../Assets/img/jembatan.jpeg"
 import Balik from "../../Assets/img/balik.JPG"
 import KampungDesa from "../../Assets/img/kampung desa.png"
-import PapaBlog from "../../Assets/img/Papa Blog.png"
+import Inidialo from "../../Assets/img/Blog kita-cropped.jpg"
+import InidiaDetail from "../../Assets/img/blog – 1-cropped.jpg"
+import Bdd from "../../Assets/img/bdd.jpg"
+import BddDashboard from "../../Assets/img/bdd-dashboard.jpg"
+import BddForm from "../../Assets/img/bdd-form.jpg"
 
 const content2019 = [
   {
     title: "Devkami (Project)",
     job: "Fullstack Developer",
-    date: `Mar - May 2019 . ${new moment('2019-05-01').diff('2019-03-01', 'months')} Mos`,
+    date: `Mar - May 2019 . ${new moment("2019-05-01").diff(
+      "2019-03-01",
+      "months"
+    )} Mos`,
     src: DevKami,
     description:
       "This project is my first time making an apps as a fullstack engineer. This apps is like social media app but for developer. you can make a post and comment and like a post and seeing someone profile. you can check the project at the link below.",
@@ -141,7 +148,9 @@ const content2020 = [
     date: "Feb - May 2020 . 3 Mos",
     src: Fkhapps,
     src2: Login,
+    src2description: "Login Page",
     src3: Dashboard,
+    src3description: "Dashboard Lecturer",
     description:
       "I'm working as a frontend engineer on this project. this project is about skripsi online or research paper online based inside the Veterinary Medicine Faculty of Brawijaya University environment. I'm using React JS as frontend framework. It was a little bit complex project that has 3 Users (admin, student, and lecturer) and a business-process feature.",
     descriptionOne:
@@ -158,12 +167,12 @@ const content2020 = [
     technologies: ["Javascript", "React JS", "Laravel", "Mysql", "MDBootstrap"],
     outro:
       "\xa0\xa0This application will be released in September 2020 and ready to be used for the user.",
-    link: null,
+    link: " ",
   },
   {
     title: "Bloom Browser (Project)",
     job: "Frontend Engineer",
-    date: `May - Present 2020 . ${new Date().getMonth() - 5} Mos`,
+    date: `May - Jul 2020 . 2 Mos`,
     src: BloomBrowser,
     description:
       "Bloom is a free, fast, open - source, web browser. It blocks ads and website trackers, and provides a way for users to customize their search experience with images that inspire from content creators. Users decide what - if any - promoted content they elect to see and ad revenue goes to charity. The project can be seen at the link below.",
@@ -178,62 +187,62 @@ const content2020 = [
     link: "https://bloombrowser.com/",
   },
   {
-    title: "Papa Blog (Project)",
+    title: "Ini Dia Lo (Project)",
     job: "Fullstack Developer",
-    date: `May - Present 2020 . ${new Date().getMonth() - 5} Mos`,
-    src: PapaBlog,
+    date: `Desember 2020 . 1 Mo`,
+    src: Inidialo,
     description:
-      "Papa Blog is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
+      "Inidialo is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
     descriptionOne:
-      "\xa0\xa0Papa Blog is a blog website. This is my personal project to make a blog website for my father. He wanted to share his experiences about everything, any life lessons he had, or just a common knowledge to share. This website currently has functionality like the following :",
+      "\xa0\xa0Inidialo is a blog website. This is my personal project to make a blog website for my father. He wanted to share his experiences about everything, any life lessons he had, or just a common knowledge to share. This website currently has functionality like the following :",
     functions: [
       "Authentication with token",
       "Create a post share a post via social media or share link",
       "Create a comment",
       "Like a post",
     ],
+    src2: InidiaDetail,
     descriptionTwo: " ",
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
-    technologies: [
-      "Javascript",
-      "Vue JS",
-      "Expressjs",
-      "Node JS",
-      "Mysql",
-      "Sequelize",
-    ],
-    outro: " ",
-    link: " ",
+    technologies: ["Javascript", "Vue JS", "Laravel", "Mysql"],
+    outro: "The project can be seen from the link below.",
+    link: "http://inidialo.com",
   },
   {
     title: "Boleh Dicoba Digital",
     job: "Fullstack Developer",
-    date: `September - December 2020 . 2 Mos`,
-    src: PapaBlog,
+    date: `September - December 2020 . 3 Mos`,
+    src: Bdd,
+    src2: BddDashboard,
+    src2description: "Dashboard Page",
+    src3: BddForm,
+    src3description: "Component Form Page",
     description:
-      "Papa Blog is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
+      "Boleh Dicoba Digital (BDD) offers services in digital marketing to reflect on growth in businesses’ online presence, including social media & online sales.",
     descriptionOne:
-      "\xa0\xa0Papa Blog is a blog website. This is my personal project to make a blog website for my father. He wanted to share his experiences about everything, any life lessons he had, or just a common knowledge to share. This website currently has functionality like the following :",
+      "\xa0\xa0BDD CMS or Boleh Dicoba Digital Content Management System is a company profile website with manageable content from admin dashboard. Boleh Dicoba Digital (BDD) offers services in digital marketing to reflect on growth in businesses’ online presence, including social media & online sales. Built for today's market, we value being practitioners on every digital platform we oversee and are focused on driving real business results.",
     functions: [
-      "Authentication with token",
-      "Create a post share a post via social media or share link",
-      "Create a comment",
-      "Like a post",
+      "Authentication with passport JWT, it's more secure",
+      "Build component news and case study",
+      "Edit component",
+      "Upload images",
+      "Content management",
     ],
-    descriptionTwo: " ",
+    descriptionTwo:
+      "\xa0\xa0This website has functionality like the following :",
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: [
+      "HTML",
+      "Bootstrap",
       "Javascript",
-      "Vue JS",
-      "Expressjs",
-      "Node JS",
+      "Code Igniter",
+      "PHP",
       "Mysql",
-      "Sequelize",
     ],
-    outro: " ",
-    link: " ",
+    outro: "The project can be seen from the link below.",
+    link: "https://bolehdicoba.com",
   },
 ]
 

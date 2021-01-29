@@ -37,6 +37,10 @@ export default function ExperiencesItem({ active }) {
           setContent(temp)
         }
         break
+        case 6:
+        temp.push(content2020[4])
+        setContent(temp)
+        break
       default:
         return
     }
