@@ -1,5 +1,6 @@
 import React from "react"
 import DelayLink from "react-delay-link"
+import moment from "moment"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
 import profilePicture from "../../../Assets/img/SectionOne.png"
 import mobileProfile from "../../../Assets/img/About.jpeg"
@@ -8,6 +9,7 @@ import "./sectionOne.scss"
 
 export default function SectionOne() {
   const imgRef = React.useRef()
+  const ages = new moment().diff("1998-12-03", "years")
   const [imgLoad, setImgLoad] = React.useState(false)
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
@@ -36,6 +38,7 @@ export default function SectionOne() {
           <img
             src={profilePicture}
             className={transition === "mounted" ? "show" : ""}
+            alt=""
           />
         </div>
         <div className="content row">
@@ -46,6 +49,7 @@ export default function SectionOne() {
                 src={mobileProfile}
                 onLoad={imageLoaded}
                 style={{ display: imgLoad ? "block" : "none" }}
+                alt=""
               />
               {!imgLoad && (
                 <div style={{ textAlign: "center" }}>
@@ -77,8 +81,8 @@ export default function SectionOne() {
           <div className="col-sm-12 col-md-12 col-lg-5 description">
             <h1>Web Developer and Android Developer</h1>
             <p>
-              I'm 21 years old and enthusiast about web development and android
-              development.
+              I'm {ages} years old and enthusiast about web development and
+              android development.
               <span className="particle wave"></span>
             </p>
           </div>

@@ -1,23 +1,23 @@
-import moment from "moment"
-import BloomBrowser from "../../Assets/img/Bloombrowser.png"
-import DevKami from "../../Assets/img/Dev Kami.png"
-import Fkhapps from "../../Assets/img/fkhapps.png"
-import Login from "../../Assets/img/login_page.jpg"
-import Dashboard from "../../Assets/img/dashboard.jpg"
-import Ptpnx from "../../Assets/img/Ptpnx.png"
-import Presentation from "../../Assets/img/Presentation.jpg"
-import Hoping from "../../Assets/img/hoping.jpg"
-import Company from "../../Assets/img/company.jpg"
-import Bandara from "../../Assets/img/Bandara Kansai.jpeg"
-import OsakaCastle from "../../Assets/img/Osaka castle.jpeg"
-import Jembatan from "../../Assets/img/jembatan.jpeg"
-import Balik from "../../Assets/img/balik.JPG"
-import KampungDesa from "../../Assets/img/kampung desa.png"
-import Inidialo from "../../Assets/img/Blog kita-cropped.jpg"
-import InidiaDetail from "../../Assets/img/blog – 1-cropped.jpg"
-import Bdd from "../../Assets/img/bdd.jpg"
-import BddDashboard from "../../Assets/img/bdd-dashboard.jpg"
-import BddForm from "../../Assets/img/bdd-form.jpg"
+import moment from "moment";
+import BloomBrowser from "../../Assets/img/Bloombrowser.png";
+import DevKami from "../../Assets/img/Dev Kami.png";
+import Fkhapps from "../../Assets/img/fkhapps.png";
+import Login from "../../Assets/img/login_page.jpg";
+import Dashboard from "../../Assets/img/dashboard.jpg";
+import Ptpnx from "../../Assets/img/Ptpnx.png";
+import Presentation from "../../Assets/img/Presentation.jpg";
+import Hoping from "../../Assets/img/hoping.jpg";
+import Company from "../../Assets/img/company.jpg";
+import Bandara from "../../Assets/img/Bandara Kansai.jpeg";
+import OsakaCastle from "../../Assets/img/Osaka castle.jpeg";
+import Jembatan from "../../Assets/img/jembatan.jpeg";
+import Balik from "../../Assets/img/balik.JPG";
+import KampungDesa from "../../Assets/img/kampung desa.png";
+import Inidialo from "../../Assets/img/Blog kita-cropped.jpg";
+import InidiaDetail from "../../Assets/img/blog – 1-cropped.jpg";
+import Bdd from "../../Assets/img/bdd.jpg";
+import BddDashboard from "../../Assets/img/bdd-dashboard.jpg";
+import BddForm from "../../Assets/img/bdd-form.jpg";
 
 const content2019 = [
   {
@@ -115,7 +115,7 @@ const content2019 = [
     outro: "The project can be seen from the link below.",
     link: "http://kampungcerdasbersahaja.com/",
   },
-]
+];
 
 const content2020 = [
   {
@@ -206,8 +206,8 @@ const content2020 = [
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: ["Javascript", "Vue JS", "Laravel", "Mysql"],
-    outro: "The project can be seen from the link below.",
-    link: "http://inidialo.com",
+    outro: " ",
+    link: " ",
   },
   {
     title: "Boleh Dicoba Digital",
@@ -244,6 +244,6 @@ const content2020 = [
     outro: "The project can be seen from the link below.",
     link: "https://bolehdicoba.com",
   },
-]
+];
 
-export { content2019, content2020 }
+export { content2019, content2020 };

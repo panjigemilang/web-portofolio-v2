@@ -1,6 +1,6 @@
 import React from "react"
 import DelayLink from "react-delay-link"
-import ReactSmoothImage from "../../Commons/ReactSmoothImage"
+import RenderSmoothImage from "render-smooth-image-react"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
 import Skeleton from "react-loading-skeleton"
 
@@ -19,7 +19,11 @@ export default function Card({ item }) {
     <div className="row">
       <div className="col-lg-6 col-md-12">
         <div className="img-box">
-          <ReactSmoothImage src={item.src} />
+          <RenderSmoothImage
+            src={item.src}
+            alt="Image load error"
+            objectFit="cover"
+          />
         </div>
       </div>
       <div className="col-lg-6 col-md-12">
@@ -34,7 +38,7 @@ export default function Card({ item }) {
             <DelayLink
               clickAction={show}
               delay={delay}
-              to={`/portofolio/${item.title.replace(/ /g, '-')}`}
+              to={`/portofolio/${item.title.replace(/ /g, "-")}`}
             >
               <button>Details</button>
             </DelayLink>

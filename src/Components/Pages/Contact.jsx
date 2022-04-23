@@ -1,56 +1,52 @@
-import React, { useCallback } from "react"
-import Index from "../../Context"
-import PP from "../../Assets/img/Footer.jpeg"
-import "./contact.scss"
+import React, { useCallback } from "react";
+import Index from "../../Context";
+import PP from "../../Assets/img/Footer.jpeg";
+import "./contact.scss";
 
 export default function Contact() {
-  const {
-    navShown,
-    setActive,
-    toggleLoading,
-    setToggleLoading,
-  } = React.useContext(Index)
+  const { navShown, setActive, toggleLoading, setToggleLoading } =
+    React.useContext(Index);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
 
-    setActive(6)
-    setToggleLoading(!toggleLoading)
+    setActive(6);
+    setToggleLoading(!toggleLoading);
 
-    document.getElementsByTagName("body")[0].style.overflow = "hidden"
-  }, [])
+    document.getElementsByTagName("body")[0].style.overflow = "hidden";
+  }, []);
 
   const copyClipboard = useCallback((selector) => {
     const value = document.querySelector(`.${selector} p`).childNodes[0]
-      .textContent
+      .textContent;
 
     if (value) {
       if (window.clipboardData && window.clipboardData.setData) {
         // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
-        return window.clipboardData.setData("Text", value)
+        return window.clipboardData.setData("Text", value);
       } else if (
         document.queryCommandSupported &&
         document.queryCommandSupported("copy")
       ) {
-        var textarea = document.createElement("textarea")
-        textarea.textContent = value
-        textarea.style.position = "fixed" // Prevent scrolling to bottom of page in Microsoft Edge.
-        document.body.appendChild(textarea)
-        textarea.select()
+        var textarea = document.createElement("textarea");
+        textarea.textContent = value;
+        textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in Microsoft Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
 
         try {
-          return document.execCommand("copy") // Security exception may be thrown by some browsers.
+          return document.execCommand("copy"); // Security exception may be thrown by some browsers.
         } catch (ex) {
-          console.warn("Copy to clipboard failed.", ex)
-          return false
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
         } finally {
-          document.body.removeChild(textarea)
+          document.body.removeChild(textarea);
 
-          window.alert("Copied to clipboard!")
+          window.alert("Copied to clipboard!");
         }
       }
     }
-  }, [])
+  }, []);
 
   return (
     <div className={`contact-app ${navShown ? "blur" : ""}`}>
@@ -67,7 +63,7 @@ export default function Contact() {
         <div className="row">
           <div className="col-lg-4 col-md-6 col-sm-0">
             <div className="img-box">
-              <img src={PP} alt="image.jpg" />
+              <img src={PP} alt="" />
             </div>
           </div>
           <div className="col-lg-4 col-md-6 col-sm-12">
@@ -80,17 +76,25 @@ export default function Contact() {
                 </a>
               </div>
               <div className="item">
-                <a href="https://www.linkedin.com/in/panji-g/" target="_blank">
+                <a
+                  href="https://www.linkedin.com/in/panji-g/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <div className="icons linkedin"></div>
                   <div className="square"></div>
                   <p>https://www.linkedin.com/in/panji-g/</p>
                 </a>
               </div>
               <div className="item">
-                <a href="https://bit.ly/UpworkPanji" target="_blank">
-                  <div className="icons upwork"></div>
+                <a
+                  href="https://docdro.id/eWB4HN2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="icons cv"></div>
                   <div className="square"></div>
-                  <p>https://bit.ly/UpworkPanji</p>
+                  <p>CV</p>
                 </a>
               </div>
             </div>
@@ -111,17 +115,10 @@ export default function Contact() {
                   <p>skidipapapsawadikhap</p>
                 </a>
               </div>
-              <div className="item">
-                <a href="https://docdro.id/eWB4HN2" target="_blank">
-                  <div className="icons cv"></div>
-                  <div className="square"></div>
-                  <p>CV</p>
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

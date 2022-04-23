@@ -1,0 +1,61 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.taaruf-app {
+  @include app;
+  background-color: $light-primary;
+  overflow-x: hidden;
+
+  section.s1 img {
+    border-radius: 20px;
+  }
+
+  header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .medium-block {
+    height: 100px;
+    width: 100%;
+  }
+
+  .large-block {
+    height: 200px;
+    width: 100%;
+  }
+
+  .title {
+    margin: 0 0 16px;
+    text-align: left;
+  }
+
+  table {
+    text-align: left;
+    width: 100%;
+
+    th {
+      color: $text-header;
+      font-weight: 100;
+      font-style: italic;
+    }
+
+    td:nth-child(2) {
+      width: 4%;
+    }
+
+    th,
+    td {
+      vertical-align: top;
+    }
+  }
+
+  section.s2 {
+    overflow: hidden;
+  }
+}
+
+.modal-app {
+  left: 0;
+}

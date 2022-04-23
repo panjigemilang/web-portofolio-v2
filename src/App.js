@@ -12,6 +12,7 @@ import Experience from "./Components/Pages/Experience"
 import NotFound from "./Components/Pages/NotFound"
 import Content from "./Components/Pages/Content"
 import Contact from "./Components/Pages/Contact"
+import Taaruf from "./Components/Pages/Taaruf"
 
 // Utils
 import useCurrentWidth from "./Components/Utils/GetWidth"
@@ -19,6 +20,8 @@ import useCurrentWidth from "./Components/Utils/GetWidth"
 function App() {
   const [transition, setTransition] = React.useState("mounting")
   const [active, setActive] = React.useState(1)
+  const [modalShow, setModalShow] = React.useState(false)
+  const [modalSrc, setModalSrc] = React.useState(false)
   const [toggleLoading, setToggleLoading] = React.useState(false)
   const [navShown, setNavShown] = React.useState(false)
   const width = useCurrentWidth()
@@ -26,6 +29,10 @@ function App() {
     () => ({
       active,
       setActive,
+      modalShow,
+      setModalShow,
+      modalSrc,
+      setModalSrc,
       navShown,
       setNavShown,
       toggleLoading,
@@ -37,6 +44,10 @@ function App() {
     [
       active,
       setActive,
+      modalShow,
+      setModalShow,
+      modalSrc,
+      setModalSrc,
       navShown,
       setNavShown,
       toggleLoading,
@@ -62,6 +73,11 @@ function App() {
             <Route exact path="/portofolio" component={Portofolio} />
             <Route exact path="/portofolio/:title" component={Content} />
             <Route exact path="/contact" component={Contact} />
+            <Route
+              exact
+              path="/taaruf/:date/:quarter/:year"
+              component={Taaruf}
+            />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </div>

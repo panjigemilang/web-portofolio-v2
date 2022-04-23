@@ -1,7 +1,7 @@
-import React from "react"
-import DelayLink from "react-delay-link"
-import Skeleton from "react-loading-skeleton"
-import useDelayedUnmounting from "../../Utils/useDelayComponent"
+import React from "react";
+import DelayLink from "react-delay-link";
+import Skeleton from "react-loading-skeleton";
+import useDelayedUnmounting from "../../Utils/useDelayComponent";
 
 export default function ExperiencesContent({
   title,
@@ -16,25 +16,25 @@ export default function ExperiencesContent({
   setRotate,
   length,
 }) {
-  const imgRef = React.useRef()
-  const [hover, setHover] = React.useState(false)
-  const [imgLoad, setImgLoad] = React.useState(false)
-  const [transition, show] = useDelayedUnmounting(1600)
-  const delay = 500
+  const imgRef = React.useRef();
+  const [hover, setHover] = React.useState(false);
+  const [imgLoad, setImgLoad] = React.useState(false);
+  const [transition, show] = useDelayedUnmounting(1600);
+  const delay = 500;
 
   React.useEffect(() => {
-    const img = imgRef.current
+    const img = imgRef.current;
 
     if (img && img.complete) {
-      imageLoaded()
+      imageLoaded();
     }
-  }, [])
+  }, []);
 
   const imageLoaded = () => {
     if (!imgLoad) {
-      setImgLoad(true)
+      setImgLoad(true);
     }
-  }
+  };
 
   return (
     <>
@@ -42,7 +42,11 @@ export default function ExperiencesContent({
       <h3>{job || <Skeleton count={1} />}</h3>
       <p>{date || <Skeleton count={1} />}</p>
       <div className="img-container">
-        <DelayLink clickAction={show} delay={delay} to={`/portofolio/${title.replace(/ /g, '-')}`}>
+        <DelayLink
+          clickAction={show}
+          delay={delay}
+          to={`/portofolio/${title.replace(/ /g, "-")}`}
+        >
           <div
             className="img-overlay"
             onMouseEnter={() => setHover(true)}
@@ -63,7 +67,7 @@ export default function ExperiencesContent({
             ref={imgRef}
             className={hover ? "hover" : ""}
             src={title.includes("PTPN") ? src2 : src}
-            alt="image.jpeg"
+            alt=""
             onLoad={imageLoaded}
             style={{ display: imgLoad ? "block" : "none" }}
           />
@@ -79,10 +83,10 @@ export default function ExperiencesContent({
       </div>
       <p>{description || <Skeleton count={4} />}</p>
       {link !== null && (
-        <a href={link} target="_blank">
+        <a href={link} target="_blank" rel="noopener noreferrer">
           {link || <Skeleton count={1} />}
         </a>
       )}
     </>
-  )
+  );
 }

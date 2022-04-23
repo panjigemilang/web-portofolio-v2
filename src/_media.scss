@@ -95,7 +95,7 @@
     }
   }
 
-  .gallery-app .grid-gallery {
+  .grid-gallery {
     .gallery-item:nth-child(5n + 1) {
       grid-row: span 2;
       grid-column: span 2;
@@ -862,7 +862,7 @@
     order: 12;
   }
 
-  .gallery-app .grid-gallery {
+  .grid-gallery {
     .gallery-item:nth-child(10n + 1),
     .gallery-item:nth-child(10n + 10) {
       grid-row: span 2;

@@ -1,0 +1,68 @@
+@import "../../Commons/variables";
+@import "../../Commons/template";
+@import "../../../prefix";
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+
+  button.tabs {
+    background-color: $light-primary;
+    border-radius: 10px 10px 0 0;
+    color: $light-boundary;
+    width: 140px;
+
+    &:focus {
+      border: none;
+    }
+
+    &:hover:not(.active) {
+      box-shadow: none;
+      filter: brightness(1.2);
+    }
+
+    &.active {
+      background-color: $light-secondary;
+    }
+  }
+}
+
+section.active-tab {
+  background-color: $light-secondary;
+  border-radius: 15px;
+  margin: 0 3rem 3rem;
+  height: 479px;
+  overflow: auto;
+  padding: 2rem 2.2rem;
+  position: relative;
+  z-index: 1;
+
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $light-secondary-darken;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: white;
+  }
+}
+
+.grid-gallery {
+  display: grid;
+  gap: 16px;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(4, 25% [col-start]);
+  overflow: hidden;
+
+  .gallery-item {
+    @include prefix(transition, 0.3s ease-in-out, webkit moz ms o);
+    cursor: pointer;
+
+    &:hover {
+      @include prefix(transform, scale(1.02), webkit ms);
+    }
+  }
+}

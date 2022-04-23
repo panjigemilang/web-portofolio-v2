@@ -1,17 +1,18 @@
-import React from "react"
-import Index from "../../Context"
-import SectionOne from "./SubPages/SectionOne"
-import "./landing.scss"
+import React from "react";
+import Index from "../../Context";
+import SectionOne from "./SubPages/SectionOne";
+import "./landing.scss";
 
 export default function Landing() {
-  const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
+  const { setActive, toggleLoading, setToggleLoading } =
+    React.useContext(Index);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
 
-    setActive(1)
-    setToggleLoading(!toggleLoading)
-  }, [])
+    setActive(1);
+    setToggleLoading(!toggleLoading);
+  }, []);
 
   return (
     <div className="landing-app">
@@ -21,8 +22,10 @@ export default function Landing() {
       <span className="particle triangle"></span>
       <SectionOne />
       <footer>
-        <small className="footer">Beta_v.1.3</small>
+        {(!process.env.NODE_ENV || process.env.NODE_ENV === "development") && (
+          <small className="footer">Beta_v.1.4</small>
+        )}
       </footer>
     </div>
-  )
+  );
 }

@@ -1,22 +1,18 @@
 import React from "react"
 import Index from "../../Context"
-import Galleries from "../Utils/GalleryContents"
+import { gallery } from "../Utils/GalleryContents"
 import ReactSmoothImage from "../Commons/ReactSmoothImage"
-import "./gallery.scss"
 import Modal from "../Commons/Modal"
+import "./gallery.scss"
 
-export default function Gallery() {
-  const {
-    navShown,
-    setActive,
-    toggleLoading,
-    setToggleLoading,
-    width,
-  } = React.useContext(Index)
+export default function Gallery({ gallrs }) {
+  const { navShown, setActive, toggleLoading, setToggleLoading, width } =
+    React.useContext(Index)
   const gridGallery = React.useRef({})
   const [show, setShow] = React.useState(false)
   const [src, setSrc] = React.useState("")
   const [description, setDescription] = React.useState("")
+  const galleries = gallrs ? gallrs : gallery
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
@@ -25,10 +21,8 @@ export default function Gallery() {
     setToggleLoading(!toggleLoading)
 
     gridGallery.current.style = `grid-template-rows: repeat(${
-      Galleries.length / 5 < 1 ? 2 : Math.ceil(Galleries.length / 5) * 2
+      galleries.length / 5 < 1 ? 2 : Math.ceil(galleries.length / 5) * 2
     }, 30vh [row-start]);`
-
-    document.querySelectorAll(".modal-app .img-box img")
   }, [])
 
   React.useEffect(() => {
@@ -36,14 +30,14 @@ export default function Gallery() {
       gridGallery.current.style = `
       grid-template-columns: repeat(2, 50% [col-start]);
       grid-template-rows: repeat(${
-        Galleries.length / 5 < 1 ? 4 : Math.ceil(Galleries.length / 5) * 4
+        galleries.length / 5 < 1 ? 4 : Math.ceil(galleries.length / 5) * 4
       }, 15vh [row-start]);
       `
     } else {
       gridGallery.current.style = `
       grid-template-columns: repeat(4, 25% [col-start]);
       grid-template-rows: repeat(${
-        Galleries.length / 5 < 1 ? 2 : Math.ceil(Galleries.length / 5) * 2
+        galleries.length / 5 < 1 ? 2 : Math.ceil(galleries.length / 5) * 2
       }, 30vh [row-start]);`
     }
   }, [width])
@@ -77,7 +71,7 @@ export default function Gallery() {
             drawing
           </h4>
           <div className="grid-gallery" ref={gridGallery}>
-            {Galleries.map((item, i) => (
+            {galleries.map((item, i) => (
               <ReactSmoothImage
                 className="gallery-item"
                 key={`img-${i}`}
