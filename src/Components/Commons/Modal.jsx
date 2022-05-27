@@ -5,7 +5,7 @@ import "./modal.scss"
 export default function Modal({
   setClass = "",
   desc = "",
-  src,
+  src = "",
   show,
   setShow,
 }) {
@@ -25,7 +25,7 @@ export default function Modal({
       <div className="img-box">
         <TransformWrapper defaultScale={1} defaultPositionY={600}>
           <TransformComponent>
-            <img src={src} alt="image.jpg" />
+            <img src={src || ""} alt="" />
           </TransformComponent>
         </TransformWrapper>
       </div>

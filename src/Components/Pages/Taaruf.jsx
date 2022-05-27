@@ -2,6 +2,7 @@ import React from "react"
 import Index from "../../Context"
 import { useHistory } from "react-router-dom"
 import ProfileSection from "./SubPages/ProfileSection"
+import Arrow from "../../Assets/img/Arrow.svg"
 import Tabs from "./SubPages/Tabs"
 import Modal from "../Commons/Modal"
 import "./taaruf.scss"
@@ -25,12 +26,25 @@ export default function Taaruf({ match }) {
     setToggleLoading(!toggleLoading)
   }, [])
 
+  const toBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })
+  }
+
   return (
     <div className="taaruf-app container">
+      <span className="particle square"></span>
+      <span className="particle circle-outer"></span>
+      <span className="particle small-circle"></span>
+      <span className="particle triangle"></span>
       <Modal src={modalSrc} show={modalShow} setShow={setModalShow} />
       <div className="medium-block"></div>
       <ProfileSection />
-      <div className="large-block"></div>
+      <div className="large-block">
+        <div className="content" onClick={() => toBottom()}>
+          <div className="text-center">Read More</div>
+          <img src={Arrow} alt="arrow.svg" className="arrow" />
+        </div>
+      </div>
       <Tabs />
     </div>
   )

@@ -1,6 +1,8 @@
 import React from "react"
 import GalleryContent from "../Items/GalleryContent"
 import Pendidikan from "../Items/Pendidikan"
+import AboutMe from "../Items/AboutMe"
+import Planning from "../Items/Planning"
 import "./tabs.scss"
 
 export default function Tabs() {
@@ -16,7 +18,10 @@ export default function Tabs() {
         setContent(<Pendidikan />)
         break
       case 3:
-        setContent(<div>Tentang Saya</div>)
+        setContent(<AboutMe />)
+        break
+      case 4:
+        setContent(<Planning />)
         break
       default:
         break
@@ -43,6 +48,12 @@ export default function Tabs() {
           onClick={() => setActiveTab(3)}
         >
           Tentang Saya
+        </button>
+        <button
+          className={"tabs " + (activeTab === 4 ? "active" : "")}
+          onClick={() => setActiveTab(4)}
+        >
+          Rencana
         </button>
       </div>
       <section className="active-tab">{content}</section>

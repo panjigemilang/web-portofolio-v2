@@ -63,7 +63,9 @@ function App() {
       <IndexContext.Provider value={contextProvider}>
         <div className="App">
           <Navbar />
-          {width <= 576 && <StickyNav />}
+          {width <= 576 && !window.location.pathname.includes("taaruf") && (
+            <StickyNav />
+          )}
           {transition !== "mounted" && <Loading />}
           <Switch>
             <Route exact path="/" component={Landing} />

@@ -41,7 +41,7 @@ export default function Default({ content, show, setShow, setSrc }) {
       <div className="img-box">
         <img
           src={src}
-          alt="image.jpg"
+          alt=""
           onClick={() => onClick(src)}
           onLoad={imageLoaded}
           ref={imgRef}
@@ -62,7 +62,7 @@ export default function Default({ content, show, setShow, setSrc }) {
       <p>{descriptionTwo || <Skeleton count={4} />}</p>
       {src2 !== undefined && (
         <div className="img-box">
-          {<img src={src2} alt="image.jpg" onClick={() => onClick(src2)} /> || (
+          {<img src={src2} alt="" onClick={() => onClick(src2)} /> || (
             <Skeleton height={150} />
           )}
           <br />
@@ -80,7 +80,7 @@ export default function Default({ content, show, setShow, setSrc }) {
         ))}
       </ul>
       <p>{outro || <Skeleton count={4} />}</p>
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {link}
       </a>
       <br />

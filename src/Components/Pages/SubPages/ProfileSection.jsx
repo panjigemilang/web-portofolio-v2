@@ -2,8 +2,10 @@ import React from "react"
 import RenderSmoothImage from "render-smooth-image-react"
 import moment from "moment"
 import PP from "../../../Assets/img/About.jpeg"
+import useCurrentWidth from "../../Utils/GetWidth"
 
 export default function ProfileSection() {
+  const width = useCurrentWidth()
   const profileStyle = {
     borderRadius: "20px",
     height: "395px",
@@ -22,7 +24,10 @@ export default function ProfileSection() {
       </header>
       <div className="row">
         <div className="col-lg-6 col-12">
-          <div style={profileStyle}>
+          <div
+            className={`profile-container ${width < 768 && "mobile"}`}
+            style={profileStyle}
+          >
             <RenderSmoothImage src={PP} alt="profile.jpg" objectFit="cover" />
           </div>
         </div>
@@ -53,7 +58,7 @@ export default function ProfileSection() {
               <tr>
                 <th>Berat Badan</th>
                 <td>:</td>
-                <td>53 kg</td>
+                <td>59 kg (per 22, Mei 2022)</td>
               </tr>
               <tr>
                 <th>Manhaj</th>
@@ -74,6 +79,16 @@ export default function ProfileSection() {
                 <th>Status</th>
                 <td>:</td>
                 <td>Belum pernah menikah</td>
+              </tr>
+              <tr>
+                <th>Pekerjaan</th>
+                <td>:</td>
+                <td>Pegawai swasta | Programmer</td>
+              </tr>
+              <tr>
+                <th>Penghasilan</th>
+                <td>:</td>
+                <td>~10,4jt perbulan</td>
               </tr>
               <tr>
                 <th>Alamat Rumah</th>

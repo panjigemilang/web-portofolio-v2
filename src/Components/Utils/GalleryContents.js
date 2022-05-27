@@ -2,11 +2,11 @@ import Amber from "../../Assets/img/amber.jpeg"
 import Senja from "../../Assets/img/senja.jpg"
 import Koshien from "../../Assets/img/koshien.png"
 import Yasashi from "../../Assets/img/yasashii-suishei.f1054ad3.jpeg"
-import NaonSia from "../../Assets/img/galeri/naon-sia.jpg"
-import Duel from "../../Assets/img/galeri/duel.jpg"
-import Keren from "../../Assets/img/galeri/keren.jpg"
-import Nangid from "../../Assets/img/galeri/nangid.jpg"
-import SenyumManid from "../../Assets/img/galeri/senyum-manid.jpg"
+import Main from "../../Assets/img/galeri/main.jpeg"
+import Front from "../../Assets/img/galeri/front.jpeg"
+import LeftSide from "../../Assets/img/galeri/left.jpeg"
+import RightSide from "../../Assets/img/galeri/right.jpeg"
+import Other from "../../Assets/img/galeri/other.jpeg"
 
 export const gallery = [
   {
@@ -89,4 +89,4 @@ export const gallery = [
   },
 ]
 
-export const taarufGalleries = [NaonSia, Duel, Keren, Nangid, SenyumManid]
+export const taarufGalleries = [Main, Front, LeftSide, RightSide, Other]

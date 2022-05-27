@@ -15,7 +15,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-zoom-pan-pinch": "^1.6.1",
-    "render-smooth-image-react": "^1.0.0"
+    "render-smooth-image-react": "^1.0.0",
+    "smoothscroll-polyfill": "^0.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
