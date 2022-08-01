@@ -43,9 +43,9 @@ export default function Planning() {
       <div className="content">
         <ul onClick={() => toggleCaption(0)}>
           <li className="title">
-            <h3 className={headerActive === 0 && "active"}>
+            <h3 className={headerActive === 0 ? "active" : ""}>
               <strong>Kriteria Pasangan</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -57,7 +57,7 @@ export default function Planning() {
           <div className="tags">
             <span className="tag">Rambut panjang dan lurus</span>
             <span className="tag">Tidak terlalu gemuk</span>
-            <span className="tag">Kulit putih (lebih dari saya)</span>
+            <span className="tag">Suka memasak</span>
             <span className="tag">Pandai komunikasi</span>
             <span className="tag">Pandai mengatur keuangan</span>
             <span className="tag">Pandai bersyukur</span>
@@ -72,9 +72,9 @@ export default function Planning() {
         </div>
         <ul onClick={() => toggleCaption(1)}>
           <li className="title">
-            <h3 className={headerActive === 1 && "active"}>
+            <h3 className={headerActive === 1 ? "active" : ""}>
               <strong>Komitmen</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -103,11 +103,11 @@ export default function Planning() {
         </div>
         <ul onClick={() => toggleCaption(2)}>
           <li className="title">
-            <h3 className={headerActive === 2 && "active"}>
+            <h3 className={headerActive === 2 ? "active" : ""}>
               <strong>
                 <i>Planning </i>& Harapan setelah Menikah
               </strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -121,7 +121,9 @@ export default function Planning() {
             pasangan saya dapat membangun rumah tangga yang sakinah, mawaddah,
             dan warahmah dengan ikhtiar sesuai komitmen yang kita sepakati
             bersama. Tidak memendam unek-unek seorang diri, dapat dibicarakan
-            bersama dan saling introspeksi pasangan.
+            bersama dan saling introspeksi pasangan. Rencananya setelah menikah
+            nanti mungkin kita akan tinggal di Bandung ada rumah kosong yang
+            siap ditempati.
           </p>
           <p>
             &emsp;Bertengkar itu wajar tetapi paling penting tidak saling

@@ -29,6 +29,38 @@ export default function AboutMe() {
     setHeaderActive(idx)
     setShowCaption(temp)
   }
+  const personalities = [
+    {
+      kelebihan: "Berlogika",
+      kekurangan: "Kadang pelupa",
+      undefined: "Harus disuruh dulu baru mengerjakan",
+    },
+    {
+      kelebihan: "Suka bercanda",
+      kekurangan: "Kurang inisiatif/cuek",
+      undefined: "Gak suka makan jeroan dan cumi",
+    },
+    {
+      kelebihan: "Senyum terus",
+      kekurangan: "Kalo ngomong suaranya keras",
+      undefined: "",
+    },
+    {
+      kelebihan: "Gak bisa marah",
+      kekurangan: "",
+      undefined: "",
+    },
+    {
+      kelebihan: "Gak bisa boong",
+      kekurangan: "",
+      undefined: "",
+    },
+    {
+      kelebihan: "Gak merokok atau vape",
+      kekurangan: "",
+      undefined: "",
+    },
+  ]
 
   React.useEffect(() => {
     const active = showCaption.filter((caption) => caption.show === true)
@@ -45,9 +77,9 @@ export default function AboutMe() {
       <div className="content">
         <ul onClick={() => toggleCaption(0)}>
           <li className="title">
-            <h3 className={headerActive === 0 && "active"}>
+            <h3 className={headerActive === 0 ? "active" : ""}>
               <strong>Saya orangnya seperti apa? Jujur!</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -60,18 +92,25 @@ export default function AboutMe() {
             &emsp;Kalo saya yang tentukan sendiri kayaknya kurang meyakinkan,
             jadi saya akan sebutkan apa saja yang biasa orang katakan ke saya :
           </p>
-          <ol>
-            <li>&ensp;Berlogika</li>
-            <li>&ensp;Suka bercanda</li>
-            <li>&ensp;Senyum terus</li>
-            <li>&ensp;Gak bisa marah</li>
-            <li>&ensp;Gak bisa bohong</li>
-            <li>&ensp;Kurang inisiatif/cuek</li>
-            <li>&ensp;Harus disuruh dulu baru mengerjakan</li>
-            <li>&ensp;Kalo ngomong suaranya keras</li>
-            <li>&ensp;Gak merokok atau vape</li>
-            <li>&ensp;Gak suka makan jeroan dan cumi</li>
-          </ol>
+          <table className="v-c3">
+            <thead>
+              <tr>
+                <th>Kelebihan</th>
+                <th>Kekurangan</th>
+                <th>Relatif</th>
+              </tr>
+            </thead>
+            <tbody>
+              {personalities.map((personality, idx) => (
+                <tr key={personality.kelebihan + idx}>
+                  <td>{personality.kelebihan}</td>
+                  <td>{personality.kekurangan}</td>
+                  <td>{personality.undefined}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
           <p>
             &emsp;Kira-kira itu yang biasa saya dengar tentang saya dari ayah,
             ibu, saudara, teman, dan sahabat saya. Jika ingin tau langsung dari
@@ -86,9 +125,9 @@ export default function AboutMe() {
         </div>
         <ul onClick={() => toggleCaption(1)}>
           <li className="title">
-            <h3 className={headerActive === 1 && "active"}>
+            <h3 className={headerActive === 1 ? "active" : ""}>
               <strong>Bagaimana pekerjaan saya?</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -101,17 +140,16 @@ export default function AboutMe() {
             &emsp;Saat ini saya bekerja sebagai programmer di sebuah perusahaan
             bergerak di bidang travel, Opsigo. Saya sudah bekerja selama {years}{" "}
             tahun{months > 0 && ` dan ${months} bulan`}. Saya setiap hari
-            bekerja di rumah (WFE). Alhamdulillah jam kerja saya sangat
-            fleksibel dan saya sering menyelesaikan tugas saya lebih cepat dari
-            waktu yang ditentukan sehingga saya memiliki banyak waktu luang.
-            Saya suka memanfaatkan waktu luang saya hehe! 👍👍
+            bekerja di rumah (WFE). Alhamdulillah pekerjaan saya sangat
+            fleksibel sehingga saya memiliki waktu lebih yang dapat
+            dimanfaatkan.
           </p>
         </div>
         <ul onClick={() => toggleCaption(2)}>
           <li className="title">
-            <h3 className={headerActive === 2 && "active"}>
+            <h3 className={headerActive === 2 ? "active" : ""}>
               <strong>Apa yang biasa saya lakukan pada waktu weekend?</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -138,9 +176,9 @@ export default function AboutMe() {
         </div>
         <ul onClick={() => toggleCaption(3)}>
           <li className="title">
-            <h3 className={headerActive === 3 && "active"}>
+            <h3 className={headerActive === 3 ? "active" : ""}>
               <strong>Apa yang membuat saya menerima manhaj salaf?</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -154,11 +192,13 @@ export default function AboutMe() {
             kelas 3 SMA saya mulai coba membiasakan shalat berjamaah di masjid.
             Lalu ketika kuliah saat saya sedang bengong di jendela kelas sambil
             menunggu dosen tiba-tiba teman saya yang mualaf menghampiri dan
-            berkata{" "}
-            <pre>
-              “hidup tuh sebentar ya ji. Di dunia mungkin 1000 tahun setara
-              berapa menit doang di akhirat”.
-            </pre>
+            berkata
+          </p>
+          <pre>
+            “hidup tuh sebentar ya ji. Di dunia mungkin 1000 tahun setara berapa
+            menit doang di akhirat”.
+          </pre>
+          <p>
             Sejak saat itu saya mulai menghadiri dan mendengar berbagai kajian
             agama.
           </p>
@@ -175,9 +215,9 @@ export default function AboutMe() {
         </div>
         <ul onClick={() => toggleCaption(4)}>
           <li className="title">
-            <h3 className={headerActive === 4 && "active"}>
+            <h3 className={headerActive === 4 ? "active" : ""}>
               <strong>Kenapa anda harus memilih saya?</strong>
-              &ensp;<i class="fa-solid fa-caret-right"></i>
+              &ensp;<i className="fa-solid fa-caret-right"></i>
             </h3>
           </li>
         </ul>
@@ -198,8 +238,8 @@ export default function AboutMe() {
             dengan saya!
           </p>
           <h3 className="text-center">
-            Akankah <span className="love">KAMU </span>
-            menjadi pelengkap dari kisah hidup <span className="me">KU</span>
+            Would <span className="love">You </span>
+            be <span className="me">Mine</span>
             ?
             <br />
             <span className="love">❤❤❤</span>

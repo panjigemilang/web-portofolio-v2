@@ -53,12 +53,17 @@ export default function ProfileSection() {
               <tr>
                 <th>Tinggi Badan</th>
                 <td>:</td>
-                <td>168 cm</td>
+                <td>172 cm</td>
               </tr>
               <tr>
                 <th>Berat Badan</th>
                 <td>:</td>
-                <td>59 kg (per 22, Mei 2022)</td>
+                <td>59,6 kg (per 1, Agustus 2022)</td>
+              </tr>
+              <tr>
+                <th>Riwayat Penyakit</th>
+                <td>:</td>
+                <td>Tidak ada</td>
               </tr>
               <tr>
                 <th>Manhaj</th>
@@ -68,7 +73,7 @@ export default function ProfileSection() {
               <tr>
                 <th>Suku</th>
                 <td>:</td>
-                <td>Jawa</td>
+                <td>Ayah (Jawa) - Ibu (Minang)</td>
               </tr>
               <tr>
                 <th>Anak ke</th>
@@ -84,11 +89,6 @@ export default function ProfileSection() {
                 <th>Pekerjaan</th>
                 <td>:</td>
                 <td>Pegawai swasta | Programmer</td>
-              </tr>
-              <tr>
-                <th>Penghasilan</th>
-                <td>:</td>
-                <td>~10,4jt perbulan</td>
               </tr>
               <tr>
                 <th>Alamat Rumah</th>

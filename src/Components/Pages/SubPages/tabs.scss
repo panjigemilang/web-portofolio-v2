@@ -228,6 +228,64 @@ section .text-content {
     }
   }
 
+  pre {
+    color: $light-boundary;
+  }
+
+  table.v-c3 {
+    display: block;
+    overflow-x: auto;
+
+    thead {
+      th {
+        background: rgb(2, 40, 43);
+        padding: 8px 16px;
+      }
+
+      th:nth-child(1) {
+        border-right: 1px $light-primary solid;
+        border-bottom: 1px $light-primary solid;
+        width: 27%;
+      }
+      
+      th:nth-child(2) {
+        border-bottom:s 1px $light-primary solid;
+        width: 30%;
+      }
+      
+      th:nth-child(3) {
+        border-left: 1px $light-primary solid;
+        border-bottom: 1px $light-primary solid;
+        width: 25%;
+      }
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: $light-primary;
+      }
+
+      td {
+        padding: 8px 16px;
+      }
+
+      td:first-child {
+        border-right: 1px $light-primary solid;
+        border-bottom: 1px $light-primary solid;
+      }
+
+      td:not(:first-child):not(:last-child) {
+        border-top: 1px $light-primary solid;
+        border-bottom: 1px $light-primary solid;
+      }
+
+      td:last-child {
+        border-left: 1px $light-primary solid;
+        border-bottom: 1px $light-primary solid;
+      }
+    }
+  }
+
   .title {
     color: $light-background;
     cursor: pointer;
