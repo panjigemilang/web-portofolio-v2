@@ -1,8 +1,9 @@
 @import "variables";
+@import "../../prefix";
 @import "blocks";
 
 .block-2 {
-  background-color: $block-two;
+  background-color: black;
 }
 
 .block-3 {
@@ -10,12 +11,13 @@
 }
 
 .loading-container {
-  background-color: $light-primary;
+  background-color: $dark-primary;
   color: $text-light-primary;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100vw;
+  z-index: 99;
 
   h1 {
     left: calc(50% - 40px);

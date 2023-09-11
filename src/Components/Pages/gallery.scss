@@ -1,0 +1,127 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.gallery-app {
+  @include app;
+
+  .block-left-main,
+  .block-left-boundary,
+  .block-right-main,
+  .block-right-boundary {
+    height: 100%;
+    width: 100%;
+  }
+
+  .block-left-main {
+    @include particle;
+    background-color: $light-primary;
+    clip-path: polygon(0 0, 0 20em, 16% 0);
+  }
+
+  .block-left-boundary {
+    @include particle;
+    background: rgb(45, 70, 71);
+    background: linear-gradient(
+      130deg,
+      rgba(45, 70, 71, 1) 0%,
+      rgba(61, 180, 71, 1) 6%,
+      rgba(73, 225, 66, 1) 10%,
+      rgba(63, 244, 54, 1) 100%
+    );
+    clip-path: polygon(0 0, 0 23em, 17% 0);
+
+    z-index: -2;
+  }
+
+  .block-right-main {
+    @include particle;
+    background-color: $light-primary;
+    clip-path: polygon(84% 0, 100% 20em, 100% 0);
+  }
+
+  .block-right-boundary {
+    @include particle;
+    background: rgb(45, 70, 71);
+    background: linear-gradient(
+      230deg,
+      rgba(45, 70, 71, 1) 0%,
+      rgba(61, 180, 71, 1) 6%,
+      rgba(73, 225, 66, 1) 10%,
+      rgba(63, 244, 54, 1) 100%
+    );
+    clip-path: polygon(83% 0, 100% 23em, 100% 0);
+
+    z-index: -2;
+  }
+
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .small-circle {
+    @include small-circle;
+    bottom: 23%;
+    right: 5em;
+  }
+
+  .square {
+    @include square;
+    top: -13em;
+    right: 17em;
+  }
+
+  .triangle-circle {
+    @include triangle-circle;
+    top: 40%;
+    left: -3em;
+  }
+
+  .triangle {
+    @include triangle;
+    bottom: 5em;
+    right: 2em;
+  }
+
+  .circle-wave {
+    @include circle-wave;
+    top: 80%;
+    left: 2em;
+    height: 150px;
+  }
+
+  .square-outer {
+    @include square-outer;
+    top: 0;
+    right: 0;
+  }
+
+  .circle-and-plus {
+    @include circle-and-plus;
+    left: 0;
+    bottom: 0;
+  }
+
+  h4 {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .grid-gallery {
+    display: grid;
+    gap: 16px;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(4, 25% [col-start]);
+    overflow: hidden;
+
+    .gallery-item {
+      @include prefix(transition, 0.3s ease-in-out, webkit moz ms o);
+      cursor: pointer;
+
+      &:hover {
+        @include prefix(transform, scale(1.02), webkit ms);
+      }
+    }
+  }
+}

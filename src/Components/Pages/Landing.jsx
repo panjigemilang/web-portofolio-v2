@@ -1,33 +1,30 @@
 import React from "react"
-import ReactAnime from "react-animejs"
 import Index from "../../Context"
-import Loading from "../Commons/Loading"
+import SectionOne from "./SubPages/SectionOne"
+import "./landing.scss"
 
 export default function Landing() {
-  const { Anime } = ReactAnime
-  const {
-    transition,
-    setTransition,
-    toggleLoading,
-    setToggleLoading,
-  } = React.useContext(Index)
+  const { setActive, toggleLoading, setToggleLoading } = React.useContext(Index)
 
   React.useEffect(() => {
-    const time = 1000
+    window.scrollTo(0, 0)
 
-    const timeoutId = setTimeout(() => {
-      setToggleLoading(!toggleLoading)
-    }, time)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
+    setActive(1)
+    setToggleLoading(!toggleLoading)
   }, [])
 
   return (
-    <div>
-      {transition && <Loading />}
-      <h1>Landing</h1>
+    <div className="landing-app">
+      <span className="particle square"></span>
+      <span className="particle circle-outer"></span>
+      <span className="particle small-circle"></span>
+      <span className="particle triangle"></span>
+      <SectionOne />
+      <footer>
+        {(!process.env.NODE_ENV || process.env.NODE_ENV === "development") && (
+          <small className="footer">Beta_v.1.5.0</small>
+        )}
+      </footer>
     </div>
   )
 }

@@ -1,0 +1,208 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.about-app {
+  @include app;
+  display: flex;
+  overflow: hidden;
+
+  .about,
+  .about-right {
+    position: relative;
+    @include prefix(transition, 1s ease-in-out 0.5s, webkit moz ms o);
+    transform-style: preserve-3d;
+    min-width: 100vw;
+  }
+
+  .about {
+    &.hide {
+      min-width: 0;
+
+      .block {
+        clip-path: polygon(90% 0, 100% 0, 100% 37%, 80% 100%, 0 100%, 0 100%);
+      }
+
+      .content {
+        h1,
+        p,
+        hr,
+        button {
+          opacity: 0;
+        }
+      }
+    }
+
+    .block,
+    .block-2 {
+      @include prefix(transition, 1s ease-in-out, webkit moz ms o);
+      height: 100%;
+      width: 100%;
+    }
+
+    .block {
+      @include prefix(transform, translateZ(9px), webkit ms moz o);
+      background: rgb(18, 119, 13);
+      background: linear-gradient(
+        354deg,
+        rgba(18, 119, 13, 1) 0%,
+        rgba(73, 225, 66, 1) 100%
+      );
+      clip-path: polygon(82% 0, 100% 0, 100% 30%, 34% 100%, 0 100%, 0 75%);
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .block-2 {
+      @include prefix(transform, translateZ(10px), webkit ms moz o);
+      background-color: $light-primary;
+      clip-path: polygon(0 0, 52% 0, 77% 100%, 0% 100%);
+    }
+
+    .content {
+      @include prefix(transform, translateZ(11px), webkit ms moz o);
+      margin: 0 auto;
+      position: absolute;
+      text-align: center;
+      top: 40%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      h1,
+      p,
+      hr,
+      button {
+        @include prefix(transition, 0.5s ease-in-out, webkit moz ms o);
+        opacity: 1;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      hr {
+        border: 3px $light-boundary solid;
+        width: 10%;
+      }
+
+      .button-box {
+        cursor: auto;
+      }
+    }
+  }
+
+  .about-right {
+    background-color: $light-secondary;
+    position: relative;
+
+    .block,
+    .city {
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+    }
+
+    .block {
+      background: rgb(18, 119, 13);
+      background: linear-gradient(
+        354deg,
+        rgba(18, 119, 13, 1) 0%,
+        rgba(73, 225, 66, 1) 100%
+      );
+      clip-path: polygon(0 0, 0 37%, 11% 0);
+      position: absolute;
+    }
+
+    .city {
+      background-image: url("../../Assets/img/city.png");
+      bottom: 0;
+      height: 285px;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1200px;
+    }
+
+    .content {
+      padding-top: 10vh;
+      z-index: -1;
+
+      &.show {
+        .img-box,
+        .description,
+        .items {
+          @include prefix(transform, translateY(0), webkit moz ms o);
+          opacity: 1;
+        }
+      }
+
+      .img-box,
+      .description,
+      .items {
+        @include prefix(
+          transition,
+          1s cubic-bezier(0.64, 0.57, 0.67, 1.7) 1.8s,
+          webkit moz ms o
+        );
+        @include prefix(transform, translateY(70vh), webkit moz ms o);
+        opacity: 0;
+      }
+
+      .img-box {
+        img {
+          border: 5px $light-secondary solid;
+          border-radius: 50%;
+          box-shadow: 10px 10px 30px -3px rgba($color: $light-secondary-darken, $alpha:
+                0.7);
+          object-fit: cover;
+          height: 270px;
+          width: 100%;
+        }
+      }
+
+      .description {
+        p {
+          font-size: 14pt;
+        }
+      }
+
+      a {
+        color: white;
+        margin-bottom: 15px;
+        text-decoration: none;
+
+        &:focus {
+          outline: none;
+        }
+
+        .circle {
+          background-color: white;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: 30px;
+          border-radius: 50%;
+          height: 50px;
+          width: 50px;
+        }
+
+        .linkedin {
+          background-image: url("../../Assets/img/Icons/Linkedin.png");
+        }
+
+        .cv {
+          background-image: url("../../Assets/img/Icons/CV.png");
+        }
+
+        p {
+          line-height: 15px;
+        }
+
+        display: flex;
+      }
+    }
+  }
+}

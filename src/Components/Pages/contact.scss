@@ -1,0 +1,205 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.contact-app {
+  @include app;
+
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .circle-outer {
+    @include circle-outer;
+    @include prefix(transform, scaleX(-1), webkit moz ms o);
+    right: 38%;
+  }
+
+  .square-pattern {
+    @include square;
+    top: -8em;
+    right: -8em;
+  }
+
+  .wave {
+    @include wave;
+    right: 20%;
+    bottom: 35%;
+  }
+
+  .small-circle {
+    @include small-circle;
+    right: 10%;
+    bottom: 20%;
+  }
+
+  .triangle {
+    @include triangle;
+    right: 5%;
+    bottom: 10%;
+  }
+
+  .block {
+    background-color: $light-primary;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 20% 50%);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -2;
+  }
+
+  .content {
+    padding: 15px 0;
+
+    h1 {
+      color: $light-boundary;
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .row {
+      padding-top: 1em;
+    }
+
+    .img-box {
+      @include prefix(transition, 0.3s ease-in-out, webkit moz o);
+      @include prefix(transform-style, preserve-3d, webkit);
+      position: relative;
+
+      &::before,
+      &::after {
+        @include pseudo-outer-line;
+      }
+
+      &::before {
+        left: -3em;
+        top: -2em;
+      }
+
+      &::after {
+        right: -3em;
+        bottom: -2em;
+      }
+
+      img {
+        box-shadow: 15px 15px 15px -5px rgba(0, 0, 0, 0.18),
+          0 4px 15px 0 rgba(0, 0, 0, 0.15);
+        height: 70vh;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+
+    .items {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      margin-left: 5em;
+      justify-content: space-around;
+
+      .item {
+        display: flex;
+
+        .square,
+        .icons,
+        p {
+          @include prefix(transition, all 0.8s ease-in-out, webkit moz o);
+          position: absolute;
+          height: 70px;
+          width: 70px;
+        }
+
+        .square {
+          @include prefix(transform, rotate(0), webkit moz ms o);
+          background-color: $light-background;
+
+          &::after {
+            @include prefix(transition, all 0.8s ease-in-out, webkit moz o);
+            @include pseudo-outer-line;
+          }
+
+          &::after {
+            right: -0.5em;
+            bottom: -0.5em;
+          }
+        }
+
+        .icons {
+          @include prefix(transition, all 0.3s ease-in-out, webkit moz o);
+          @include prefix(transform-style, preserve-3d, webkit);
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: 40px;
+          z-index: 5;
+        }
+
+        p {
+          margin-left: 75px;
+          line-height: 30px;
+          opacity: 0;
+        }
+
+        .gmail {
+          background-image: url("../../Assets/img/Icons/Gmail.png");
+        }
+
+        .linkedin {
+          background-image: url("../../Assets/img/Icons/Linkedin.png");
+        }
+
+        .upwork {
+          background-image: url("../../Assets/img/Icons/Upwork.png");
+        }
+
+        .whatsapp {
+          background-image: url("../../Assets/img/Icons/Whatsapp.png");
+        }
+
+        .line {
+          background-image: url("../../Assets/img/Icons/Line.png");
+        }
+
+        .cv {
+          background-image: url("../../Assets/img/Icons/CV.png");
+        }
+
+        a {
+          cursor: pointer;
+          color: $text-light-primary;
+          position: relative;
+          text-decoration: none;
+
+          &:focus {
+            outline: none;
+          }
+
+          &:hover {
+            .square {
+              @include prefix(
+                transform,
+                rotate(1080deg) scale(0),
+                webkit moz ms o
+              );
+
+              &::after {
+                height: 0;
+                width: 0;
+              }
+            }
+
+            .icons {
+              @include prefix(transform, scale(1.2), webkit moz o);
+            }
+
+            p {
+              @include prefix(transform, scale(1.1), webkit moz o);
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

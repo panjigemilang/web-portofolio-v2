@@ -1,0 +1,57 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+
+.landing-app {
+  @include app;
+  background-color: $light-primary;
+
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .kotak {
+    position: relative;
+  }
+
+  .square {
+    @include square;
+    top: -12em;
+    left: 13em;
+  }
+
+  .circle-and-plus {
+    @include circle-and-plus;
+    left: -2em;
+  }
+
+  .wave {
+    @include wave;
+    left: 2em;
+  }
+
+  .small-circle {
+    @include small-circle;
+    bottom: 25%;
+    right: 8em;
+  }
+
+  .circle-outer {
+    @include circle-outer;
+    bottom: 40%;
+    right: 18em;
+  }
+
+  .triangle {
+    @include triangle;
+    right: 5em;
+    bottom: 5em;
+  }
+
+  footer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+  }
+}

@@ -1,19 +1,81 @@
 @import "../Commons/variables";
+@import "../../prefix";
 
-nav {
-  position: relative;
+.navbar-app {
+  @include prefix(
+    transition,
+    0.5s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+    webkit moz ms o
+  );
+  background: rgb(22, 52, 53);
+  background: linear-gradient(
+    90deg,
+    rgba(22, 52, 53, 0.8856136204481793) 0%,
+    rgba(22, 52, 53, 1) 100%
+  );
+  display: block;
+  height: 100%;
+  font-size: 12pt;
+  position: fixed;
+  left: -13em;
+  z-index: 99;
+
+  &.show {
+    left: 0;
+  }
+
+  img {
+    @include prefix(
+      transition,
+      0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+      webkit moz ms o
+    );
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    right: -5vw;
+    opacity: 0.5;
+    width: 2em;
+
+    &:hover {
+      @include prefix(transform, scale(1.2), webkit ms moz o);
+      opacity: 1;
+    }
+
+    &.rotate {
+      @include prefix(transform, rotate(180deg), webkit ms moz o);
+    }
+  }
+
+  &.hide {
+    display: none;
+  }
 
   ul {
-    margin: 30px;
+    @include prefix(transform, translateY(20%), webkit moz ms o);
+    @include prefix(
+      transition,
+      0.3s cubic-bezier(0.64, 0.57, 0.67, 1.7),
+      webkit moz o
+    );
+    height: 100%;
+    margin: 0;
+    padding: 0;
     text-align: center;
 
     li {
-      display: inline;
-      margin: 15px;
+      @include prefix(transition, 0.2s linear, webkit moz o);
+      font-size: 2em;
+      list-style: none;
+      padding: 15px 25px;
 
       &.active {
-        border-bottom: 1px solid black;
+        color: $light-boundary;
         pointer-events: none;
+
+        div {
+          border-bottom: 1px $light-boundary solid;
+        }
       }
 
       &:hover {
@@ -26,7 +88,6 @@ nav {
 
       div {
         cursor: pointer;
-        display: inline;
       }
     }
   }

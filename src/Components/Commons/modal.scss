@@ -1,0 +1,106 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+.modal-app {
+  @include prefix(transition, 0.3s linear, webkit moz ms o);
+  @include overlay;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+  visibility: hidden;
+  z-index: 99;
+
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $light-primary;
+  }
+
+  hr {
+    @include prefix(transition, 0.5s linear 0.3s, webkit moz ms o);
+    width: 0%;
+  }
+
+  .close-container {
+    margin: 16px auto;
+    width: max-content;
+
+    .close-circle {
+      @include prefix(transition, 0.3s ease-in-out, moz ms o webkit);
+      align-items: center;
+      cursor: pointer;
+      justify-content: center;
+      background-color: $laravel;
+      border-radius: 50%;
+      display: flex;
+      height: 40px;
+      width: 40px;
+
+      &:hover {
+        @include prefix(transform, scale(1.1), ms webkit);
+      }
+    }
+
+    i {
+      font-size: 20pt;
+    }
+  }
+
+  .img-box {
+    img {
+      @include prefix(
+        transition,
+        1s ease-in-out,
+        webkit moz o
+      );
+      @include prefix(transform, translateY(-50em), webkit moz mos o);
+      margin: 0 auto;
+      max-height: 80vh;
+      min-width: 30%;
+      object-fit: cover;
+    }
+  }
+
+  &.modal-gallery {
+    .img-box {
+      img {
+        max-height: 65vh;
+      }
+    }
+  }
+
+  &.show {
+    visibility: visible;
+
+    hr {
+      width: 80%;
+    }
+
+    img {
+      @include prefix(transform, translateY(0), webkit moz mos o);
+    }
+  }
+
+  .modal-description {
+    margin: 0 auto;
+    width: 90vw;
+
+    a {
+      color: $link;
+    }
+
+    h1 {
+      font-size: 1.25em;
+    }
+
+    li {
+      font-size: 0.76em;
+    }
+  }
+}

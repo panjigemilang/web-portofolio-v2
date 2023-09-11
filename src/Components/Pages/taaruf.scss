@@ -1,0 +1,152 @@
+@import "../Commons/variables";
+@import "../Commons/template";
+@import "../../prefix";
+
+@-webkit-keyframes upAndDown {
+  20%, 30% { -webkit-transform: rotate(90deg) translateX(1.8rem); }
+  30%, 40% { -webkit-transform: rotate(90deg) translateX(.1rem); }
+  40%, 50% { -webkit-transform: rotate(90deg) translateX(.3rem); }
+  50%, 60% { -webkit-transform: rotate(90deg) translateX(0rem); }
+  60%, 100% { -webkit-transform: rotate(90deg) translateX(0rem); }
+}    
+@keyframes upAndDown {
+  20%, 30% { transform: rotate(90deg) translateX(1.8rem); }
+  30%, 40% { transform: rotate(90deg) translateX(.1rem); }
+  40%, 50% { transform: rotate(90deg) translateX(.3rem); }
+  50%, 60% { transform: rotate(90deg) translateX(0rem); }
+  60%, 100% { transform: rotate(90deg) translateX(0rem); }
+}    
+
+.taaruf-app {
+  @include app;
+  background-color: $light-primary;
+  overflow-x: hidden;
+
+  // Particles
+  .particle {
+    @include particle;
+  }
+
+  .square {
+    @include square;
+    top: -4em;
+    left: 3em;
+  }
+
+  .small-circle {
+    @include small-circle;
+    top: 5%;
+    right: 8em;
+  }
+
+  .circle-outer {
+    @include circle-outer;
+    top: 25em;
+    left: 10em;
+  }
+
+  .triangle {
+    @include triangle;
+    top: 29em;
+    right: 5em;
+  }
+
+  section.s1 img {
+    border-radius: 20px;
+  }
+
+  header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .medium-block {
+    height: 40px;
+    width: 100%;
+  }
+
+  .large-block {
+    height: 200px;
+    width: 100%;
+
+    .content {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 4rem auto 0;
+      text-align: center;
+      width: fit-content;
+
+      .arrow {
+        height: 50px;
+        margin-top: 12px;
+        transform: rotate(90deg);
+        animation: upAndDown 4s infinite ease-in-out;
+        -webkit-animation: upAndDown 4s infinite ease-in-out;
+      }
+    }
+  }
+
+
+  .title {
+    margin: 0 0 16px;
+    text-align: left;
+  }
+
+  table {
+    text-align: left;
+    width: 100%;
+
+    th {
+      color: $text-header;
+      font-weight: 100;
+      font-style: italic;
+    }
+
+    td:nth-child(2) {
+      width: 4%;
+    }
+
+    th,
+    td {
+      vertical-align: top;
+    }
+  }
+
+  section.s1 {
+    line-height: 1.3rem;
+
+    .profile-container.mobile {
+      height: 300px !important;
+      margin: 0 auto 2rem !important;
+      width: 250px !important;
+    }
+  }
+
+  section.s2 {
+    overflow: hidden;
+  }
+}
+
+.modal-app {
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .taaruf-app {
+    .circle-outer {
+      top: 19em;
+      left: 2em;
+    }
+  
+    .triangle {
+      top: 53em;
+      right: 0;
+    }
+  
+    .small-circle {
+      top: 45%;
+    }
+  }
+}

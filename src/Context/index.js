@@ -2,8 +2,15 @@ import React from "react"
 
 export default React.createContext({
   active: 1,
-  transition: false,
+  modalShow: false,
+  modalSrc: "",
+  navShown: false,
   toggleLoading: false,
-  setTransition: () => {},
+  transition: false,
+  setActive: () => {},
+  setModalShow: () => {},
+  setModalSrc: () => {},
+  setNavShown: () => {},
   setToggleLoading: () => {},
+  setTransition: () => {},
 })
