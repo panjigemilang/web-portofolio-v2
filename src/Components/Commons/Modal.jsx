@@ -23,8 +23,15 @@ export default function Modal({
         </div>
       </div>
       <div className="img-box">
-        <TransformWrapper defaultScale={1} defaultPositionY={600}>
-          <TransformComponent>
+        <TransformWrapper 
+          defaultScale={1} 
+          defaultPositionX={0} 
+          defaultPositionY={0}
+          limitToBounds={false}
+          minScale={0.5}
+          maxScale={3}
+        >
+          <TransformComponent wrapperClass="transform-component-wrapper">
             <img src={src || ""} alt="" />
           </TransformComponent>
         </TransformWrapper>
