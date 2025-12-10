@@ -8,6 +8,7 @@ import Gallery from "./Components/Pages/Gallery"
 import Navbar from "./Components/Layouts/Navbar"
 import StickyNav from "./Components/Layouts/StickyNav"
 import Loading from "./Components/Commons/Loading"
+import LanguageSwitcher from "./Components/Commons/LanguageSwitcher"
 import Experience from "./Components/Pages/Experience"
 import NotFound from "./Components/Pages/NotFound"
 import Content from "./Components/Pages/Content"
@@ -24,6 +25,11 @@ function App() {
   const [modalSrc, setModalSrc] = React.useState(false)
   const [toggleLoading, setToggleLoading] = React.useState(false)
   const [navShown, setNavShown] = React.useState(false)
+  const [language, setLanguage] = React.useState(() => {
+    // Initialize language from localStorage or default to 'en'
+    const savedLanguage = localStorage.getItem("language")
+    return savedLanguage && ["en", "id", "ja"].includes(savedLanguage) ? savedLanguage : "en"
+  })
   const width = useCurrentWidth()
   const contextProvider = React.useMemo(
     () => ({
@@ -40,6 +46,8 @@ function App() {
       transition,
       setTransition,
       width,
+      language,
+      setLanguage,
     }),
     [
       active,
@@ -55,6 +63,8 @@ function App() {
       transition,
       setTransition,
       width,
+      language,
+      setLanguage,
     ]
   )
 
@@ -62,6 +72,7 @@ function App() {
     <Router>
       <IndexContext.Provider value={contextProvider}>
         <div className="App">
+          <LanguageSwitcher />
           <Navbar />
           {width <= 576 && !window.location.pathname.includes("taaruf") && (
             <StickyNav />

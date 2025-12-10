@@ -2,12 +2,14 @@ import React from "react"
 import DelayLink from "react-delay-link"
 import moment from "moment"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
+import useTranslation from "../../Utils/useTranslation"
 import profilePicture from "../../../Assets/img/SectionOne.png"
 import mobileProfile from "../../../Assets/img/About.jpeg"
 import StickyNav from "../../Layouts/StickyNav"
 import "./sectionOne.scss"
 
 export default function SectionOne() {
+  const { t } = useTranslation()
   const imgRef = React.useRef()
   const ages = new moment().diff("1998-12-03", "years")
   const [imgLoad, setImgLoad] = React.useState(false)
@@ -74,15 +76,14 @@ export default function SectionOne() {
                 to="/contact"
                 style={{ display: "inline" }}
               >
-                <button>CONTACT ME</button>
+                <button>{t("landing.contactMe")}</button>
               </DelayLink>
             </div>
           </div>
           <div className="col-sm-12 col-md-12 col-lg-5 description">
-            <h1>Web Developer and Android Developer</h1>
+            <h1>{t("landing.title")}</h1>
             <p>
-              I'm {ages} years old and enthusiast about web development and
-              android development.
+              {t("landing.description", { age: ages })}
               <span className="particle wave"></span>
             </p>
           </div>

@@ -2,9 +2,11 @@ import React from "react"
 import DelayLink from "react-delay-link"
 import RenderSmoothImage from "render-smooth-image-react"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
+import useTranslation from "../../Utils/useTranslation"
 import Skeleton from "react-loading-skeleton"
 
 export default function Card({ item }) {
+  const { t } = useTranslation()
   const maxChar = 100
   const concatText = " ..."
   const [transition, show] = useDelayedUnmounting(1600)
@@ -40,7 +42,7 @@ export default function Card({ item }) {
               delay={delay}
               to={`/portofolio/${item.title.replace(/ /g, "-")}`}
             >
-              <button>Details</button>
+              <button>{t("portfolio.details")}</button>
             </DelayLink>
           </div>
         </div>

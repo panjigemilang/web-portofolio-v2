@@ -4,12 +4,14 @@ import Index from "../../Context"
 import DelayLink from "react-delay-link"
 import Arrow from "../../Assets/img/Arrow.svg"
 import useDelayedUnmounting from "../Utils/useDelayComponent"
+import useTranslation from "../Utils/useTranslation"
 import "./Navbar.scss"
 
 function Navbar({ history }) {
-  const { active, navShown, setNavShown, setToggleLoading } = React.useContext(
+  const { active, navShown, setNavShown, setToggleLoading, language } = React.useContext(
     Index
   )
+  const { t } = useTranslation()
   const [locationKeys, setLocationKeys] = React.useState([])
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
@@ -41,7 +43,7 @@ function Navbar({ history }) {
     <>
       <nav
         className={`navbar-app ${active === 1 || active === 0 ? "hide" : ""}
-      ${navShown ? "show" : ""}`}
+      ${navShown ? "show" : ""} lang-${language}`}
       >
         <img
           src={Arrow}
@@ -52,12 +54,12 @@ function Navbar({ history }) {
         <ul>
           <li className={active === 1 ? "active" : ""}>
             <DelayLink delay={delay} clickAction={() => onClick()} to="/">
-              Home
+              {t("nav.home")}
             </DelayLink>
           </li>
           <li className={active === 2 ? "active" : ""}>
             <DelayLink delay={delay} clickAction={() => onClick()} to="/about">
-              About
+              {t("nav.about")}
             </DelayLink>
           </li>
           <li className={active === 3 ? "active" : ""}>
@@ -66,7 +68,7 @@ function Navbar({ history }) {
               clickAction={() => onClick()}
               to="/experience"
             >
-              Experience
+              {t("nav.experience")}
             </DelayLink>
           </li>
           <li className={active === 4 ? "active" : ""}>
@@ -75,7 +77,7 @@ function Navbar({ history }) {
               clickAction={() => onClick()}
               to="/gallery"
             >
-              Gallery
+              {t("nav.gallery")}
             </DelayLink>
           </li>
           <li className={active === 5 ? "active" : ""}>
@@ -84,7 +86,7 @@ function Navbar({ history }) {
               clickAction={() => onClick()}
               to="/portofolio"
             >
-              Portofolio
+              {t("nav.portfolio")}
             </DelayLink>
           </li>
           <li className={active === 6 ? "active" : ""}>
@@ -93,7 +95,7 @@ function Navbar({ history }) {
               clickAction={() => onClick()}
               to="/contact"
             >
-              Contact
+              {t("nav.contact")}
             </DelayLink>
           </li>
         </ul>

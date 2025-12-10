@@ -18,6 +18,7 @@ import InidiaDetail from "../../Assets/img/blog.jpg"
 import Bdd from "../../Assets/img/bdd.jpg"
 import BddDashboard from "../../Assets/img/bdd-dashboard.jpg"
 import BddForm from "../../Assets/img/bdd-form.jpg"
+import { getTranslatedContent } from "./getTranslatedContent"
 
 const content2019 = [
   {
@@ -245,5 +246,14 @@ const content2020 = [
     link: "https://bolehdicoba.com",
   },
 ]
+
+// Function to get translated content arrays
+export function getContent2019(language = "en") {
+  return content2019.map((item) => getTranslatedContent(item, language))
+}
+
+export function getContent2020(language = "en") {
+  return content2020.map((item) => getTranslatedContent(item, language))
+}
 
 export { content2019, content2020 }

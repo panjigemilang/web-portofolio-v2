@@ -1,5 +1,6 @@
 import React from "react"
 import Index from "../../Context"
+import useTranslation from "../Utils/useTranslation"
 import Lists from "./SubPages/Lists"
 import moment from "moment"
 import ExperiencesItem from "./SubPages/ExperiencesItem"
@@ -8,6 +9,7 @@ import "./experience.scss"
 export default function Experience() {
   const { navShown, setActive, toggleLoading, setToggleLoading, width } =
     React.useContext(Index)
+  const { t } = useTranslation()
   const [buttonTrigger, setButtonTrigger] = React.useState([false, false])
   const [timelineActive, setTimelineActive] = React.useState(1)
   const experiences = new moment().diff("2020-09-25", "years")
@@ -37,11 +39,13 @@ export default function Experience() {
             <div className="exp">
               <h1>
                 <span className="particle circle-wave"></span>
-                Experiences
+                {t("experience.title")}
               </h1>
               <p>
-                Working experiences and projects in the informatics engineering
-                field in {experiences} {experiences > 1 ? "years" : "year"}.
+                {t("experience.description", {
+                  years: experiences,
+                  yearText: experiences > 1 ? t("experience.years") : t("experience.year"),
+                })}
               </p>
             </div>
             <div className="col-sm-12 mobile">
@@ -49,7 +53,7 @@ export default function Experience() {
             </div>
             <div className="timeline">
               <h1>
-                Timeline
+                {t("experience.timeline")}
                 <span className="particle square-combine"></span>
               </h1>
               <div className="row">

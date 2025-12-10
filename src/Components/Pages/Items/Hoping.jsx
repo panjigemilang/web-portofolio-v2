@@ -1,7 +1,9 @@
 import React from "react"
 import Skeleton from "react-loading-skeleton"
+import useTranslation from "../../Utils/useTranslation"
 
 export default function Hoping({ content, show, setShow, setSrc }) {
+  const { t } = useTranslation()
   const {
     descriptionOne,
     descriptionTwo,
@@ -14,6 +16,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
     src4,
     src5,
     src6,
+    imageCaptions,
   } = content
 
   const onClick = (source) => {
@@ -30,7 +33,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
         )}
         <span className="particle circle-and-plus"></span>
         <br />
-        {<small className="text-muted">Arrived at Osaka, Japan</small> || (
+        {<small className="text-muted">{imageCaptions?.arrived || "Arrived at Osaka, Japan"}</small> || (
           <Skeleton count={1} />
         )}
       </div>
@@ -43,7 +46,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
           <Skeleton height={150} />
         )}
         <br />
-        {<small className="text-muted">Company</small> || (
+        {<small className="text-muted">{imageCaptions?.company || "Company"}</small> || (
           <Skeleton count={1} />
         )}
       </div>
@@ -56,7 +59,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
         <br />
         {(
           <small className="text-muted">
-            Take a picture with friends and company CEO
+            {imageCaptions?.friends || "Take a picture with friends and company CEO"}
           </small>
         ) || <Skeleton count={1} />}
       </div>
@@ -72,7 +75,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
             ) || <Skeleton height={150} />}
             <br />
             {(
-              <small className="text-muted">Ōsaka jōkōen (Osaka Castle)</small>
+              <small className="text-muted">{imageCaptions?.osakaCastle || "Ōsaka jōkōen (Osaka Castle)"}</small>
             ) || <Skeleton count={1} />}
           </div>
         </div>
@@ -83,7 +86,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
             ) || <Skeleton height={150} />}
             <br />
             {(
-              <small className="text-muted">Tetsugaku No Michi, Kyoto</small>
+              <small className="text-muted">{imageCaptions?.kyoto || "Tetsugaku No Michi, Kyoto"}</small>
             ) || <Skeleton count={1} />}
           </div>
         </div>
@@ -93,7 +96,7 @@ export default function Hoping({ content, show, setShow, setSrc }) {
           <Skeleton height={150} />
         )}
         <br />
-        {<small className="text-muted">Going back to Indonesia</small> || (
+        {<small className="text-muted">{imageCaptions?.goingBack || "Going back to Indonesia"}</small> || (
           <Skeleton count={1} />
         )}
       </div>

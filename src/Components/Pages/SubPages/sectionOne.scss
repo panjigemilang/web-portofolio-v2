@@ -31,6 +31,7 @@
       margin: 35px;
       padding-bottom: 15px;
       position: relative;
+      white-space: nowrap;
 
       &.mobile-li {
         display: none;
@@ -67,6 +68,18 @@
         i {
           display: none;
         }
+      }
+    }
+  }
+
+  // Japanese language specific adjustments
+  &.lang-ja {
+    font-size: 1.4em; // Smaller font size for Japanese
+
+    ul {
+      li {
+        margin: 25px 20px; // Reduced margin for Japanese
+        font-size: 0.9em; // Slightly smaller text
       }
     }
   }

@@ -1,7 +1,9 @@
 import React from "react"
 import Skeleton from "react-loading-skeleton"
+import useTranslation from "../../Utils/useTranslation"
 
 export default function Fkhapps({ content, show, setShow, setSrc }) {
+  const { t } = useTranslation()
   const {
     title,
     descriptionOne,
@@ -15,7 +17,8 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
     technologyIntro,
     technologies,
     outro,
-    link
+    link,
+    imageCaptions,
   } = content
 
   const onClick = (source) => {
@@ -48,7 +51,7 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
               <img src={src2} alt="image.jpg" onClick={() => onClick(src2)} />
             ) || <Skeleton height={150} />}
             <br />
-            {<small className="text-muted">{src2description}</small> || (
+            {<small className="text-muted">{imageCaptions?.login || src2description}</small> || (
               <Skeleton count={1} />
             )}
           </div>
@@ -59,7 +62,7 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
               <img src={src3} alt="image.jpg" onClick={() => onClick(src3)} />
             ) || <Skeleton height={150} />}
             <br />
-            {<small className="text-muted">{src3description}</small> || (
+            {<small className="text-muted">{imageCaptions?.dashboard || src3description}</small> || (
               <Skeleton count={1} />
             )}
           </div>

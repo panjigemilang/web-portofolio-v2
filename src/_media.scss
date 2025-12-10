@@ -35,6 +35,18 @@
       }
     }
 
+    // Japanese language specific adjustments for mobile
+    &.lang-ja {
+      font-size: 9pt; // Smaller font for Japanese on mobile
+      
+      ul {
+        li {
+          font-size: 0.85em; // Smaller text size
+          padding: 8px 12px; // Adjusted padding
+        }
+      }
+    }
+
     ul {
       display: flex;
       flex-wrap: nowrap;

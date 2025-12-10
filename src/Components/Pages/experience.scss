@@ -148,7 +148,7 @@
       .experiences-content-app {
         @include prefix(transition, 0.5s ease-in-out, webkit moz ms o);
         margin: 0 15px;
-        min-width: 100%;
+        min-width: 97%;
 
         &.item-0.state-one {
           @include prefix(

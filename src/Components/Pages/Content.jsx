@@ -1,6 +1,7 @@
 import React from "react"
 import Index from "../../Context"
 import { content2019, content2020 } from "../Utils/ContentVariables"
+import { getTranslatedContent } from "../Utils/getTranslatedContent"
 import "./content.scss"
 import Default from "./Items/Default"
 import Hoping from "./Items/Hoping"
@@ -13,6 +14,7 @@ export default function Content({ match }) {
     setActive,
     toggleLoading,
     setToggleLoading,
+    language,
   } = React.useContext(Index)
   const [content, setContent] = React.useState([])
   const [item, setItem] = React.useState()
@@ -26,21 +28,31 @@ export default function Content({ match }) {
     setActive(0)
     setToggleLoading(!toggleLoading)
 
-    const temp = []
+    // Get original content to match by original title (from URL)
+    const { content2019: orig2019, content2020: orig2020 } = require("../Utils/ContentVariables")
+    const originalTitle = title.replace(/-/g, " ")
+    
+    // Find original item
+    let originalItem = orig2019.find((item) => item.title === originalTitle)
+    if (!originalItem) {
+      originalItem = orig2020.find((item) => item.title === originalTitle)
+    }
 
-    temp.push(
-      ...content2019.filter((item) => item.title === title.replace(/-/g, " "))
-    )
-    temp.push(
-      ...content2020.filter((item) => item.title === title.replace(/-/g, " "))
-    )
-
-    setContent(temp)
-  }, [])
+    if (originalItem) {
+      // Get translated version
+      const { getTranslatedContent } = require("../Utils/getTranslatedContent")
+      const translatedItem = getTranslatedContent(originalItem, language)
+      setContent([translatedItem])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language, title])
 
   React.useEffect(() => {
     if (content[0]) {
-      switch (content[0].title.replace(/-/g, " ")) {
+      // Use original title from URL to determine component type
+      const originalTitle = title.replace(/-/g, " ")
+      
+      switch (originalTitle) {
         case "(有) ホーピング Hoping (Internship)":
           setItem(
             <Hoping
@@ -83,7 +95,7 @@ export default function Content({ match }) {
           break
       }
     }
-  }, [content])
+  }, [content, title, show, setShow, setSrc])
 
   return (
     <>
@@ -101,7 +113,7 @@ export default function Content({ match }) {
           <div className="container">
             <div className="row">
               <div className="title">
-                <h1>{title.replace(/-/g, " ")}</h1>
+                <h1>{content[0]?.title || title.replace(/-/g, " ")}</h1>
               </div>
             </div>
             {item}
