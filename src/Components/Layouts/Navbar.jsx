@@ -5,12 +5,12 @@ import DelayLink from "react-delay-link"
 import Arrow from "../../Assets/img/Arrow.svg"
 import useDelayedUnmounting from "../Utils/useDelayComponent"
 import useTranslation from "../Utils/useTranslation"
+import { getLocalizedPath } from "../Utils/languageRouting"
 import "./Navbar.scss"
 
 function Navbar({ history }) {
-  const { active, navShown, setNavShown, setToggleLoading, language } = React.useContext(
-    Index
-  )
+  const { active, navShown, setNavShown, setToggleLoading, language } =
+    React.useContext(Index)
   const { t } = useTranslation()
   const [locationKeys, setLocationKeys] = React.useState([])
   const [transition, show] = useDelayedUnmounting(1600)
@@ -53,12 +53,20 @@ function Navbar({ history }) {
         />
         <ul>
           <li className={active === 1 ? "active" : ""}>
-            <DelayLink delay={delay} clickAction={() => onClick()} to="/">
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to={getLocalizedPath("/", language)}
+            >
               {t("nav.home")}
             </DelayLink>
           </li>
           <li className={active === 2 ? "active" : ""}>
-            <DelayLink delay={delay} clickAction={() => onClick()} to="/about">
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to={getLocalizedPath("/about", language)}
+            >
               {t("nav.about")}
             </DelayLink>
           </li>
@@ -66,7 +74,7 @@ function Navbar({ history }) {
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/experience"
+              to={getLocalizedPath("/experience", language)}
             >
               {t("nav.experience")}
             </DelayLink>
@@ -75,7 +83,7 @@ function Navbar({ history }) {
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/gallery"
+              to={getLocalizedPath("/gallery", language)}
             >
               {t("nav.gallery")}
             </DelayLink>
@@ -84,7 +92,7 @@ function Navbar({ history }) {
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/portofolio"
+              to={getLocalizedPath("/portofolio", language)}
             >
               {t("nav.portfolio")}
             </DelayLink>
@@ -93,7 +101,7 @@ function Navbar({ history }) {
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/contact"
+              to={getLocalizedPath("/contact", language)}
             >
               {t("nav.contact")}
             </DelayLink>

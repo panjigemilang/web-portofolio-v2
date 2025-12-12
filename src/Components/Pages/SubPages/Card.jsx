@@ -3,9 +3,12 @@ import DelayLink from "react-delay-link"
 import RenderSmoothImage from "render-smooth-image-react"
 import useDelayedUnmounting from "../../Utils/useDelayComponent"
 import useTranslation from "../../Utils/useTranslation"
+import { getLocalizedPath } from "../../Utils/languageRouting"
+import Index from "../../../Context"
 import Skeleton from "react-loading-skeleton"
 
 export default function Card({ item }) {
+  const { language } = React.useContext(Index)
   const { t } = useTranslation()
   const maxChar = 100
   const concatText = " ..."
@@ -40,7 +43,10 @@ export default function Card({ item }) {
             <DelayLink
               clickAction={show}
               delay={delay}
-              to={`/portofolio/${item.title.replace(/ /g, "-")}`}
+              to={getLocalizedPath(
+                `/portofolio/${item.title.replace(/ /g, "-")}`,
+                language
+              )}
             >
               <button>{t("portfolio.details")}</button>
             </DelayLink>

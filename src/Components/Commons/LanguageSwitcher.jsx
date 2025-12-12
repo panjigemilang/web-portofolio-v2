@@ -1,10 +1,14 @@
 import React from "react"
+import { useHistory, useLocation } from "react-router-dom"
 import Index from "../../Context"
+import { parseLanguageFromPath, getLocalizedPath } from "../Utils/languageRouting"
 import "./languageSwitcher.scss"
 
 export default function LanguageSwitcher() {
   const { language, setLanguage } = React.useContext(Index)
   const [isOpen, setIsOpen] = React.useState(false)
+  const history = useHistory()
+  const location = useLocation()
 
   const languages = [
     { code: "en", name: "English", flag: "🌐" },
@@ -20,6 +24,13 @@ export default function LanguageSwitcher() {
     setIsOpen(false)
     // Save to localStorage
     localStorage.setItem("language", langCode)
+    
+    // Get current path without language prefix
+    const { path } = parseLanguageFromPath(location.pathname)
+    
+    // Navigate to the same path with new language prefix
+    const newPath = getLocalizedPath(path, langCode)
+    history.push(newPath)
   }
 
   React.useEffect(() => {
