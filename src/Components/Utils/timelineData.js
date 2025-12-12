@@ -1,7 +1,7 @@
 /**
  * Timeline Data Configuration
  * Easily add new years and months by adding entries to this array
- * 
+ *
  * Structure:
  * - year: The year number
  * - months: Array of month objects
@@ -26,12 +26,10 @@ export const timelineData = [
     ],
   },
   // Add more years here as needed:
-  // {
-  //   year: 2021,
-  //   months: [
-  //     { month: "Nov", activeId: 7 },
-  //   ],
-  // },
+  {
+    year: 2021,
+    months: [{ month: "Feb", activeId: 7 }],
+  },
 ]
 
 /**
@@ -55,8 +53,7 @@ export function getMonthsForYear(year) {
 export function getActiveIdForYearMonth(year, month) {
   const yearData = timelineData.find((item) => item.year === year)
   if (!yearData) return null
-  
+
   const monthData = yearData.months.find((m) => m.month === month)
   return monthData ? monthData.activeId : null
 }
-

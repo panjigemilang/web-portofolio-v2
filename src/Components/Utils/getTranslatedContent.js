@@ -18,6 +18,7 @@ const titleToKey = {
   "Bloom Browser (Project)": "bloomBrowser",
   "Ini Dia Lo (Project)": "iniDiaLo",
   "Boleh Dicoba Digital": "bolehDicobaDigital",
+  "Opsigo": "opsigo",
 }
 
 export function getTranslatedContent(originalContent, language = "en") {

@@ -134,5 +134,24 @@ export default {
       form: "Component Form Page",
     },
   },
+  opsigo: {
+    title: "Opsigo",
+    job: "Fullstack Developer",
+    description:
+      "I'm working as a fullstack developer on this company. This company is about corporate travel management system. If your company needs to travel for business, need to manage your employees and expenses travel, all things about traveling becomes easier with Opsicorp!!.",
+    descriptionOne:
+      "I have hands-on experience significantly improving company web performance — in one project, I successfully increased overall performance by 67%. I achieved this by refactoring the existing codebase to make it more reusable and maintainable, optimizing API calls to reduce load and latency, and fixing workflow logic issues as well as redundant functions. These improvements not only boosted speed but also enhanced stability and scalability for future development.",
+    descriptionTwo:
+      "I also proposed and initiated a new Group Business Trip feature after identifying that the current app workflow was not efficient for handling batch trips. By analyzing user behavior and operational needs, I saw a clear opportunity to streamline the process, reduce repetitive actions, and improve the overall experience for teams traveling together. This idea is aimed at increasing usability, operational efficiency, and long-term value for the company's product.",
+    technologyIntro:
+      "This project was built using the following programming languages and frameworks : ",
+    technologies: ["Javascript", "Jquery", "AngularJS", "C#", ".NET"],
+    outro:
+      "I hope these experiences not only demonstrate my contributions, but also continue to strengthen my skills as a developer in a meaningful and positive way. I'm excited to keep learning, growing, and delivering even greater impact in future projects.",
+    imageCaptions: {
+      team: "Opsigo Team",
+      system: "Corporate Travel Management System",
+    },
+  },
 }
 

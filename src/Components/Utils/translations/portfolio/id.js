@@ -134,5 +134,24 @@ export default {
       form: "Halaman Form Komponen",
     },
   },
+  opsigo: {
+    title: "Opsigo",
+    job: "Fullstack Developer",
+    description:
+      "Saya bekerja sebagai fullstack developer di perusahaan ini. Perusahaan ini adalah tentang sistem manajemen perjalanan korporat. Jika perusahaan Anda perlu melakukan perjalanan bisnis, perlu mengelola karyawan dan pengeluaran perjalanan, semua hal tentang perjalanan menjadi lebih mudah dengan Opsicorp!!.",
+    descriptionOne:
+      "Saya memiliki pengalaman langsung yang secara signifikan meningkatkan kinerja web perusahaan — dalam satu proyek, saya berhasil meningkatkan kinerja keseluruhan sebesar 67%. Saya mencapai ini dengan melakukan refactoring codebase yang ada untuk membuatnya lebih dapat digunakan kembali dan dapat dirawat, mengoptimalkan panggilan API untuk mengurangi beban dan latensi, serta memperbaiki masalah logika alur kerja dan fungsi yang berlebihan. Peningkatan ini tidak hanya meningkatkan kecepatan tetapi juga meningkatkan stabilitas dan skalabilitas untuk pengembangan di masa depan.",
+    descriptionTwo:
+      "Saya juga mengusulkan dan memulai fitur Group Business Trip baru setelah mengidentifikasi bahwa alur kerja aplikasi saat ini tidak efisien untuk menangani perjalanan batch. Dengan menganalisis perilaku pengguna dan kebutuhan operasional, saya melihat peluang yang jelas untuk merampingkan proses, mengurangi tindakan berulang, dan meningkatkan pengalaman keseluruhan untuk tim yang bepergian bersama. Ide ini bertujuan untuk meningkatkan kegunaan, efisiensi operasional, dan nilai jangka panjang untuk produk perusahaan.",
+    technologyIntro:
+      "Proyek ini dibangun menggunakan bahasa pemrograman dan framework berikut : ",
+    technologies: ["Javascript", "Jquery", "AngularJS", "C#", ".NET"],
+    outro:
+      "Saya berharap pengalaman ini tidak hanya menunjukkan kontribusi saya, tetapi juga terus memperkuat keterampilan saya sebagai developer dengan cara yang bermakna dan positif. Saya sangat antusias untuk terus belajar, tumbuh, dan memberikan dampak yang lebih besar di proyek-proyek masa depan.",
+    imageCaptions: {
+      team: "Tim Opsigo",
+      system: "Sistem Manajemen Perjalanan Korporat",
+    },
+  },
 }
 

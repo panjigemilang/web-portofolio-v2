@@ -1,6 +1,5 @@
 import React from "react"
 import Index from "../../Context"
-import { content2019, content2020 } from "../Utils/ContentVariables"
 import { getTranslatedContent } from "../Utils/getTranslatedContent"
 import "./content.scss"
 import Default from "./Items/Default"
@@ -9,13 +8,8 @@ import Modal from "../Commons/Modal"
 import Fkhapps from "./Items/Fkhapps"
 
 export default function Content({ match }) {
-  const {
-    navShown,
-    setActive,
-    toggleLoading,
-    setToggleLoading,
-    language,
-  } = React.useContext(Index)
+  const { navShown, setActive, toggleLoading, setToggleLoading, language } =
+    React.useContext(Index)
   const [content, setContent] = React.useState([])
   const [item, setItem] = React.useState()
   const [show, setShow] = React.useState(false)
@@ -29,18 +23,24 @@ export default function Content({ match }) {
     setToggleLoading(!toggleLoading)
 
     // Get original content to match by original title (from URL)
-    const { content2019: orig2019, content2020: orig2020 } = require("../Utils/ContentVariables")
+    const {
+      content2019: orig2019,
+      content2020: orig2020,
+      content2021: orig2021,
+    } = require("../Utils/ContentVariables")
     const originalTitle = title.replace(/-/g, " ")
-    
+
     // Find original item
     let originalItem = orig2019.find((item) => item.title === originalTitle)
     if (!originalItem) {
       originalItem = orig2020.find((item) => item.title === originalTitle)
     }
+    if (!originalItem) {
+      originalItem = orig2021.find((item) => item.title === originalTitle)
+    }
 
     if (originalItem) {
       // Get translated version
-      const { getTranslatedContent } = require("../Utils/getTranslatedContent")
       const translatedItem = getTranslatedContent(originalItem, language)
       setContent([translatedItem])
     }
@@ -51,7 +51,7 @@ export default function Content({ match }) {
     if (content[0]) {
       // Use original title from URL to determine component type
       const originalTitle = title.replace(/-/g, " ")
-      
+
       switch (originalTitle) {
         case "(有) ホーピング Hoping (Internship)":
           setItem(

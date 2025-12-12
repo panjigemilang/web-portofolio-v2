@@ -1,6 +1,10 @@
 import React from "react"
 import Index from "../../../Context"
-import { getContent2019, getContent2020 } from "../../Utils/ContentVariables"
+import {
+  getContent2019,
+  getContent2020,
+  getContent2021,
+} from "../../Utils/ContentVariables"
 import ExperiencesContent from "../Items/ExperiencesContent"
 
 export default function ExperiencesItem({ active }) {
@@ -11,6 +15,7 @@ export default function ExperiencesItem({ active }) {
   React.useEffect(() => {
     const content2019 = getContent2019(language)
     const content2020 = getContent2020(language)
+    const content2021 = getContent2021(language)
     const temp = []
 
     // set Rotate to default
@@ -41,8 +46,12 @@ export default function ExperiencesItem({ active }) {
           setContent(temp)
         }
         break
-        case 6:
+      case 6:
         temp.push(content2020[4])
+        setContent(temp)
+        break
+      case 7:
+        temp.push(content2021[0])
         setContent(temp)
         break
       default:

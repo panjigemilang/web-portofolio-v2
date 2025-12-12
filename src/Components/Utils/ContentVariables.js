@@ -18,6 +18,8 @@ import InidiaDetail from "../../Assets/img/blog.jpg"
 import Bdd from "../../Assets/img/bdd.jpg"
 import BddDashboard from "../../Assets/img/bdd-dashboard.jpg"
 import BddForm from "../../Assets/img/bdd-form.jpg"
+import Opsigo from "../../Assets/img/fotbar-opsigo.jpg"
+import Opsicorp from "../../Assets/img/dev-opsicorp.png"
 import { getTranslatedContent } from "./getTranslatedContent"
 
 const content2019 = [
@@ -247,6 +249,30 @@ const content2020 = [
   },
 ]
 
+const content2021 = [
+  {
+    title: "Opsigo",
+    job: "Fullstack Developer",
+    date: `Feb - Current . ${new moment().diff("2021-02-01", "months")} Mos`,
+    src: Opsigo,
+    srcdescription: "Opsigo Team",
+    src2: Opsicorp,
+    src2description: "Corporate Travel Management System",
+    description:
+      "I'm working as a fullstack developer on this company. This company is about corporate travel management system. If your company needs to travel for business, need to manage your employees and expenses travel, all things about traveling becomes easier with Opsicorp!!.",
+    descriptionOne:
+      "\xa0\xa0I have hands-on experience significantly improving company web performance — in one project, I successfully increased overall performance by 67%. I achieved this by refactoring the existing codebase to make it more reusable and maintainable, optimizing API calls to reduce load and latency, and fixing workflow logic issues as well as redundant functions. These improvements not only boosted speed but also enhanced stability and scalability for future development.",
+    descriptionTwo:
+      "\xa0\xa0I also proposed and initiated a new Group Business Trip feature after identifying that the current app workflow was not efficient for handling batch trips. By analyzing user behavior and operational needs, I saw a clear opportunity to streamline the process, reduce repetitive actions, and improve the overall experience for teams traveling together. This idea is aimed at increasing usability, operational efficiency, and long-term value for the company’s product.",
+    technologyIntro:
+      "This project was built using the following programming languages and frameworks : ",
+    technologies: ["Javascript", "Jquery", "AngularJS", "C#", ".NET"],
+    outro:
+      "\xa0\xa0I hope these experiences not only demonstrate my contributions, but also continue to strengthen my skills as a developer in a meaningful and positive way. I’m excited to keep learning, growing, and delivering even greater impact in future projects.",
+    link: " ",
+  },
+]
+
 // Function to get translated content arrays
 export function getContent2019(language = "en") {
   return content2019.map((item) => getTranslatedContent(item, language))
@@ -256,4 +282,8 @@ export function getContent2020(language = "en") {
   return content2020.map((item) => getTranslatedContent(item, language))
 }
 
-export { content2019, content2020 }
+export function getContent2021(language = "en") {
+  return content2021.map((item) => getTranslatedContent(item, language))
+}
+
+export { content2019, content2020, content2021 }
