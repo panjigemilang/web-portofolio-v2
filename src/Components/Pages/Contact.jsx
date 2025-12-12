@@ -1,11 +1,13 @@
 import React, { useCallback } from "react";
 import Index from "../../Context";
+import useTranslation from "../Utils/useTranslation";
 import PP from "../../Assets/img/Footer.jpeg";
 import "./contact.scss";
 
 export default function Contact() {
   const { navShown, setActive, toggleLoading, setToggleLoading } =
     React.useContext(Index);
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,7 +44,7 @@ export default function Contact() {
         } finally {
           document.body.removeChild(textarea);
 
-          window.alert("Copied to clipboard!");
+          window.alert(t("contact.copied"));
         }
       }
     }
@@ -57,7 +59,7 @@ export default function Contact() {
       <div className="block"></div>
       <div className="content container">
         <h1>
-          Contact Me
+          {t("contact.title")}
           <span className="particle circle-outer"></span>
         </h1>
         <div className="row">

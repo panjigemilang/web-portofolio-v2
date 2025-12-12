@@ -26,15 +26,26 @@
   font-size: 13pt;
 }
 
+html {
+  height: 100% !important;
+  min-height: 100vh !important;
+  position: relative;
+  background-color: $light-secondary !important;
+}
+
 html,
 body {
   position: relative;
+  background-color: $light-secondary !important;
+  height: 100% !important;
+  min-height: 100vh !important;
 }
 
 body {
-  background-color: $light-secondary;
+  background-color: $light-secondary !important;
   font-family: "Product Sans";
-  height: 100%;
+  min-height: 100vh !important;
+  height: 100% !important;
   margin: 0;
   outline: none;
   overflow-x: hidden;
@@ -54,8 +65,16 @@ body {
   }
 }
 
+#root {
+  background-color: $light-secondary;
+  min-height: 100vh;
+  height: 100%;
+}
+
 .App {
   background-color: $light-secondary;
+  min-height: 100vh;
+  height: 100%;
 
   &.blur {
     filter: blur(15px);
@@ -149,4 +168,8 @@ button {
 
 .m-0 {
   margin: 0;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

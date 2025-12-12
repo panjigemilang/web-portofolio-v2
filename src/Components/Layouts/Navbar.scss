@@ -68,6 +68,7 @@
       font-size: 2em;
       list-style: none;
       padding: 15px 25px;
+      white-space: nowrap;
 
       &.active {
         color: $light-boundary;
@@ -88,6 +89,26 @@
 
       div {
         cursor: pointer;
+      }
+    }
+  }
+
+  // Japanese language specific adjustments
+  &.lang-ja {
+    left: -18em; // Wider sidebar for Japanese text (increased from 16em)
+    width: 18em; // Set explicit width
+    
+    &.show {
+      left: 0;
+    }
+
+    ul {
+      li {
+        font-size: 1.4em; // Smaller font size for Japanese
+        padding: 12px 18px; // Adjusted padding
+        line-height: 1.5; // Better line height for Japanese characters
+        word-break: keep-all; // Prevent breaking Japanese words
+        overflow-wrap: normal; // Keep words together
       }
     }
   }

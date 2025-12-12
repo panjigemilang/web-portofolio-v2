@@ -1,16 +1,18 @@
 import React from "react"
 import Index from "../../Context"
+import useTranslation from "../Utils/useTranslation"
 import Card from "./SubPages/Card"
-import { content2019, content2020 } from "../Utils/ContentVariables"
+import {
+  getContent2019,
+  getContent2020,
+  getContent2021,
+} from "../Utils/ContentVariables"
 import "./portofolio.scss"
 
 export default function Portofolio() {
-  const {
-    navShown,
-    setActive,
-    toggleLoading,
-    setToggleLoading,
-  } = React.useContext(Index)
+  const { navShown, setActive, toggleLoading, setToggleLoading, language } =
+    React.useContext(Index)
+  const { t } = useTranslation()
   const [content, setContent] = React.useState([])
 
   React.useEffect(() => {
@@ -19,13 +21,19 @@ export default function Portofolio() {
     setActive(5)
     setToggleLoading(!toggleLoading)
 
+    const content2019 = getContent2019(language)
+    const content2020 = getContent2020(language)
+    const content2021 = getContent2021(language)
     const temp = []
 
     content2019.map((item) => temp.push(item))
     temp.push(...content2020.filter((item) => !item.title.includes("Hoping")))
+    temp.push(...content2021)
+    console.log(temp)
 
     setContent(temp)
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language])
 
   return (
     <div className={`portofolio-app ${navShown ? "blur" : ""}`}>
@@ -36,7 +44,7 @@ export default function Portofolio() {
         <div className="container">
           <div className="row">
             <div className="title">
-              <h1>Portofolio</h1>
+              <h1>{t("portfolio.title")}</h1>
             </div>
             {content.map((item, i) => (
               <div

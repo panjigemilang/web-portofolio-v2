@@ -3,11 +3,13 @@ import Index from "../../Context"
 import { gallery } from "../Utils/GalleryContents"
 import ReactSmoothImage from "../Commons/ReactSmoothImage"
 import Modal from "../Commons/Modal"
+import useTranslation from "../Utils/useTranslation"
 import "./gallery.scss"
 
 export default function Gallery({ gallrs }) {
   const { navShown, setActive, toggleLoading, setToggleLoading, width } =
     React.useContext(Index)
+  const { t } = useTranslation()
   const gridGallery = React.useRef({})
   const [show, setShow] = React.useState(false)
   const [src, setSrc] = React.useState("")
@@ -63,13 +65,10 @@ export default function Gallery({ gallrs }) {
         <div className="container">
           <div className="row">
             <div className="title">
-              <h1>Gallery</h1>
+              <h1>{t("gallery.title")}</h1>
             </div>
           </div>
-          <h4>
-            I like drawing scenery. Currently have interests about digital
-            drawing
-          </h4>
+          <h4>{t("gallery.description")}</h4>
           <div className="grid-gallery" ref={gridGallery}>
             {galleries.map((item, i) => (
               <ReactSmoothImage

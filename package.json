@@ -7,7 +7,6 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-delay-link": "^1.1.4",
     "react-dom": "^16.13.1",
@@ -16,11 +15,12 @@
     "react-scripts": "3.4.1",
     "react-zoom-pan-pinch": "^1.6.1",
     "render-smooth-image-react": "^1.0.0",
+    "sass": "^1.32.0",
     "smoothscroll-polyfill": "^0.4.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "serve -s build",
     "eject": "react-scripts eject"
   },
@@ -39,5 +39,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
 }

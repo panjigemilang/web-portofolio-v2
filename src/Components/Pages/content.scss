@@ -2,8 +2,10 @@
 @import "../Commons/template";
 @import "../../prefix";
 
-.content-app {
+  .content-app {
   @include app;
+  overflow-x: hidden;
+  padding-bottom: 2em;
 
   .block-left-main,
   .block-left-boundary,
@@ -98,6 +100,7 @@
 
   .container {
     max-width: 800px;
+    padding-bottom: 3em;
   }
 
   .title {
@@ -136,9 +139,10 @@
 
   p {
     color: whitesmoke;
-    margin: 0;
+    margin: 0 0 1.5em 0;
     line-height: 1.7;
     text-align: justify;
+    padding-bottom: 0.5em;
   }
 
   li {
@@ -205,5 +209,21 @@
 
   .mdbootstrap {
     color: $mdbootstrap;
+  }
+
+  .jquery {
+    color: $jquery;
+  }
+
+  .angularjs {
+    color: $angularjs;
+  }
+
+  .csharp {
+    color: $csharp;
+  }
+
+  .dotnet {
+    color: $dotnet;
   }
 }

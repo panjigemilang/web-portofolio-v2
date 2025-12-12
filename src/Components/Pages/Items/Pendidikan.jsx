@@ -1,5 +1,6 @@
 import React from "react"
 import useCurrentWitdh from "../../Utils/GetWidth"
+import useTranslation from "../../Utils/useTranslation"
 import SD from "../../../Assets/img/Patterns/Pendidikan/SD.png"
 import SD14 from "../../../Assets/img/SD_14.jpg"
 import Buring from "../../../Assets/img/buring.jpg"
@@ -12,6 +13,7 @@ import ReactSmoothImage from "../../Commons/ReactSmoothImage"
 
 export default function Pendidikan() {
   const { setModalSrc, setModalShow } = React.useContext(Index)
+  const { t } = useTranslation()
   const [contentsIndex, setContentsIndex] = React.useState(0)
   const [, setDescription] = React.useState("")
   const width = useCurrentWitdh()
@@ -105,7 +107,7 @@ export default function Pendidikan() {
     <div className="pendidikan h-100 relative">
       {contentsIndex !== contents.length - 1 && (
         <div className="read-more">
-          <p className="text-center">Lihat Lebih</p>
+          <p className="text-center">{t("education.seeMore")}</p>
           <img
             onClick={() => setContentsIndex(contentsIndex + 1)}
             src={Arrow}
@@ -116,7 +118,7 @@ export default function Pendidikan() {
       )}
       {contentsIndex !== 0 && (
         <div className="read-more go-back">
-          <p className="text-center">Kembali</p>
+          <p className="text-center">{t("education.back")}</p>
           <img
             onClick={() => setContentsIndex(contentsIndex - 1)}
             src={Arrow}
@@ -146,7 +148,7 @@ export default function Pendidikan() {
                   )}
                   {content.year2 && <p className="year">{content.year2}</p>}
                 </div>
-                <p className="caption">GALLERY</p>
+                <p className="caption">{t("education.gallery")}</p>
               </div>
               {width > 768 && (
                 <div

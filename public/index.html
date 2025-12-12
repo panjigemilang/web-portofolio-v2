@@ -17,6 +17,20 @@
     />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Panji Gemilang - Web Developer</title>
+    <script>
+      // Polyfill for process.env (fixes "process is not defined" errors)
+      // Must be in head before any other scripts load
+      ;(function () {
+        if (typeof process === "undefined") {
+          window.process = {
+            env: {
+              NODE_ENV: "development",
+              PUBLIC_URL: "",
+            },
+          }
+        }
+      })()
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

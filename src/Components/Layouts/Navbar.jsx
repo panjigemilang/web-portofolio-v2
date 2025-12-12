@@ -4,12 +4,14 @@ import Index from "../../Context"
 import DelayLink from "react-delay-link"
 import Arrow from "../../Assets/img/Arrow.svg"
 import useDelayedUnmounting from "../Utils/useDelayComponent"
+import useTranslation from "../Utils/useTranslation"
+import { getLocalizedPath } from "../Utils/languageRouting"
 import "./Navbar.scss"
 
 function Navbar({ history }) {
-  const { active, navShown, setNavShown, setToggleLoading } = React.useContext(
-    Index
-  )
+  const { active, navShown, setNavShown, setToggleLoading, language } =
+    React.useContext(Index)
+  const { t } = useTranslation()
   const [locationKeys, setLocationKeys] = React.useState([])
   const [transition, show] = useDelayedUnmounting(1600)
   const delay = 500
@@ -41,7 +43,7 @@ function Navbar({ history }) {
     <>
       <nav
         className={`navbar-app ${active === 1 || active === 0 ? "hide" : ""}
-      ${navShown ? "show" : ""}`}
+      ${navShown ? "show" : ""} lang-${language}`}
       >
         <img
           src={Arrow}
@@ -51,49 +53,57 @@ function Navbar({ history }) {
         />
         <ul>
           <li className={active === 1 ? "active" : ""}>
-            <DelayLink delay={delay} clickAction={() => onClick()} to="/">
-              Home
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to={getLocalizedPath("/", language)}
+            >
+              {t("nav.home")}
             </DelayLink>
           </li>
           <li className={active === 2 ? "active" : ""}>
-            <DelayLink delay={delay} clickAction={() => onClick()} to="/about">
-              About
+            <DelayLink
+              delay={delay}
+              clickAction={() => onClick()}
+              to={getLocalizedPath("/about", language)}
+            >
+              {t("nav.about")}
             </DelayLink>
           </li>
           <li className={active === 3 ? "active" : ""}>
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/experience"
+              to={getLocalizedPath("/experience", language)}
             >
-              Experience
+              {t("nav.experience")}
             </DelayLink>
           </li>
           <li className={active === 4 ? "active" : ""}>
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/gallery"
+              to={getLocalizedPath("/gallery", language)}
             >
-              Gallery
+              {t("nav.gallery")}
             </DelayLink>
           </li>
           <li className={active === 5 ? "active" : ""}>
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/portofolio"
+              to={getLocalizedPath("/portofolio", language)}
             >
-              Portofolio
+              {t("nav.portfolio")}
             </DelayLink>
           </li>
           <li className={active === 6 ? "active" : ""}>
             <DelayLink
               delay={delay}
               clickAction={() => onClick()}
-              to="/contact"
+              to={getLocalizedPath("/contact", language)}
             >
-              Contact
+              {t("nav.contact")}
             </DelayLink>
           </li>
         </ul>

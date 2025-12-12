@@ -1,14 +1,17 @@
 import React from "react"
 import Index from "../../Context"
+import useTranslation from "../Utils/useTranslation"
 import Lists from "./SubPages/Lists"
 import moment from "moment"
 import ExperiencesItem from "./SubPages/ExperiencesItem"
+import { timelineData } from "../Utils/timelineData"
 import "./experience.scss"
 
 export default function Experience() {
-  const { navShown, setActive, toggleLoading, setToggleLoading, width } =
+  const { navShown, setActive, toggleLoading, setToggleLoading } =
     React.useContext(Index)
-  const [buttonTrigger, setButtonTrigger] = React.useState([false, false])
+  const { t } = useTranslation()
+  const [expandedYears, setExpandedYears] = React.useState({})
   const [timelineActive, setTimelineActive] = React.useState(1)
   const experiences = new moment().diff("2020-09-25", "years")
 
@@ -17,14 +20,14 @@ export default function Experience() {
 
     setActive(3)
     setToggleLoading(!toggleLoading)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onClick = (index) => {
-    let temp = [...buttonTrigger]
-
-    temp[index] = !buttonTrigger[index]
-
-    setButtonTrigger(temp)
+  const toggleYear = (year) => {
+    setExpandedYears((prev) => ({
+      ...prev,
+      [year]: !prev[year],
+    }))
   }
 
   return (
@@ -37,11 +40,16 @@ export default function Experience() {
             <div className="exp">
               <h1>
                 <span className="particle circle-wave"></span>
-                Experiences
+                {t("experience.title")}
               </h1>
               <p>
-                Working experiences and projects in the informatics engineering
-                field in {experiences} {experiences > 1 ? "years" : "year"}.
+                {t("experience.description", {
+                  years: experiences,
+                  yearText:
+                    experiences > 1
+                      ? t("experience.years")
+                      : t("experience.year"),
+                })}
               </p>
             </div>
             <div className="col-sm-12 mobile">
@@ -49,46 +57,37 @@ export default function Experience() {
             </div>
             <div className="timeline">
               <h1>
-                Timeline
+                {t("experience.timeline")}
                 <span className="particle square-combine"></span>
               </h1>
-              <div className="row">
-                <div
-                  className={`col-sm-12 col-lg-6 ${width < 768 && "order-2"}`}
-                >
-                  <div className="button-box">
+              <div className="timeline-container">
+                {timelineData.map((yearData, index) => (
+                  <div
+                    key={yearData.year}
+                    className={`timeline-year ${
+                      expandedYears[yearData.year] ? "expanded" : ""
+                    }`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <button
-                      className={buttonTrigger[0] ? "show" : ""}
-                      onClick={() => onClick(0)}
+                      className="year-button"
+                      onClick={() => toggleYear(yearData.year)}
+                      aria-expanded={expandedYears[yearData.year]}
                     >
-                      2019
+                      <span className="year-number">{yearData.year}</span>
+                      <span className="year-indicator">
+                        <i className="fas fa-chevron-down"></i>
+                      </span>
+                      <span className="year-glow"></span>
                     </button>
                     <Lists
                       active={timelineActive}
                       setActive={setTimelineActive}
-                      show={buttonTrigger[0]}
-                      year={2019}
+                      show={expandedYears[yearData.year]}
+                      year={yearData.year}
                     />
                   </div>
-                </div>
-                <div
-                  className={`col-sm-12 col-lg-6 ${width < 768 && "order-1"}`}
-                >
-                  <div className="button-box">
-                    <button
-                      className={buttonTrigger[1] ? "show" : ""}
-                      onClick={() => onClick(1)}
-                    >
-                      2020
-                    </button>
-                    <Lists
-                      active={timelineActive}
-                      setActive={setTimelineActive}
-                      show={buttonTrigger[1]}
-                      year={2020}
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

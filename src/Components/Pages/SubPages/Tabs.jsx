@@ -3,9 +3,11 @@ import GalleryContent from "../Items/GalleryContent"
 import Pendidikan from "../Items/Pendidikan"
 import AboutMe from "../Items/AboutMe"
 import Planning from "../Items/Planning"
+import useTranslation from "../../Utils/useTranslation"
 import "./tabs.scss"
 
 export default function Tabs() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = React.useState(1)
   const [content, setContent] = React.useState("")
 
@@ -35,25 +37,25 @@ export default function Tabs() {
           className={"tabs " + (activeTab === 1 ? "active" : "")}
           onClick={() => setActiveTab(1)}
         >
-          Galeri
+          {t("about.tabs.gallery")}
         </button>
         <button
           className={"tabs " + (activeTab === 2 ? "active" : "")}
           onClick={() => setActiveTab(2)}
         >
-          Pendidikan
+          {t("about.tabs.education")}
         </button>
         <button
           className={"tabs " + (activeTab === 3 ? "active" : "")}
           onClick={() => setActiveTab(3)}
         >
-          Tentang Saya
+          {t("about.tabs.aboutMe")}
         </button>
         <button
           className={"tabs " + (activeTab === 4 ? "active" : "")}
           onClick={() => setActiveTab(4)}
         >
-          Rencana
+          {t("about.tabs.planning")}
         </button>
       </div>
       <section className="active-tab">{content}</section>

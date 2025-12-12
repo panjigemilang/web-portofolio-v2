@@ -7,10 +7,12 @@ export default React.createContext({
   navShown: false,
   toggleLoading: false,
   transition: false,
+  language: "en",
   setActive: () => {},
   setModalShow: () => {},
   setModalSrc: () => {},
   setNavShown: () => {},
   setToggleLoading: () => {},
   setTransition: () => {},
+  setLanguage: () => {},
 })

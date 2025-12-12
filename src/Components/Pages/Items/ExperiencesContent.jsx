@@ -1,7 +1,9 @@
-import React from "react";
-import DelayLink from "react-delay-link";
-import Skeleton from "react-loading-skeleton";
-import useDelayedUnmounting from "../../Utils/useDelayComponent";
+import React from "react"
+import DelayLink from "react-delay-link"
+import Skeleton from "react-loading-skeleton"
+import useDelayedUnmounting from "../../Utils/useDelayComponent"
+import { getLocalizedPath } from "../../Utils/languageRouting"
+import Index from "../../../Context"
 
 export default function ExperiencesContent({
   title,
@@ -16,25 +18,27 @@ export default function ExperiencesContent({
   setRotate,
   length,
 }) {
-  const imgRef = React.useRef();
-  const [hover, setHover] = React.useState(false);
-  const [imgLoad, setImgLoad] = React.useState(false);
-  const [transition, show] = useDelayedUnmounting(1600);
-  const delay = 500;
+  const { language } = React.useContext(Index)
+  const imgRef = React.useRef()
+  const [hover, setHover] = React.useState(false)
+  const [imgLoad, setImgLoad] = React.useState(false)
+  const [transition, show] = useDelayedUnmounting(1600)
+  const delay = 500
 
   React.useEffect(() => {
-    const img = imgRef.current;
+    const img = imgRef.current
 
     if (img && img.complete) {
-      imageLoaded();
+      imageLoaded()
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const imageLoaded = () => {
     if (!imgLoad) {
-      setImgLoad(true);
+      setImgLoad(true)
     }
-  };
+  }
 
   return (
     <>
@@ -45,7 +49,10 @@ export default function ExperiencesContent({
         <DelayLink
           clickAction={show}
           delay={delay}
-          to={`/portofolio/${title.replace(/ /g, "-")}`}
+          to={getLocalizedPath(
+            `/portofolio/${title.replace(/ /g, "-")}`,
+            language
+          )}
         >
           <div
             className="img-overlay"
@@ -58,6 +65,7 @@ export default function ExperiencesContent({
           </div>
         </DelayLink>
         {length > 1 && index === 0 && (
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a role="button" onClick={() => setRotate(!rotate)}>
             <i className="fas fa-arrow-right"></i>
           </a>
@@ -76,6 +84,7 @@ export default function ExperiencesContent({
           <span className="particle line-rectangle"></span>
         </div>
         {length > 1 && index === 1 && (
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a role="button" onClick={() => setRotate(!rotate)}>
             <i className="fas fa-arrow-left"></i>
           </a>
@@ -88,5 +97,5 @@ export default function ExperiencesContent({
         </a>
       )}
     </>
-  );
+  )
 }
