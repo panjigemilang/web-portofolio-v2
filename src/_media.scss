@@ -344,17 +344,34 @@
         .timeline {
           height: auto;
 
-          .button-box {
-            margin-bottom: 50px;
-
-            button {
-              &.show {
-                margin-bottom: 25px;
-              }
+          .timeline-container {
+            &::before {
+              left: 1.5em;
             }
 
+            .timeline-year {
+              .year-button {
+                padding: 1em 1.5em;
+
+                .year-number {
+                  font-size: 1.8em;
+                }
+              }
+            }
+          }
+
+          .lists-app {
+            margin-left: 0.5em;
+            padding-left: 1.5em;
+
             ul {
-              margin: 0 15px;
+              li {
+                padding: 0.6em 1em;
+
+                .month-text {
+                  font-size: 1.6em;
+                }
+              }
             }
           }
         }

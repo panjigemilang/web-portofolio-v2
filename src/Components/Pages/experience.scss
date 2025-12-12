@@ -4,6 +4,9 @@
 
 .experience-app {
   @include app;
+  background-color: $light-secondary;
+  min-height: 100vh;
+  padding-bottom: 3em;
 
   // Particles
   .particle {
@@ -55,6 +58,8 @@
 
     .left {
       min-height: 93vh;
+      overflow: visible;
+      padding-bottom: 2em;
 
       .mobile {
         display: none;
@@ -69,73 +74,321 @@
       }
 
       .timeline {
-        .button-box {
-          margin: 15px 0;
-          text-align: center;
+        margin-top: 3em;
+        margin-bottom: 4em;
+        padding-bottom: 2em;
+        position: relative;
+        overflow: visible;
+
+        h1 {
+          margin-bottom: 1em;
+          position: relative;
+          z-index: 1;
         }
 
-        button {
-          background-color: $light-primary;
-          font-size: 2.5em;
-          padding: 5px 0;
+        .timeline-container {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5em;
+          position: relative;
+          overflow: visible;
 
+          // Futuristic connecting line
           &::before {
-            border: 2px $light-secondary-darken solid;
-            height: 60px;
+            content: "";
+            position: absolute;
+            left: 2.5em;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(
+              180deg,
+              rgba($light-primary, 0.3) 0%,
+              rgba($light-boundary, 0.6) 50%,
+              rgba($light-primary, 0.3) 100%
+            );
+            @include prefix(animation, timelinePulse 3s ease-in-out infinite, webkit moz ms o);
+            z-index: 0;
           }
 
-          &.show {
-            border-radius: 25px;
-            font-size: 2em;
-            pointer-events: none;
-          }
+          .timeline-year {
+            position: relative;
+            z-index: 1;
+            @include prefix(animation, fadeInUp 0.6s ease-out forwards, webkit moz ms o);
+            opacity: 0;
+            overflow: visible;
 
-          &.show:hover {
-            margin-top: inherit;
-          }
+            &.expanded {
+              .year-button {
+                .year-indicator {
+                  @include prefix(transform, rotate(180deg), webkit moz ms o);
+                }
 
-          &.show:hover::before {
-            top: 10px;
-          }
+                .year-glow {
+                  opacity: 1;
+                  @include prefix(transform, scale(1.2), webkit moz ms o);
+                }
+              }
 
-          &.show::before {
-            box-shadow: none;
-            border-radius: 20px;
-            border: 2px $light-primary solid;
-            left: -1.4em;
-            height: 30vh;
-            width: 230px;
+              .lists-app {
+                max-height: 500px;
+                opacity: 1;
+                margin-top: 1em;
+              }
+            }
+
+            .year-button {
+              position: relative;
+              background: linear-gradient(
+                135deg,
+                rgba($light-primary, 0.1) 0%,
+                rgba($light-primary, 0.05) 100%
+              );
+              border: 2px solid rgba($light-boundary, 0.3);
+              border-radius: 15px;
+              padding: 1.2em 2em;
+              cursor: pointer;
+              @include prefix(transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1), webkit moz ms o);
+              overflow: hidden;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+              backdrop-filter: blur(10px);
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+              &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(
+                  180deg,
+                  $light-boundary 0%,
+                  $light-primary 100%
+                );
+                @include prefix(transition, all 0.4s ease, webkit moz ms o);
+                opacity: 0;
+              }
+
+              &:hover {
+                border-color: rgba($light-boundary, 0.6);
+                @include prefix(transform, translateX(5px), webkit moz ms o);
+                box-shadow: 0 8px 30px rgba($light-boundary, 0.2);
+
+                &::before {
+                  opacity: 1;
+                }
+
+                .year-glow {
+                  opacity: 0.8;
+                }
+              }
+
+              .year-number {
+                font-size: 2.2em;
+                font-weight: 700;
+                color: $light-boundary;
+                letter-spacing: 2px;
+                position: relative;
+                z-index: 2;
+                @include prefix(transition, all 0.3s ease, webkit moz ms o);
+                text-shadow: 0 0 10px rgba($light-boundary, 0.3);
+              }
+
+              .year-indicator {
+                position: relative;
+                z-index: 2;
+                color: $light-primary;
+                font-size: 1.2em;
+                @include prefix(transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1), webkit moz ms o);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: rgba($light-primary, 0.1);
+              }
+
+              .year-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include prefix(transform, translate(-50%, -50%) scale(0.8), webkit moz ms o);
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(
+                  circle,
+                  rgba($light-boundary, 0.2) 0%,
+                  transparent 70%
+                );
+                opacity: 0;
+                @include prefix(transition, all 0.5s ease, webkit moz ms o);
+                pointer-events: none;
+              }
+            }
           }
         }
 
         .lists-app {
-          display: none;
+          max-height: 0;
+          opacity: 0;
+          overflow: visible;
+          @include prefix(transition, all 0.5s cubic-bezier(0.4, 0, 0.2, 1), webkit moz ms o);
+          margin-left: 1em;
+          padding-left: 2em;
+          padding-right: 1em;
+          position: relative;
 
-          &.show {
-            display: block;
+          &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(
+              180deg,
+              rgba($light-primary, 0.5) 0%,
+              rgba($light-primary, 0.2) 100%
+            );
           }
 
           ul {
-            text-align: left;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8em;
+            overflow: visible;
 
             li {
-              border-bottom: 0;
+              position: relative;
               cursor: pointer;
-              font-size: 1.75em;
-              list-style: none;
-              width: fit-content;
+              padding: 0.8em 1.5em;
+              font-size: 15pt;
+              border-radius: 10px;
+              background: rgba($light-primary, 0.05);
+              border: 1px solid transparent;
+              @include prefix(transition, all 0.3s cubic-bezier(0.4, 0, 0.2, 1), webkit moz ms o);
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-right: 0;
+
+              &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 4px;
+                height: 100%;
+                background: $light-primary;
+                @include prefix(transform, scaleY(0), webkit moz ms o);
+                @include prefix(transform-origin, top, webkit moz ms o);
+                @include prefix(transition, transform 0.3s ease, webkit moz ms o);
+                border-radius: 0 2px 2px 0;
+                z-index: 2;
+              }
 
               &:hover {
-                @include prefix(transform, scale(1.1), webkit moz ms o);
-                @include prefix(transition, 0.3s linear, webkit moz ms o);
+                background: rgba($light-primary, 0.1);
+                border-color: rgba($light-boundary, 0.3);
+                @include prefix(transform, translateX(10px), webkit moz ms o);
+                box-shadow: 0 4px 15px rgba($light-boundary, 0.1);
+
+                &::before {
+                  @include prefix(transform, scaleY(1), webkit moz ms o);
+                  background: $light-primary;
+                }
+
+                .month-text {
+                  color: $light-boundary;
+                  text-shadow: 0 0 8px rgba($light-boundary, 0.4);
+                }
+
+                .active-indicator {
+                  opacity: 0.6;
+                }
               }
 
               &.active {
-                color: $light-boundary;
-                border-bottom: 1px $light-boundary solid;
+                background: linear-gradient(
+                  90deg,
+                  rgba($light-boundary, 0.15) 0%,
+                  rgba($light-primary, 0.1) 100%
+                );
+                border-color: rgba($light-boundary, 0.5);
+                box-shadow: 0 4px 20px rgba($light-boundary, 0.2);
+
+                &::before {
+                  @include prefix(transform, scaleY(1), webkit moz ms o);
+                  background: $light-boundary;
+                  box-shadow: 0 0 10px rgba($light-boundary, 0.6);
+                }
+
+                .month-text {
+                  color: $light-boundary;
+                  font-weight: 700;
+                  text-shadow: 0 0 10px rgba($light-boundary, 0.5);
+                }
+
+                .active-indicator {
+                  opacity: 1;
+                  @include prefix(transform, scale(1), webkit moz ms o);
+                }
+              }
+
+              .month-text {
+                font-size: 1.8em;
+                color: $text-light-primary;
+                position: relative;
+                z-index: 1;
+                @include prefix(transition, all 0.3s ease, webkit moz ms o);
+                letter-spacing: 1px;
+                font-weight: 500;
+              }
+
+              .active-indicator {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: $light-boundary;
+                opacity: 0;
+                @include prefix(transform, scale(0), webkit moz ms o);
+                @include prefix(transition, all 0.3s ease, webkit moz ms o);
+                box-shadow: 0 0 10px rgba($light-boundary, 0.8);
+                position: relative;
+                z-index: 1;
               }
             }
           }
+        }
+      }
+
+      // Animations
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          @include prefix(transform, translateY(30px), webkit moz ms o);
+        }
+        to {
+          opacity: 1;
+          @include prefix(transform, translateY(0), webkit moz ms o);
+        }
+      }
+
+      @keyframes timelinePulse {
+        0%, 100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.8;
+          box-shadow: 0 0 20px rgba($light-boundary, 0.5);
         }
       }
     }
