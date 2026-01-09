@@ -6,6 +6,8 @@ import {
   getContent2019,
   getContent2020,
   getContent2021,
+  getContent2025,
+  getContent2026,
 } from "../Utils/ContentVariables"
 import "./portofolio.scss"
 
@@ -24,12 +26,15 @@ export default function Portofolio() {
     const content2019 = getContent2019(language)
     const content2020 = getContent2020(language)
     const content2021 = getContent2021(language)
+    const content2025 = getContent2025(language)
+    const content2026 = getContent2026(language)
     const temp = []
 
     content2019.map((item) => temp.push(item))
     temp.push(...content2020.filter((item) => !item.title.includes("Hoping")))
     temp.push(...content2021)
-    console.log(temp)
+    temp.push(...content2025)
+    temp.push(...content2026)
 
     setContent(temp)
     // eslint-disable-next-line react-hooks/exhaustive-deps
