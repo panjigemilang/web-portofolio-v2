@@ -24,20 +24,24 @@ export default function Content({ match }) {
 
     // Get original content to match by original title (from URL)
     const {
-      content2019: orig2019,
-      content2020: orig2020,
-      content2021: orig2021,
+      content2019,
+      content2020,
+      content2021,
+      content2025,
+      content2026,
     } = require("../Utils/ContentVariables")
     const originalTitle = title.replace(/-/g, " ")
 
+    const allContent = [
+      ...content2019,
+      ...content2020,
+      ...content2021,
+      ...content2025,
+      ...content2026,
+    ]
+
     // Find original item
-    let originalItem = orig2019.find((item) => item.title === originalTitle)
-    if (!originalItem) {
-      originalItem = orig2020.find((item) => item.title === originalTitle)
-    }
-    if (!originalItem) {
-      originalItem = orig2021.find((item) => item.title === originalTitle)
-    }
+    const originalItem = allContent.find((item) => item.title === originalTitle)
 
     if (originalItem) {
       // Get translated version
@@ -64,16 +68,10 @@ export default function Content({ match }) {
           )
           break
         case "FKH Apps (Project)":
-          setItem(
-            <Fkhapps
-              content={content[0]}
-              show={show}
-              setShow={setShow}
-              setSrc={setSrc}
-            />
-          )
-          break
         case "Boleh Dicoba Digital":
+        case "Kane Kashite":
+        case "Opsileave":
+        case "Haikal Management System":
           setItem(
             <Fkhapps
               content={content[0]}
