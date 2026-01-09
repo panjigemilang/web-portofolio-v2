@@ -17,7 +17,10 @@ export default function Card({ item }) {
 
   const shorten = (str, maxLen, separator = " ") => {
     if (str.length <= maxLen) return str
-    return str.substr(0, str.lastIndexOf(separator, maxLen))
+    let cutIndex = str.lastIndexOf(separator, maxLen)
+    // If no separator found (e.g. for Japanese text), cut at maxLen
+    if (cutIndex === -1) cutIndex = maxLen
+    return str.substring(0, cutIndex)
   }
 
   return (

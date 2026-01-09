@@ -19,10 +19,14 @@ const titleToKey = {
   "Ini Dia Lo (Project)": "iniDiaLo",
   "Boleh Dicoba Digital": "bolehDicobaDigital",
   "Opsigo": "opsigo",
+  "Kane Kashite": "kaneKashite",
+  "Opsileave": "opsileave",
+  "Haikal Management System": "haikalManagement",
 }
 
 export function getTranslatedContent(originalContent, language = "en") {
-  const translations = portfolioTranslations[language] || portfolioTranslations.en
+  const translations =
+    portfolioTranslations[language] || portfolioTranslations.en
   const key = titleToKey[originalContent.title]
 
   if (!key || !translations[key]) {
@@ -40,17 +44,22 @@ export function getTranslatedContent(originalContent, language = "en") {
     description: translated.description || originalContent.description,
     descriptionOne: translated.descriptionOne || originalContent.descriptionOne,
     descriptionTwo: translated.descriptionTwo || originalContent.descriptionTwo,
-    descriptionThree: translated.descriptionThree || originalContent.descriptionThree,
-    descriptionFour: translated.descriptionFour || originalContent.descriptionFour,
-    descriptionFive: translated.descriptionFive || originalContent.descriptionFive,
+    descriptionThree:
+      translated.descriptionThree || originalContent.descriptionThree,
+    descriptionFour:
+      translated.descriptionFour || originalContent.descriptionFour,
+    descriptionFive:
+      translated.descriptionFive || originalContent.descriptionFive,
     functions: translated.functions || originalContent.functions,
-    technologyIntro: translated.technologyIntro || originalContent.technologyIntro,
+    technologyIntro:
+      translated.technologyIntro || originalContent.technologyIntro,
     technologies: translated.technologies || originalContent.technologies,
     outro: translated.outro || originalContent.outro,
-    src2description: translated.imageCaptions?.login || originalContent.src2description,
-    src3description: translated.imageCaptions?.dashboard || originalContent.src3description,
+    src2description:
+      translated.imageCaptions?.login || originalContent.src2description,
+    src3description:
+      translated.imageCaptions?.dashboard || originalContent.src3description,
     // For Hoping component image captions
     imageCaptions: translated.imageCaptions || {},
   }
 }
-
