@@ -28,38 +28,47 @@ export default function Hoping({ content, show, setShow, setSrc }) {
     <>
       <div className="img-box">
         <span className="particle square-outer"></span>
-        {<img src={src2} alt="image.jpg" onClick={() => onClick(src2)} /> || (
+        {<img src={src2} alt="Osaka" onClick={() => onClick(src2)} /> || (
           <Skeleton height={150} />
         )}
         <span className="particle circle-and-plus"></span>
         <br />
-        {<small className="text-muted">{imageCaptions?.arrived || "Arrived at Osaka, Japan"}</small> || (
-          <Skeleton count={1} />
-        )}
+        {(
+          <small className="text-muted">
+            {imageCaptions?.arrived || "Arrived at Osaka, Japan"}
+          </small>
+        ) || <Skeleton count={1} />}
       </div>
       <p>{descriptionOne || <Skeleton count={4} />}</p>
       <br />
       <p>{descriptionTwo || <Skeleton count={4} />}</p>
       <br />
       <div className="img-box">
-        {<img src={src3} alt="image.jpg" onClick={() => onClick(src3)} /> || (
-          <Skeleton height={150} />
-        )}
+        {(
+          <img
+            src={src3}
+            alt="Company building"
+            onClick={() => onClick(src3)}
+          />
+        ) || <Skeleton height={150} />}
         <br />
-        {<small className="text-muted">{imageCaptions?.company || "Company"}</small> || (
-          <Skeleton count={1} />
-        )}
+        {(
+          <small className="text-muted">
+            {imageCaptions?.company || "Company"}
+          </small>
+        ) || <Skeleton count={1} />}
       </div>
       <p>{descriptionThree || <Skeleton count={4} />}</p>
       <br />
       <div className="img-box">
-        {<img src={src} alt="image.jpg" onClick={() => onClick(src)} /> || (
+        {<img src={src} alt="Group" onClick={() => onClick(src)} /> || (
           <Skeleton height={150} />
         )}
         <br />
         {(
           <small className="text-muted">
-            {imageCaptions?.friends || "Take a picture with friends and company CEO"}
+            {imageCaptions?.friends ||
+              "Take a picture with friends and company CEO"}
           </small>
         ) || <Skeleton count={1} />}
       </div>
@@ -71,34 +80,44 @@ export default function Hoping({ content, show, setShow, setSrc }) {
         <div className="col-lg-6 col-sm-12">
           <div className="img-box">
             {(
-              <img src={src4} alt="image.jpg" onClick={() => onClick(src4)} />
+              <img
+                src={src4}
+                alt="Osaka Castle"
+                onClick={() => onClick(src4)}
+              />
             ) || <Skeleton height={150} />}
             <br />
             {(
-              <small className="text-muted">{imageCaptions?.osakaCastle || "Ōsaka jōkōen (Osaka Castle)"}</small>
+              <small className="text-muted">
+                {imageCaptions?.osakaCastle || "Ōsaka jōkōen (Osaka Castle)"}
+              </small>
             ) || <Skeleton count={1} />}
           </div>
         </div>
         <div className="col-lg-6 col-sm-12">
           <div className="img-box">
             {(
-              <img src={src5} alt="image.jpg" onClick={() => onClick(src5)} />
+              <img src={src5} alt="Kyoto path" onClick={() => onClick(src5)} />
             ) || <Skeleton height={150} />}
             <br />
             {(
-              <small className="text-muted">{imageCaptions?.kyoto || "Tetsugaku No Michi, Kyoto"}</small>
+              <small className="text-muted">
+                {imageCaptions?.kyoto || "Tetsugaku No Michi, Kyoto"}
+              </small>
             ) || <Skeleton count={1} />}
           </div>
         </div>
       </div>
       <div className="img-box">
-        {<img src={src6} alt="image.jpg" onClick={() => onClick(src6)} /> || (
+        {<img src={src6} alt="Airport" onClick={() => onClick(src6)} /> || (
           <Skeleton height={150} />
         )}
         <br />
-        {<small className="text-muted">{imageCaptions?.goingBack || "Going back to Indonesia"}</small> || (
-          <Skeleton count={1} />
-        )}
+        {(
+          <small className="text-muted">
+            {imageCaptions?.goingBack || "Going back to Indonesia"}
+          </small>
+        ) || <Skeleton count={1} />}
       </div>
     </>
   )

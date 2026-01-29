@@ -29,7 +29,7 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
   return (
     <>
       <div className="img-box">
-        {<img src={src} alt="image.jpg" onClick={() => onClick(src)} /> || (
+        {<img src={src} alt="FKH Apps main" onClick={() => onClick(src)} /> || (
           <Skeleton height={150} />
         )}
         <br />
@@ -48,23 +48,35 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
         <div className="col-lg-6 col-sm-12">
           <div className="img-box">
             {(
-              <img src={src2} alt="image.jpg" onClick={() => onClick(src2)} />
+              <img
+                src={src2}
+                alt="FKH Apps view 1"
+                onClick={() => onClick(src2)}
+              />
             ) || <Skeleton height={150} />}
             <br />
-            {<small className="text-muted">{imageCaptions?.login || src2description}</small> || (
-              <Skeleton count={1} />
-            )}
+            {(
+              <small className="text-muted">
+                {imageCaptions?.login || src2description}
+              </small>
+            ) || <Skeleton count={1} />}
           </div>
         </div>
         <div className="col-lg-6 col-sm-12">
           <div className="img-box">
             {(
-              <img src={src3} alt="image.jpg" onClick={() => onClick(src3)} />
+              <img
+                src={src3}
+                alt="FKH Apps view 2"
+                onClick={() => onClick(src3)}
+              />
             ) || <Skeleton height={150} />}
             <br />
-            {<small className="text-muted">{imageCaptions?.dashboard || src3description}</small> || (
-              <Skeleton count={1} />
-            )}
+            {(
+              <small className="text-muted">
+                {imageCaptions?.dashboard || src3description}
+              </small>
+            ) || <Skeleton count={1} />}
           </div>
         </div>
       </div>
@@ -78,7 +90,7 @@ export default function Fkhapps({ content, show, setShow, setSrc }) {
       </ul>
       <p>{outro || <Skeleton count={4} />}</p>
       &emsp;
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {link}
       </a>
       <br />

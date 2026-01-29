@@ -5,12 +5,8 @@ import PP from "../../Assets/img/About.jpeg"
 import "./about.scss"
 
 export default function About() {
-  const {
-    navShown,
-    setActive,
-    toggleLoading,
-    setToggleLoading,
-  } = React.useContext(Index)
+  const { navShown, setActive, toggleLoading, setToggleLoading } =
+    React.useContext(Index)
   const { t } = useTranslation()
   const [swipe, setSwipe] = React.useState(false)
 
@@ -33,7 +29,9 @@ export default function About() {
           <hr />
           <p>{t("about.hero.description")}</p>
           <div className="button-box">
-            <button onClick={() => setSwipe(!swipe)}>{t("about.hero.button")}</button>
+            <button onClick={() => setSwipe(!swipe)}>
+              {t("about.hero.button")}
+            </button>
           </div>
         </div>
       </div>
@@ -60,6 +58,7 @@ export default function About() {
               <a
                 href="https://www.docdroid.net/eWB4HN2/cv-panji-gemilang-dec-2020-pdf"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="items"
               >
                 <div className="circle cv"></div>
@@ -68,6 +67,7 @@ export default function About() {
               <a
                 href="https://www.linkedin.com/in/panji-g/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="items"
               >
                 <div className="circle linkedin"></div>
