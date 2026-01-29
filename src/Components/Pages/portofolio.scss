@@ -45,69 +45,404 @@
   }
 
   .portofolio {
-    .title,
-    .card-app {
-      @include prefix(transform, translateZ(10px), webkit ms moz o);
-    }
+    padding-bottom: 50px;
+    position: relative;
+    z-index: 10;
 
     .title {
       color: $light-boundary;
-      margin: 15px;
+      margin: 40px 15px;
       text-align: center;
-      width: 100%;
+      position: relative;
+      z-index: 10;
+
+      h1 {
+        font-weight: 800;
+        letter-spacing: 2px;
+        font-size: 2.5rem;
+      }
     }
 
-    .card-app {
-      @include prefix(
-        transition,
-        0.5s cubic-bezier(0.64, 0.57, 0.67, 1.7),
-        webkit moz o
-      );
-      background-color: $light-primary;
-      border-radius: 20px;
-      box-shadow: 20px 30px 30px 0 rgba(0, 0, 0, 0.18),
-        0 4px 15px 0 rgba(0, 0, 0, 0.15);
-      height: 240px;
-      margin: 2em 8em;
+    .timeline-container {
       position: relative;
-      overflow: hidden;
-      z-index: 5;
+      padding: 60px 0 20px;
+      margin: 0 auto;
+      max-width: 1200px;
 
-      .col-lg-6:first-child {
-        padding-right: 0;
-      }
+      .vertical-line {
+        position: absolute;
+        width: 2px;
+        background-color: rgba($light-boundary, 0.3);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1px;
+        z-index: 1;
 
-      .row {
-        height: 100%;
-      }
+        .diamond-cap {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+          width: 30px;
+          height: 30px;
+          border: 2px solid $light-boundary;
+          background-color: $light-primary;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-      .img-box {
-        height: 100%;
+          &.top {
+            top: -15px;
+            &::after {
+              border-top: 2px solid $light-boundary;
+              border-left: 2px solid $light-boundary;
+              margin-top: 4px;
+              margin-left: 4px;
+            }
+          }
 
-        img {
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
+          &.bottom {
+            bottom: -15px;
+            &::after {
+              border-bottom: 2px solid $light-boundary;
+              border-right: 2px solid $light-boundary;
+              margin-bottom: 4px;
+              margin-right: 4px;
+            }
+          }
+
+          &::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: rotate(0deg);
+          }
         }
       }
 
-      .content {
-        padding: 20px 15px;
-        padding-right: 35px;
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+        z-index: 2;
 
-        h2 {
-          color: $light-primary-lighter;
-          margin-top: 0;
+        &.left {
+          left: 0;
+          text-align: right;
+
+          .timeline-dot {
+            right: -10px;
+          }
+
+          .time-mark {
+            margin-right: -100px;
+            right: 0;
+            align-items: flex-start;
+          }
+
+          .portfolio-card {
+            margin-right: 30px;
+          }
         }
-      }
 
-      button {
-        margin: 0 15px;
+        &.right {
+          left: 50%;
 
-        &:hover::before {
-          box-shadow: 0px 0px 15px -3px rgba(255, 255, 255, 1);
+          .timeline-dot {
+            left: -10px;
+          }
+
+          .time-mark {
+            margin-left: -100px;
+            left: 0;
+            align-items: flex-end;
+          }
+
+          .portfolio-card {
+            margin-left: 30px;
+          }
+        }
+
+        .timeline-dot {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background-color: $light-primary;
+          border: 4px solid $light-boundary;
+          top: 35px;
+          border-radius: 50%;
+          z-index: 10;
+          box-shadow: 0 0 10px rgba($light-boundary, 0.5);
+        }
+
+        .time-mark {
+          position: absolute;
+          top: 30px;
+          width: 80px;
+          display: flex;
+          flex-direction: column;
+          z-index: 5;
+
+          .year-mark {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: $light-boundary;
+            opacity: 0.8;
+          }
+
+          .date-mark {
+            font-size: 0.8rem;
+            color: $light-boundary;
+            opacity: 0.6;
+            margin-top: -2px;
+          }
+
+          &.no-year {
+            top: 36px;
+            .date-mark {
+              margin-top: 0;
+              opacity: 0.8;
+            }
+          }
+        }
+
+        .portfolio-card {
+          padding: 0;
+          background-color: $light-primary;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          position: relative;
+          z-index: 5;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+          }
+
+          .col-lg-6:nth-child(1) {
+            padding: 0;
+          }
+
+          .row {
+            margin: 0;
+            height: 100%;
+            display: flex;
+            align-items: stretch;
+          }
+
+          .img-box {
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            min-height: 250px;
+            overflow: hidden;
+
+            & > div {
+              height: 100% !important;
+              width: 100% !important;
+            }
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+            }
+          }
+
+          .content {
+            padding-left: 15px;
+            padding-bottom: 30px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+
+            h2 {
+              color: $light-primary-lighter;
+              font-size: 1.4rem;
+              margin-bottom: 12px;
+              font-weight: 700;
+            }
+
+            p {
+              font-size: 0.95rem;
+              line-height: 1.5;
+              color: rgba($text-light-primary, 0.9);
+              margin-bottom: 25px;
+            }
+
+            .button-box {
+              margin-top: auto;
+              
+              a {
+                text-decoration: none;
+                display: inline-block;
+              }
+
+              button {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+                background-color: transparent;
+                border: 1px solid $light-boundary;
+                color: $light-boundary;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 500;
+                position: relative;
+                z-index: 10;
+                width: auto; // Override fixed width from app.scss
+
+                &::before {
+                  display: none !important; // Remove the ghost border from app.scss
+                }
+
+                &:hover {
+                  background-color: $light-boundary;
+                  color: $light-primary;
+                  box-shadow: 0 0 15px rgba($light-boundary, 0.4);
+                  margin-top: 0; // Override margin-top change on hover from app.scss
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 }
+
+@media (max-width: 991px) {
+  .portofolio-app {
+    .portofolio {
+      .title {
+        h1 {
+          font-size: 1.8rem;
+          margin: 30px 15px;
+          text-align: center;
+        }
+      }
+
+      .timeline-container {
+        width: 100%;
+        padding: 40px 0;
+        margin: 0;
+        overflow: visible;
+
+        .vertical-line {
+          left: 70px; // Further right to make room for dates
+          width: 2px;
+
+          .diamond-cap {
+            width: 24px;
+            height: 24px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+
+            &.top {
+              top: -12px;
+            }
+            &.bottom {
+              bottom: -12px;
+            }
+
+            &::after {
+              width: 8px;
+              height: 8px;
+            }
+          }
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 100px;
+          padding-right: 20px;
+          margin-bottom: 40px;
+
+          &.left,
+          &.right {
+            left: 0;
+            text-align: left;
+
+            .timeline-dot {
+              left: 60px; // Center on the 70px line (70 - 10)
+              right: auto;
+            }
+
+            .time-mark {
+              left: 5px !important;
+              right: auto !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+              top: 25px;
+              width: 60px;
+              text-align: center;
+              font-size: 0.85rem;
+              opacity: 1;
+              z-index: 5;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .year-mark {
+                font-size: 0.95rem;
+                font-weight: 800;
+              }
+
+              .date-mark {
+                font-size: 0.75rem;
+                opacity: 0.8;
+              }
+
+              &.no-year {
+                top: 33px;
+                .date-mark {
+                  margin-top: 0;
+                }
+              }
+            }
+
+            .portfolio-card {
+              margin-left: 0;
+              margin-right: 0;
+              width: 100%;
+              max-width: 100%;
+
+              .row {
+                flex-direction: column;
+                display: flex !important;
+              }
+
+              .img-box {
+                min-height: 180px;
+                height: 180px;
+                width: 100%;
+              }
+
+              .content {
+                padding: 20px;
+                width: 100%;
+
+                h2 {
+                  font-size: 1.1rem;
+                  white-space: normal;
+                }
+
+                p {
+                  margin-bottom: 15px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

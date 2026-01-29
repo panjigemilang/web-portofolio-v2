@@ -25,7 +25,7 @@ export default function Card({ item }) {
 
   return (
     <div className="row">
-      <div className="col-lg-6 col-md-12">
+      <div className="col-lg-6 col-12">
         <div className="img-box">
           <RenderSmoothImage
             src={item.src}
@@ -34,7 +34,7 @@ export default function Card({ item }) {
           />
         </div>
       </div>
-      <div className="col-lg-6 col-md-12">
+      <div className="col-lg-6 col-12">
         <div className="content">
           <h2>{item.title || <Skeleton />}</h2>
           <p>
@@ -48,7 +48,7 @@ export default function Card({ item }) {
               delay={delay}
               to={getLocalizedPath(
                 `/portofolio/${item.title.replace(/ /g, "-")}`,
-                language
+                language,
               )}
             >
               <button>{t("portfolio.details")}</button>

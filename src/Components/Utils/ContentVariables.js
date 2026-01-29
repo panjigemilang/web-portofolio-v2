@@ -38,9 +38,11 @@ const content2019 = [
   {
     title: "Devkami (Project)",
     job: "Fullstack Developer",
+    year: "2019",
+    month: "March",
     date: `Mar - May 2019 . ${new moment("2019-05-01").diff(
       "2019-03-01",
-      "months"
+      "months",
     )} Mos`,
     src: DevKami,
     description:
@@ -71,6 +73,8 @@ const content2019 = [
   {
     title: "PTPN X (Internship)",
     job: "Fullstack Developer",
+    year: "2019",
+    month: "July",
     date: "Jul - Aug 2019 . 2 Mos",
     src: Ptpnx,
     src2: Presentation,
@@ -104,6 +108,8 @@ const content2019 = [
   {
     title: "Kampung Desa (Project)",
     job: "Fullstack Engineer",
+    year: "2019",
+    month: "August",
     date: "Aug - Oct 2019 . 2 Mos",
     src: KampungDesa,
     description:
@@ -136,6 +142,8 @@ const content2020 = [
   {
     title: "(有) ホーピング Hoping (Internship)",
     job: "Software Engineer",
+    year: "2020",
+    month: "February",
     date: "Feb - Mar 2020 . 5 Weeks",
     src: Hoping,
     src2: Bandara,
@@ -160,6 +168,8 @@ const content2020 = [
   {
     title: "FKH Apps (Project)",
     job: "Frontend Engineer",
+    year: "2020",
+    month: "February",
     date: "Feb - May 2020 . 3 Mos",
     src: Fkhapps,
     src2: Login,
@@ -187,6 +197,8 @@ const content2020 = [
   {
     title: "Bloom Browser (Project)",
     job: "Frontend Engineer",
+    year: "2020",
+    month: "May",
     date: `May - Jul 2020 . 2 Mos`,
     src: BloomBrowser,
     description:
@@ -202,31 +214,10 @@ const content2020 = [
     link: "https://bloombrowser.com/",
   },
   {
-    title: "Ini Dia Lo (Project)",
-    job: "Fullstack Developer",
-    date: `Desember 2020 . 1 Mo`,
-    src: Inidialo,
-    description:
-      "Inidialo is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
-    descriptionOne:
-      "\xa0\xa0Inidialo is a blog website. This is my personal project to make a blog website for my father. He wanted to share his experiences about everything, any life lessons he had, or just a common knowledge to share. This website currently has functionality like the following :",
-    functions: [
-      "Authentication with token",
-      "Create a post share a post via social media or share link",
-      "Create a comment",
-      "Like a post",
-    ],
-    src2: InidiaDetail,
-    descriptionTwo: " ",
-    technologyIntro:
-      "This project was built using the following programming languages and frameworks : ",
-    technologies: ["Javascript", "Vue JS", "Laravel", "Mysql"],
-    outro: " ",
-    link: " ",
-  },
-  {
     title: "Boleh Dicoba Digital",
     job: "Fullstack Developer",
+    year: "2020",
+    month: "September",
     date: `September - December 2020 . 3 Mos`,
     src: Bdd,
     src2: BddDashboard,
@@ -259,12 +250,39 @@ const content2020 = [
     outro: "The project can be seen from the link below.",
     link: "https://bolehdicoba.com",
   },
+  {
+    title: "Ini Dia Lo (Project)",
+    job: "Fullstack Developer",
+    year: "2020",
+    month: "December",
+    date: `December 2020 . 1 Mo`,
+    src: Inidialo,
+    description:
+      "Inidialo is a blog website. This is my personal project to make a blog website for my father. The development progress takes a bit slow. Currently the sample project isn't available.",
+    descriptionOne:
+      "\xa0\xa0Inidialo is a blog website. This is my personal project to make a blog website for my father. He wanted to share his experiences about everything, any life lessons he had, or just a common knowledge to share. This website currently has functionality like the following :",
+    functions: [
+      "Authentication with token",
+      "Create a post share a post via social media or share link",
+      "Create a comment",
+      "Like a post",
+    ],
+    src2: InidiaDetail,
+    descriptionTwo: " ",
+    technologyIntro:
+      "This project was built using the following programming languages and frameworks : ",
+    technologies: ["Javascript", "Vue JS", "Laravel", "Mysql"],
+    outro: " ",
+    link: " ",
+  },
 ]
 
 const content2021 = [
   {
     title: "Opsigo",
     job: "Fullstack Developer",
+    year: "2021",
+    month: "February",
     date: `Feb - Current . ${new moment().diff("2021-02-01", "months")} Mos`,
     src: Opsigo,
     srcdescription: "Opsigo Team",
@@ -289,6 +307,8 @@ const content2025 = [
   {
     title: "Kane Kashite",
     job: "Fullstack Developer",
+    year: "2025",
+    month: "December",
     date: `Dec`,
     src: KaneKashite,
     srcdescription: "Kane Kashite - Split Bill App",
@@ -324,6 +344,8 @@ const content2025 = [
   {
     title: "Opsileave",
     job: "Fullstack Developer",
+    year: "2025",
+    month: "December",
     date: `Dec`,
     src: Opsileave,
     srcdescription: "Opsileave - Leave Management System",
@@ -364,6 +386,8 @@ const content2026 = [
   {
     title: "Haikal Management System",
     job: "Fullstack Developer",
+    year: "2026",
+    month: "January",
     date: `Jan`,
     src: HaikalManagement,
     srcdescription: "Haikal Management System - Shops Management Report",
