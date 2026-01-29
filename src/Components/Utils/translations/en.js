@@ -1,4 +1,4 @@
-export default {
+const enTranslations = {
   nav: {
     home: "Home",
     about: "About",
@@ -135,3 +135,5 @@ export default {
     },
   },
 }
+
+export default enTranslations

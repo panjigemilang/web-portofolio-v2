@@ -1,4 +1,4 @@
-export default {
+const idTranslations = {
   nav: {
     home: "Beranda",
     about: "Tentang",
@@ -135,3 +135,5 @@ export default {
     },
   },
 }
+
+export default idTranslations

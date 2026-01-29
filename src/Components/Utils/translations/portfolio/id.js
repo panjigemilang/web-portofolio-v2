@@ -1,4 +1,4 @@
-export default {
+const idPortfolioTranslations = {
   devkami: {
     title: "Devkami (Project)",
     job: "Fullstack Developer",
@@ -311,3 +311,5 @@ export default {
     },
   },
 }
+
+export default idPortfolioTranslations

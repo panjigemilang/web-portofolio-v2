@@ -1,4 +1,4 @@
-export default {
+const jpTranslations = {
   nav: {
     home: "ホーム",
     about: "について",
@@ -131,3 +131,5 @@ export default {
     },
   },
 }
+
+export default jpTranslations
