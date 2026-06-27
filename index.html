@@ -77,6 +77,12 @@
         <span style="{{ enTabStyle }}">EN</span>
         <span style="{{ jpTabStyle }}">日本</span>
       </div>
+      <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ installApp }}" onMouseEnter="{{ hover }}" style="{{ installButtonStyle }}">
+          <span>⭳</span>
+          <span>{{ t.install }}</span>
+        </div>
+      </sc-if>
     </div>
   </div>
 
@@ -371,7 +377,7 @@ class Component extends DCLogic {
 
   BIO = `I'm a Software Engineer with over five years of experience building modern, scalable, and user-focused applications. Beyond writing code, I'm passionate about creating experiences that blend technology, creativity, and design. When I'm away from the keyboard, you'll often find me sketching ideas, exploring new places, or planning my next trip. Japan has always been a huge source of inspiration for me—I admire its aesthetic, rich culture, breathtaking landscapes, and unique blend of tradition and innovation, and I especially enjoy watching Japanese cinematic works and creating cinematic-style visuals myself. I enjoy meeting new people, exchanging ideas, and building meaningful connections, whether through collaboration, shared interests, or simply a good conversation. I believe the best products are created where curiosity, creativity, and human connection come together.`;
 
-  state = { phase: 'intro', lang: 'en', wipePhase: 'idle', typed: 0, introDone: false, gallerySel: null, selectedProject: null, isMobile: window.innerWidth < 768 };
+  state = { phase: 'intro', lang: 'en', wipePhase: 'idle', typed: 0, introDone: false, gallerySel: null, selectedProject: null, isMobile: window.innerWidth < 768, canInstall: false };
 
   mouse = { x: 0, y: 0 };
   tmouse = { x: 0, y: 0 };
@@ -381,6 +387,21 @@ class Component extends DCLogic {
     // PWA — register service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+    // PWA — install prompt
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (!isStandalone) {
+      this.onBeforeInstallPrompt = (e) => {
+        e.preventDefault();
+        this.deferredInstallPrompt = e;
+        this.setState({ canInstall: true });
+      };
+      this.onAppInstalled = () => {
+        this.deferredInstallPrompt = null;
+        this.setState({ canInstall: false });
+      };
+      window.addEventListener('beforeinstallprompt', this.onBeforeInstallPrompt);
+      window.addEventListener('appinstalled', this.onAppInstalled);
     }
     if (this.props.startLang === 'jp') this.setState({ lang: 'jp' });
     this.rm = !!this.props.reducedMotion;
@@ -409,6 +430,8 @@ class Component extends DCLogic {
     window.removeEventListener('mousemove', this.onMouse);
     window.removeEventListener('touchmove', this.onMouse);
     window.removeEventListener('resize', this.onResize);
+    if (this.onBeforeInstallPrompt) window.removeEventListener('beforeinstallprompt', this.onBeforeInstallPrompt);
+    if (this.onAppInstalled) window.removeEventListener('appinstalled', this.onAppInstalled);
     if (this.renderer) this.renderer.dispose();
   }
 
@@ -594,6 +617,15 @@ class Component extends DCLogic {
   };
 
   toggleLang = () => { this.playSelect(); this.setState((s) => ({ lang: s.lang === 'en' ? 'jp' : 'en' })); };
+  installApp = async () => {
+    this.playSelect();
+    const e = this.deferredInstallPrompt;
+    if (!e) return;
+    this.deferredInstallPrompt = null;
+    this.setState({ canInstall: false });
+    e.prompt();
+    await e.userChoice;
+  };
   openFrame = (e) => { this.playSelect(); this.setState({ gallerySel: +e.currentTarget.dataset.i }); };
   closeFrame = () => { this.audioInit(); this.blip(520, 0.06, 0.03); this.setState({ gallerySel: null }); };
   openLink = (e) => { this.playSelect(); const u = e.currentTarget.dataset.url; if (u) window.open(u, '_blank', 'noopener'); };
@@ -613,14 +645,14 @@ class Component extends DCLogic {
       aboutKicker: '01 — キャラクター紹介', aboutTitle: '私について',
       pfKicker: '02 — プロジェクト年表', pfTitle: '作品',
       galKicker: '03 — アート展示', galTitle: 'ギャラリー',
-      contactKicker: '04 — お問い合わせ', contactTitle: '連絡先', connectSub: 'つながろう',
+      contactKicker: '04 — お問い合わせ', contactTitle: '連絡先', connectSub: 'つながろう', install: 'インストール',
     } : {
       name: 'PANJI GEMILANG', role: 'Software Engineer', menu: 'MENU', loading: 'LOADING',
       menuKicker: 'Main Menu', menuTitle: 'SELECT',
       aboutKicker: '01 — Character Profile', aboutTitle: 'ABOUT ME',
       pfKicker: '02 — Project Timeline', pfTitle: 'PORTFOLIO',
       galKicker: '03 — Art Exhibition', galTitle: 'GALLERY',
-      contactKicker: '04 — Get In Touch', contactTitle: 'CONTACT', connectSub: "Let's Connect",
+      contactKicker: '04 — Get In Touch', contactTitle: 'CONTACT', connectSub: "Let's Connect", install: 'Install',
     };
 
     const mi = [
@@ -712,6 +744,13 @@ class Component extends DCLogic {
     // Chrome right
     const chromeRightStyle = {
       display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '16px', pointerEvents: 'auto'
+    };
+    const installButtonStyle = {
+      cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px',
+      padding: isMobile ? '7px 10px' : '10px 16px',
+      background: '#ffe24d', color: '#0a0a0a', transform: 'skewX(-7deg)',
+      fontFamily: "'Anton'", fontSize: isMobile ? '11px' : '13px', letterSpacing: '.04em',
+      boxShadow: '0 6px 18px rgba(255,226,77,.3)'
     };
     const backInnerStyle = {
       cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '7px',
@@ -875,16 +914,17 @@ class Component extends DCLogic {
       t, phase, isMobile, isDesktop,
       menuItems, groups, frames, contacts, aboutTags,
       bioShown: this.BIO.slice(0, this.state.typed),
+      canInstall: this.state.canInstall,
 
       rootRef: this.rootRef, canvasRef: this.canvasRef, aboutRef: this.aboutRef, pfTrackRef: this.pfTrackRef,
       hover: this.hover, goMenu: this.goMenu, navigateClick: this.navigateClick,
       toggleLang: this.toggleLang, skipType: this.skipType, onPfScroll: this.onPfScroll,
       openFrame: this.openFrame, closeFrame: this.closeFrame, openLink: this.openLink,
-      selectProject: this.selectProject, closeProject: this.closeProject,
+      selectProject: this.selectProject, closeProject: this.closeProject, installApp: this.installApp,
 
       // Chrome
       chromeBarStyle, chromeLeftStyle, chromeBadgeStyle, chromeNameStyle,
-      chromeRightStyle, backInnerStyle, backMenuText, backAction,
+      chromeRightStyle, backInnerStyle, backMenuText, backAction, installButtonStyle,
 
       // Menu
       menuDeco1Style, menuKanjiStyle, menuContainerStyle, menuTitleStyle,
