@@ -1,8 +1,8 @@
 // PG Portfolio Service Worker — v1
-const CACHE = 'pg-portfolio-v1';
+const CACHE = 'pg-portfolio-v2';
 const PRECACHE = [
   './',
-  './JRPG Portfolio.dc.html',
+  './index.html',
   './support.js',
   './manifest.json',
   'https://fonts.googleapis.com/css2?family=Anton&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@600;800&display=swap',
@@ -14,7 +14,7 @@ self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(c => {
       // Precache local assets; external CDN assets are cached on first network hit
-      return c.addAll(['./JRPG Portfolio.dc.html', './support.js', './manifest.json'].filter(Boolean));
+      return c.addAll(['./', './index.html', './support.js', './manifest.json'].filter(Boolean));
     }).then(() => self.skipWaiting())
   );
 });

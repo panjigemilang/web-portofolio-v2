@@ -2,7 +2,7 @@
   "name": "Panji Gemilang — Portfolio",
   "short_name": "PG Portfolio",
   "description": "JRPG-styled interactive portfolio of Panji Gemilang, Software Engineer.",
-  "start_url": "./JRPG Portfolio.dc.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#07070a",
   "theme_color": "#ffe24d",
