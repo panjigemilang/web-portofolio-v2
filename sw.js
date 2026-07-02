@@ -1,20 +1,26 @@
 // PG Portfolio Service Worker — v1
-const CACHE = 'pg-portfolio-v2';
-const PRECACHE = [
+const CACHE = 'pg-portfolio-v3';
+const LOCAL_ASSETS = [
   './',
   './index.html',
   './support.js',
+  './app.js',
   './manifest.json',
-  'https://fonts.googleapis.com/css2?family=Anton&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@600;800&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'
+  './utils/ContentVariables.js',
+  './utils/GalleryContents.js',
+  './translations/ui/en.js',
+  './translations/ui/id.js',
+  './translations/ui/ja.js',
+  './translations/portfolio/en.js',
+  './translations/portfolio/id.js',
+  './translations/portfolio/ja.js'
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(c => {
-      // Precache local assets; external CDN assets are cached on first network hit
-      return c.addAll(['./', './index.html', './support.js', './manifest.json'].filter(Boolean));
+      // Precache local assets; CDN assets and images are cached on first network hit
+      return c.addAll(LOCAL_ASSETS);
     }).then(() => self.skipWaiting())
   );
 });
