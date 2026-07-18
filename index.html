@@ -1,1007 +1,2242 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<title>Panji Gemilang — Software Engineer &amp; Mobile Developer Portfolio</title>
-<meta name="description" content="JRPG-styled interactive portfolio of Panji Gemilang, a Software Engineer with 5+ years building scalable web &amp; mobile apps. Explore projects, gallery, and get in touch.">
-<meta name="keywords" content="Panji Gemilang, Software Engineer, Mobile Developer, Fullstack Developer, Web Developer Portfolio, React Developer, Next.js Developer, Indonesia Software Engineer">
-<meta name="author" content="Panji Gemilang">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#ffe24d">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="PG Portfolio">
-<link rel="canonical" href="https://panjigemilang.vercel.app/">
-<meta property="og:title" content="Panji Gemilang — Software Engineer &amp; Mobile Developer Portfolio">
-<meta property="og:description" content="JRPG-styled interactive portfolio of Panji Gemilang, a Software Engineer with 5+ years building scalable web &amp; mobile apps.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://panjigemilang.vercel.app/">
-<meta property="og:site_name" content="Panji Gemilang Portfolio">
-<meta property="og:image" content="https://panjigemilang.vercel.app/icon-512.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ja_JP">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Panji Gemilang — Software Engineer &amp; Mobile Developer Portfolio">
-<meta name="twitter:description" content="JRPG-styled interactive portfolio of Panji Gemilang, a Software Engineer with 5+ years building scalable web &amp; mobile apps.">
-<meta name="twitter:image" content="https://panjigemilang.vercel.app/icon-512.png">
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./favicon.ico">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%2307070a'/%3E%3Cg transform='skewX(-7)'%3E%3Crect x='22' y='22' width='136' height='136' fill='%23ffe24d'/%3E%3Ctext x='90' y='118' font-family='Arial Black,sans-serif' font-weight='900' font-size='76' fill='%230a0a0a' text-anchor='middle'%3EPG%3C/text%3E%3C/g%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Panji Gemilang",
-  "jobTitle": "Software Engineer",
-  "url": "https://panjigemilang.vercel.app/",
-  "image": "https://panjigemilang.vercel.app/icon-512.png",
-  "sameAs": [
-    "https://www.linkedin.com/in/panji-g",
-    "https://instagram.com/_panjig"
-  ],
-  "knowsAbout": ["Software Engineering", "Mobile Development", "React", "Next.js", "Fullstack Development"]
-}
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<style>
-  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
-  html,body{margin:0;padding:0;background:#07070a;overflow:hidden;height:100%;}
-  ::selection{background:#ffe24d;color:#0a0a0a;}
-  ::-webkit-scrollbar{width:0;height:0;}
-  @keyframes blink{0%,48%{opacity:1}49%,100%{opacity:0}}
-  @keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-16px) rotate(var(--r,0deg))}}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  @keyframes spinr{to{transform:rotate(-360deg)}}
-  @keyframes introIn{0%{opacity:0;transform:translateY(40px) skewX(-8deg) scale(.9)}60%{opacity:1}100%{opacity:1;transform:translateY(0) skewX(-8deg) scale(1)}}
-  @keyframes introSub{0%{opacity:0;letter-spacing:2px}100%{opacity:1;letter-spacing:.42em}}
-  @keyframes streak{0%{transform:translateX(-120%) skewX(-20deg);opacity:0}40%{opacity:1}100%{transform:translateX(320%) skewX(-20deg);opacity:0}}
-  @keyframes deskbob{0%,100%{transform:rotateX(8deg) rotateY(-9deg)}50%{transform:rotateX(8deg) rotateY(9deg)}}
-  @keyframes glowpulse{0%,100%{opacity:.5}50%{opacity:.9}}
-  @keyframes flash{0%{opacity:0}10%{opacity:.9}100%{opacity:0}}
-  @keyframes riseIn{0%{opacity:0;transform:translateY(28px)}100%{opacity:1;transform:translateY(0)}}
-  @keyframes silhBreath{0%,100%{transform:translateY(0) scaleX(1)}50%{transform:translateY(-14px) scaleX(1.008)}}
-  @keyframes cloudFloat1{0%,100%{transform:translateX(0)}50%{transform:translateX(30px)}}
-  @keyframes cloudFloat2{0%,100%{transform:translateX(0)}50%{transform:translateX(-22px)}}
-  @keyframes cloudFloat3{0%,100%{transform:translateX(0)}40%{transform:translateX(18px)}}
-</style>
-</helmet>
-<div ref="{{ rootRef }}" style="position:fixed;inset:0;width:100vw;height:100vh;font-family:'Zen Kaku Gothic New',sans-serif;color:#fff;background:#07070a;user-select:none;">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+    <script src="./app.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <title>Panji Gemilang — Software Engineer &amp; Mobile Developer Portfolio</title>
+        <meta
+          name="description"
+          content="JRPG-styled interactive portfolio of Panji Gemilang, a Software Engineer with 5+ years building scalable web &amp; mobile apps. Explore projects, gallery, and get in touch."
+        />
+        <meta
+          name="keywords"
+          content="Panji Gemilang, Software Engineer, Mobile Developer, Fullstack Developer, Web Developer Portfolio, React Developer, Next.js Developer, Indonesia Software Engineer"
+        />
+        <meta name="author" content="Panji Gemilang" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#ffe24d" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <meta name="apple-mobile-web-app-title" content="PG Portfolio" />
+        <link rel="canonical" href="https://panjigemilang.vercel.app/" />
+        <meta property="og:title" content="Panji Gemilang — Software Engineer &amp; Mobile Developer Portfolio" />
+        <meta
+          property="og:description"
+          content="JRPG-styled interactive portfolio of Panji Gemilang, a Software Engineer with 5+ years building scalable web &amp; mobile apps."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://panjigemilang.vercel.app/" />
+        <meta property="og:site_name" content="Panji Gemilang Portfolio" />
+        <meta property="og:image" content="https://panjigemilang.vercel.app/icon-512.png" />
+        <meta property="og:image:width" content="512" />
+        <meta property="og:image:height" content="512" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale:alternate" content="id_ID" />
+        <meta property="og:locale:alternate" content="ja_JP" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Panji Gemilang — Software Engineer &amp; Mobile Developer Portfolio" />
+        <meta
+          name="twitter:description"
+          content="JRPG-styled interactive portfolio of Panji Gemilang, a Software Engineer with 5+ years building scalable web &amp; mobile apps."
+        />
+        <meta name="twitter:image" content="https://panjigemilang.vercel.app/icon-512.png" />
+        <link rel="manifest" href="./manifest.json" />
+        <link rel="icon" href="./favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%2307070a'/%3E%3Cg transform='skewX(-7)'%3E%3Crect x='22' y='22' width='136' height='136' fill='%23ffe24d'/%3E%3Ctext x='90' y='118' font-family='Arial Black,sans-serif' font-weight='900' font-size='76' fill='%230a0a0a' text-anchor='middle'%3EPG%3C/text%3E%3C/g%3E%3C/svg%3E"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Anton&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@600;800&display=swap"
+          rel="stylesheet"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Panji Gemilang",
+            "jobTitle": "Software Engineer",
+            "url": "https://panjigemilang.vercel.app/",
+            "image": "https://panjigemilang.vercel.app/icon-512.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/panji-g",
+              "https://instagram.com/_panjig"
+            ],
+            "knowsAbout": ["Software Engineering", "Mobile Development", "React", "Next.js", "Fullstack Development"]
+          }
+        </script>
+        <style>
+          * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+          }
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+            background: #07070a;
+            overflow: hidden;
+            height: 100%;
+          }
+          ::selection {
+            background: #ffe24d;
+            color: #0a0a0a;
+          }
+          ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+          }
+          @keyframes blink {
+            0%,
+            48% {
+              opacity: 1;
+            }
+            49%,
+            100% {
+              opacity: 0;
+            }
+          }
+          @keyframes floaty {
+            0%,
+            100% {
+              transform: translateY(0) rotate(var(--r, 0deg));
+            }
+            50% {
+              transform: translateY(-16px) rotate(var(--r, 0deg));
+            }
+          }
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+          @keyframes spinr {
+            to {
+              transform: rotate(-360deg);
+            }
+          }
+          @keyframes introIn {
+            0% {
+              opacity: 0;
+              transform: translateY(40px) skewX(-8deg) scale(0.9);
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) skewX(-8deg) scale(1);
+            }
+          }
+          @keyframes introSub {
+            0% {
+              opacity: 0;
+              letter-spacing: 2px;
+            }
+            100% {
+              opacity: 1;
+              letter-spacing: 0.42em;
+            }
+          }
+          @keyframes streak {
+            0% {
+              transform: translateX(-120%) skewX(-20deg);
+              opacity: 0;
+            }
+            40% {
+              opacity: 1;
+            }
+            100% {
+              transform: translateX(320%) skewX(-20deg);
+              opacity: 0;
+            }
+          }
+          @keyframes deskbob {
+            0%,
+            100% {
+              transform: rotateX(8deg) rotateY(-9deg);
+            }
+            50% {
+              transform: rotateX(8deg) rotateY(9deg);
+            }
+          }
+          @keyframes glowpulse {
+            0%,
+            100% {
+              opacity: 0.5;
+            }
+            50% {
+              opacity: 0.9;
+            }
+          }
+          @keyframes flash {
+            0% {
+              opacity: 0;
+            }
+            10% {
+              opacity: 0.9;
+            }
+            100% {
+              opacity: 0;
+            }
+          }
+          @keyframes riseIn {
+            0% {
+              opacity: 0;
+              transform: translateY(28px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          @keyframes silhBreath {
+            0%,
+            100% {
+              transform: translateY(0) scaleX(1);
+            }
+            50% {
+              transform: translateY(-14px) scaleX(1.008);
+            }
+          }
+          @keyframes cloudFloat1 {
+            0%,
+            100% {
+              transform: translateX(0);
+            }
+            50% {
+              transform: translateX(30px);
+            }
+          }
+          @keyframes cloudFloat2 {
+            0%,
+            100% {
+              transform: translateX(0);
+            }
+            50% {
+              transform: translateX(-22px);
+            }
+          }
+          @keyframes cloudFloat3 {
+            0%,
+            100% {
+              transform: translateX(0);
+            }
+            40% {
+              transform: translateX(18px);
+            }
+          }
+        </style>
+      </helmet>
+      <div
+        ref="{{ rootRef }}"
+        style="
+          position: fixed;
+          inset: 0;
+          width: 100vw;
+          height: 100vh;
+          font-family: &quot;Zen Kaku Gothic New&quot;, sans-serif;
+          color: #fff;
+          background: #07070a;
+          user-select: none;
+        "
+      >
+        <canvas
+          ref="{{ canvasRef }}"
+          style="
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: block;
+          "
+        ></canvas>
 
-  <canvas ref="{{ canvasRef }}" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;"></canvas>
+        <!-- film overlays -->
+        <div
+          style="
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(
+              120% 120% at 50% 40%,
+              rgba(0, 0, 0, 0) 40%,
+              rgba(0, 0, 0, 0.55) 100%
+            );
+          "
+        ></div>
+        <div
+          style="
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.06;
+            background: repeating-linear-gradient(
+              0deg,
+              #fff 0,
+              #fff 1px,
+              transparent 1px,
+              transparent 3px
+            );
+          "
+        ></div>
 
-  <!-- film overlays -->
-  <div style="position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 120% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%);"></div>
-  <div style="position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.06;background:repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);"></div>
-
-  <!-- ===== CHROME ===== -->
-  <div style="{{ chromeBarStyle }}">
-    <div style="{{ chromeLeftStyle }}">
-      <div onClick="{{ goMenu }}" onMouseEnter="{{ hover }}" style="{{ chromeBadgeStyle }}">PG</div>
-      <div style="{{ chromeNameStyle }}">
-        <div style="font-family:'Anton';font-size:17px;letter-spacing:.04em;line-height:1;">{{ t.name }}</div>
-        <div style="font-size:10.5px;letter-spacing:.32em;color:#ffe24d;margin-top:4px;text-transform:uppercase;">{{ t.role }}</div>
-      </div>
-    </div>
-
-    <div style="{{ chromeRightStyle }}">
-      <div style="{{ backStyle }}">
-        <div onClick="{{ backAction }}" onMouseEnter="{{ hover }}" style="{{ backInnerStyle }}">
-          <span style="font-family:'Anton';font-size:13px;color:#ffe24d;">◂</span>
-          <span style="font-size:11px;letter-spacing:.28em;font-weight:700;">{{ backMenuText }}</span>
-        </div>
-      </div>
-      <div onClick="{{ toggleLang }}" onMouseEnter="{{ hover }}" style="cursor:pointer;display:flex;border:1.5px solid rgba(255,255,255,.2);transform:skewX(-7deg);overflow:hidden;font-family:'Anton';font-size:13px;">
-        <span style="{{ enTabStyle }}">EN</span>
-        <span style="{{ jpTabStyle }}">日本</span>
-      </div>
-      <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ installApp }}" onMouseEnter="{{ hover }}" style="{{ installButtonStyle }}">
-          <span>⭳</span>
-          <span>{{ t.install }}</span>
-        </div>
-      </sc-if>
-    </div>
-  </div>
-
-  <!-- ===== INTRO ===== -->
-  <div style="{{ introStyle }}">
-    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <div style="position:absolute;top:18%;left:0;width:55%;height:5px;background:#ffe24d;animation:streak 1.6s ease-in .1s infinite;"></div>
-      <div style="position:absolute;top:31%;left:0;width:40%;height:2px;background:#fff;animation:streak 1.4s ease-in .35s infinite;"></div>
-      <div style="position:absolute;top:64%;left:0;width:50%;height:3px;background:#ffe24d;animation:streak 1.5s ease-in .2s infinite;"></div>
-      <div style="position:absolute;top:78%;left:0;width:35%;height:2px;background:#fff;animation:streak 1.3s ease-in .5s infinite;"></div>
-      <div style="position:absolute;top:48%;left:0;width:62%;height:4px;background:#ffe24d;animation:streak 1.7s ease-in 0s infinite;"></div>
-    </div>
-    <div style="position:relative;text-align:center;padding:0 16px;">
-      <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.42em;color:#ffe24d;animation:introSub 1s ease .2s both;text-transform:uppercase;">Now Loading — A Portfolio Experience</div>
-      <div style="font-family:'Anton';font-size:clamp(60px,13vw,190px);line-height:.86;letter-spacing:.01em;margin:18px 0 0;transform:skewX(-8deg);animation:introIn 1s cubic-bezier(.16,1,.3,1) .35s both;">PANJI<span style="color:#ffe24d;">.</span></div>
-      <div style="font-family:'Anton';font-size:clamp(22px,4vw,52px);line-height:1;color:#ffe24d;transform:skewX(-8deg);animation:introIn 1s cubic-bezier(.16,1,.3,1) .55s both;">GEMILANG</div>
-      <div style="margin-top:26px;font-size:clamp(10px,2.8vw,13px);letter-spacing:.5em;animation:introSub 1.2s ease 1s both;text-transform:uppercase;color:rgba(255,255,255,.8);">Software Engineer / Mobile Dev</div>
-    </div>
-    <div style="position:absolute;inset:0;background:#ffe24d;mix-blend-mode:screen;animation:flash .5s ease 2.55s both;pointer-events:none;"></div>
-  </div>
-
-  <!-- ===== MENU ===== -->
-  <div style="{{ menuStyle }}">
-    <div data-depth="2.2" style="{{ menuDeco1Style }}"><div style="width:230px;height:230px;border:2px solid rgba(255,226,77,.35);transform:rotate(18deg);animation:floaty 7s ease-in-out infinite;--r:18deg;"></div></div>
-    <div data-depth="3" style="position:absolute;bottom:14%;right:22%;"><div style="width:90px;height:90px;background:rgba(255,226,77,.12);transform:rotate(30deg);animation:floaty 5s ease-in-out infinite;--r:30deg;"></div></div>
-    <div data-depth="1.4" style="{{ menuKanjiStyle }}"><div style="font-family:'Shippori Mincho';font-size:120px;color:rgba(255,255,255,.04);animation:spin 40s linear infinite;">理</div></div>
-
-    <div style="{{ menuContainerStyle }}">
-      <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.4em;color:#ffe24d;margin-bottom:8px;text-transform:uppercase;">{{ t.menuKicker }}</div>
-      <div style="{{ menuTitleStyle }}">{{ t.menuTitle }}</div>
-      <div style="{{ menuItemsListStyle }}">
-        <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="4">
-          <div data-target="{{ m.target }}" onClick="{{ navigateClick }}" onMouseEnter="{{ hover }}" style="{{ menuItemBaseStyle }}" style-hover="cursor:pointer;position:relative;display:flex;align-items:center;gap:18px;padding:14px 24px 14px 36px;transform:skewX(-7deg) translateX(20px);background:linear-gradient(90deg,rgba(255,226,77,.2) 0%,rgba(255,226,77,.05) 60%,transparent);color:#fff;border-left:4px solid #ffe24d;backdrop-filter:blur(4px);box-shadow:inset 0 0 0 1px rgba(255,226,77,.28),0 12px 40px rgba(255,226,77,.18);transition:transform .35s cubic-bezier(.16,1,.3,1),background .35s,padding-left .35s,box-shadow .35s;">
-            <div style="{{ m.focusGlow }}"></div>
-            <span style="{{ menuNumStyle }}">{{ m.n }}</span>
-            <div style="flex:1;min-width:0;">
-              <div style="{{ menuLabelStyle }}">{{ m.label }}</div>
-              <div style="font-size:10px;letter-spacing:.22em;opacity:.7;margin-top:3px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ m.descLoc }}</div>
+        <!-- ===== CHROME ===== -->
+        <div style="{{ chromeBarStyle }}">
+          <div style="{{ chromeLeftStyle }}">
+            <div
+              onClick="{{ goMenu }}"
+              onMouseEnter="{{ hover }}"
+              style="{{ chromeBadgeStyle }}"
+            >
+              PG
             </div>
-            <span style="font-family:'Anton';font-size:22px;flex-shrink:0;">▸</span>
-          </div>
-        </sc-for>
-      </div>
-      <div style="margin-top:24px;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.4);text-transform:uppercase;">▲▼ Select · ▸ Confirm</div>
-    </div>
-  </div>
-
-  <!-- ===== ABOUT ===== -->
-  <div style="{{ aboutStyle }}">
-    <div ref="{{ aboutRef }}" style="{{ aboutGridStyle }}">
-
-      <!-- Portrait column -->
-      <div style="{{ aboutPortraitColStyle }}">
-        <div data-depth="3.4" style="{{ aboutGlowStyle }}"></div>
-        <div data-depth="2.6" style="position:absolute;"><div style="{{ aboutFrameStyle }}"></div></div>
-        <div data-depth="2.2" style="position:absolute;"><div style="{{ aboutKanjiStyle }}">人</div></div>
-        <div data-depth="1.5" style="position:absolute;">
-          <div style="{{ aboutCardStyle }}">
-            <svg viewBox="0 0 200 260" style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:88%;" aria-hidden="true"><defs><linearGradient id="sil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe24d" stop-opacity=".9"/><stop offset="1" stop-color="#ffe24d" stop-opacity=".25"/></linearGradient></defs><path fill="url(#sil)" d="M100 30c24 0 40 18 40 44 0 18-9 33-22 41 30 9 52 30 60 64 4 17 6 33 6 51H16c0-18 2-34 6-51 8-34 30-55 60-64-13-8-22-23-22-41 0-26 16-44 40-44z"/></svg>
-            <div style="position:absolute;top:12px;left:12px;font-family:'Anton';font-size:13px;color:#ffe24d;letter-spacing:.1em;">P.01</div>
-            <div style="position:absolute;bottom:12px;right:14px;font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.5);text-align:right;">REPLACE WITH<br>YOUR PORTRAIT</div>
-          </div>
-        </div>
-        <div data-depth="0.8" style="position:absolute;top:8%;left:6%;"><div style="font-family:'Anton';font-size:30px;color:#ffe24d;animation:floaty 4s ease-in-out infinite;">▸▸</div></div>
-        <div data-depth="0.6" style="position:absolute;bottom:10%;right:4%;"><div style="width:46px;height:46px;border:3px solid #ffe24d;transform:rotate(45deg);animation:floaty 5s ease-in-out .5s infinite;--r:45deg;"></div></div>
-        <div data-depth="0.4" style="position:absolute;top:0;right:18%;width:36px;height:36px;border-top:3px solid #fff;border-right:3px solid #fff;"></div>
-        <div data-depth="0.4" style="position:absolute;bottom:0;left:14%;width:36px;height:36px;border-bottom:3px solid #fff;border-left:3px solid #fff;"></div>
-      </div>
-
-      <!-- Text column -->
-      <div style="{{ aboutTextColStyle }}">
-        <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.4em;color:#ffe24d;text-transform:uppercase;">{{ t.aboutKicker }}</div>
-        <div style="font-family:'Anton';font-size:clamp(36px,6vw,86px);line-height:.86;transform:skewX(-7deg);margin:8px 0 22px;">{{ t.aboutTitle }}</div>
-        <div onClick="{{ skipType }}" style="{{ aboutBioBoxStyle }}">
-          <div style="position:absolute;top:-12px;left:22px;background:#ffe24d;color:#0a0a0a;font-family:'Anton';font-size:11px;letter-spacing:.2em;padding:3px 12px;transform:skewX(-7deg);">PROFILE</div>
-          <p style="font-size:15px;line-height:1.9;margin:0;color:rgba(255,255,255,.92);font-weight:400;text-wrap:pretty;">{{ bioShown }}<span style="display:inline-block;width:10px;height:18px;background:#ffe24d;margin-left:2px;transform:translateY(3px);animation:blink 1s steps(1) infinite;"></span></p>
-          <div style="margin-top:8px;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.35);text-transform:uppercase;">▸ tap to skip typing</div>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;padding-bottom:40px;">
-          <sc-for list="{{ aboutTags }}" as="tag" hint-placeholder-count="3">
-            <div style="padding:8px 14px;border:1.5px solid rgba(255,226,77,.4);transform:skewX(-7deg);font-size:11px;letter-spacing:.18em;font-weight:700;text-transform:uppercase;">{{ tag }}</div>
-          </sc-for>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== PORTFOLIO ===== -->
-  <div style="{{ portfolioStyle }}">
-    <div style="{{ pfTopStyle }}">
-      <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.4em;color:#ffe24d;text-transform:uppercase;">{{ t.pfKicker }}</div>
-      <div style="font-family:'Anton';font-size:clamp(32px,5.5vw,76px);line-height:.86;transform:skewX(-7deg);">{{ t.pfTitle }}</div>
-      <div style="font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.45);margin-top:6px;text-transform:uppercase;">▾ Scroll to travel through time</div>
-    </div>
-    <div ref="{{ pfTrackRef }}" onScroll="{{ onPfScroll }}" style="{{ pfTrackStyle }}">
-      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
-        <div style="position:relative;margin-bottom:40px;">
-          <div style="{{ yearStyle }}">{{ g.year }}</div>
-          <div style="position:relative;z-index:1;margin-top:-40px;display:flex;flex-direction:column;gap:16px;">
-            <sc-for list="{{ g.items }}" as="p" hint-placeholder-count="2">
-              <div data-pf="1" data-pname="{{ p.name }}" onClick="{{ selectProject }}" onMouseEnter="{{ hover }}" style="transition:opacity .3s;will-change:transform;background:linear-gradient(135deg,rgba(20,20,26,.92),rgba(11,11,15,.92));border:1.5px solid rgba(255,255,255,.1);border-left:5px solid #ffe24d;padding:18px 20px;backdrop-filter:blur(6px);box-shadow:0 24px 60px rgba(0,0,0,.45);cursor:pointer;" style-hover="transition:opacity .3s;will-change:transform;background:linear-gradient(135deg,rgba(28,28,36,.96),rgba(15,15,20,.96));border:1.5px solid rgba(255,226,77,.55);border-left:5px solid #ffe24d;padding:18px 20px;backdrop-filter:blur(6px);box-shadow:0 30px 80px rgba(255,226,77,.15);cursor:pointer;">
-                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-                  <div style="font-family:'Anton';font-size:clamp(20px,4vw,30px);line-height:1;letter-spacing:.01em;">{{ p.name }}</div>
-                  <div style="font-family:'Anton';font-size:12px;color:#ffe24d;letter-spacing:.1em;white-space:nowrap;">{{ p.period }}</div>
-                </div>
-                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;">
-                  <span style="color:#ffe24d;font-weight:700;">{{ p.role }}</span>
-                  <span style="color:rgba(255,255,255,.4);">/</span>
-                  <span style="color:rgba(255,255,255,.6);">{{ p.cat }}</span>
-                </div>
-                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;">
-                  <sc-for list="{{ p.tech }}" as="tk" hint-placeholder-count="3">
-                    <span style="font-size:10px;letter-spacing:.08em;padding:4px 10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);">{{ tk }}</span>
-                  </sc-for>
-                </div>
-                <div style="margin-top:12px;display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.22em;color:rgba(255,226,77,.65);font-weight:700;text-transform:uppercase;">VIEW DETAILS <span style="font-family:'Anton';font-size:13px;color:#ffe24d;">▸</span></div>
+            <div style="{{ chromeNameStyle }}">
+              <div
+                style="
+                  font-family: &quot;Anton&quot;;
+                  font-size: 17px;
+                  letter-spacing: 0.04em;
+                  line-height: 1;
+                "
+              >
+                {{ t.name }}
               </div>
-            </sc-for>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-
-    <!-- Project Detail Overlay -->
-    <sc-if value="{{ projectOpen }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;z-index:20;overflow-y:auto;background:linear-gradient(160deg,#09090d,#0f0e07);animation:riseIn .4s ease both;">
-        <div style="{{ pfDetailStickyStyle }}">
-          <div style="{{ pfDetailSubtitleStyle }}">Case File — Project Profile</div>
-        </div>
-        <div style="{{ pfDetailBodyStyle }}">
-          <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.4em;color:#ffe24d;text-transform:uppercase;margin-bottom:14px;">{{ selProject.cat }}</div>
-          <div style="font-family:'Anton';font-size:clamp(32px,7vw,110px);line-height:.82;transform:skewX(-7deg);margin-bottom:28px;">{{ selProject.name }}</div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px;align-items:center;">
-            <div style="font-family:'Anton';font-size:13px;color:#ffe24d;letter-spacing:.08em;padding:7px 14px;border:1.5px solid #ffe24d;transform:skewX(-7deg);">{{ selProject.period }}</div>
-            <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);">{{ selProject.role }}</div>
-          </div>
-          <div style="height:3px;background:linear-gradient(90deg,#ffe24d,rgba(255,226,77,.05));margin-bottom:36px;"></div>
-          <p style="font-size:clamp(14px,2.5vw,18px);line-height:2;color:rgba(255,255,255,.85);max-width:680px;margin:0 0 52px;text-wrap:pretty;padding-left:20px;border-left:4px solid #ffe24d;">{{ selProject.desc }}</p>
-          <div style="font-family:'Shippori Mincho';font-size:12px;letter-spacing:.36em;color:#ffe24d;text-transform:uppercase;margin-bottom:18px;">Technology Stack</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <sc-for list="{{ selProject.tech }}" as="tk" hint-placeholder-count="4">
-              <span style="font-size:12px;letter-spacing:.1em;padding:9px 16px;background:rgba(255,226,77,.1);border:1.5px solid rgba(255,226,77,.5);color:#ffe24d;font-weight:700;">{{ tk }}</span>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-    </sc-if>
-  </div>
-
-  <!-- ===== GALLERY ===== -->
-  <div style="{{ galleryStyle }}">
-    <div style="{{ galTopStyle }}">
-      <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.4em;color:#ffe24d;text-transform:uppercase;">{{ t.galKicker }}</div>
-      <div style="font-family:'Anton';font-size:clamp(32px,5.5vw,76px);line-height:.86;transform:skewX(-7deg);">{{ t.galTitle }}</div>
-    </div>
-    <div style="{{ galleryScrollStyle }}">
-      <div style="position:absolute;left:0;right:0;bottom:16%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,226,77,.4),transparent);pointer-events:none;"></div>
-      <sc-for list="{{ frames }}" as="f" hint-placeholder-count="5">
-        <div data-i="{{ f.idx }}" onClick="{{ openFrame }}" onMouseEnter="{{ hover }}" style="cursor:pointer;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;transition:transform .45s cubic-bezier(.16,1,.3,1);" style-hover="cursor:pointer;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;transform:translateY(-18px) scale(1.03);transition:transform .45s cubic-bezier(.16,1,.3,1);">
-          <div style="{{ galleryCardSizeStyle }}">
-            <div style="{{ f.artStyle }}"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%);"></div>
-          </div>
-          <div style="text-align:center;transform:skewX(-7deg);">
-            <div style="font-family:'Anton';font-size:16px;letter-spacing:.04em;">{{ f.title }}</div>
-            <div style="font-size:10px;letter-spacing:.28em;color:#ffe24d;margin-top:3px;text-transform:uppercase;">{{ f.medium }}</div>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-
-    <!-- Gallery Viewer -->
-    <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
-      <div onClick="{{ closeFrame }}" style="position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:rgba(5,5,7,.88);backdrop-filter:blur(10px);cursor:pointer;animation:riseIn .4s ease both;padding:20px;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
-          <div style="{{ galleryViewerCardStyle }}">
-            <div style="{{ selFrameStyle }}"></div>
-          </div>
-          <div style="text-align:center;transform:skewX(-7deg);">
-            <div style="font-family:'Anton';font-size:clamp(20px,5vw,30px);">{{ selFrame.title }}</div>
-            <div style="font-size:10px;letter-spacing:.28em;color:#ffe24d;margin-top:5px;text-transform:uppercase;">{{ selFrame.medium }} · TAP TO CLOSE</div>
-          </div>
-        </div>
-      </div>
-    </sc-if>
-  </div>
-
-  <!-- ===== CONTACT ===== -->
-  <div style="{{ contactStyle }}">
-    <div style="{{ contactTopStyle }}">
-      <div style="font-family:'Shippori Mincho';font-size:13px;letter-spacing:.4em;color:#ffe24d;text-transform:uppercase;">{{ t.contactKicker }}</div>
-      <div style="font-family:'Anton';font-size:clamp(32px,5.5vw,76px);line-height:.86;transform:skewX(-7deg);">{{ t.contactTitle }}</div>
-    </div>
-    <div style="position:absolute;inset:0;background:radial-gradient(60% 50% at 72% 38%, rgba(255,170,70,.22), transparent 70%);pointer-events:none;"></div>
-
-    <!-- MOBILE: flat card layout -->
-    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:148px 20px 48px;gap:20px;">
-        <div style="text-align:center;">
-          <div style="width:72px;height:72px;margin:0 auto;border-radius:50%;background:#ffe24d;color:#0a0a0a;display:grid;place-items:center;font-family:'Anton';font-size:30px;box-shadow:0 8px 28px rgba(255,226,77,.4);">PG</div>
-          <div style="font-family:'Anton';font-size:22px;margin-top:10px;letter-spacing:.02em;">PANJI G.</div>
-          <div style="font-size:10px;letter-spacing:.24em;color:#ffe24d;margin-top:4px;text-transform:uppercase;">{{ t.connectSub }}</div>
-        </div>
-        <div style="width:100%;max-width:360px;background:linear-gradient(180deg,rgba(14,14,20,.97),rgba(8,8,12,.97));border:1.5px solid rgba(255,226,77,.22);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:11px;box-shadow:0 30px 70px rgba(0,0,0,.55);">
-          <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="4">
-            <div data-url="{{ c.url }}" onClick="{{ openLink }}" onMouseEnter="{{ hover }}" style="cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;transition:transform .25s,background .25s,border-color .25s;" style-hover="cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,226,77,.14);color:#fff;border:1px solid rgba(255,226,77,.85);border-radius:14px;transform:scale(1.02);box-shadow:0 8px 24px rgba(255,226,77,.18);transition:transform .25s,background .25s,border-color .25s,box-shadow .25s;">
-              <div style="width:38px;height:38px;border-radius:10px;background:rgba(255,226,77,.18);display:grid;place-items:center;font-family:'Anton';font-size:15px;color:#ffe24d;flex-shrink:0;">{{ c.badge }}</div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-size:14px;font-weight:700;letter-spacing:.02em;">{{ c.label }}</div>
-                <div style="font-size:11px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ c.sub }}</div>
+              <div
+                style="
+                  font-size: 10.5px;
+                  letter-spacing: 0.32em;
+                  color: #ffe24d;
+                  margin-top: 4px;
+                  text-transform: uppercase;
+                "
+              >
+                {{ t.role }}
               </div>
-              <span style="font-family:'Anton';font-size:16px;flex-shrink:0;">↗</span>
             </div>
-          </sc-for>
-        </div>
-      </div>
-    </sc-if>
+          </div>
 
-    <!-- DESKTOP: 3D desk scene -->
-    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
-      <div style="position:absolute;inset:0;display:grid;place-items:center;perspective:1500px;">
-        <div style="position:relative;width:760px;height:520px;transform-style:preserve-3d;animation:deskbob 14s ease-in-out infinite;">
-          <!-- desk surface -->
-          <div style="position:absolute;left:50%;top:62%;width:760px;height:300px;transform:translate(-50%,0) rotateX(74deg);transform-origin:center top;background:linear-gradient(180deg,#2a2118,#191309);border:1px solid rgba(255,200,120,.15);box-shadow:0 0 80px rgba(255,170,70,.15);background-image:linear-gradient(90deg,rgba(255,200,120,.05) 1px,transparent 1px),linear-gradient(0deg,rgba(255,200,120,.05) 1px,transparent 1px);background-size:48px 48px;"></div>
-          <!-- monitor -->
-          <div style="position:absolute;left:50%;top:2%;transform:translateX(-50%) translateZ(-90px);width:300px;">
-            <div style="height:172px;background:linear-gradient(135deg,#101015,#06060a);border:8px solid #1c1c22;border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.6);display:grid;place-items:center;"><div style="font-family:'Anton';font-size:34px;color:rgba(255,226,77,.5);">&lt;/&gt;</div></div>
-            <div style="width:60px;height:38px;background:#15151a;margin:0 auto;"></div>
-            <div style="width:130px;height:8px;background:#0d0d11;margin:0 auto;border-radius:3px;"></div>
-          </div>
-          <!-- laptop -->
-          <div style="position:absolute;left:6%;top:34%;transform:translateZ(40px) rotateY(26deg);">
-            <div style="width:150px;height:96px;background:linear-gradient(135deg,#16161c,#0a0a0e);border:5px solid #1c1c22;border-radius:6px 6px 0 0;display:grid;place-items:center;"><div style="width:60%;height:60%;background:linear-gradient(135deg,rgba(255,226,77,.18),transparent);border-radius:3px;"></div></div>
-            <div style="width:172px;height:11px;background:#202028;border-radius:0 0 7px 7px;transform:translateX(-11px);"></div>
-          </div>
-          <!-- lamp -->
-          <div style="position:absolute;right:4%;top:8%;transform:translateZ(10px);">
-            <div style="width:60px;height:34px;background:#ffe24d;border-radius:30px 30px 6px 6px;box-shadow:0 0 60px 18px rgba(255,200,90,.5);transform:rotate(28deg);animation:glowpulse 5s ease-in-out infinite;"></div>
-            <div style="width:5px;height:120px;background:#26262c;margin:0 0 0 40px;transform:rotate(8deg);"></div>
-            <div style="width:64px;height:12px;background:#1c1c22;border-radius:50%;margin-left:8px;"></div>
-          </div>
-          <!-- coffee -->
-          <div style="position:absolute;right:14%;top:62%;transform:translateZ(60px);"><div style="width:48px;height:54px;background:linear-gradient(#23232a,#15151a);border-radius:6px 6px 10px 10px;border:2px solid #2c2c34;"></div><div style="width:18px;height:24px;border:3px solid #2c2c34;border-radius:0 12px 12px 0;position:absolute;right:-14px;top:12px;"></div></div>
-          <!-- plant -->
-          <div style="position:absolute;left:2%;top:60%;transform:translateZ(50px);"><div style="font-family:'Shippori Mincho';font-size:50px;color:#3fae6a;line-height:1;">❦</div><div style="width:36px;height:30px;background:linear-gradient(#1c1c22,#0e0e12);margin:-6px auto 0;clip-path:polygon(14% 0,86% 0,100% 100%,0 100%);"></div></div>
-          <!-- notebook -->
-          <div style="position:absolute;left:24%;top:74%;transform:translateZ(70px) rotate(-8deg);width:120px;height:60px;background:linear-gradient(135deg,#1a1a20,#101014);border-left:5px solid #ffe24d;box-shadow:0 12px 26px rgba(0,0,0,.5);"></div>
-          <!-- PHONE centerpiece -->
-          <div style="position:absolute;left:50%;top:30%;transform:translateX(-50%) translateZ(150px) rotateX(-6deg);width:236px;height:480px;border-radius:36px;background:linear-gradient(150deg,#1a1a20,#0a0a0d);border:3px solid #2a2a32;box-shadow:0 50px 90px rgba(0,0,0,.7),0 0 70px rgba(255,226,77,.18);padding:12px;">
-            <div style="width:100%;height:100%;border-radius:26px;background:linear-gradient(180deg,#0e0e13,#08080b);overflow:hidden;position:relative;border:1px solid rgba(255,226,77,.15);">
-              <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:74px;height:18px;background:#000;border-radius:12px;z-index:3;"></div>
-              <div style="padding:34px 18px 16px;text-align:center;">
-                <div style="width:62px;height:62px;margin:0 auto;border-radius:50%;background:#ffe24d;color:#0a0a0a;display:grid;place-items:center;font-family:'Anton';font-size:26px;box-shadow:0 8px 24px rgba(255,226,77,.4);">PG</div>
-                <div style="font-family:'Anton';font-size:18px;margin-top:10px;letter-spacing:.02em;">PANJI G.</div>
-                <div style="font-size:9px;letter-spacing:.24em;color:#ffe24d;margin-top:3px;text-transform:uppercase;">{{ t.connectSub }}</div>
+          <div style="{{ chromeRightStyle }}">
+            <div style="{{ backStyle }}">
+              <div
+                onClick="{{ backAction }}"
+                onMouseEnter="{{ hover }}"
+                style="{{ backInnerStyle }}"
+              >
+                <span
+                  style="
+                    font-family: &quot;Anton&quot;;
+                    font-size: 13px;
+                    color: #ffe24d;
+                  "
+                  >◂</span
+                >
+                <span
+                  style="
+                    font-size: 11px;
+                    letter-spacing: 0.28em;
+                    font-weight: 700;
+                  "
+                  >{{ backMenuText }}</span
+                >
               </div>
-              <div style="display:flex;flex-direction:column;gap:9px;padding:0 14px;">
-                <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="4">
-                  <div data-url="{{ c.url }}" onClick="{{ openLink }}" onMouseEnter="{{ hover }}" style="cursor:pointer;display:flex;align-items:center;gap:11px;padding:11px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;transition:transform .25s,background .25s,border-color .25s;" style-hover="cursor:pointer;display:flex;align-items:center;gap:11px;padding:11px 12px;background:rgba(255,226,77,.14);color:#fff;border:1px solid rgba(255,226,77,.85);border-radius:12px;transform:translateX(6px) scale(1.02);box-shadow:0 8px 24px rgba(255,226,77,.18);transition:transform .25s,background .25s,border-color .25s,box-shadow .25s;">
-                    <div style="width:30px;height:30px;border-radius:8px;background:rgba(255,226,77,.18);display:grid;place-items:center;font-family:'Anton';font-size:14px;color:#ffe24d;">{{ c.badge }}</div>
-                    <div style="flex:1;text-align:left;overflow:hidden;">
-                      <div style="font-size:12px;font-weight:700;letter-spacing:.02em;">{{ c.label }}</div>
-                      <div style="font-size:9.5px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ c.sub }}</div>
+            </div>
+            <div
+              style="
+                cursor: pointer;
+                display: flex;
+                border: 1.5px solid rgba(255, 255, 255, 0.2);
+                transform: skewX(-7deg);
+                overflow: hidden;
+                font-family: &quot;Anton&quot;;
+                font-size: 13px;
+              "
+            >
+              <span
+                data-lang="en"
+                onClick="{{ setLang }}"
+                onMouseEnter="{{ hover }}"
+                style="{{ enTabStyle }}"
+                >EN</span
+              >
+              <span
+                data-lang="id"
+                onClick="{{ setLang }}"
+                onMouseEnter="{{ hover }}"
+                style="{{ idTabStyle }}"
+                >ID</span
+              >
+              <span
+                data-lang="ja"
+                onClick="{{ setLang }}"
+                onMouseEnter="{{ hover }}"
+                style="{{ jaTabStyle }}"
+                >日本</span
+              >
+            </div>
+            <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ false }}">
+              <div
+                onClick="{{ installApp }}"
+                onMouseEnter="{{ hover }}"
+                style="{{ installButtonStyle }}"
+              >
+                <span>⭳</span>
+                <span>{{ t.install }}</span>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <!-- ===== INTRO ===== -->
+        <div style="{{ introStyle }}">
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              overflow: hidden;
+              pointer-events: none;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: 18%;
+                left: 0;
+                width: 55%;
+                height: 5px;
+                background: #ffe24d;
+                animation: streak 1.6s ease-in 0.1s infinite;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                top: 31%;
+                left: 0;
+                width: 40%;
+                height: 2px;
+                background: #fff;
+                animation: streak 1.4s ease-in 0.35s infinite;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                top: 64%;
+                left: 0;
+                width: 50%;
+                height: 3px;
+                background: #ffe24d;
+                animation: streak 1.5s ease-in 0.2s infinite;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                top: 78%;
+                left: 0;
+                width: 35%;
+                height: 2px;
+                background: #fff;
+                animation: streak 1.3s ease-in 0.5s infinite;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                top: 48%;
+                left: 0;
+                width: 62%;
+                height: 4px;
+                background: #ffe24d;
+                animation: streak 1.7s ease-in 0s infinite;
+              "
+            ></div>
+          </div>
+          <div style="position: relative; text-align: center; padding: 0 16px">
+            <div
+              style="
+                font-family: &quot;Shippori Mincho&quot;;
+                font-size: 13px;
+                letter-spacing: 0.42em;
+                color: #ffe24d;
+                animation: introSub 1s ease 0.2s both;
+                text-transform: uppercase;
+              "
+            >
+              Now Loading — A Portfolio Experience
+            </div>
+            <div
+              style="
+                font-family: &quot;Anton&quot;;
+                font-size: clamp(60px, 13vw, 190px);
+                line-height: 0.86;
+                letter-spacing: 0.01em;
+                margin: 18px 0 0;
+                transform: skewX(-8deg);
+                animation: introIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+              "
+            >
+              PANJI<span style="color: #ffe24d">.</span>
+            </div>
+            <div
+              style="
+                font-family: &quot;Anton&quot;;
+                font-size: clamp(22px, 4vw, 52px);
+                line-height: 1;
+                color: #ffe24d;
+                transform: skewX(-8deg);
+                animation: introIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+              "
+            >
+              GEMILANG
+            </div>
+            <div
+              style="
+                margin-top: 26px;
+                font-size: clamp(10px, 2.8vw, 13px);
+                letter-spacing: 0.5em;
+                animation: introSub 1.2s ease 1s both;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.8);
+              "
+            >
+              Software Engineer / Mobile Dev
+            </div>
+          </div>
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: #ffe24d;
+              mix-blend-mode: screen;
+              animation: flash 0.5s ease 2.55s both;
+              pointer-events: none;
+            "
+          ></div>
+        </div>
+
+        <!-- ===== MENU ===== -->
+        <div style="{{ menuStyle }}">
+          <div data-depth="2.2" style="{{ menuDeco1Style }}">
+            <div
+              style="
+                width: 230px;
+                height: 230px;
+                border: 2px solid rgba(255, 226, 77, 0.35);
+                transform: rotate(18deg);
+                animation: floaty 7s ease-in-out infinite;
+                --r: 18deg;
+              "
+            ></div>
+          </div>
+          <div
+            data-depth="3"
+            style="position: absolute; bottom: 14%; right: 22%"
+          >
+            <div
+              style="
+                width: 90px;
+                height: 90px;
+                background: rgba(255, 226, 77, 0.12);
+                transform: rotate(30deg);
+                animation: floaty 5s ease-in-out infinite;
+                --r: 30deg;
+              "
+            ></div>
+          </div>
+          <div data-depth="1.4" style="{{ menuKanjiStyle }}">
+            <div
+              style="
+                font-family: &quot;Shippori Mincho&quot;;
+                font-size: 120px;
+                color: rgba(255, 255, 255, 0.04);
+                animation: spin 40s linear infinite;
+              "
+            >
+              理
+            </div>
+          </div>
+
+          <div style="{{ menuContainerStyle }}">
+            <div
+              style="
+                font-family: &quot;Shippori Mincho&quot;;
+                font-size: 13px;
+                letter-spacing: 0.4em;
+                color: #ffe24d;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+              "
+            >
+              {{ t.menuKicker }}
+            </div>
+            <div style="{{ menuTitleStyle }}">{{ t.menuTitle }}</div>
+            <div style="{{ menuItemsListStyle }}">
+              <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="4">
+                <div
+                  data-target="{{ m.target }}"
+                  onClick="{{ navigateClick }}"
+                  onMouseEnter="{{ hover }}"
+                  style="{{ menuItemBaseStyle }}"
+                  style-hover="cursor:pointer;position:relative;display:flex;align-items:center;gap:18px;padding:14px 24px 14px 36px;transform:skewX(-7deg) translateX(20px);background:linear-gradient(90deg,rgba(255,226,77,.2) 0%,rgba(255,226,77,.05) 60%,transparent);color:#fff;border-left:4px solid #ffe24d;backdrop-filter:blur(4px);box-shadow:inset 0 0 0 1px rgba(255,226,77,.28),0 12px 40px rgba(255,226,77,.18);transition:transform .35s cubic-bezier(.16,1,.3,1),background .35s,padding-left .35s,box-shadow .35s;"
+                >
+                  <div style="{{ m.focusGlow }}"></div>
+                  <span style="{{ menuNumStyle }}">{{ m.n }}</span>
+                  <div style="flex: 1; min-width: 0">
+                    <div style="{{ menuLabelStyle }}">{{ m.label }}</div>
+                    <div
+                      style="
+                        font-size: 10px;
+                        letter-spacing: 0.22em;
+                        opacity: 0.7;
+                        margin-top: 3px;
+                        text-transform: uppercase;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                      "
+                    >
+                      {{ m.descLoc }}
                     </div>
-                    <span style="font-family:'Anton';font-size:14px;">↗</span>
+                  </div>
+                  <span
+                    style="
+                      font-family: &quot;Anton&quot;;
+                      font-size: 22px;
+                      flex-shrink: 0;
+                    "
+                    >▸</span
+                  >
+                </div>
+              </sc-for>
+            </div>
+            <div
+              style="
+                margin-top: 24px;
+                font-size: 10px;
+                letter-spacing: 0.3em;
+                color: rgba(255, 255, 255, 0.4);
+                text-transform: uppercase;
+              "
+            >
+              {{ t.selectHint }}
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== ABOUT ===== -->
+        <div style="{{ aboutStyle }}">
+          <div ref="{{ aboutRef }}" style="{{ aboutGridStyle }}">
+            <!-- Portrait column -->
+            <div style="{{ aboutPortraitColStyle }}">
+              <div data-depth="3.4" style="{{ aboutGlowStyle }}"></div>
+              <div data-depth="2.6" style="position: absolute">
+                <div style="{{ aboutFrameStyle }}"></div>
+              </div>
+              <div data-depth="2.2" style="position: absolute">
+                <div style="{{ aboutKanjiStyle }}">人</div>
+              </div>
+              <div data-depth="1.5" style="position: absolute">
+                <div style="{{ aboutCardStyle }}">
+                  <img
+                    src="./img/portrait.jpg"
+                    alt="Panji Gemilang"
+                    style="
+                      position: absolute;
+                      inset: 0;
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                    "
+                  />
+                  <div
+                    style="
+                      position: absolute;
+                      top: 12px;
+                      left: 12px;
+                      font-family: &quot;Anton&quot;;
+                      font-size: 13px;
+                      color: #ffe24d;
+                      letter-spacing: 0.1em;
+                    "
+                  >
+                    P.01
+                  </div>
+                </div>
+              </div>
+              <div
+                data-depth="0.8"
+                style="position: absolute; top: 8%; left: 6%"
+              >
+                <div
+                  style="
+                    font-family: &quot;Anton&quot;;
+                    font-size: 30px;
+                    color: #ffe24d;
+                    animation: floaty 4s ease-in-out infinite;
+                  "
+                >
+                  ▸▸
+                </div>
+              </div>
+              <div
+                data-depth="0.6"
+                style="position: absolute; bottom: 10%; right: 4%"
+              >
+                <div
+                  style="
+                    width: 46px;
+                    height: 46px;
+                    border: 3px solid #ffe24d;
+                    transform: rotate(45deg);
+                    animation: floaty 5s ease-in-out 0.5s infinite;
+                    --r: 45deg;
+                  "
+                ></div>
+              </div>
+              <div
+                data-depth="0.4"
+                style="
+                  position: absolute;
+                  top: 0;
+                  right: 18%;
+                  width: 36px;
+                  height: 36px;
+                  border-top: 3px solid #fff;
+                  border-right: 3px solid #fff;
+                "
+              ></div>
+              <div
+                data-depth="0.4"
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 14%;
+                  width: 36px;
+                  height: 36px;
+                  border-bottom: 3px solid #fff;
+                  border-left: 3px solid #fff;
+                "
+              ></div>
+            </div>
+
+            <!-- Text column -->
+            <div style="{{ aboutTextColStyle }}">
+              <div
+                style="
+                  font-family: &quot;Shippori Mincho&quot;;
+                  font-size: 13px;
+                  letter-spacing: 0.4em;
+                  color: #ffe24d;
+                  text-transform: uppercase;
+                "
+              >
+                {{ t.aboutKicker }}
+              </div>
+              <div
+                style="
+                  font-family: &quot;Anton&quot;;
+                  font-size: clamp(36px, 6vw, 86px);
+                  line-height: 0.86;
+                  transform: skewX(-7deg);
+                  margin: 8px 0 22px;
+                "
+              >
+                {{ t.aboutTitle }}
+              </div>
+              <div onClick="{{ skipType }}" style="{{ aboutBioBoxStyle }}">
+                <div
+                  style="
+                    position: absolute;
+                    top: -12px;
+                    left: 22px;
+                    background: #ffe24d;
+                    color: #0a0a0a;
+                    font-family: &quot;Anton&quot;;
+                    font-size: 11px;
+                    letter-spacing: 0.2em;
+                    padding: 3px 12px;
+                    transform: skewX(-7deg);
+                  "
+                >
+                  {{ t.profileLabel }}
+                </div>
+                <p
+                  style="
+                    font-size: 15px;
+                    line-height: 1.9;
+                    margin: 0;
+                    color: rgba(255, 255, 255, 0.92);
+                    font-weight: 400;
+                    text-wrap: pretty;
+                  "
+                >
+                  {{ bioShown }}<span
+                    style="
+                      display: inline-block;
+                      width: 10px;
+                      height: 18px;
+                      background: #ffe24d;
+                      margin-left: 2px;
+                      transform: translateY(3px);
+                      animation: blink 1s steps(1) infinite;
+                    "
+                  ></span>
+                </p>
+                <div
+                  style="
+                    margin-top: 8px;
+                    font-size: 10px;
+                    letter-spacing: 0.3em;
+                    color: rgba(255, 255, 255, 0.35);
+                    text-transform: uppercase;
+                  "
+                >
+                  {{ t.skipTyping }}
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  margin-top: 20px;
+                  flex-wrap: wrap;
+                  padding-bottom: 40px;
+                "
+              >
+                <sc-for
+                  list="{{ aboutTags }}"
+                  as="tag"
+                  hint-placeholder-count="3"
+                >
+                  <div
+                    style="
+                      padding: 8px 14px;
+                      border: 1.5px solid rgba(255, 226, 77, 0.4);
+                      transform: skewX(-7deg);
+                      font-size: 11px;
+                      letter-spacing: 0.18em;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                    "
+                  >
+                    {{ tag }}
                   </div>
                 </sc-for>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- ===== PORTFOLIO ===== -->
+        <div style="{{ portfolioStyle }}">
+          <div style="{{ pfTopStyle }}">
+            <div
+              style="
+                font-family: &quot;Shippori Mincho&quot;;
+                font-size: 13px;
+                letter-spacing: 0.4em;
+                color: #ffe24d;
+                text-transform: uppercase;
+              "
+            >
+              {{ t.pfKicker }}
+            </div>
+            <div
+              style="
+                font-family: &quot;Anton&quot;;
+                font-size: clamp(32px, 5.5vw, 76px);
+                line-height: 0.86;
+                transform: skewX(-7deg);
+              "
+            >
+              {{ t.pfTitle }}
+            </div>
+            <div
+              style="
+                font-size: 11px;
+                letter-spacing: 0.3em;
+                color: rgba(255, 255, 255, 0.45);
+                margin-top: 6px;
+                text-transform: uppercase;
+              "
+            >
+              {{ t.scrollHint }}
+            </div>
+          </div>
+          <div
+            ref="{{ pfTrackRef }}"
+            onScroll="{{ onPfScroll }}"
+            style="{{ pfTrackStyle }}"
+          >
+            <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+              <div style="position: relative; margin-bottom: 40px">
+                <div style="{{ yearStyle }}">{{ g.year }}</div>
+                <div
+                  style="
+                    position: relative;
+                    z-index: 1;
+                    margin-top: -40px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                  "
+                >
+                  <sc-for
+                    list="{{ g.items }}"
+                    as="p"
+                    hint-placeholder-count="2"
+                  >
+                    <div
+                      data-pf="1"
+                      data-pkey="{{ p.key }}"
+                      onClick="{{ selectProject }}"
+                      onMouseEnter="{{ hover }}"
+                      style="
+                        transition: opacity 0.3s;
+                        will-change: transform;
+                        background: linear-gradient(
+                          135deg,
+                          rgba(20, 20, 26, 0.92),
+                          rgba(11, 11, 15, 0.92)
+                        );
+                        border: 1.5px solid rgba(255, 255, 255, 0.1);
+                        border-left: 5px solid #ffe24d;
+                        padding: 18px 20px;
+                        backdrop-filter: blur(6px);
+                        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+                        cursor: pointer;
+                      "
+                      style-hover="transition:opacity .3s;will-change:transform;background:linear-gradient(135deg,rgba(28,28,36,.96),rgba(15,15,20,.96));border:1.5px solid rgba(255,226,77,.55);border-left:5px solid #ffe24d;padding:18px 20px;backdrop-filter:blur(6px);box-shadow:0 30px 80px rgba(255,226,77,.15);cursor:pointer;"
+                    >
+                      <div
+                        style="
+                          display: flex;
+                          align-items: baseline;
+                          justify-content: space-between;
+                          gap: 12px;
+                          flex-wrap: wrap;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;Anton&quot;;
+                            font-size: clamp(20px, 4vw, 30px);
+                            line-height: 1;
+                            letter-spacing: 0.01em;
+                          "
+                        >
+                          {{ p.name }}
+                        </div>
+                        <div
+                          style="
+                            font-family: &quot;Anton&quot;;
+                            font-size: 12px;
+                            color: #ffe24d;
+                            letter-spacing: 0.1em;
+                            white-space: nowrap;
+                          "
+                        >
+                          {{ p.period }}
+                        </div>
+                      </div>
+                      <div
+                        style="
+                          display: flex;
+                          gap: 10px;
+                          flex-wrap: wrap;
+                          margin-top: 8px;
+                          font-size: 10px;
+                          letter-spacing: 0.16em;
+                          text-transform: uppercase;
+                        "
+                      >
+                        <span style="color: #ffe24d; font-weight: 700"
+                          >{{ p.role }}</span
+                        >
+                        <span style="color: rgba(255, 255, 255, 0.4)">/</span>
+                        <span style="color: rgba(255, 255, 255, 0.6)"
+                          >{{ p.cat }}</span
+                        >
+                      </div>
+                      <div
+                        style="
+                          display: flex;
+                          gap: 6px;
+                          flex-wrap: wrap;
+                          margin-top: 12px;
+                        "
+                      >
+                        <sc-for
+                          list="{{ p.tech }}"
+                          as="tk"
+                          hint-placeholder-count="3"
+                        >
+                          <span
+                            style="
+                              font-size: 10px;
+                              letter-spacing: 0.08em;
+                              padding: 4px 10px;
+                              background: rgba(255, 255, 255, 0.06);
+                              border: 1px solid rgba(255, 255, 255, 0.12);
+                            "
+                            >{{ tk }}</span
+                          >
+                        </sc-for>
+                      </div>
+                      <div
+                        style="
+                          margin-top: 12px;
+                          display: flex;
+                          align-items: center;
+                          gap: 8px;
+                          font-size: 10px;
+                          letter-spacing: 0.22em;
+                          color: rgba(255, 226, 77, 0.65);
+                          font-weight: 700;
+                          text-transform: uppercase;
+                        "
+                      >
+                        {{ t.viewDetails }}
+                        <span
+                          style="
+                            font-family: &quot;Anton&quot;;
+                            font-size: 13px;
+                            color: #ffe24d;
+                          "
+                          >▸</span
+                        >
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- Project Detail Overlay -->
+          <sc-if value="{{ projectOpen }}" hint-placeholder-val="{{ false }}">
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                z-index: 20;
+                overflow-y: auto;
+                background: linear-gradient(160deg, #09090d, #0f0e07);
+                animation: riseIn 0.4s ease both;
+              "
+            >
+              <div style="{{ pfDetailStickyStyle }}">
+                <div style="{{ pfDetailSubtitleStyle }}">{{ t.caseFile }}</div>
+              </div>
+              <div style="{{ pfDetailBodyStyle }}">
+                <div
+                  style="
+                    font-family: &quot;Shippori Mincho&quot;;
+                    font-size: 13px;
+                    letter-spacing: 0.4em;
+                    color: #ffe24d;
+                    text-transform: uppercase;
+                    margin-bottom: 14px;
+                  "
+                >
+                  {{ selProject.cat }}
+                </div>
+                <div
+                  style="
+                    font-family: &quot;Anton&quot;;
+                    font-size: clamp(32px, 7vw, 110px);
+                    line-height: 0.82;
+                    transform: skewX(-7deg);
+                    margin-bottom: 28px;
+                  "
+                >
+                  {{ selProject.name }}
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                    margin-bottom: 28px;
+                    align-items: center;
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;Anton&quot;;
+                      font-size: 13px;
+                      color: #ffe24d;
+                      letter-spacing: 0.08em;
+                      padding: 7px 14px;
+                      border: 1.5px solid #ffe24d;
+                      transform: skewX(-7deg);
+                    "
+                  >
+                    {{ selProject.period }}
+                  </div>
+                  <div
+                    style="
+                      font-size: 12px;
+                      letter-spacing: 0.2em;
+                      text-transform: uppercase;
+                      color: rgba(255, 255, 255, 0.65);
+                    "
+                  >
+                    {{ selProject.role }}
+                  </div>
+                </div>
+                <div
+                  style="
+                    height: 3px;
+                    background: linear-gradient(
+                      90deg,
+                      #ffe24d,
+                      rgba(255, 226, 77, 0.05)
+                    );
+                    margin-bottom: 36px;
+                  "
+                ></div>
+                <p
+                  style="
+                    font-size: clamp(14px, 2.5vw, 18px);
+                    line-height: 2;
+                    color: rgba(255, 255, 255, 0.85);
+                    max-width: 680px;
+                    margin: 0 0 44px;
+                    text-wrap: pretty;
+                    padding-left: 20px;
+                    border-left: 4px solid #ffe24d;
+                  "
+                >
+                  {{ selProject.desc }}
+                </p>
+                <sc-if
+                  value="{{ selProject.hasImages }}"
+                  hint-placeholder-val="{{ false }}"
+                >
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(
+                        auto-fit,
+                        minmax(min(100%, 280px), 1fr)
+                      );
+                      gap: 20px;
+                      margin: 0 0 48px;
+                    "
+                  >
+                    <sc-for
+                      list="{{ selProject.images }}"
+                      as="im"
+                      hint-placeholder-count="2"
+                    >
+                      <figure style="margin: 0">
+                        <img
+                          src="{{ im.src }}"
+                          alt="{{ im.caption }}"
+                          loading="lazy"
+                          data-src="{{ im.src }}"
+                          data-caption="{{ im.caption }}"
+                          onClick="{{ openImagePreview }}"
+                          onMouseEnter="{{ hover }}"
+                          style="
+                            width: 100%;
+                            display: block;
+                            border: 1.5px solid rgba(255, 226, 77, 0.35);
+                            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+                            cursor: zoom-in;
+                          "
+                        />
+                        <sc-if
+                          value="{{ im.caption }}"
+                          hint-placeholder-val="{{ false }}"
+                        >
+                          <figcaption
+                            style="
+                              font-size: 10px;
+                              letter-spacing: 0.24em;
+                              color: rgba(255, 255, 255, 0.5);
+                              text-transform: uppercase;
+                              margin-top: 8px;
+                            "
+                          >
+                            ▸ {{ im.caption }}
+                          </figcaption>
+                        </sc-if>
+                      </figure>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-for
+                  list="{{ selProject.blocks }}"
+                  as="b"
+                  hint-placeholder-count="2"
+                >
+                  <sc-if value="{{ b.p }}" hint-placeholder-val="{{ false }}">
+                    <p
+                      style="
+                        font-size: 15px;
+                        line-height: 2;
+                        color: rgba(255, 255, 255, 0.8);
+                        max-width: 760px;
+                        margin: 0 0 22px;
+                        text-wrap: pretty;
+                        white-space: pre-line;
+                      "
+                    >
+                      {{ b.p }}
+                    </p>
+                  </sc-if>
+                  <sc-if
+                    value="{{ b.list }}"
+                    hint-placeholder-val="{{ false }}"
+                  >
+                    <ul
+                      style="
+                        max-width: 760px;
+                        margin: 0 0 22px;
+                        padding-left: 22px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                      "
+                    >
+                      <sc-for
+                        list="{{ b.list }}"
+                        as="fn"
+                        hint-placeholder-count="3"
+                      >
+                        <li
+                          style="
+                            font-size: 14px;
+                            line-height: 1.8;
+                            color: rgba(255, 255, 255, 0.75);
+                          "
+                        >
+                          {{ fn }}
+                        </li>
+                      </sc-for>
+                    </ul>
+                  </sc-if>
+                </sc-for>
+                <div
+                  style="
+                    font-family: &quot;Shippori Mincho&quot;;
+                    font-size: 12px;
+                    letter-spacing: 0.36em;
+                    color: #ffe24d;
+                    text-transform: uppercase;
+                    margin: 30px 0 18px;
+                  "
+                >
+                  {{ t.techStack }}
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                  <sc-for
+                    list="{{ selProject.tech }}"
+                    as="tk"
+                    hint-placeholder-count="4"
+                  >
+                    <span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.1em;
+                        padding: 9px 16px;
+                        background: rgba(255, 226, 77, 0.1);
+                        border: 1.5px solid rgba(255, 226, 77, 0.5);
+                        color: #ffe24d;
+                        font-weight: 700;
+                      "
+                      >{{ tk }}</span
+                    >
+                  </sc-for>
+                </div>
+                <sc-if
+                  value="{{ selProject.outro }}"
+                  hint-placeholder-val="{{ false }}"
+                >
+                  <p
+                    style="
+                      font-size: 15px;
+                      line-height: 2;
+                      color: rgba(255, 255, 255, 0.8);
+                      max-width: 760px;
+                      margin: 32px 0 0;
+                      text-wrap: pretty;
+                      white-space: pre-line;
+                    "
+                  >
+                    {{ selProject.outro }}
+                  </p>
+                </sc-if>
+                <sc-if
+                  value="{{ selProject.link }}"
+                  hint-placeholder-val="{{ false }}"
+                >
+                  <div style="margin-top: 40px">
+                    <div
+                      data-url="{{ selProject.link }}"
+                      onClick="{{ openLink }}"
+                      onMouseEnter="{{ hover }}"
+                      style="
+                        cursor: pointer;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 10px;
+                        padding: 13px 26px;
+                        background: #ffe24d;
+                        color: #0a0a0a;
+                        transform: skewX(-7deg);
+                        font-family: &quot;Anton&quot;;
+                        font-size: 14px;
+                        letter-spacing: 0.08em;
+                        box-shadow: 0 10px 30px rgba(255, 226, 77, 0.3);
+                      "
+                    >
+                      {{ t.visitProject }} <span>↗</span>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- ===== GALLERY ===== -->
+        <div style="{{ galleryStyle }}">
+          <div style="{{ galTopStyle }}">
+            <div
+              style="
+                font-family: &quot;Shippori Mincho&quot;;
+                font-size: 13px;
+                letter-spacing: 0.4em;
+                color: #ffe24d;
+                text-transform: uppercase;
+              "
+            >
+              {{ t.galKicker }}
+            </div>
+            <div
+              style="
+                font-family: &quot;Anton&quot;;
+                font-size: clamp(32px, 5.5vw, 76px);
+                line-height: 0.86;
+                transform: skewX(-7deg);
+              "
+            >
+              {{ t.galTitle }}
+            </div>
+          </div>
+          <div style="{{ galleryScrollStyle }}">
+            <div
+              style="
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 16%;
+                height: 1px;
+                background: linear-gradient(
+                  90deg,
+                  transparent,
+                  rgba(255, 226, 77, 0.4),
+                  transparent
+                );
+                pointer-events: none;
+              "
+            ></div>
+            <sc-for list="{{ frames }}" as="f" hint-placeholder-count="5">
+              <div
+                data-i="{{ f.idx }}"
+                onClick="{{ openFrame }}"
+                onMouseEnter="{{ hover }}"
+                style="
+                  cursor: pointer;
+                  flex: 0 0 auto;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 14px;
+                  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+                "
+                style-hover="cursor:pointer;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;transform:translateY(-18px) scale(1.03);transition:transform .45s cubic-bezier(.16,1,.3,1);"
+              >
+                <div style="{{ galleryCardSizeStyle }}">
+                  <div style="{{ f.artStyle }}"></div>
+                  <div
+                    style="
+                      position: absolute;
+                      inset: 0;
+                      background: linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.06),
+                        transparent 30%
+                      );
+                    "
+                  ></div>
+                </div>
+                <div style="text-align: center; transform: skewX(-7deg)">
+                  <div
+                    style="
+                      font-family: &quot;Anton&quot;;
+                      font-size: 16px;
+                      letter-spacing: 0.04em;
+                    "
+                  >
+                    {{ f.title }}
+                  </div>
+                  <div
+                    style="
+                      font-size: 10px;
+                      letter-spacing: 0.28em;
+                      color: #ffe24d;
+                      margin-top: 3px;
+                      text-transform: uppercase;
+                    "
+                  >
+                    {{ f.medium }}
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- Gallery Viewer -->
+          <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
+            <div
+              onClick="{{ closeFrame }}"
+              style="
+                position: absolute;
+                inset: 0;
+                z-index: 20;
+                display: grid;
+                place-items: center;
+                background: rgba(5, 5, 7, 0.88);
+                backdrop-filter: blur(10px);
+                cursor: pointer;
+                animation: riseIn 0.4s ease both;
+                padding: 20px;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 20px;
+                "
+              >
+                <div style="{{ galleryViewerCardStyle }}">
+                  <img
+                    src="{{ selFrame.src }}"
+                    alt="{{ selFrame.title }}"
+                    style="{{ galleryViewerImgStyle }}"
+                  />
+                </div>
+                <div style="text-align: center; transform: skewX(-7deg)">
+                  <div
+                    style="
+                      font-family: &quot;Anton&quot;;
+                      font-size: clamp(20px, 5vw, 30px);
+                    "
+                  >
+                    {{ selFrame.title }}
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      gap: 4px;
+                      margin-top: 10px;
+                    "
+                  >
+                    <sc-for
+                      list="{{ selFrame.details }}"
+                      as="d"
+                      hint-placeholder-count="2"
+                    >
+                      <div
+                        style="
+                          font-size: 11px;
+                          letter-spacing: 0.14em;
+                          color: rgba(255, 255, 255, 0.75);
+                        "
+                      >
+                        <span
+                          style="
+                            color: #ffe24d;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                          "
+                          >{{ d.label }}</span
+                        >
+                        — {{ d.value }}
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div
+                    style="
+                      font-size: 10px;
+                      letter-spacing: 0.28em;
+                      color: #ffe24d;
+                      margin-top: 12px;
+                      text-transform: uppercase;
+                    "
+                  >
+                    {{ t.tapToClose }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- ===== CONTACT ===== -->
+        <div style="{{ contactStyle }}">
+          <div style="{{ contactTopStyle }}">
+            <div
+              style="
+                font-family: &quot;Shippori Mincho&quot;;
+                font-size: 13px;
+                letter-spacing: 0.4em;
+                color: #ffe24d;
+                text-transform: uppercase;
+              "
+            >
+              {{ t.contactKicker }}
+            </div>
+            <div
+              style="
+                font-family: &quot;Anton&quot;;
+                font-size: clamp(32px, 5.5vw, 76px);
+                line-height: 0.86;
+                transform: skewX(-7deg);
+              "
+            >
+              {{ t.contactTitle }}
+            </div>
+          </div>
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: radial-gradient(
+                60% 50% at 72% 38%,
+                rgba(255, 170, 70, 0.22),
+                transparent 70%
+              );
+              pointer-events: none;
+            "
+          ></div>
+
+          <!-- MOBILE: flat card layout -->
+          <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 148px 20px 48px;
+                gap: 20px;
+              "
+            >
+              <div style="text-align: center">
+                <div
+                  style="
+                    width: 72px;
+                    height: 72px;
+                    margin: 0 auto;
+                    border-radius: 50%;
+                    background: #ffe24d;
+                    color: #0a0a0a;
+                    display: grid;
+                    place-items: center;
+                    font-family: &quot;Anton&quot;;
+                    font-size: 30px;
+                    box-shadow: 0 8px 28px rgba(255, 226, 77, 0.4);
+                  "
+                >
+                  PG
+                </div>
+                <div
+                  style="
+                    font-family: &quot;Anton&quot;;
+                    font-size: 22px;
+                    margin-top: 10px;
+                    letter-spacing: 0.02em;
+                  "
+                >
+                  PANJI G.
+                </div>
+                <div
+                  style="
+                    font-size: 10px;
+                    letter-spacing: 0.24em;
+                    color: #ffe24d;
+                    margin-top: 4px;
+                    text-transform: uppercase;
+                  "
+                >
+                  {{ t.connectSub }}
+                </div>
+              </div>
+              <div
+                style="
+                  width: 100%;
+                  max-width: 360px;
+                  background: linear-gradient(
+                    180deg,
+                    rgba(14, 14, 20, 0.97),
+                    rgba(8, 8, 12, 0.97)
+                  );
+                  border: 1.5px solid rgba(255, 226, 77, 0.22);
+                  border-radius: 22px;
+                  padding: 18px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 11px;
+                  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+                "
+              >
+                <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="4">
+                  <div
+                    data-url="{{ c.url }}"
+                    onClick="{{ openLink }}"
+                    onMouseEnter="{{ hover }}"
+                    style="
+                      cursor: pointer;
+                      display: flex;
+                      align-items: center;
+                      gap: 14px;
+                      padding: 14px 16px;
+                      background: rgba(255, 255, 255, 0.05);
+                      border: 1px solid rgba(255, 255, 255, 0.1);
+                      border-radius: 14px;
+                      transition:
+                        transform 0.25s,
+                        background 0.25s,
+                        border-color 0.25s;
+                    "
+                    style-hover="cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,226,77,.14);color:#fff;border:1px solid rgba(255,226,77,.85);border-radius:14px;transform:scale(1.02);box-shadow:0 8px 24px rgba(255,226,77,.18);transition:transform .25s,background .25s,border-color .25s,box-shadow .25s;"
+                  >
+                    <div
+                      style="
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 10px;
+                        background: rgba(255, 226, 77, 0.18);
+                        display: grid;
+                        place-items: center;
+                        font-family: &quot;Anton&quot;;
+                        font-size: 15px;
+                        color: #ffe24d;
+                        flex-shrink: 0;
+                      "
+                    >
+                      {{ c.badge }}
+                    </div>
+                    <div style="flex: 1; min-width: 0">
+                      <div
+                        style="
+                          font-size: 14px;
+                          font-weight: 700;
+                          letter-spacing: 0.02em;
+                        "
+                      >
+                        {{ c.label }}
+                      </div>
+                      <div
+                        style="
+                          font-size: 11px;
+                          opacity: 0.7;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                        "
+                      >
+                        {{ c.sub }}
+                      </div>
+                    </div>
+                    <span
+                      style="
+                        font-family: &quot;Anton&quot;;
+                        font-size: 16px;
+                        flex-shrink: 0;
+                      "
+                      >↗</span
+                    >
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- DESKTOP: 3D desk scene -->
+          <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                display: grid;
+                place-items: center;
+                perspective: 1500px;
+              "
+            >
+              <div
+                style="
+                  position: relative;
+                  width: 760px;
+                  height: 520px;
+                  transform-style: preserve-3d;
+                  animation: deskbob 14s ease-in-out infinite;
+                "
+              >
+                <!-- desk surface -->
+                <div
+                  style="
+                    position: absolute;
+                    left: 50%;
+                    top: 62%;
+                    width: 760px;
+                    height: 300px;
+                    transform: translate(-50%, 0) rotateX(74deg);
+                    transform-origin: center top;
+                    background: linear-gradient(180deg, #2a2118, #191309);
+                    border: 1px solid rgba(255, 200, 120, 0.15);
+                    box-shadow: 0 0 80px rgba(255, 170, 70, 0.15);
+                    background-image:
+                      linear-gradient(
+                        90deg,
+                        rgba(255, 200, 120, 0.05) 1px,
+                        transparent 1px
+                      ),
+                      linear-gradient(
+                        0deg,
+                        rgba(255, 200, 120, 0.05) 1px,
+                        transparent 1px
+                      );
+                    background-size: 48px 48px;
+                  "
+                ></div>
+                <!-- monitor -->
+                <div
+                  style="
+                    position: absolute;
+                    left: 50%;
+                    top: 2%;
+                    transform: translateX(-50%) translateZ(-90px);
+                    width: 300px;
+                  "
+                >
+                  <div
+                    style="
+                      height: 172px;
+                      background: linear-gradient(135deg, #101015, #06060a);
+                      border: 8px solid #1c1c22;
+                      border-radius: 8px;
+                      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+                      display: grid;
+                      place-items: center;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;Anton&quot;;
+                        font-size: 34px;
+                        color: rgba(255, 226, 77, 0.5);
+                      "
+                    >
+                      &lt;/&gt;
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      width: 60px;
+                      height: 38px;
+                      background: #15151a;
+                      margin: 0 auto;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 130px;
+                      height: 8px;
+                      background: #0d0d11;
+                      margin: 0 auto;
+                      border-radius: 3px;
+                    "
+                  ></div>
+                </div>
+                <!-- laptop -->
+                <div
+                  style="
+                    position: absolute;
+                    left: 6%;
+                    top: 34%;
+                    transform: translateZ(40px) rotateY(26deg);
+                  "
+                >
+                  <div
+                    style="
+                      width: 150px;
+                      height: 96px;
+                      background: linear-gradient(135deg, #16161c, #0a0a0e);
+                      border: 5px solid #1c1c22;
+                      border-radius: 6px 6px 0 0;
+                      display: grid;
+                      place-items: center;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 60%;
+                        height: 60%;
+                        background: linear-gradient(
+                          135deg,
+                          rgba(255, 226, 77, 0.18),
+                          transparent
+                        );
+                        border-radius: 3px;
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    style="
+                      width: 172px;
+                      height: 11px;
+                      background: #202028;
+                      border-radius: 0 0 7px 7px;
+                      transform: translateX(-11px);
+                    "
+                  ></div>
+                </div>
+                <!-- lamp -->
+                <div
+                  style="
+                    position: absolute;
+                    right: 4%;
+                    top: 8%;
+                    transform: translateZ(10px);
+                  "
+                >
+                  <div
+                    style="
+                      width: 60px;
+                      height: 34px;
+                      background: #ffe24d;
+                      border-radius: 30px 30px 6px 6px;
+                      box-shadow: 0 0 60px 18px rgba(255, 200, 90, 0.5);
+                      transform: rotate(28deg);
+                      animation: glowpulse 5s ease-in-out infinite;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 5px;
+                      height: 120px;
+                      background: #26262c;
+                      margin: 0 0 0 40px;
+                      transform: rotate(8deg);
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 64px;
+                      height: 12px;
+                      background: #1c1c22;
+                      border-radius: 50%;
+                      margin-left: 8px;
+                    "
+                  ></div>
+                </div>
+                <!-- coffee -->
+                <div
+                  style="
+                    position: absolute;
+                    right: 14%;
+                    top: 62%;
+                    transform: translateZ(60px);
+                  "
+                >
+                  <div
+                    style="
+                      width: 48px;
+                      height: 54px;
+                      background: linear-gradient(#23232a, #15151a);
+                      border-radius: 6px 6px 10px 10px;
+                      border: 2px solid #2c2c34;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 18px;
+                      height: 24px;
+                      border: 3px solid #2c2c34;
+                      border-radius: 0 12px 12px 0;
+                      position: absolute;
+                      right: -14px;
+                      top: 12px;
+                    "
+                  ></div>
+                </div>
+                <!-- plant -->
+                <div
+                  style="
+                    position: absolute;
+                    left: 2%;
+                    top: 60%;
+                    transform: translateZ(50px);
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;Shippori Mincho&quot;;
+                      font-size: 50px;
+                      color: #3fae6a;
+                      line-height: 1;
+                    "
+                  >
+                    ❦
+                  </div>
+                  <div
+                    style="
+                      width: 36px;
+                      height: 30px;
+                      background: linear-gradient(#1c1c22, #0e0e12);
+                      margin: -6px auto 0;
+                      clip-path: polygon(14% 0, 86% 0, 100% 100%, 0 100%);
+                    "
+                  ></div>
+                </div>
+                <!-- notebook -->
+                <div
+                  style="
+                    position: absolute;
+                    left: 24%;
+                    top: 74%;
+                    transform: translateZ(70px) rotate(-8deg);
+                    width: 120px;
+                    height: 60px;
+                    background: linear-gradient(135deg, #1a1a20, #101014);
+                    border-left: 5px solid #ffe24d;
+                    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+                  "
+                ></div>
+                <!-- PHONE centerpiece -->
+                <div
+                  style="
+                    position: absolute;
+                    left: 50%;
+                    top: 30%;
+                    transform: translateX(-50%) translateZ(150px) rotateX(-6deg);
+                    width: 236px;
+                    height: 480px;
+                    border-radius: 36px;
+                    background: linear-gradient(150deg, #1a1a20, #0a0a0d);
+                    border: 3px solid #2a2a32;
+                    box-shadow:
+                      0 50px 90px rgba(0, 0, 0, 0.7),
+                      0 0 70px rgba(255, 226, 77, 0.18);
+                    padding: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      width: 100%;
+                      height: 100%;
+                      border-radius: 26px;
+                      background: linear-gradient(180deg, #0e0e13, #08080b);
+                      overflow: hidden;
+                      position: relative;
+                      border: 1px solid rgba(255, 226, 77, 0.15);
+                    "
+                  >
+                    <div
+                      style="
+                        position: absolute;
+                        top: 10px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 74px;
+                        height: 18px;
+                        background: #000;
+                        border-radius: 12px;
+                        z-index: 3;
+                      "
+                    ></div>
+                    <div style="padding: 34px 18px 16px; text-align: center">
+                      <div
+                        style="
+                          width: 62px;
+                          height: 62px;
+                          margin: 0 auto;
+                          border-radius: 50%;
+                          background: #ffe24d;
+                          color: #0a0a0a;
+                          display: grid;
+                          place-items: center;
+                          font-family: &quot;Anton&quot;;
+                          font-size: 26px;
+                          box-shadow: 0 8px 24px rgba(255, 226, 77, 0.4);
+                        "
+                      >
+                        PG
+                      </div>
+                      <div
+                        style="
+                          font-family: &quot;Anton&quot;;
+                          font-size: 18px;
+                          margin-top: 10px;
+                          letter-spacing: 0.02em;
+                        "
+                      >
+                        PANJI G.
+                      </div>
+                      <div
+                        style="
+                          font-size: 9px;
+                          letter-spacing: 0.24em;
+                          color: #ffe24d;
+                          margin-top: 3px;
+                          text-transform: uppercase;
+                        "
+                      >
+                        {{ t.connectSub }}
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        gap: 9px;
+                        padding: 0 14px;
+                      "
+                    >
+                      <sc-for
+                        list="{{ contacts }}"
+                        as="c"
+                        hint-placeholder-count="4"
+                      >
+                        <div
+                          data-url="{{ c.url }}"
+                          onClick="{{ openLink }}"
+                          onMouseEnter="{{ hover }}"
+                          style="
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            gap: 11px;
+                            padding: 11px 12px;
+                            background: rgba(255, 255, 255, 0.05);
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 12px;
+                            transition:
+                              transform 0.25s,
+                              background 0.25s,
+                              border-color 0.25s;
+                          "
+                          style-hover="cursor:pointer;display:flex;align-items:center;gap:11px;padding:11px 12px;background:rgba(255,226,77,.14);color:#fff;border:1px solid rgba(255,226,77,.85);border-radius:12px;transform:translateX(6px) scale(1.02);box-shadow:0 8px 24px rgba(255,226,77,.18);transition:transform .25s,background .25s,border-color .25s,box-shadow .25s;"
+                        >
+                          <div
+                            style="
+                              width: 30px;
+                              height: 30px;
+                              border-radius: 8px;
+                              background: rgba(255, 226, 77, 0.18);
+                              display: grid;
+                              place-items: center;
+                              font-family: &quot;Anton&quot;;
+                              font-size: 14px;
+                              color: #ffe24d;
+                            "
+                          >
+                            {{ c.badge }}
+                          </div>
+                          <div
+                            style="flex: 1; text-align: left; overflow: hidden"
+                          >
+                            <div
+                              style="
+                                font-size: 12px;
+                                font-weight: 700;
+                                letter-spacing: 0.02em;
+                              "
+                            >
+                              {{ c.label }}
+                            </div>
+                            <div
+                              style="
+                                font-size: 9.5px;
+                                opacity: 0.7;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                            >
+                              {{ c.sub }}
+                            </div>
+                          </div>
+                          <span
+                            style="
+                              font-family: &quot;Anton&quot;;
+                              font-size: 14px;
+                            "
+                            >↗</span
+                          >
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- ===== IMAGE PREVIEW LIGHTBOX ===== -->
+        <sc-if
+          value="{{ imagePreviewOpen }}"
+          hint-placeholder-val="{{ false }}"
+        >
+          <div
+            onClick="{{ closeImagePreview }}"
+            style="
+              position: fixed;
+              inset: 0;
+              z-index: 70;
+              display: grid;
+              place-items: center;
+              background: rgba(5, 5, 7, 0.92);
+              backdrop-filter: blur(10px);
+              cursor: zoom-out;
+              animation: riseIn 0.3s ease both;
+              padding: 24px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+                max-width: 100%;
+              "
+            >
+              <img
+                src="{{ previewImage.src }}"
+                alt="{{ previewImage.caption }}"
+                style="{{ previewImgStyle }}"
+              />
+              <sc-if
+                value="{{ previewImage.caption }}"
+                hint-placeholder-val="{{ false }}"
+              >
+                <div
+                  style="
+                    text-align: center;
+                    transform: skewX(-7deg);
+                    font-size: 11px;
+                    letter-spacing: 0.24em;
+                    color: rgba(255, 255, 255, 0.8);
+                    text-transform: uppercase;
+                  "
+                >
+                  ▸ {{ previewImage.caption }}
+                </div>
+              </sc-if>
+              <div
+                style="
+                  font-size: 10px;
+                  letter-spacing: 0.28em;
+                  color: #ffe24d;
+                  text-transform: uppercase;
+                  transform: skewX(-7deg);
+                "
+              >
+                {{ t.tapToClose }}
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===== WIPE ===== -->
+        <div
+          style="
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            pointer-events: none;
+            overflow: hidden;
+          "
+        >
+          <div style="{{ wipeStyle }}">
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background: repeating-linear-gradient(
+                  135deg,
+                  #0a0a0a 0,
+                  #0a0a0a 22px,
+                  transparent 22px,
+                  transparent 24px
+                );
+                opacity: 0.4;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                display: grid;
+                place-items: center;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;Anton&quot;;
+                  font-size: clamp(40px, 8vw, 120px);
+                  color: #0a0a0a;
+                  letter-spacing: 0.1em;
+                  transform: skewX(8deg);
+                "
+              >
+                {{ t.loading }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </sc-if>
-  </div>
-
-  <!-- ===== WIPE ===== -->
-  <div style="position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden;">
-    <div style="{{ wipeStyle }}">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#0a0a0a 0,#0a0a0a 22px,transparent 22px,transparent 24px);opacity:.4;"></div>
-      <div style="position:absolute;inset:0;display:grid;place-items:center;"><div style="font-family:'Anton';font-size:clamp(40px,8vw,120px);color:#0a0a0a;letter-spacing:.1em;transform:skewX(8deg);">{{ t.loading }}</div></div>
-    </div>
-  </div>
-
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100vw&quot;,&quot;height&quot;:&quot;100vh&quot;},&quot;startLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;jp&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en'|'jp'&quot;},&quot;enableAudio&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;reducedMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;typeSpeed&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:18,&quot;min&quot;:4,&quot;max&quot;:40,&quot;tsType&quot;:&quot;number&quot;}}">
-class Component extends DCLogic {
-  rootRef = React.createRef();
-  canvasRef = React.createRef();
-  aboutRef = React.createRef();
-  pfTrackRef = React.createRef();
-
-  BIO = `I'm a Software Engineer with over five years of experience building modern, scalable, and user-focused applications. Beyond writing code, I'm passionate about creating experiences that blend technology, creativity, and design. When I'm away from the keyboard, you'll often find me sketching ideas, exploring new places, or planning my next trip. Japan has always been a huge source of inspiration for me—I admire its aesthetic, rich culture, breathtaking landscapes, and unique blend of tradition and innovation, and I especially enjoy watching Japanese cinematic works and creating cinematic-style visuals myself. I enjoy meeting new people, exchanging ideas, and building meaningful connections, whether through collaboration, shared interests, or simply a good conversation. I believe the best products are created where curiosity, creativity, and human connection come together.`;
-
-  state = { phase: 'intro', lang: 'en', wipePhase: 'idle', typed: 0, introDone: false, gallerySel: null, selectedProject: null, isMobile: window.innerWidth < 768, canInstall: false };
-
-  mouse = { x: 0, y: 0 };
-  tmouse = { x: 0, y: 0 };
-  camTarget = { x: 0, y: 0, z: 60 };
-
-  componentDidMount() {
-    // PWA — register service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    }
-    // PWA — install prompt
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    if (!isStandalone) {
-      this.onBeforeInstallPrompt = (e) => {
-        e.preventDefault();
-        this.deferredInstallPrompt = e;
-        this.setState({ canInstall: true });
-      };
-      this.onAppInstalled = () => {
-        this.deferredInstallPrompt = null;
-        this.setState({ canInstall: false });
-      };
-      window.addEventListener('beforeinstallprompt', this.onBeforeInstallPrompt);
-      window.addEventListener('appinstalled', this.onAppInstalled);
-    }
-    if (this.props.startLang === 'jp') this.setState({ lang: 'jp' });
-    this.rm = !!this.props.reducedMotion;
-    this.onMouse = (e) => {
-      const src = e.touches ? e.touches[0] : e;
-      this.tmouse.x = (src.clientX / window.innerWidth - 0.5) * 2;
-      this.tmouse.y = (src.clientY / window.innerHeight - 0.5) * 2;
-    };
-    this.onResize = () => {
-      if (!this.renderer) return;
-      this.cam.aspect = window.innerWidth / window.innerHeight;
-      this.cam.updateProjectionMatrix();
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-      const m = window.innerWidth < 768;
-      if (m !== this.state.isMobile) this.setState({ isMobile: m });
-    };
-    window.addEventListener('mousemove', this.onMouse);
-    window.addEventListener('touchmove', this.onMouse, { passive: true });
-    window.addEventListener('resize', this.onResize);
-    this.boot();
-  }
-
-  componentWillUnmount() {
-    this._unmounted = true;
-    cancelAnimationFrame(this.raf); clearTimeout(this._bootT); clearTimeout(this._introT); clearInterval(this._tw);
-    window.removeEventListener('mousemove', this.onMouse);
-    window.removeEventListener('touchmove', this.onMouse);
-    window.removeEventListener('resize', this.onResize);
-    if (this.onBeforeInstallPrompt) window.removeEventListener('beforeinstallprompt', this.onBeforeInstallPrompt);
-    if (this.onAppInstalled) window.removeEventListener('appinstalled', this.onAppInstalled);
-    if (this.renderer) this.renderer.dispose();
-  }
-
-  boot() {
-    if (!window.THREE) { this._bootT = setTimeout(() => this.boot(), 90); return; }
-    this.initThree();
-    this.runIntro();
-  }
-
-  initThree() {
-    const THREE = window.THREE;
-    const renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.rm ? 1.3 : 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer = renderer;
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x07070a);
-    scene.fog = new THREE.FogExp2(0x0b0a07, 0.02);
-    this.scene = scene;
-    const cam = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 220);
-    cam.position.set(0, 0, 60);
-    this.cam = cam;
-
-    scene.add(new THREE.AmbientLight(0x4a4a55, 0.7));
-    this.key = new THREE.PointLight(0xffe24d, 1.5, 140); this.key.position.set(10, 12, 16); scene.add(this.key);
-    this.warm = new THREE.PointLight(0xff7a3c, 0.7, 140); this.warm.position.set(-16, -8, 10); scene.add(this.warm);
-    const dir = new THREE.DirectionalLight(0xffffff, 0.4); dir.position.set(-6, 9, 12); scene.add(dir);
-    this.accentCol = new THREE.Color(0xffe24d);
-
-    const N = this.rm ? 900 : 2400;
-    const pos = new Float32Array(N * 3);
-    for (let i = 0; i < N; i++) { pos[i*3] = (Math.random()-0.5)*130; pos[i*3+1] = (Math.random()-0.5)*90; pos[i*3+2] = (Math.random()-1)*100 + 10; }
-    const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    this.points = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xffe24d, size: 0.14, sizeAttenuation: true, transparent: true, opacity: 0.65, depthWrite: false }));
-    scene.add(this.points);
-    const N2 = this.rm ? 500 : 1200;
-    const pos2 = new Float32Array(N2 * 3);
-    for (let i = 0; i < N2; i++) { pos2[i*3] = (Math.random()-0.5)*140; pos2[i*3+1] = (Math.random()-0.5)*100; pos2[i*3+2] = (Math.random()-1)*110 + 10; }
-    const pg2 = new THREE.BufferGeometry(); pg2.setAttribute('position', new THREE.BufferAttribute(pos2, 3));
-    this.points2 = new THREE.Points(pg2, new THREE.PointsMaterial({ color: 0xffffff, size: 0.07, sizeAttenuation: true, transparent: true, opacity: 0.4, depthWrite: false }));
-    scene.add(this.points2);
-
-    this.shapes = [];
-    const geoms = [new THREE.BoxGeometry(2.2,2.2,2.2), new THREE.OctahedronGeometry(1.6), new THREE.TorusGeometry(1.3,0.38,10,24), new THREE.TetrahedronGeometry(1.9), new THREE.IcosahedronGeometry(1.5)];
-    const count = this.rm ? 10 : 20;
-    for (let i = 0; i < count; i++) {
-      const g = geoms[i % geoms.length];
-      const grp = new THREE.Group();
-      grp.add(new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: 0xffe24d, wireframe: true, transparent: true, opacity: 0.45 })));
-      if (i % 3 === 0) { const solid = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0x111116, emissive: 0x1c1606, metalness: 0.4, roughness: 0.5 })); solid.scale.setScalar(0.9); grp.add(solid); }
-      grp.position.set((Math.random()-0.5)*54, (Math.random()-0.5)*34, (Math.random()*-66)+6);
-      grp.userData = { rx: (Math.random()-0.5)*0.5, ry: (Math.random()-0.5)*0.5, bob: Math.random()*6.28, bs: 0.3 + Math.random()*0.8, by: grp.position.y };
-      scene.add(grp); this.shapes.push(grp);
-    }
-
-    this.speed = new THREE.Group();
-    for (let i = 0; i < 70; i++) {
-      const len = 4 + Math.random()*9;
-      const m = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, len), new THREE.MeshBasicMaterial({ color: i % 4 === 0 ? 0xffffff : 0xffe24d, transparent: true, opacity: 0.7 }));
-      const a = Math.random()*6.28, r = 4 + Math.random()*22;
-      m.position.set(Math.cos(a)*r, Math.sin(a)*r, -10 - Math.random()*55);
-      this.speed.add(m);
-    }
-    scene.add(this.speed);
-
-    this.clock = new THREE.Clock();
-    this.loop();
-  }
-
-  loop = () => {
-    this.raf = requestAnimationFrame(this.loop);
-    const THREE = window.THREE;
-    const t = this.clock.getElapsedTime();
-    this.mouse.x += (this.tmouse.x - this.mouse.x) * 0.06;
-    this.mouse.y += (this.tmouse.y - this.mouse.y) * 0.06;
-
-    this.points.rotation.y = t * 0.018; this.points.rotation.x = Math.sin(t*0.1)*0.05;
-    this.points2.rotation.y = -t * 0.01;
-
-    if (!this.rm) for (const grp of this.shapes) {
-      grp.rotation.x += grp.userData.rx * 0.01; grp.rotation.y += grp.userData.ry * 0.01;
-      grp.position.y = grp.userData.by + Math.sin(t * grp.userData.bs + grp.userData.bob) * 1.4;
-    }
-
-    if (this.speed.visible) for (const l of this.speed.children) { l.position.z += 1.4; if (l.position.z > 16) l.position.z = -64; }
-
-    const px = this.mouse.x * 2.4, py = -this.mouse.y * 1.6;
-    this.cam.position.x += (this.camTarget.x + px - this.cam.position.x) * 0.05;
-    this.cam.position.y += (this.camTarget.y + py - this.cam.position.y) * 0.05;
-    this.cam.position.z += (this.camTarget.z - this.cam.position.z) * 0.05;
-    if (!this.state.introDone && t > 2.0 && t < 2.62) { this.cam.position.x += (Math.random()-0.5)*0.3; this.cam.position.y += (Math.random()-0.5)*0.3; }
-    this.cam.lookAt(this.camTarget.x * 0.25, -this.mouse.y * 0.6, 0);
-    this.key.color.lerp(this.accentCol, 0.04);
-
-    this.applyParallax();
-    this.renderer.render(this.scene, this.cam);
-  };
-
-  applyParallax() {
-    if (this.rm) return;
-    const root = this.rootRef.current; if (!root) return;
-    if (!this.depthEls) this.depthEls = [...root.querySelectorAll('[data-depth]')];
-    const mx = this.mouse.x, my = this.mouse.y;
-    for (const el of this.depthEls) { const d = +el.dataset.depth; el.style.transform = `translate3d(${mx*d*-16}px, ${my*d*-16}px, 0)`; }
-  }
-
-  runIntro() {
-    this.camTarget = { x: 0, y: 0, z: 60 };
-    this.speed.visible = true;
-    if (window.gsap) gsap.to(this.camTarget, { z: 12, duration: 2.55, ease: 'power3.inOut' });
-    else this.camTarget.z = 12;
-
-    const minTime = new Promise((resolve) => { this._introT = setTimeout(resolve, 2950); });
-    const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-    const pageLoaded = document.readyState === 'complete'
-      ? Promise.resolve()
-      : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
-
-    Promise.all([minTime, fontsReady, pageLoaded]).then(() => {
-      if (this._unmounted) return;
-      this.speed.visible = false; this.phase = 'menu'; this.setState({ phase: 'menu', introDone: true });
-    });
-  }
-
-  audioInit() { if (this.props.enableAudio === false) return; if (this.actx) { if (this.actx.state === 'suspended') this.actx.resume(); return; } try { this.actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
-  blip(freq, dur, gain, type) { if (!this.actx) return; const o = this.actx.createOscillator(), g = this.actx.createGain(); o.type = type || 'square'; o.frequency.value = freq; g.gain.value = gain; o.connect(g); g.connect(this.actx.destination); const n = this.actx.currentTime; g.gain.setValueAtTime(gain, n); g.gain.exponentialRampToValueAtTime(0.0001, n + dur); o.start(n); o.stop(n + dur); }
-  hover = () => { this.audioInit(); this.blip(640, 0.05, 0.03); };
-  playSelect() { this.audioInit(); this.blip(900, 0.07, 0.045); setTimeout(() => this.blip(1380, 0.09, 0.04), 55); }
-  playType() { this.blip(2100, 0.012, 0.012); }
-
-  goMenu = () => this.navigate('menu');
-  navigateClick = (e) => this.navigate(e.currentTarget.dataset.target);
-
-  navigate(target) {
-    if (this.state.wipePhase !== 'idle' || this.state.phase === target) return;
-    this.playSelect();
-    if (window.gsap && this.camTarget) {
-      gsap.killTweensOf(this.camTarget);
-      gsap.to(this.camTarget, { z: this.camTarget.z - 22, duration: 0.42, ease: 'power3.in' });
-    }
-    this.setState({ wipePhase: 'cover' });
-    setTimeout(() => { this.applyScene(target); this.phase = target; this.setState({ phase: target, gallerySel: null, wipePhase: 'reveal' }); }, 410);
-    setTimeout(() => this.setState({ wipePhase: 'idle' }), 880);
-  }
-
-  applyScene(target) {
-    const T = {
-      menu: { x: 0, y: 0, z: 12, a: 0xffe24d },
-      about: { x: -3, y: 0.5, z: 11, a: 0xffe24d },
-      portfolio: { x: 2, y: 1.2, z: 14, a: 0xffd24d },
-      gallery: { x: 0, y: 0, z: 15, a: 0xfff0c0 },
-      contact: { x: 0, y: -1, z: 10, a: 0xffae46 },
-    }[target] || { x: 0, y: 0, z: 12, a: 0xffe24d };
-    if (window.gsap) { gsap.killTweensOf(this.camTarget); gsap.to(this.camTarget, { x: T.x, y: T.y, z: T.z, duration: 1.1, ease: 'power3.inOut' }); }
-    else this.camTarget = { x: T.x, y: T.y, z: T.z };
-    if (this.accentCol) this.accentCol.setHex(T.a);
-    if (target === 'about') this.startType();
-    if (target === 'portfolio') { if (this.pfTrackRef.current) this.pfTrackRef.current.scrollTop = 0; setTimeout(() => this.onPfScroll(), 60); }
-  }
-
-  startType() {
-    clearInterval(this._tw);
-    this.setState({ typed: 0 });
-    const len = this.BIO.length; let n = 0; const sp = this.props.typeSpeed || 14;
-    this._tw = setInterval(() => { n += 1; if (n >= len) clearInterval(this._tw); this.setState({ typed: n }); if (n % 3 === 0) this.playType(); }, sp);
-  }
-  skipType = () => { clearInterval(this._tw); this.setState({ typed: this.BIO.length }); };
-
-  onPfScroll = () => {
-    const cont = this.pfTrackRef.current; if (!cont) return;
-    if (this._pfRaf) return;
-    this._pfRaf = requestAnimationFrame(() => {
-      this._pfRaf = null;
-      const cr = cont.getBoundingClientRect(); const cy = cr.top + cr.height / 2;
-      cont.querySelectorAll('[data-pf]').forEach((c) => {
-        const r = c.getBoundingClientRect(); const center = r.top + r.height / 2;
-        const d = Math.max(-1.2, Math.min(1.2, (center - cy) / (cr.height / 2)));
-        const tz = -Math.abs(d) * 130; const sc = 1 - Math.abs(d) * 0.1;
-        c.style.transform = `translateZ(${tz}px) rotateX(${-d * 7}deg) scale(${sc})`;
-        c.style.opacity = Math.max(0.25, 1 - Math.abs(d) * 0.55);
-      });
-    });
-  };
-
-  toggleLang = () => { this.playSelect(); this.setState((s) => ({ lang: s.lang === 'en' ? 'jp' : 'en' })); };
-  installApp = async () => {
-    this.playSelect();
-    const e = this.deferredInstallPrompt;
-    if (!e) return;
-    this.deferredInstallPrompt = null;
-    this.setState({ canInstall: false });
-    e.prompt();
-    await e.userChoice;
-  };
-  openFrame = (e) => { this.playSelect(); this.setState({ gallerySel: +e.currentTarget.dataset.i }); };
-  closeFrame = () => { this.audioInit(); this.blip(520, 0.06, 0.03); this.setState({ gallerySel: null }); };
-  openLink = (e) => { this.playSelect(); const u = e.currentTarget.dataset.url; if (u) window.open(u, '_blank', 'noopener'); };
-  selectProject = (e) => { this.playSelect(); const name = e.currentTarget.dataset.pname; if (this.flatProjects) { const proj = this.flatProjects.find((p) => p.name === name) || null; this.setState({ selectedProject: proj }); } };
-  closeProject = () => { this.audioInit(); this.blip(520, 0.06, 0.03); this.setState({ selectedProject: null }); };
-
-  renderVals() {
-    const lang = this.state.lang;
-    const phase = this.state.phase;
-    const jp = lang === 'jp';
-    const isMobile = this.state.isMobile;
-    const isDesktop = !isMobile;
-
-    const t = jp ? {
-      name: 'パンジ・グミラン', role: 'ソフトウェアエンジニア', menu: 'メニュー', loading: 'ロード中',
-      menuKicker: 'メインメニュー', menuTitle: 'セレクト',
-      aboutKicker: '01 — キャラクター紹介', aboutTitle: '私について',
-      pfKicker: '02 — プロジェクト年表', pfTitle: '作品',
-      galKicker: '03 — アート展示', galTitle: 'ギャラリー',
-      contactKicker: '04 — お問い合わせ', contactTitle: '連絡先', connectSub: 'つながろう', install: 'インストール',
-    } : {
-      name: 'PANJI GEMILANG', role: 'Software Engineer', menu: 'MENU', loading: 'LOADING',
-      menuKicker: 'Main Menu', menuTitle: 'SELECT',
-      aboutKicker: '01 — Character Profile', aboutTitle: 'ABOUT ME',
-      pfKicker: '02 — Project Timeline', pfTitle: 'PORTFOLIO',
-      galKicker: '03 — Art Exhibition', galTitle: 'GALLERY',
-      contactKicker: '04 — Get In Touch', contactTitle: 'CONTACT', connectSub: "Let's Connect", install: 'Install',
-    };
-
-    const mi = [
-      { n: '01', target: 'about', en: 'ABOUT', jp: '私について', d: 'Character Profile', dj: 'キャラクター紹介' },
-      { n: '02', target: 'portfolio', en: 'PORTFOLIO', jp: '作品', d: 'Project Timeline', dj: 'プロジェクト年表' },
-      { n: '03', target: 'gallery', en: 'GALLERY', jp: 'ギャラリー', d: 'Art Exhibition', dj: 'アート展示' },
-      { n: '04', target: 'contact', en: 'CONTACT', jp: '連絡先', d: 'Get In Touch', dj: 'お問い合わせ' },
-    ];
-    const menuItems = mi.map((m) => ({ n: m.n, target: m.target, label: jp ? m.jp : m.en, descLoc: jp ? m.dj : m.d }));
-
-    let pidx = 0;
-    const rawGroups = [
-      { year: '2019', items: [
-        { period: 'Mar – May', name: 'Devkami', role: 'Fullstack Developer', cat: 'Personal Project', tech: ['React','Node.js','Express','MongoDB','Bootstrap'], desc: 'A personal platform for connecting people through skill exchange. Built full-stack from scratch — authentication, listings, and a real-time dashboard using the MERN stack.' },
-        { period: 'Jul – Aug', name: 'PTPN X', role: 'Fullstack Developer', cat: 'Internship', tech: ['React','Node.js','Express','MongoDB'], desc: 'Internship at a state-owned plantation company. Developed internal reporting and data-management tools for operational workflows across multiple plantation sites.' },
-        { period: 'Aug – Oct', name: 'Kampung Desa', role: 'Fullstack Engineer', cat: 'Client Project', tech: ['React','Node.js','Express','MongoDB'], desc: 'A village-administration web platform for a client — handling resident records, local announcements, and government reporting for rural communities across the region.' },
-      ] },
-      { year: '2020', items: [
-        { period: 'Feb – Mar', name: 'Hoping (Japan)', role: 'Software Engineer', cat: 'International Internship', tech: ['Java','MySQL','JavaScript','Visual Basic'], desc: 'An international internship in Japan. Integrated Java-based enterprise modules for logistics and inventory management, collaborating closely with a Japanese engineering team.' },
-        { period: 'Feb – May', name: 'FKH Apps', role: 'Frontend Engineer', cat: 'University Project', tech: ['React','Laravel','MySQL'], desc: 'University health faculty system with multi-role access for students, staff, and faculty. Implemented scheduling, health-record management, and dynamic reporting dashboards.' },
-        { period: 'May – Jul', name: 'Bloom Browser', role: 'Frontend Engineer', cat: 'US Client Project', tech: ['React','JavaScript','CSS'], desc: 'A US client project — a clean, productivity-focused browser shell built in React, prioritising speed, minimal chrome, and a distraction-free reading experience.' },
-        { period: 'Sep – Dec', name: 'Boleh Dicoba Digital', role: 'Fullstack Developer', cat: 'Company CMS', tech: ['PHP','CodeIgniter','MySQL','JavaScript'], desc: 'Company CMS for a digital marketing agency. Managed content pipelines, campaign scheduling, and asset libraries using a PHP/CodeIgniter backend.' },
-        { period: 'Dec', name: 'Ini Dia Lo', role: 'Fullstack Developer', cat: 'Personal Project', tech: ['Vue.js','Laravel','MySQL'], desc: 'A personality-quiz web app where users discover and share results, built with Vue.js and Laravel — featuring real-time sharing and user-generated quiz creation.' },
-      ] },
-      { year: '2021 — NOW', items: [
-        { period: 'Feb – Present', name: 'Opsigo', role: 'Fullstack Developer', cat: 'Full-time Employment', tech: ['AngularJS','C#','.NET','jQuery'], desc: 'Full-time at a leading B2B travel-tech company. Maintaining and extending a large-scale enterprise platform for corporate travel bookings, approvals, and reporting across multiple markets.' },
-      ] },
-      { year: '2025', items: [
-        { period: 'Dec', name: 'Kane Kashite', role: 'Fullstack Developer', cat: 'Personal SaaS', tech: ['Next.js','TypeScript','Supabase','Tailwind CSS','shadcn/ui'], desc: 'A personal SaaS project for Japanese-language personal finance tracking. Features real-time transaction logging, budget analytics, multi-currency support, and a clean bilingual UI.' },
-        { period: 'Dec', name: 'Opsileave', role: 'Fullstack Developer', cat: 'Internal Company System', tech: ['Next.js','TypeScript','Supabase','Tailwind CSS','shadcn/ui'], desc: 'Internal leave-management system replacing manual HR approval processes. Streamlines leave requests, multi-level approvals, and HR reporting with a fast, modern interface.' },
-      ] },
-      { year: '2026', items: [
-        { period: 'Jan', name: 'Haikal Management System', role: 'Fullstack Developer', cat: 'Business Management System', tech: ['Laravel','TypeScript','PostgreSQL','Tailwind CSS','shadcn/ui'], desc: 'A full-featured business management platform — inventory, invoicing, employee management, and dynamic reporting — built on Laravel and TypeScript for a growing client business.' },
-      ] },
-    ];
-    const groups = rawGroups.map((g) => ({ year: g.year, items: g.items.map((p) => Object.assign({}, p, { pidx: pidx++ })) }));
-    this.flatProjects = groups.flatMap((g) => g.items);
-
-    const frameDefs = [
-      { title: jp ? '夜明け' : 'First Light', medium: 'Digital · 2024', h: 210 },
-      { title: jp ? '静寂' : 'Quiet Hours', medium: 'Concept · 2024', h: 48 },
-      { title: jp ? '路地' : 'Backstreets', medium: 'Sketch · 2025', h: 28 },
-      { title: jp ? '記憶' : 'Memory', medium: 'Illustration · 2025', h: 150 },
-      { title: jp ? '旅' : 'Voyage', medium: 'Digital · 2025', h: 195 },
-      { title: jp ? '都市' : 'Cityscape', medium: 'Study · 2026', h: 8 },
-    ];
-    const artBg = (h) => ({ position: 'absolute', inset: 0, background: `linear-gradient(150deg, hsl(${h} 70% 22%), hsl(${(h+40)%360} 55% 9%))`, backgroundImage: `radial-gradient(60% 50% at 35% 30%, hsla(${h} 90% 60% / .35), transparent 60%), linear-gradient(150deg, hsl(${h} 60% 16%), hsl(${(h+30)%360} 50% 7%))` });
-    const frames = frameDefs.map((f, i) => ({ idx: i, title: f.title, medium: f.medium, artStyle: artBg(f.h) }));
-
-    const contacts = [
-      { label: 'Portfolio', sub: 'panjigemilang.vercel.app', url: 'https://panjigemilang.vercel.app', badge: 'P' },
-      { label: 'GitHub', sub: 'panjigemilang.vercel.app', url: 'https://panjigemilang.vercel.app', badge: 'G' },
-      { label: 'LinkedIn', sub: 'in/panji-g', url: 'https://www.linkedin.com/in/panji-g', badge: 'in' },
-      { label: 'Instagram', sub: '@_panjig', url: 'https://instagram.com/_panjig', badge: 'IG' },
-    ];
-
-    const aboutTags = jp ? ['シネマティック', '旅', 'スケッチ'] : ['Cinematic Visuals', 'Travel', 'Sketching'];
-
-    const base = { position: 'fixed', inset: 0, zIndex: 10, transition: 'opacity .6s ease, transform .85s cubic-bezier(.16,1,.3,1)' };
-    const vis = (on, off) => on
-      ? { ...base, opacity: 1, visibility: 'visible', pointerEvents: 'auto', transform: 'none' }
-      : { ...base, opacity: 0, visibility: 'hidden', pointerEvents: 'none', transform: off || 'scale(1.04)' };
-
-    const sel = this.state.gallerySel;
-    const selFrame = sel != null ? frames[sel] : { title: '', medium: '' };
-
-    // ---- MOBILE-RESPONSIVE STYLES ----
-
-    // Chrome — single full-width flex bar
-    const chromeBarStyle = {
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 60,
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: isMobile ? '10px 12px' : '18px 34px',
-      opacity: phase === 'intro' ? 0 : 1,
-      transition: 'opacity .6s ease',
-      pointerEvents: 'none'
-    };
-    const chromeLeftStyle = {
-      display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '14px', pointerEvents: 'auto'
-    };
-    const chromeBadgeStyle = {
-      cursor: 'pointer', width: isMobile ? '36px' : '46px', height: isMobile ? '36px' : '46px',
-      display: 'grid', placeItems: 'center', background: '#ffe24d', color: '#0a0a0a',
-      fontFamily: "'Anton'", fontSize: isMobile ? '16px' : '22px',
-      transform: 'skewX(-7deg)', boxShadow: '0 6px 22px rgba(255,226,77,.35)'
-    };
-    const chromeNameStyle = { transform: 'skewX(-7deg)', display: isMobile ? 'none' : 'block' };
-
-    // Chrome right
-    const chromeRightStyle = {
-      display: 'flex', alignItems: 'center', gap: isMobile ? '6px' : '16px', pointerEvents: 'auto'
-    };
-    const installButtonStyle = {
-      cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px',
-      padding: isMobile ? '7px 10px' : '10px 16px',
-      background: '#ffe24d', color: '#0a0a0a', transform: 'skewX(-7deg)',
-      fontFamily: "'Anton'", fontSize: isMobile ? '11px' : '13px', letterSpacing: '.04em',
-      boxShadow: '0 6px 18px rgba(255,226,77,.3)'
-    };
-    const backInnerStyle = {
-      cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '7px',
-      padding: isMobile ? '7px 10px' : '11px 18px',
-      border: '1.5px solid rgba(255,255,255,.25)', transform: 'skewX(-7deg)',
-      background: 'rgba(10,10,12,.5)', backdropFilter: 'blur(6px)'
-    };
-    const projectOpenLocal = !!this.state.selectedProject;
-    const backAction = projectOpenLocal ? this.closeProject : this.goMenu;
-    const backMenuText = projectOpenLocal
-      ? (isMobile ? '' : 'BACK')
-      : (isMobile ? '' : t.menu);
-
-    // Menu
-    const menuDeco1Style = { position: 'absolute', top: '12%', right: '9%', display: isMobile ? 'none' : 'block' };
-    const menuKanjiStyle = { position: 'absolute', top: '22%', right: '30%', display: isMobile ? 'none' : 'block' };
-    const menuContainerStyle = {
-      position: 'relative', height: '100%', display: 'flex', flexDirection: 'column',
-      justifyContent: 'center', paddingLeft: isMobile ? '5vw' : '8vw', paddingRight: isMobile ? '5vw' : '4vw'
-    };
-    const menuTitleStyle = {
-      fontFamily: "'Anton'", fontSize: isMobile ? 'clamp(28px,8vw,48px)' : 'clamp(34px,5vw,64px)',
-      transform: 'skewX(-7deg)', lineHeight: .9, marginBottom: isMobile ? '20px' : '38px'
-    };
-    const menuItemsListStyle = { display: 'flex', flexDirection: 'column', gap: isMobile ? '10px' : '14px', maxWidth: '560px' };
-    const menuItemBaseStyle = {
-      cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center',
-      gap: isMobile ? '12px' : '18px', padding: isMobile ? '12px 16px' : '16px 24px',
-      transform: 'skewX(-7deg)', background: 'rgba(13,13,16,.55)', borderLeft: '4px solid #ffe24d',
-      backdropFilter: 'blur(4px)',
-      transition: 'transform .35s cubic-bezier(.16,1,.3,1),background .4s ease,padding-left .35s,box-shadow .4s ease'
-    };
-    const menuNumStyle = {
-      fontFamily: "'Anton'", fontSize: isMobile ? 'clamp(18px,5vw,26px)' : '30px',
-      opacity: .55, minWidth: isMobile ? '30px' : '46px', flexShrink: 0
-    };
-    const menuLabelStyle = {
-      fontFamily: "'Anton'", fontSize: isMobile ? 'clamp(20px,6vw,30px)' : '32px',
-      lineHeight: 1, letterSpacing: '.02em'
-    };
-
-    // About
-    const aboutGridStyle = {
-      position: 'relative', height: '100%',
-      display: isMobile ? 'flex' : 'grid',
-      flexDirection: isMobile ? 'column' : undefined,
-      gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
-      alignItems: isMobile ? 'flex-start' : 'center',
-      gap: isMobile ? '16px' : '30px',
-      padding: isMobile ? '62px 5vw 0' : '0 7vw',
-      maxWidth: '1500px', margin: '0 auto',
-      overflowY: isMobile ? 'auto' : 'visible'
-    };
-    const aboutPortraitColStyle = {
-      position: 'relative',
-      height: isMobile ? '240px' : '74vh',
-      display: 'grid', placeItems: 'center',
-      flexShrink: 0, width: isMobile ? '100%' : undefined
-    };
-    const aboutGlowStyle = {
-      position: 'absolute', inset: 0,
-      width: isMobile ? '200px' : '380px', height: isMobile ? '200px' : '380px',
-      borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,226,77,.4), transparent 65%)',
-      filter: 'blur(20px)'
-    };
-    const aboutFrameStyle = {
-      width: isMobile ? '170px' : '340px', height: isMobile ? '215px' : '430px',
-      border: '2px solid rgba(255,226,77,.5)', transform: 'rotate(-6deg)'
-    };
-    const aboutKanjiStyle = {
-      fontFamily: "'Shippori Mincho'", fontSize: isMobile ? '150px' : '300px',
-      color: 'rgba(255,255,255,.04)'
-    };
-    const aboutCardStyle = {
-      width: isMobile ? '160px' : '320px', height: isMobile ? '205px' : '420px',
-      background: 'linear-gradient(160deg,#16161c,#0c0c10)', border: '3px solid #0a0a0a',
-      boxShadow: '0 30px 80px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,226,77,.25)',
-      overflow: 'hidden', position: 'relative'
-    };
-    const aboutTextColStyle = { minWidth: 0, width: '100%' };
-    const aboutBioBoxStyle = {
-      cursor: 'pointer', position: 'relative',
-      background: 'rgba(13,13,16,.6)', border: '1.5px solid rgba(255,226,77,.3)',
-      borderLeft: '4px solid #ffe24d', padding: isMobile ? '20px 18px' : '24px 28px',
-      maxWidth: '560px', minHeight: isMobile ? '160px' : '310px',
-      backdropFilter: 'blur(6px)', boxShadow: '0 24px 60px rgba(0,0,0,.5)'
-    };
-
-    // Portfolio
-    const pfTopStyle = {
-      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 5,
-      padding: isMobile ? '62px 5vw 0' : '96px 7vw 0', pointerEvents: 'none'
-    };
-    const pfTrackStyle = {
-      position: 'absolute', inset: 0, overflowY: 'auto', overflowX: 'hidden',
-      padding: isMobile ? '150px 5vw 80px' : '230px 7vw 180px', perspective: '1400px'
-    };
-    const yearStyle = {
-      position: 'sticky', top: 0, fontFamily: "'Anton'",
-      fontSize: isMobile ? 'clamp(48px,13vw,110px)' : 'clamp(80px,16vw,190px)',
-      lineHeight: .8, color: 'rgba(255,226,77,.08)', transform: 'skewX(-7deg)',
-      pointerEvents: 'none', zIndex: 0
-    };
-
-    // Portfolio detail
-    const pfDetailStickyStyle = {
-      position: 'sticky', top: 0, zIndex: 10, display: 'flex', alignItems: 'center',
-      justifyContent: 'center',
-      padding: isMobile ? '12px 5vw' : '22px 7vw',
-      background: 'rgba(9,9,13,.92)', backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid rgba(255,226,77,.2)',
-      minHeight: isMobile ? '52px' : '70px'
-    };
-    const pfDetailSubtitleStyle = {
-      fontFamily: "'Shippori Mincho'", fontSize: isMobile ? '10px' : '11px', letterSpacing: '.4em',
-      color: 'rgba(255,255,255,.35)', textTransform: 'uppercase'
-    };
-    const pfDetailBackStyle = {
-      cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
-      fontFamily: "'Anton'", fontSize: '12px', letterSpacing: '.2em', color: '#ffe24d',
-      padding: isMobile ? '7px 12px' : '10px 20px', border: '1.5px solid #ffe24d',
-      transform: 'skewX(-7deg)', transition: 'background .25s,color .25s', flexShrink: 0
-    };
-    const pfDetailBodyStyle = {
-      maxWidth: '880px', margin: '0 auto',
-      padding: isMobile ? '28px 5vw 80px' : '56px 7vw 120px'
-    };
-
-    // Gallery
-    const galTopStyle = {
-      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 5,
-      padding: isMobile ? '62px 5vw 0' : '92px 7vw 0', pointerEvents: 'none', textAlign: 'center'
-    };
-    const galleryScrollStyle = {
-      position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
-      overflowX: 'auto', overflowY: 'hidden',
-      padding: isMobile ? '0 5vw' : '0 8vw', gap: isMobile ? '24px' : '48px',
-      perspective: '1600px', scrollBehavior: 'smooth'
-    };
-    const galleryCardSizeStyle = {
-      position: 'relative', width: isMobile ? '200px' : '300px', height: isMobile ? '260px' : '380px',
-      background: '#0a0a0a',
-      border: isMobile ? '10px solid #15151a' : '14px solid #15151a',
-      boxShadow: '0 40px 70px rgba(0,0,0,.7),inset 0 0 0 2px rgba(255,226,77,.3)'
-    };
-    const galleryViewerCardStyle = {
-      position: 'relative',
-      width: isMobile ? 'min(78vw, 300px)' : 'min(64vh, 460px)',
-      aspectRatio: '3/4', background: '#0a0a0a',
-      border: isMobile ? '10px solid #15151a' : '18px solid #15151a',
-      boxShadow: '0 60px 120px rgba(0,0,0,.8),inset 0 0 0 2px rgba(255,226,77,.35)'
-    };
-
-    // Contact
-    const contactTopStyle = {
-      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 6,
-      padding: isMobile ? '62px 5vw 0' : '92px 7vw 0', pointerEvents: 'none'
-    };
-
-    return {
-      t, phase, isMobile, isDesktop,
-      menuItems, groups, frames, contacts, aboutTags,
-      bioShown: this.BIO.slice(0, this.state.typed),
-      canInstall: this.state.canInstall,
-
-      rootRef: this.rootRef, canvasRef: this.canvasRef, aboutRef: this.aboutRef, pfTrackRef: this.pfTrackRef,
-      hover: this.hover, goMenu: this.goMenu, navigateClick: this.navigateClick,
-      toggleLang: this.toggleLang, skipType: this.skipType, onPfScroll: this.onPfScroll,
-      openFrame: this.openFrame, closeFrame: this.closeFrame, openLink: this.openLink,
-      selectProject: this.selectProject, closeProject: this.closeProject, installApp: this.installApp,
-
-      // Chrome
-      chromeBarStyle, chromeLeftStyle, chromeBadgeStyle, chromeNameStyle,
-      chromeRightStyle, backInnerStyle, backMenuText, backAction, installButtonStyle,
-
-      // Menu
-      menuDeco1Style, menuKanjiStyle, menuContainerStyle, menuTitleStyle,
-      menuItemsListStyle, menuItemBaseStyle, menuNumStyle, menuLabelStyle,
-
-      // About
-      aboutGridStyle, aboutPortraitColStyle, aboutGlowStyle, aboutFrameStyle,
-      aboutKanjiStyle, aboutCardStyle, aboutTextColStyle, aboutBioBoxStyle,
-
-      // Portfolio
-      pfTopStyle, pfTrackStyle, yearStyle,
-      pfDetailStickyStyle, pfDetailSubtitleStyle, pfDetailBackStyle, pfDetailBodyStyle,
-
-      // Gallery
-      galTopStyle, galleryScrollStyle, galleryCardSizeStyle, galleryViewerCardStyle,
-
-      // Contact
-      contactTopStyle,
-
-
-      backStyle: { opacity: (phase === 'menu' || phase === 'intro') ? 0 : 1, pointerEvents: (phase === 'menu' || phase === 'intro') ? 'none' : 'auto', transition: 'opacity .4s ease' },
-      enTabStyle: { padding: isMobile ? '8px 10px' : '10px 14px', background: lang === 'en' ? '#ffe24d' : 'transparent', color: lang === 'en' ? '#0a0a0a' : '#fff', transition: 'all .3s' },
-      jpTabStyle: { padding: isMobile ? '8px 10px' : '10px 14px', background: lang === 'jp' ? '#ffe24d' : 'transparent', color: lang === 'jp' ? '#0a0a0a' : '#fff', fontFamily: "'Shippori Mincho', serif", transition: 'all .3s' },
-
-      introStyle: { position: 'fixed', inset: 0, zIndex: 30, display: 'grid', placeItems: 'center', background: 'rgba(7,7,10,.35)', opacity: phase === 'intro' ? 1 : 0, visibility: phase === 'intro' ? 'visible' : 'hidden', pointerEvents: 'none', transition: 'opacity .7s ease' },
-      menuStyle: vis(phase === 'menu', 'translateX(-40px)'),
-      aboutStyle: vis(phase === 'about', 'translateX(50px)'),
-      portfolioStyle: vis(phase === 'portfolio', 'translateY(50px)'),
-      galleryStyle: vis(phase === 'gallery', 'scale(1.06)'),
-      contactStyle: vis(phase === 'contact', 'translateY(-50px)'),
-
-      viewerOpen: sel != null,
-      projectOpen: !!this.state.selectedProject,
-      selProject: this.state.selectedProject || { name: '', period: '', cat: '', role: '', tech: [], desc: '' },
-      selFrame,
-      selFrameStyle: sel != null ? frames[sel].artStyle : {},
-
-      wipeStyle: (() => {
-        const w = this.state.wipePhase;
-        const b = { position: 'absolute', top: 0, left: '-20vw', width: '140vw', height: '100%', background: '#ffe24d', display: 'block' };
-        if (w === 'idle') return { ...b, transform: 'translateX(-150%) skewX(-10deg)', transition: 'none' };
-        if (w === 'cover') return { ...b, transform: 'translateX(0) skewX(-10deg)', transition: 'transform .4s cubic-bezier(.7,0,.2,1)' };
-        return { ...b, transform: 'translateX(150%) skewX(-10deg)', transition: 'transform .45s cubic-bezier(.7,0,.2,1)' };
-      })(),
-    };
-  }
-}
-</script>
-</body>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{"$preview":{"width":"100vw","height":"100vh"},"startLang":{"editor":"enum","options":["en","id","ja"],"default":"en","tsType":"&apos;en&apos;|&apos;id&apos;|&apos;ja&apos;"},"enableAudio":{"editor":"boolean","default":true,"tsType":"boolean"},"reducedMotion":{"editor":"boolean","default":true,"tsType":"boolean"},"typeSpeed":{"editor":"int","default":18,"min":4,"max":40,"tsType":"number"}}'
+    >
+      // Logic lives in ./app.js (loaded in <head>) so the IDE can format it as JS.
+      const Component = window.createPortfolioComponent(DCLogic, React);
+    </script>
+  </body>
 </html>

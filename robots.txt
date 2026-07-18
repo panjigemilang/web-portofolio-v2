@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://web-portofolio-v2-cyan.vercel.app/sitemap.xml
+Sitemap: https://panjigemilang.vercel.app/sitemap.xml
