@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://web-portofolio-v2-cyan.vercel.app/sitemap.xml
