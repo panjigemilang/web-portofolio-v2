@@ -74,6 +74,188 @@
             }
           }
 
+          /* Scroll/visit-triggered paper entrances. Cards, sticky notes and
+             gallery frames start hidden/offset via these base classes and
+             animate in once a JS-added .is-in-view lands on their row/track
+             (observeReveal for Portfolio rows via IntersectionObserver,
+             page-visit "revealed" state for Gallery/About/Say Hello). Each
+             animated element carries its own --rest-rot custom property so
+             the keyframes can land exactly on that element's hand-set resting
+             tilt instead of flattening it to 0deg. .calm-mode is added
+             instead of .is-in-view when calmMode/reduced-motion is active,
+             short-circuiting straight to the resting state. */
+          .reveal-card,
+          .reveal-note {
+            opacity: 0;
+            will-change: transform, opacity;
+          }
+          .reveal-text-block h3,
+          .reveal-text-block p {
+            opacity: 0;
+            transform: translateY(14px);
+            transition:
+              opacity 0.6s ease 0.32s,
+              transform 0.6s ease 0.32s;
+          }
+          .reveal-row.is-in-view .reveal-text-block h3,
+          .reveal-row.is-in-view .reveal-text-block p {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          .reveal-row.is-in-view .reveal-card.reveal-l {
+            animation: paperPopLeft 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              forwards;
+          }
+          .reveal-row.is-in-view .reveal-card.reveal-r {
+            animation: paperPopRight 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              forwards;
+          }
+          .reveal-row.is-in-view .reveal-note.reveal-l {
+            animation: paperPopLeft 0.85s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              0.16s forwards;
+          }
+          .reveal-row.is-in-view .reveal-note.reveal-r {
+            animation: paperPopRight 0.85s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              0.16s forwards;
+          }
+          .reveal-row.calm-mode .reveal-card,
+          .reveal-row.calm-mode .reveal-note,
+          .reveal-row.calm-mode .reveal-text-block h3,
+          .reveal-row.calm-mode .reveal-text-block p {
+            opacity: 1 !important;
+            transform: rotate(var(--rest-rot, 0deg)) !important;
+            animation: none !important;
+            transition: none !important;
+          }
+
+          @keyframes paperPopLeft {
+            0% {
+              opacity: 0;
+              transform: translate(-66px, -28px)
+                rotate(calc(var(--rest-rot, 0deg) - 6deg));
+            }
+            55% {
+              opacity: 1;
+              transform: translate(6px, 5px)
+                rotate(calc(var(--rest-rot, 0deg) + 1.4deg));
+            }
+            76% {
+              transform: translate(-3px, -2px)
+                rotate(calc(var(--rest-rot, 0deg) - 0.5deg));
+            }
+            100% {
+              opacity: 1;
+              transform: translate(0, 0) rotate(var(--rest-rot, 0deg));
+            }
+          }
+          @keyframes paperPopRight {
+            0% {
+              opacity: 0;
+              transform: translate(66px, -28px)
+                rotate(calc(var(--rest-rot, 0deg) + 6deg));
+            }
+            55% {
+              opacity: 1;
+              transform: translate(-6px, 5px)
+                rotate(calc(var(--rest-rot, 0deg) - 1.4deg));
+            }
+            76% {
+              transform: translate(3px, -2px)
+                rotate(calc(var(--rest-rot, 0deg) + 0.5deg));
+            }
+            100% {
+              opacity: 1;
+              transform: translate(0, 0) rotate(var(--rest-rot, 0deg));
+            }
+          }
+
+          /* Gallery: the dot+thread+card hangs together and sways gently as
+             one unit (continuous ambient motion, independent of the marquee
+             scroll and of the one-time thread/card entrance below it). */
+          @keyframes gallerySway {
+            0%,
+            100% {
+              transform: rotate(-1.6deg);
+            }
+            50% {
+              transform: rotate(1.6deg);
+            }
+          }
+          .gallery-frame {
+            transform-origin: top center;
+            animation: gallerySway 5.5s ease-in-out infinite;
+            animation-delay: var(--sway-delay, 0s);
+          }
+          .gallery-thread {
+            transform: scaleY(0);
+            transform-origin: top center;
+          }
+          .gallery-card {
+            opacity: 0;
+          }
+          .exhibit-track.is-in-view .gallery-thread {
+            animation: threadStretch 0.6s cubic-bezier(0.3, 1.4, 0.4, 1)
+              forwards;
+            animation-delay: var(--enter-delay, 0s);
+          }
+          .exhibit-track.is-in-view .gallery-card {
+            animation: paperPopRight 0.85s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              forwards;
+            animation-delay: calc(var(--enter-delay, 0s) + 0.12s);
+          }
+          .gallery-frame.calm-mode {
+            animation: none !important;
+          }
+          .exhibit-track.calm-mode .gallery-thread,
+          .exhibit-track.calm-mode .gallery-card {
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
+          }
+          @keyframes threadStretch {
+            0% {
+              transform: scaleY(0);
+            }
+            70% {
+              transform: scaleY(1.15);
+            }
+            100% {
+              transform: scaleY(1);
+            }
+          }
+
+          /* About / Say Hello: the whole sheet calmly drops in and settles
+             once — a single small overshoot, softer than the portfolio
+             card pops above. */
+          @keyframes paperCalmIn {
+            0% {
+              opacity: 0;
+              transform: translateY(26px)
+                rotate(calc(var(--rest-rot, 0deg) - 1deg));
+            }
+            70% {
+              opacity: 1;
+              transform: translateY(-4px)
+                rotate(calc(var(--rest-rot, 0deg) + 0.3deg));
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) rotate(var(--rest-rot, 0deg));
+            }
+          }
+          .paper-in {
+            opacity: 0;
+          }
+          .paper-in.is-in-view {
+            animation: paperCalmIn 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.05)
+              forwards;
+          }
+          .paper-in.calm-mode {
+            opacity: 1 !important;
+            transform: rotate(var(--rest-rot, 0deg)) !important;
+            animation: none !important;
+          }
+
           .exhibit-track {
             display: flex;
             align-items: flex-start;
@@ -888,8 +1070,10 @@
                 >
                   <!-- PROJECT 1: HAIKAL MANAGEMENT SYSTEM (2026 - Visual Left, Narrative Right) -->
                   <div
+                    ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
                     onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
                     style="
                       display: flex;
                       flex-wrap: wrap;
@@ -902,12 +1086,13 @@
                   >
                     <!-- Mockup Card with Washi Tape pinned to top of Image -->
                     <div
-                      class="project-card"
+                      class="project-card reveal-card reveal-l"
                       style="
                         flex: 1 1 340px;
                         min-width: 280px;
                         position: relative;
                         transform: rotate(-1.2deg);
+                        --rest-rot: -1.2deg;
                       "
                     >
                       <div
@@ -932,6 +1117,7 @@
                       >
                         <image-slot
                           id="project-haikal"
+                          ref="{{ registerParallaxEl }}"
                           placeholder="Haikal Management System — Dashboard &amp; Analytics"
                           src="./img/haikal-ss1.png"
                           shape="rounded"
@@ -988,14 +1174,15 @@
                     </div>
 
                     <!-- Editorial Narrative & Stack -->
-                    <div style="flex: 1 1 340px; min-width: 280px">
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
-                        class="sticky-date-note"
+                        class="sticky-date-note reveal-note reveal-r"
                         style="
                           background: oklch(0.93 0.12 95);
                           transform: rotate(-3deg);
                           border: 1px solid oklch(0.88 0.08 92);
+                          --rest-rot: -3deg;
                         "
                       >
                         <div class="sticky-tape-strip"></div>
@@ -1159,8 +1346,10 @@
 
                   <!-- PROJECT 2: OPSILEAVE (2025 - Narrative Left, Visual Right) -->
                   <div
+                    ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
                     onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
                     style="
                       display: flex;
                       flex-wrap: wrap-reverse;
@@ -1172,14 +1361,15 @@
                     "
                   >
                     <!-- Editorial Narrative & Stack -->
-                    <div style="flex: 1 1 340px; min-width: 280px">
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
-                        class="sticky-date-note"
+                        class="sticky-date-note reveal-note reveal-l"
                         style="
                           background: oklch(0.92 0.08 220);
                           transform: rotate(2.5deg);
                           border: 1px solid oklch(0.86 0.06 220);
+                          --rest-rot: 2.5deg;
                         "
                       >
                         <div
@@ -1348,12 +1538,13 @@
 
                     <!-- Mockup Card with Blue Washi Tape -->
                     <div
-                      class="project-card"
+                      class="project-card reveal-card reveal-r"
                       style="
                         flex: 1 1 340px;
                         min-width: 280px;
                         position: relative;
                         transform: rotate(1.5deg);
+                        --rest-rot: 1.5deg;
                       "
                     >
                       <div
@@ -1378,6 +1569,7 @@
                       >
                         <image-slot
                           id="project-opsileave"
+                          ref="{{ registerParallaxEl }}"
                           placeholder="Opsileave — Leave Management &amp; Calendar"
                           src="./img/opsileave-ss1.png"
                           shape="rounded"
@@ -1416,8 +1608,10 @@
 
                   <!-- PROJECT 3: KANE KASHITE (2025 - Visual Left, Narrative Right) -->
                   <div
+                    ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
                     onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
                     style="
                       display: flex;
                       flex-wrap: wrap;
@@ -1430,12 +1624,13 @@
                   >
                     <!-- Mockup Card with Yellow Washi Tape -->
                     <div
-                      class="project-card"
+                      class="project-card reveal-card reveal-l"
                       style="
                         flex: 1 1 340px;
                         min-width: 280px;
                         position: relative;
                         transform: rotate(-1.4deg);
+                        --rest-rot: -1.4deg;
                       "
                     >
                       <div
@@ -1460,6 +1655,7 @@
                       >
                         <image-slot
                           id="project-kane-kashite"
+                          ref="{{ registerParallaxEl }}"
                           placeholder="Kane Kashite — Shared Expense &amp; Split Bill App"
                           src="./img/okane-ss1.png"
                           shape="rounded"
@@ -1496,14 +1692,15 @@
                     </div>
 
                     <!-- Narrative & Stack -->
-                    <div style="flex: 1 1 340px; min-width: 280px">
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
-                        class="sticky-date-note"
+                        class="sticky-date-note reveal-note reveal-r"
                         style="
                           background: oklch(0.93 0.12 95);
                           transform: rotate(-2.5deg);
                           border: 1px solid oklch(0.88 0.08 92);
+                          --rest-rot: -2.5deg;
                         "
                       >
                         <div class="sticky-tape-strip"></div>
@@ -1668,8 +1865,10 @@
 
                   <!-- PROJECT 4: OPSIGO / OPSICORP (2021-NOW - Narrative Left, Visual Right) -->
                   <div
+                    ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
                     onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
                     style="
                       display: flex;
                       flex-wrap: wrap-reverse;
@@ -1681,14 +1880,15 @@
                     "
                   >
                     <!-- Editorial Narrative & Stack -->
-                    <div style="flex: 1 1 340px; min-width: 280px">
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
-                        class="sticky-date-note"
+                        class="sticky-date-note reveal-note reveal-l"
                         style="
                           background: oklch(0.92 0.08 220);
                           transform: rotate(2.5deg);
                           border: 1px solid oklch(0.86 0.06 220);
+                          --rest-rot: 2.5deg;
                         "
                       >
                         <div
@@ -1856,12 +2056,13 @@
 
                     <!-- Mockup Card with Blue Washi Tape -->
                     <div
-                      class="project-card"
+                      class="project-card reveal-card reveal-r"
                       style="
                         flex: 1 1 340px;
                         min-width: 280px;
                         position: relative;
                         transform: rotate(1.2deg);
+                        --rest-rot: 1.2deg;
                       "
                     >
                       <div
@@ -1886,6 +2087,7 @@
                       >
                         <image-slot
                           id="project-opsigo"
+                          ref="{{ registerParallaxEl }}"
                           placeholder="Opsigo Team"
                           src="./img/fotbar-opsigo.jpg"
                           shape="rounded"
@@ -1924,8 +2126,10 @@
 
                   <!-- PROJECT 5: FKH APPS (2020 - Visual Left, Narrative Right) -->
                   <div
+                    ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
                     onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
                     style="
                       display: flex;
                       flex-wrap: wrap;
@@ -1938,12 +2142,13 @@
                   >
                     <!-- Mockup Card with Yellow Washi Tape -->
                     <div
-                      class="project-card"
+                      class="project-card reveal-card reveal-l"
                       style="
                         flex: 1 1 340px;
                         min-width: 280px;
                         position: relative;
                         transform: rotate(-1.2deg);
+                        --rest-rot: -1.2deg;
                       "
                     >
                       <div
@@ -1968,6 +2173,7 @@
                       >
                         <image-slot
                           id="project-fkh-apps"
+                          ref="{{ registerParallaxEl }}"
                           placeholder="Login Page"
                           src="./img/login_page.jpg"
                           shape="rounded"
@@ -2004,14 +2210,15 @@
                     </div>
 
                     <!-- Narrative & Stack -->
-                    <div style="flex: 1 1 340px; min-width: 280px">
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
-                        class="sticky-date-note"
+                        class="sticky-date-note reveal-note reveal-r"
                         style="
                           background: oklch(0.93 0.12 95);
                           transform: rotate(-3deg);
                           border: 1px solid oklch(0.88 0.08 92);
+                          --rest-rot: -3deg;
                         "
                       >
                         <div class="sticky-tape-strip"></div>
@@ -2167,8 +2374,10 @@
 
                   <!-- PROJECT 6: KAMPUNG DESA (2019 - Polaroid Mockup Left, Field Narrative Right) -->
                   <div
+                    ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
                     onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
                     style="
                       display: flex;
                       flex-wrap: wrap;
@@ -2179,12 +2388,13 @@
                   >
                     <!-- Left: Polaroid Framed Mockup with Top Pin Washi Tape -->
                     <div
-                      class="project-card"
+                      class="project-card reveal-card reveal-l"
                       style="
                         flex: 1 1 320px;
                         min-width: 270px;
                         position: relative;
                         transform: rotate(-1.5deg);
+                        --rest-rot: -1.5deg;
                       "
                     >
                       <div
@@ -2208,6 +2418,7 @@
                       >
                         <image-slot
                           id="project-kampung-desa"
+                          ref="{{ registerParallaxEl }}"
                           placeholder="Kampung Desa — Village Portal"
                           src="./img/kampung%20desa.png"
                           shape="rect"
@@ -2232,14 +2443,15 @@
                     </div>
 
                     <!-- Right: Field Narrative -->
-                    <div style="flex: 1.2 1 340px; min-width: 280px">
+                    <div class="reveal-text-block" style="flex: 1.2 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
-                        class="sticky-date-note"
+                        class="sticky-date-note reveal-note reveal-r"
                         style="
                           background: oklch(0.93 0.11 90);
                           transform: rotate(-2.5deg);
                           border: 1px solid oklch(0.88 0.08 88);
+                          --rest-rot: -2.5deg;
                         "
                       >
                         <div class="sticky-tape-strip"></div>
@@ -2524,7 +2736,7 @@
 
                   <div style="overflow: hidden; padding: 0 0 20px">
                     <div
-                      class="exhibit-track"
+                      class="{{ galleryTrackCls }}"
                       ref="{{ setTrackRef }}"
                       onMouseEnter="{{ onTrackEnter }}"
                       onMouseLeave="{{ onTrackLeave }}"
@@ -2536,11 +2748,13 @@
                         hint-placeholder-count="8"
                       >
                         <div
+                          class="gallery-frame {{ calmModeCls }}"
                           style="
                             flex: 0 0 auto;
                             display: flex;
                             flex-direction: column;
                             align-items: center;
+                            --sway-delay: {{ f.swayDelay }};
                           "
                         >
                           <div
@@ -2553,16 +2767,19 @@
                             "
                           ></div>
                           <div
+                            class="gallery-thread"
                             style="
                               width: 1.5px;
                               height: 24px;
                               background: oklch(0.6 0.03 70 / 0.85);
                               flex-shrink: 0;
+                              --enter-delay: {{ f.enterDelay }};
                             "
                           ></div>
 
                           <div
-                            style="width:280px;height:430px;display:flex;flex-direction:column;background:oklch(0.99 0.006 88);padding:14px 14px 16px;box-shadow:0 12px 32px oklch(0.20 0.014 85 / 0.14);transform:rotate({{ f.tilt }}deg);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);border-radius:4px"
+                            class="gallery-card"
+                            style="width:280px;height:430px;display:flex;flex-direction:column;background:oklch(0.99 0.006 88);padding:14px 14px 16px;box-shadow:0 12px 32px oklch(0.20 0.014 85 / 0.14);transform:rotate({{ f.tilt }}deg);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);border-radius:4px;--enter-delay:{{ f.enterDelay }};--rest-rot:{{ f.tilt }}deg"
                             style-hover="transform:rotate(0deg) translateY(-8px)"
                           >
                             <image-slot
@@ -2708,6 +2925,7 @@
 
                   <!-- Lined Legal Pad Journal Sheet -->
                   <div
+                    class="{{ aboutPaperCls }}"
                     style="
                       position: relative;
                       background: oklch(0.99 0.008 88);
@@ -2720,6 +2938,7 @@
                         clamp(32px, 5vw, 52px) clamp(56px, 8vw, 82px);
                       overflow: hidden;
                       border: 1px solid oklch(0.88 0.02 85);
+                      --rest-rot: -0.4deg;
                     "
                   >
                     <div
@@ -2903,7 +3122,7 @@
                     clamp(60px, 8vh, 90px);
                 "
               >
-                <div style="max-width: 640px; width: 100%; text-align: center">
+                <div class="{{ contactPaperCls }}" style="max-width: 640px; width: 100%; text-align: center">
                   <div
                     style="
                       font-family: &quot;IBM Plex Mono&quot;, monospace;
@@ -3576,12 +3795,73 @@
 
         isReduceMotion = () => this.props?.calmMode || this.systemReduceMotion;
 
-        registerScrollEl = (el, idx) => { if (el) this.pageScrollEls[idx] = el; };
+        registerScrollEl = (el, idx) => {
+          if (!el) return;
+          this.pageScrollEls[idx] = el;
+          // Portfolio's project images drift at a slightly different rate
+          // than the page scrolls (parallax). Bind lazily, once, the first
+          // time that page's scroll container actually mounts.
+          if (idx === 1 && !this._portfolioScrollBound && !this.isReduceMotion()) {
+            this._portfolioScrollBound = true;
+            el.addEventListener('scroll', this.onPortfolioScroll, { passive: true });
+            this.updateParallax();
+          }
+        };
         refPage0 = (el) => this.registerScrollEl(el, 0);
         refPage1 = (el) => this.registerScrollEl(el, 1);
         refPage2 = (el) => this.registerScrollEl(el, 2);
         refPage3 = (el) => this.registerScrollEl(el, 3);
         refPage4 = (el) => this.registerScrollEl(el, 4);
+
+        // Shared scroll-reveal: a project row (or any .reveal-row-style
+        // element) starts hidden via CSS and gets .is-in-view added the
+        // first time it's ~16% into the viewport, which triggers the
+        // paper-pop keyframes in CSS. One observer, many targets — cheaper
+        // than a IntersectionObserver per card, and each target unobserves
+        // itself once revealed since this only ever needs to happen once.
+        // Reduced motion skips the whole mechanism and jumps straight to
+        // the revealed state so nothing is ever stuck invisible.
+        observeReveal = (el) => {
+          if (!el) return;
+          if (this.isReduceMotion()) {
+            el.classList.add('is-in-view');
+            return;
+          }
+          if (!this._revealObserver) {
+            this._revealObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in-view');
+                this._revealObserver.unobserve(entry.target);
+              });
+            }, { threshold: 0.16 });
+          }
+          this._revealObserver.observe(el);
+        };
+
+        // Portfolio parallax: project images drift a few px against the
+        // page's own scroll, offset from how far each one currently sits
+        // from viewport-center. Plain DOM writes (no setState) so scrolling
+        // stays cheap; rAF-throttled so it runs at most once per frame.
+        parallaxEls = [];
+        registerParallaxEl = (el) => {
+          if (!el || this.isReduceMotion()) return;
+          this.parallaxEls.push(el);
+        };
+        updateParallax = () => {
+          this._parallaxRaf = null;
+          const vh = window.innerHeight;
+          this.parallaxEls.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            const center = rect.top + rect.height / 2;
+            const offset = Math.max(-22, Math.min(22, (center - vh / 2) * -0.06));
+            el.style.transform = `translateY(${offset.toFixed(1)}px)`;
+          });
+        };
+        onPortfolioScroll = () => {
+          if (this._parallaxRaf) return;
+          this._parallaxRaf = requestAnimationFrame(this.updateParallax);
+        };
 
         setCursorRef = (el) => { this.cursorEl = el; };
         setTrackRef = (el) => { this.trackEl = el; };
@@ -3599,6 +3879,28 @@
           window.addEventListener('touchstart', this.onTouchStart, { passive: true });
           window.addEventListener('touchend', this.onTouchEnd, { passive: true });
         }
+
+        // Elements that pop/settle in via a CSS `animation` (not a
+        // `transition`) once .is-in-view lands — cloneNode copies the class,
+        // but a brand-new element always starts that keyframe animation over
+        // from 0%, so the peel snapshot would replay the entrance instead of
+        // showing the page already at rest. Freeze each clone at the live
+        // element's current computed opacity/transform and kill its
+        // animation so it just holds that settled look until the peel
+        // carries it away.
+        freezeClonedEntrances = (sourceEl, cloneEl) => {
+          const selector = '.reveal-card, .reveal-note, .gallery-thread, .gallery-card, .paper-in';
+          const sourceMatches = sourceEl.querySelectorAll(selector);
+          const cloneMatches = cloneEl.querySelectorAll(selector);
+          sourceMatches.forEach((srcNode, i) => {
+            const cloneNode = cloneMatches[i];
+            if (!cloneNode) return;
+            const computed = getComputedStyle(srcNode);
+            cloneNode.style.animation = 'none';
+            cloneNode.style.opacity = computed.opacity;
+            cloneNode.style.transform = computed.transform;
+          });
+        };
 
         triggerPagePeel = (fromIdx, toIdx, onComplete) => {
           // The corner-drag paper-curl overlay is tuned for desktop-sized
@@ -3648,6 +3950,7 @@
               snapshot.removeAttribute('ref');
               peelTopEl.appendChild(snapshot);
               snapshot.scrollTop = sourceEl.scrollTop;
+              this.freezeClonedEntrances(sourceEl, snapshot);
             }
           }
 
@@ -3736,6 +4039,9 @@
           window.removeEventListener('touchstart', this.onTouchStart);
           window.removeEventListener('touchend', this.onTouchEnd);
           if (this._peelAnimId) cancelAnimationFrame(this._peelAnimId);
+          if (this._revealObserver) this._revealObserver.disconnect();
+          if (this._parallaxRaf) cancelAnimationFrame(this._parallaxRaf);
+          if (this.pageScrollEls[1]) this.pageScrollEls[1].removeEventListener('scroll', this.onPortfolioScroll);
           clearTimeout(this._ct);
           clearTimeout(this._mt);
           clearTimeout(this._flipTimer);
@@ -4093,6 +4399,12 @@
                 list.push({
                   ...art,
                   id: `${art.baseId}-${prefix}-${cycle}-${idx}`,
+                  // Repeats per cycle (not a running total) so the one-time
+                  // entrance stagger stays a short, snappy 0-0.35s wave
+                  // across a row of cards instead of making later cycles of
+                  // an infinitely-duplicated marquee wait ages to appear.
+                  enterDelay: `${(idx * 0.35 / baseArtworks.length).toFixed(2)}s`,
+                  swayDelay: `${(-1 * (idx / baseArtworks.length) * 5.5).toFixed(2)}s`,
                 });
               });
             }
@@ -4104,10 +4416,20 @@
           const frames = [...half1, ...half2];
           const marqueeName = this.props?.calmMode ? 'none' : 'exhibitMarquee';
 
+          // Shared: swap in .calm-mode instead of playing the paper-pop /
+          // paper-calm-in keyframes when motion is reduced (see the
+          // .calm-mode rules next to those keyframes in <style>).
+          const calmModeCls = reduceMotion ? 'calm-mode' : '';
+          const isGalleryRevealed = !!revealed[2] || currentPage === 2;
+          const galleryTrackCls = `exhibit-track ${isGalleryRevealed ? 'is-in-view' : ''} ${calmModeCls}`;
+
           // About handwriting reveal — each line gets its own clip-path sweep,
           // staggered so lines type out one at a time instead of all at once.
           const isAboutRevealed = !!revealed[3] || currentPage === 3;
           const writeClip = isAboutRevealed ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)';
+          const aboutPaperCls = `paper-in ${isAboutRevealed ? 'is-in-view' : ''} ${calmModeCls}`;
+          const isContactRevealed = !!revealed[4] || currentPage === 4;
+          const contactPaperCls = `paper-in ${isContactRevealed ? 'is-in-view' : ''} ${calmModeCls}`;
           const aboutParas = [
             {
               marginBottom: '14px',
@@ -4232,6 +4554,11 @@
             onCursorEnter: this.onCursorEnter,
             onCursorLeave: this.onCursorLeave,
 
+            // Scroll-reveal / parallax entrance system
+            observeReveal: this.observeReveal,
+            registerParallaxEl: this.registerParallaxEl,
+            calmModeCls,
+
             // Page Scroll Refs
             refPage0: this.refPage0,
             refPage1: this.refPage1,
@@ -4295,16 +4622,19 @@
             // Exhibition
             frames,
             marqueeName,
+            galleryTrackCls,
 
             // About
             facts,
             aboutContent,
+            aboutPaperCls,
 
             // Contact
             copyEmail: this.copyEmail,
             copyPhone: this.copyPhone,
             emailCopiedOpacity: copied === 'email' ? 1 : 0,
             phoneCopiedOpacity: copied === 'phone' ? 1 : 0,
+            contactPaperCls,
 
             // Modal
             hasOpenProject,
