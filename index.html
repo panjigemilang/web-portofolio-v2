@@ -3155,7 +3155,10 @@
 
                           <div
                             class="gallery-card"
-                            style="width:280px;height:430px;display:flex;flex-direction:column;background:oklch(0.99 0.006 88);padding:14px 14px 16px;box-shadow:0 12px 32px oklch(0.20 0.014 85 / 0.14);transform:rotate({{ f.tilt }}deg);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);border-radius:4px;--enter-delay:{{ f.enterDelay }};--rest-rot:{{ f.tilt }}deg"
+                            onClick="{{ f.onClick }}"
+                            onMouseEnter="{{ onCursorEnter }}"
+                            onMouseLeave="{{ onCursorLeave }}"
+                            style="width:280px;height:430px;display:flex;flex-direction:column;background:oklch(0.99 0.006 88);padding:14px 14px 16px;box-shadow:0 12px 32px oklch(0.20 0.014 85 / 0.14);transform:rotate({{ f.tilt }}deg);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);border-radius:4px;cursor:zoom-in;--enter-delay:{{ f.enterDelay }};--rest-rot:{{ f.tilt }}deg"
                             style-hover="transform:rotate(0deg) translateY(-8px)"
                           >
                             <image-slot
@@ -4073,74 +4076,78 @@
               </div>
             </div>
           </div>
+        </sc-if>
 
-          <sc-if
-            value="{{ hasLightbox }}"
-            hint-placeholder-val="{{ false }}"
+        <!-- Image-preview lightbox: a top-level overlay (not nested inside
+             the project modal's own sc-if) so it can be opened from
+             anywhere a preview-able image lives — the modal's screenshots
+             and, via openLightbox, the Exhibition gallery cards. -->
+        <sc-if
+          value="{{ hasLightbox }}"
+          hint-placeholder-val="{{ false }}"
+        >
+          <div
+            onClick="{{ closeLightbox }}"
+            style="position:fixed;inset:0;z-index:110;background:oklch(0.1 0.01 85 / 0.88);display:flex;align-items:center;justify-content:center;padding:clamp(16px,5vw,60px);cursor:zoom-out"
           >
-            <div
+            <button
               onClick="{{ closeLightbox }}"
-              style="position:fixed;inset:0;z-index:110;background:oklch(0.1 0.01 85 / 0.88);display:flex;align-items:center;justify-content:center;padding:clamp(16px,5vw,60px);cursor:zoom-out"
+              onMouseEnter="{{ onCursorEnter }}"
+              onMouseLeave="{{ onCursorLeave }}"
+              style="
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                border: 1px solid oklch(0.99 0.008 88 / 0.4);
+                background: oklch(0.2 0.014 85 / 0.6);
+                cursor: pointer;
+                font-family: &quot;IBM Plex Mono&quot;, monospace;
+                font-size: 18px;
+                color: oklch(0.99 0.008 88);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
             >
-              <button
-                onClick="{{ closeLightbox }}"
-                onMouseEnter="{{ onCursorEnter }}"
-                onMouseLeave="{{ onCursorLeave }}"
+              &times;
+            </button>
+            <figure
+              onClick="{{ stopPropagation }}"
+              style="
+                margin: 0;
+                max-width: 100%;
+                max-height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+              "
+            >
+              <img
+                src="{{ lightboxImage.src }}"
+                alt="{{ lightboxImage.caption }}"
                 style="
-                  position: absolute;
-                  top: 20px;
-                  right: 20px;
-                  width: 38px;
-                  height: 38px;
-                  border-radius: 50%;
-                  border: 1px solid oklch(0.99 0.008 88 / 0.4);
-                  background: oklch(0.2 0.014 85 / 0.6);
-                  cursor: pointer;
-                  font-family: &quot;IBM Plex Mono&quot;, monospace;
-                  font-size: 18px;
-                  color: oklch(0.99 0.008 88);
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-              >
-                &times;
-              </button>
-              <figure
-                onClick="{{ stopPropagation }}"
-                style="
-                  margin: 0;
                   max-width: 100%;
-                  max-height: 100%;
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  gap: 12px;
+                  max-height: 78vh;
+                  object-fit: contain;
+                  border-radius: 8px;
+                  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+                "
+              />
+              <figcaption
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: 12px;
+                  color: oklch(0.92 0.008 88);
                 "
               >
-                <img
-                  src="{{ lightboxImage.src }}"
-                  alt="{{ lightboxImage.caption }}"
-                  style="
-                    max-width: 100%;
-                    max-height: 78vh;
-                    object-fit: contain;
-                    border-radius: 8px;
-                    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
-                  "
-                />
-                <figcaption
-                  style="
-                    font-family: &quot;IBM Plex Mono&quot;, monospace;
-                    font-size: 12px;
-                    color: oklch(0.92 0.008 88);
-                  "
-                >
-                  {{ lightboxImage.caption }}
-                </figcaption>
-              </figure>
-            </div>
-          </sc-if>
+                {{ lightboxImage.caption }}
+              </figcaption>
+            </figure>
+          </div>
         </sc-if>
       </div>
     </x-dc>
@@ -4990,6 +4997,7 @@
                   // an infinitely-duplicated marquee wait ages to appear.
                   enterDelay: `${(idx * 0.35 / baseArtworks.length).toFixed(2)}s`,
                   swayDelay: `${(-1 * (idx / baseArtworks.length) * 5.5).toFixed(2)}s`,
+                  onClick: () => this.openLightbox({ src: art.imgSrc, caption: `${art.title} — ${art.tools}` }),
                 });
               });
             }
