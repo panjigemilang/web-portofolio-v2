@@ -256,6 +256,313 @@
             animation: none !important;
           }
 
+          /* Splash screen: a small book opening on a warm, quiet desk while
+             the real page's fonts/images settle in behind it. Held up by JS
+             (runSplashSequence/maybeFinishSplash) until both a calm minimum
+             view time and every real asset are ready, then faded away —
+             see the Component script for the readiness gating. */
+          .splash-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            overflow: hidden;
+            background: radial-gradient(
+              circle at 50% 42%,
+              oklch(0.965 0.015 88),
+              oklch(0.9 0.018 85) 130%
+            );
+            opacity: 1;
+            transition: opacity 0.5s ease;
+          }
+          /* Exit is a camera push, not a cut: the book (see .splash-book
+             below) scales up and dissolves to flat paper-cream first, fully
+             covering the frame — only once that's happened does the overlay
+             itself start fading (.is-fading, set ~1s later by JS), so the
+             backdrop that finally disappears is already the same flat cream
+             everywhere, never a hard edge. */
+          .splash-overlay.is-fading {
+            opacity: 0;
+            pointer-events: none;
+          }
+
+          .splash-book {
+            position: relative;
+            width: clamp(230px, 30vw, 360px);
+            aspect-ratio: 3 / 4;
+            perspective: 2200px;
+            filter: drop-shadow(0 30px 40px oklch(0.2 0.02 85 / 0.28));
+            transform: scale(1);
+            opacity: 1;
+            transition:
+              transform 1.3s cubic-bezier(0.5, 0, 0.24, 1),
+              opacity 0.6s ease 0.7s,
+              filter 0.5s ease;
+            will-change: transform, opacity;
+          }
+          /* Scaled well past viewport-covering size (the book is at most
+             360px wide; 13x comfortably overflows even ultrawide monitors)
+             so there's no beat where the frame shows anything but the book
+             or, once it's faded, the overlay's own matching cream. */
+          .splash-overlay.is-zooming .splash-book {
+            transform: scale(13);
+            opacity: 0;
+            filter: none;
+          }
+          .splash-overlay.reduce-motion .splash-book {
+            transition: opacity 0.35s ease;
+          }
+          .splash-overlay.reduce-motion.is-zooming .splash-book {
+            transform: none;
+          }
+          .splash-book-page {
+            position: absolute;
+            inset: 0;
+            border-radius: 6px 16px 16px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+            padding: 20px;
+            background-color: oklch(0.97 0.014 88);
+            background-image: repeating-linear-gradient(
+              to bottom,
+              transparent,
+              transparent 26px,
+              oklch(0.8 0.03 85 / 0.45) 27px
+            );
+            box-shadow:
+              inset -8px 0 16px -10px oklch(0.2 0.02 85 / 0.3),
+              0 18px 30px oklch(0.2 0.02 85 / 0.18);
+          }
+          .splash-book-page-text {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(20px, 2.6vw, 27px);
+            font-weight: 600;
+            color: oklch(0.3 0.02 85);
+            transition: opacity 0.3s ease;
+          }
+          .splash-book-loading {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: oklch(0.5 0.05 85);
+            transition: opacity 0.3s ease;
+          }
+          /* The ink fades out fast, well before the book has scaled up
+             enough for its stretch to be legible — only the blank paper
+             (which fades along with .splash-book itself) keeps growing. */
+          .splash-overlay.is-zooming .splash-book-page-text,
+          .splash-overlay.is-zooming .splash-book-loading {
+            opacity: 0;
+          }
+          .splash-dot {
+            display: inline-block;
+            animation: splashDotPulse 1.4s ease-in-out infinite;
+          }
+          .splash-dot:nth-of-type(3) {
+            animation-delay: 0.15s;
+          }
+          .splash-dot:nth-of-type(4) {
+            animation-delay: 0.3s;
+          }
+          /* The cover is a hinge (this element, rotating) holding two flat
+             faces back-to-back — see .splash-book-cover-front/-back below.
+             It swings open like an actual book cover instead of the old
+             single-sided panel, which used to hit backface-visibility past
+             90deg and simply vanish: past that point there was nothing left
+             to render, so the "open" book read as the cover disappearing
+             rather than coming to rest to the left of the page. Resting at
+             -172deg (just short of a flat 180) leaves it lying open beside
+             the page, its lining showing, the way a real cover would. */
+          .splash-book-cover {
+            position: absolute;
+            inset: 0;
+            transform-origin: 0% 50%;
+            transform: rotateY(0deg);
+            transform-style: preserve-3d;
+            z-index: 2;
+            transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+          }
+          .splash-overlay.is-open .splash-book-cover {
+            transform: rotateY(-172deg);
+          }
+          .splash-overlay.reduce-motion .splash-book-cover {
+            transition: none;
+          }
+          .splash-book-cover-front,
+          .splash-book-cover-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 6px 16px 16px 6px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+          }
+          .splash-book-cover-front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+            padding: 20px;
+            background: linear-gradient(
+              135deg,
+              oklch(0.52 0.07 55),
+              oklch(0.4 0.065 50)
+            );
+            box-shadow:
+              0 18px 34px oklch(0.2 0.02 85 / 0.32),
+              inset 0 0 0 1px oklch(0.35 0.05 50 / 0.6);
+            color: oklch(0.96 0.02 85);
+          }
+          .splash-book-cover-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(
+              135deg,
+              oklch(0.89 0.03 75),
+              oklch(0.83 0.035 72)
+            );
+            box-shadow: inset 0 0 30px oklch(0.3 0.04 60 / 0.28);
+          }
+          .splash-book-title {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(30px, 4.4vw, 42px);
+            font-weight: 700;
+          }
+          .splash-book-badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: oklch(0.87 0.17 95);
+            color: oklch(0.2 0.014 85);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+          }
+          .splash-book-sub {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            color: oklch(0.85 0.02 85);
+            opacity: 0.85;
+          }
+
+          /* A pencil-thin dashed line traces the butterfly's own flight path
+             — landButterfly appends the butterfly's center to this path's
+             `d` attribute every frame it moves, so it's a literal record of
+             where it's been, not a separate guess at the route. Sits below
+             the butterfly (z-index 5) but above the book pages, and fades
+             out shortly after landing (see the .is-fading class, toggled
+             from landButterfly) rather than lingering through the exit zoom. */
+          .splash-trail {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            overflow: visible;
+            pointer-events: none;
+          }
+          .splash-trail path {
+            fill: none;
+            stroke: oklch(0.5 0.03 85 / 0.55);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-dasharray: 5 8;
+            opacity: 1;
+            transition: opacity 0.6s ease;
+          }
+          .splash-trail path.is-fading {
+            opacity: 0;
+          }
+          .splash-overlay.is-zooming .splash-trail path {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+          }
+          .splash-overlay.reduce-motion .splash-trail {
+            display: none;
+          }
+
+          /* The butterfly starts parked off-screen (top/left below), fades
+             in once the book is open, then — once JS has measured where the
+             "W" of "Welcome" actually rendered (landButterfly, ~1.2s after
+             open) — top/left are driven frame-by-frame along a wiggling
+             flight path (see landButterfly in the Component script) rather
+             than a CSS transition, since a transition can only draw a
+             straight line between two points. .is-landed then swaps in the
+             idle perch animation once it actually settles on the "W". */
+          .splash-butterfly {
+            position: absolute;
+            top: 62%;
+            left: -8%;
+            width: clamp(34px, 4.2vw, 54px);
+            /* Above both the page and the cover (z-index: 2) — it lands
+               squarely inside the book's own footprint, on top of the "W",
+               so it needs to paint over the paper it's perched on rather
+               than being drawn under it. */
+            z-index: 5;
+            filter: drop-shadow(0 4px 6px oklch(0.2 0.02 85 / 0.25));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            will-change: top, left, transform, opacity;
+          }
+          .splash-overlay.is-open .splash-butterfly {
+            opacity: 1;
+          }
+          .splash-butterfly.is-landed {
+            animation: splashButterflyIdle 2.6s ease-in-out infinite;
+          }
+          .splash-overlay.reduce-motion .splash-butterfly {
+            display: none;
+          }
+          .splash-overlay.is-zooming .splash-butterfly {
+            animation: none;
+            opacity: 0;
+          }
+          .splash-butterfly .wing {
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+            animation: splashWingFlap 0.4s ease-in-out infinite alternate;
+          }
+          /* A touch of phase offset between the two sides so the flap reads
+             as a living flutter rather than a perfectly synced pulse. */
+          .splash-butterfly .wing-r {
+            animation-delay: 0.07s;
+          }
+          @keyframes splashDotPulse {
+            0%,
+            60%,
+            100% {
+              opacity: 0.25;
+            }
+            30% {
+              opacity: 1;
+            }
+          }
+          @keyframes splashWingFlap {
+            0% {
+              transform: scaleX(1);
+            }
+            100% {
+              transform: scaleX(0.35);
+            }
+          }
+          @keyframes splashButterflyIdle {
+            0%,
+            100% {
+              transform: translateY(0) rotate(-2deg);
+            }
+            50% {
+              transform: translateY(-3px) rotate(2deg);
+            }
+          }
+
           .exhibit-track {
             display: flex;
             align-items: flex-start;
@@ -516,6 +823,75 @@
           color: oklch(0.2 0.014 85);
         "
       >
+        <!-- Splash Screen: a calm, nostalgic "opening the notebook" scene
+             held up until every real asset (fonts + photos) has actually
+             finished loading, so the reveal never pops/reflows. -->
+        <sc-if value="{{ splashVisible }}" hint-placeholder-val="{{ true }}">
+          <div class="{{ splashOverlayCls }}">
+            <span
+              role="status"
+              aria-live="polite"
+              style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"
+              >Loading the portfolio…</span
+            >
+
+            <svg class="splash-trail" aria-hidden="true">
+              <path ref="{{ setTrailPathRef }}" />
+            </svg>
+
+            <div class="splash-butterfly" ref="{{ setButterflyRef }}" aria-hidden="true">
+              <svg viewBox="0 0 64 44" width="100%" height="100%">
+                <ellipse cx="32" cy="22" rx="2.2" ry="9" fill="oklch(0.32 0.02 85)" />
+                <path
+                  class="wing wing-l"
+                  d="M30 20C22 4 6 2 3 10C0 18 10 26 22 24C27 23 30 21 30 20Z"
+                  fill="oklch(0.62 0.14 250)"
+                />
+                <path
+                  class="wing wing-l"
+                  d="M30 24C24 34 12 38 6 33C1 29 6 20 18 20C24 20 29 22 30 24Z"
+                  fill="oklch(0.78 0.13 90)"
+                  opacity="0.9"
+                />
+                <path
+                  class="wing wing-r"
+                  d="M34 20C42 4 58 2 61 10C64 18 54 26 42 24C37 23 34 21 34 20Z"
+                  fill="oklch(0.62 0.14 250)"
+                />
+                <path
+                  class="wing wing-r"
+                  d="M34 24C40 34 52 38 58 33C63 29 58 20 46 20C40 20 35 22 34 24Z"
+                  fill="oklch(0.78 0.13 90)"
+                  opacity="0.9"
+                />
+              </svg>
+            </div>
+
+            <div class="splash-book" aria-hidden="true">
+              <div class="splash-book-page">
+                <div class="splash-book-page-text"
+                  ><span ref="{{ setWelcomeWRef }}">W</span
+                  >elcome — come on in.</div
+                >
+                <div class="splash-book-loading">
+                  <span>opening the notebook</span
+                  ><span class="splash-dot">.</span
+                  ><span class="splash-dot">.</span
+                  ><span class="splash-dot">.</span>
+                </div>
+              </div>
+              <div class="splash-book-cover">
+                <div class="splash-book-cover-front">
+                  <span class="splash-book-title">P.G.</span>
+                  <span class="splash-book-badge">Notebook</span>
+                  <span class="splash-book-sub">a little portfolio, well-loved</span>
+                </div>
+                <div class="splash-book-cover-back"></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
         <!-- Fixed Left Book Spine Accent -->
         <div
           style="
@@ -3783,7 +4159,11 @@
           copied: null,
           openProject: null,
           modalVisible: false,
-          lightbox: null
+          lightbox: null,
+          splashVisible: true,
+          splashBookOpen: false,
+          splashExiting: false,
+          splashFading: false
         };
 
         pageScrollEls = {};
@@ -3865,6 +4245,114 @@
 
         setCursorRef = (el) => { this.cursorEl = el; };
         setTrackRef = (el) => { this.trackEl = el; };
+        setButterflyRef = (el) => { this.butterflyEl = el; };
+        setWelcomeWRef = (el) => { this.welcomeWEl = el; };
+        setTrailPathRef = (el) => { this.trailPathEl = el; };
+
+        // Flies the (already-visible, off-screen-left) butterfly to wherever
+        // the "W" of "Welcome" actually rendered — measured live rather than
+        // guessed, since its position shifts with viewport width and the
+        // Caveat font's real metrics. Rather than a plain CSS transition (a
+        // dead-straight line), this hand-rolls the path frame by frame: two
+        // gentle upward bumps — a low flutter, staying within the book's own
+        // height rather than looping above the whole cover — riding on top
+        // of the straight start->target line, both faded out well before the
+        // end so the last stretch glides smoothly onto the "W" instead of
+        // wobbling right up to touchdown. The exit zoom is gated on this
+        // finishing (see maybeFinishSplash) so it never cuts the landing off.
+        landButterfly = () => {
+          if (!this.butterflyEl || !this.welcomeWEl) {
+            this._splashButterflyLanded = true;
+            this.maybeFinishSplash();
+            return;
+          }
+          const wRect = this.welcomeWEl.getBoundingClientRect();
+          const bRect = this.butterflyEl.getBoundingClientRect();
+          const startLeft = bRect.left;
+          const startTop = bRect.top;
+          const targetLeft = wRect.left + wRect.width / 2 - bRect.width / 2;
+          const targetTop = wRect.top - bRect.height * 0.62;
+          const dist = Math.hypot(targetLeft - startLeft, targetTop - startTop);
+          const waveAmp = Math.min(130, dist * 0.22);
+          const duration = 2300;
+          const start = performance.now();
+
+          if (this.trailPathEl) {
+            this.trailPathEl.classList.remove('is-fading');
+            this.trailPathEl.setAttribute('d', '');
+          }
+          let trailD = '';
+
+          // Position at any point along the path (0-1), used both to draw
+          // each frame and — sampled a hair before/after the current instant
+          // — to get a heading vector for orienting the butterfly. Negative
+          // wave = upward (CSS top decreases going up); two bell curves, a
+          // smaller early bump then a taller one, both essentially zero by
+          // t=1 so the flight touches down exactly on target.
+          const posAt = (tt) => {
+            const ct = Math.min(1, Math.max(0, tt));
+            const eased = ct < 0.5 ? 4 * ct * ct * ct : 1 - Math.pow(-2 * ct + 2, 3) / 2;
+            const bump1 = Math.exp(-Math.pow((ct - 0.22) / 0.14, 2)) * 0.6;
+            const bump2 = Math.exp(-Math.pow((ct - 0.56) / 0.16, 2));
+            const wave = -(bump1 + bump2) * waveAmp;
+            return {
+              left: startLeft + (targetLeft - startLeft) * eased,
+              top: startTop + (targetTop - startTop) * eased + wave,
+            };
+          };
+
+          const step = (now) => {
+            const t = Math.min(1, (now - start) / duration);
+            const pos = posAt(t);
+
+            // Heading from the path's own tangent (a tiny look-ahead/behind
+            // sample) rather than a cosmetic wobble, so the butterfly's nose
+            // — "up" in the artwork's own un-rotated pose — actually points
+            // the way it's flying: climbing into each bump, level at the
+            // crest, dipping into the descent, leveling out to land.
+            const look = 0.02;
+            const a = posAt(t - look);
+            const b = posAt(t + look);
+            const heading = Math.atan2(b.left - a.left, a.top - b.top) * (180 / Math.PI);
+
+            this.butterflyEl.style.left = `${pos.left}px`;
+            this.butterflyEl.style.top = `${pos.top}px`;
+            this.butterflyEl.style.transform = `rotate(${heading}deg)`;
+
+            // The trail is a literal record of this same flight: append the
+            // butterfly's center to the path it's already drawing, so the
+            // dashed line traces exactly where it went, not an approximation.
+            if (this.trailPathEl) {
+              const cx = (pos.left + bRect.width / 2).toFixed(1);
+              const cy = (pos.top + bRect.height / 2).toFixed(1);
+              trailD += trailD ? ` L ${cx},${cy}` : `M ${cx},${cy}`;
+              this.trailPathEl.setAttribute('d', trailD);
+            }
+
+            if (t < 1) {
+              this._splashButterflyRaf = requestAnimationFrame(step);
+            } else {
+              this.butterflyEl.style.left = `${targetLeft}px`;
+              this.butterflyEl.style.top = `${targetTop}px`;
+              // Facing "up" at rest — a perched pose, not a direction of
+              // travel that no longer applies once it's landed.
+              this.butterflyEl.style.transform = '';
+              this.butterflyEl.classList.add('is-landed');
+              this._splashButterflyLanded = true;
+              this.maybeFinishSplash();
+              // Let the trail linger a moment once it's actually landed,
+              // then let it fade like a settling trace of dust — rather
+              // than have it vanish the instant the flight ends, or still
+              // be sitting there once the exit zoom starts scaling the book.
+              if (this.trailPathEl) {
+                this._splashTrailFadeTimer = setTimeout(() => {
+                  if (this.trailPathEl) this.trailPathEl.classList.add('is-fading');
+                }, 400);
+              }
+            }
+          };
+          this._splashButterflyRaf = requestAnimationFrame(step);
+        };
         onTrackEnter = () => { if (this.trackEl) this.trackEl.style.animationPlayState = 'paused'; };
         onTrackLeave = () => { if (this.trackEl) this.trackEl.style.animationPlayState = 'running'; };
 
@@ -3878,7 +4366,97 @@
           window.addEventListener('wheel', this.onWheel, { passive: true });
           window.addEventListener('touchstart', this.onTouchStart, { passive: true });
           window.addEventListener('touchend', this.onTouchEnd, { passive: true });
+          this.runSplashSequence();
         }
+
+        // Splash screen: holds a "opening the notebook" scene over the book
+        // until both (a) a calm minimum viewing time has passed and (b) every
+        // image-slot's real photo plus the webfonts have actually finished
+        // loading — so when it lifts, the book underneath is already fully
+        // settled and nothing pops/reflows into place behind it.
+        _splashMinTimeElapsed = false;
+        _splashAssetsReady = false;
+        _splashButterflyLanded = false;
+
+        runSplashSequence = () => {
+          const reduce = this.isReduceMotion();
+          const minDuration = reduce ? 450 : 3200;
+
+          if (reduce) {
+            // No flight to wait for — the butterfly doesn't show at all
+            // under reduced motion (see .reduce-motion .splash-butterfly).
+            this._splashButterflyLanded = true;
+            this.setState({ splashBookOpen: true });
+          } else {
+            // Paint the closed-book state first, then flip the open/flight
+            // flag on the next frame so the CSS transition actually animates
+            // instead of starting already-open.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => this.setState({ splashBookOpen: true }));
+            });
+            // Let the cover finish swinging clear of the page first, so the
+            // "W" it's landing on is actually visible and settled by the
+            // time this measures it.
+            this._splashButterflyTimer = setTimeout(this.landButterfly, 1200);
+          }
+
+          this._splashMinTimer = setTimeout(() => {
+            this._splashMinTimeElapsed = true;
+            this.maybeFinishSplash();
+          }, minDuration);
+
+          // Hard ceiling so a slow network, a stuck image, or a backgrounded
+          // tab pausing the butterfly's rAF flight can never strand a
+          // visitor behind the splash indefinitely.
+          this._splashFallbackTimer = setTimeout(() => {
+            this._splashAssetsReady = true;
+            this._splashButterflyLanded = true;
+            this.maybeFinishSplash();
+          }, 6000);
+
+          const fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+          Promise.all([fontsReady, this.waitForImageSlots()]).then(() => {
+            this._splashAssetsReady = true;
+            this.maybeFinishSplash();
+          });
+        };
+
+        waitForImageSlots = () => {
+          const slots = Array.from(document.querySelectorAll('image-slot'));
+          if (!slots.length) return Promise.resolve();
+          return Promise.all(slots.map((slot) => new Promise((resolve) => {
+            const img = slot.shadowRoot && slot.shadowRoot.querySelector('img');
+            if (!img || !img.getAttribute('src') || img.complete) { resolve(); return; }
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', resolve, { once: true });
+          })));
+        };
+
+        // Exit is a continuous camera-push, not a cut: the book (already
+        // holding open) scales up and its ink fades away first — see
+        // .is-zooming — then, once it's grown past the edges of the screen
+        // and dissolved to flat paper-cream, only THEN does the overlay
+        // itself fade — see .is-fading. Same cream tone as .leaf-face
+        // underneath, so that last handoff reads as a reveal, not a jump.
+        // Reduced motion keeps the same two-step shape, just compressed and
+        // without the scale, so it's still a fade — never a snap. Also
+        // gated on the butterfly having actually landed (or, under reduced
+        // motion, on there being no flight to wait for) so the zoom can
+        // never cut its landing off mid-flight.
+        maybeFinishSplash = () => {
+          if (!this._splashMinTimeElapsed || !this._splashAssetsReady || !this._splashButterflyLanded || this.state.splashExiting) return;
+          clearTimeout(this._splashFallbackTimer);
+          const reduce = this.isReduceMotion();
+          const zoomMs = reduce ? 350 : 1300;
+          const fadeMs = reduce ? 300 : 500;
+          this.setState({ splashExiting: true });
+          this._splashFadeTimer = setTimeout(() => {
+            this.setState({ splashFading: true });
+          }, zoomMs);
+          this._splashExitTimer = setTimeout(() => {
+            this.setState({ splashVisible: false });
+          }, zoomMs + fadeMs);
+        };
 
         // Elements that pop/settle in via a CSS `animation` (not a
         // `transition`) once .is-in-view lands — cloneNode copies the class,
@@ -4045,6 +4623,13 @@
           clearTimeout(this._ct);
           clearTimeout(this._mt);
           clearTimeout(this._flipTimer);
+          clearTimeout(this._splashMinTimer);
+          clearTimeout(this._splashFallbackTimer);
+          clearTimeout(this._splashFadeTimer);
+          clearTimeout(this._splashExitTimer);
+          clearTimeout(this._splashButterflyTimer);
+          clearTimeout(this._splashTrailFadeTimer);
+          if (this._splashButterflyRaf) cancelAnimationFrame(this._splashButterflyRaf);
         }
 
         onMouseMove = (e) => {
@@ -4066,7 +4651,7 @@
 
         goToPage = (pageIdx) => {
           const target = Math.min(this.navOrder.length - 1, Math.max(0, pageIdx));
-          if (target === this.state.currentPage || this.state.isFlipping) return;
+          if (target === this.state.currentPage || this.state.isFlipping || this.state.splashVisible) return;
           const prev = this.state.currentPage;
 
           this.setState((s) => ({
@@ -4184,7 +4769,7 @@
         closeLightbox = () => { this.setState({ lightbox: null }); };
 
         renderVals() {
-          const { currentPage, prevPage, isFlipping, revealed, copied, openProject, modalVisible } = this.state;
+          const { currentPage, prevPage, isFlipping, revealed, copied, openProject, modalVisible, splashVisible, splashBookOpen, splashExiting, splashFading } = this.state;
           const reduceMotion = this.isReduceMotion();
 
           const navItems = this.navOrder.map((key, idx) => ({
@@ -4546,6 +5131,8 @@
           const p3 = getPageProps(3);
           const p4 = getPageProps(4);
 
+          const splashOverlayCls = `splash-overlay ${splashBookOpen ? 'is-open' : ''} ${splashExiting ? 'is-zooming' : ''} ${splashFading ? 'is-fading' : ''} ${reduceMotion ? 'reduce-motion' : ''}`;
+
           return {
             setCursorRef: this.setCursorRef,
             setTrackRef: this.setTrackRef,
@@ -4553,6 +5140,13 @@
             onTrackLeave: this.onTrackLeave,
             onCursorEnter: this.onCursorEnter,
             onCursorLeave: this.onCursorLeave,
+
+            // Splash screen
+            splashVisible,
+            splashOverlayCls,
+            setButterflyRef: this.setButterflyRef,
+            setWelcomeWRef: this.setWelcomeWRef,
+            setTrailPathRef: this.setTrailPathRef,
 
             // Scroll-reveal / parallax entrance system
             observeReveal: this.observeReveal,
