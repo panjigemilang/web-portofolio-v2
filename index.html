@@ -92,31 +92,36 @@
           .reveal-text-block h3,
           .reveal-text-block p {
             opacity: 0;
-            transform: translateY(14px);
+            transform: translateY(18px);
             transition:
-              opacity 0.6s ease 0.32s,
-              transform 0.6s ease 0.32s;
+              opacity 0.6s ease 0.78s,
+              transform 0.6s ease 0.78s;
           }
           .reveal-row.is-in-view .reveal-text-block h3,
           .reveal-row.is-in-view .reveal-text-block p {
             opacity: 1;
             transform: translateY(0);
           }
+          /* Project rows hold for ~0.5s after crossing the threshold before
+             anything moves, then swing up from well below the line (see
+             worksPop*) — the pause lets the reader arrive at the row first,
+             so the card lands as a beat rather than racing the scroll. The
+             Gallery keeps the shorter, tighter paperPop* pair below. */
           .reveal-row.is-in-view .reveal-card.reveal-l {
-            animation: paperPopLeft 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              forwards;
+            animation: worksPopLeft 0.95s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              0.5s forwards;
           }
           .reveal-row.is-in-view .reveal-card.reveal-r {
-            animation: paperPopRight 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              forwards;
+            animation: worksPopRight 0.95s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              0.5s forwards;
           }
           .reveal-row.is-in-view .reveal-note.reveal-l {
-            animation: paperPopLeft 0.85s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              0.16s forwards;
+            animation: worksPopLeft 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              0.66s forwards;
           }
           .reveal-row.is-in-view .reveal-note.reveal-r {
-            animation: paperPopRight 0.85s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              0.16s forwards;
+            animation: worksPopRight 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+              0.66s forwards;
           }
           .reveal-row.calm-mode .reveal-card,
           .reveal-row.calm-mode .reveal-note,
@@ -126,6 +131,51 @@
             transform: rotate(var(--rest-rot, 0deg)) !important;
             animation: none !important;
             transition: none !important;
+          }
+
+          /* Same shape as paperPop*, but with a much longer vertical travel
+             (86px up from below instead of a 28px drop) so the delayed
+             entrance still reads as motion once the row is already on
+             screen. */
+          @keyframes worksPopLeft {
+            0% {
+              opacity: 0;
+              transform: translate(-48px, 86px)
+                rotate(calc(var(--rest-rot, 0deg) - 6deg));
+            }
+            55% {
+              opacity: 1;
+              transform: translate(5px, -7px)
+                rotate(calc(var(--rest-rot, 0deg) + 1.4deg));
+            }
+            76% {
+              transform: translate(-3px, 3px)
+                rotate(calc(var(--rest-rot, 0deg) - 0.5deg));
+            }
+            100% {
+              opacity: 1;
+              transform: translate(0, 0) rotate(var(--rest-rot, 0deg));
+            }
+          }
+          @keyframes worksPopRight {
+            0% {
+              opacity: 0;
+              transform: translate(48px, 86px)
+                rotate(calc(var(--rest-rot, 0deg) + 6deg));
+            }
+            55% {
+              opacity: 1;
+              transform: translate(-5px, -7px)
+                rotate(calc(var(--rest-rot, 0deg) - 1.4deg));
+            }
+            76% {
+              transform: translate(3px, 3px)
+                rotate(calc(var(--rest-rot, 0deg) + 0.5deg));
+            }
+            100% {
+              opacity: 1;
+              transform: translate(0, 0) rotate(var(--rest-rot, 0deg));
+            }
           }
 
           @keyframes paperPopLeft {
@@ -166,6 +216,132 @@
             100% {
               opacity: 1;
               transform: translate(0, 0) rotate(var(--rest-rot, 0deg));
+            }
+          }
+
+          /* ── Hero award banner: entrance + confetti popper ──────────────
+             The Grand Prize row is the loudest moment in the Portfolio, so
+             it gets its own treatment: the whole card lifts and settles as
+             one slab (heroBannerIn) and, once it's landed, two party
+             poppers fire from its upper corners (fireConfetti in the
+             Component script builds the pieces). calmMode/reduced-motion
+             skips the lift, the confetti and the sound entirely. */
+          .hero-banner {
+            opacity: 0;
+            transform: translateY(52px) scale(0.962);
+            will-change: transform, opacity;
+          }
+          .hero-banner.is-in-view {
+            animation: heroBannerIn 0.88s cubic-bezier(0.22, 0.9, 0.32, 1.06)
+              forwards;
+          }
+          .hero-banner.calm-mode {
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
+          }
+          @keyframes heroBannerIn {
+            0% {
+              opacity: 0;
+              transform: translateY(52px) scale(0.962);
+            }
+            62% {
+              opacity: 1;
+              transform: translateY(-6px) scale(1.008);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+
+          /* The confetti lives in an overlay pinned to the banner box but
+             free to spill past its edges, so pieces arc out over the ruled
+             paper instead of being clipped at the card border. */
+          .confetti-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 6;
+          }
+          /* Two elements per piece: the wrapper carries the horizontal
+             throw (decelerating, like a real popper) and the fade, the
+             inner bit carries the up-then-fall arc and the tumble. One
+             transform each keeps every piece on the compositor. */
+          .confetti-piece {
+            position: absolute;
+            left: var(--ox);
+            top: var(--oy);
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: confettiThrowX var(--dur) cubic-bezier(0.1, 0.62, 0.3, 1)
+              var(--delay) forwards;
+          }
+          .confetti-bit {
+            display: block;
+            width: var(--w);
+            height: var(--h);
+            background: var(--c);
+            border-radius: var(--br);
+            will-change: transform;
+            animation: confettiArcY var(--dur) linear var(--delay) forwards;
+          }
+          @keyframes confettiThrowX {
+            0% {
+              opacity: 0;
+              transform: translateX(0);
+            }
+            5% {
+              opacity: 1;
+            }
+            72% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0;
+              transform: translateX(var(--dx));
+            }
+          }
+          @keyframes confettiArcY {
+            0% {
+              transform: translateY(0) rotate(0deg) scale(0.65);
+            }
+            30% {
+              transform: translateY(var(--peak))
+                rotate(calc(var(--rot) * 0.34)) scale(1);
+            }
+            100% {
+              transform: translateY(var(--fall)) rotate(var(--rot)) scale(0.9);
+            }
+          }
+          /* The muzzle flash at each popper mouth — one quick expanding
+             ring that's gone before the confetti has cleared the card. */
+          .confetti-flash {
+            position: absolute;
+            left: var(--ox);
+            top: var(--oy);
+            width: 14px;
+            height: 14px;
+            margin: -7px 0 0 -7px;
+            border-radius: 50%;
+            background: radial-gradient(
+              circle,
+              oklch(1 0 0 / 0.9) 0%,
+              oklch(0.88 0.15 90 / 0.55) 45%,
+              oklch(0.88 0.15 90 / 0) 70%
+            );
+            will-change: transform, opacity;
+            animation: confettiFlash 0.42s ease-out forwards;
+          }
+          @keyframes confettiFlash {
+            0% {
+              opacity: 0.95;
+              transform: scale(0.3);
+            }
+            100% {
+              opacity: 0;
+              transform: scale(4.2);
             }
           }
 
@@ -330,12 +506,13 @@
             gap: 10px;
             padding: 20px;
             background-color: oklch(0.97 0.014 88);
-            background-image: repeating-linear-gradient(
+            background-image: linear-gradient(
               to bottom,
               transparent,
               transparent 26px,
               oklch(0.8 0.03 85 / 0.45) 27px
             );
+            background-size: 100% 27px;
             box-shadow:
               inset -8px 0 16px -10px oklch(0.2 0.02 85 / 0.3),
               0 18px 30px oklch(0.2 0.02 85 / 0.18);
@@ -510,7 +687,7 @@
             filter: drop-shadow(0 4px 6px oklch(0.2 0.02 85 / 0.25));
             opacity: 0;
             transition: opacity 0.5s ease;
-            will-change: top, left, transform, opacity;
+            will-change: transform, opacity;
           }
           .splash-overlay.is-open .splash-butterfly {
             opacity: 1;
@@ -553,13 +730,22 @@
               transform: scaleX(0.35);
             }
           }
+          /* Rides on top of the landing offset the flight left behind
+             (--land-x/--land-y, set by landButterfly) so the perch animation
+             doesn't snap the butterfly back to its pre-flight origin. */
           @keyframes splashButterflyIdle {
             0%,
             100% {
-              transform: translateY(0) rotate(-2deg);
+              transform: translate3d(var(--land-x, 0px), var(--land-y, 0px), 0)
+                rotate(-2deg);
             }
             50% {
-              transform: translateY(-3px) rotate(2deg);
+              transform: translate3d(
+                  var(--land-x, 0px),
+                  calc(var(--land-y, 0px) - 3px),
+                  0
+                )
+                rotate(2deg);
             }
           }
 
@@ -571,6 +757,13 @@
             will-change: transform;
           }
           .exhibit-track:hover {
+            animation-play-state: paused !important;
+          }
+          /* Off-page, every one of these cards is fully occluded by the active
+             leaf, but their sway + marquee keep the compositor ticking. Hold
+             them still until the Exhibition page is actually the one showing. */
+          .exhibit-track.is-offscreen,
+          .exhibit-track.is-offscreen .gallery-frame {
             animation-play-state: paused !important;
           }
 
@@ -595,6 +788,12 @@
             height: 100%;
             transform-origin: 0% 50%;
             transform-style: preserve-3d;
+          }
+          /* Promote the leaves only for the duration of a turn. Left on
+             permanently this pinned five viewport-sized layers in GPU memory
+             that, on desktop, never animate at all — the peel overlay is what
+             moves. */
+          .book-stage.is-flipping .book-page-leaf {
             will-change: transform;
           }
 
@@ -624,13 +823,21 @@
 
           /* Dynamic Ruled Lines: attached locally so lines scroll with content */
           .ruled-paper {
-            background-image: repeating-linear-gradient(
+            /* A plain (non-repeating) gradient tiled via background-size lets
+               Chromium repeat it with ordinary background-repeat instead of
+               computing one giant gradient across the full scroll height —
+               the latter drops rows of lines after scrolling tall
+               .leaf-face content (background-attachment: local + a huge
+               repeating-linear-gradient is a known Chromium rasterization
+               bug). */
+            background-image: linear-gradient(
               to bottom,
               transparent 0px,
               transparent 55px,
               oklch(0.8 0.02 85 / 0.45) 55px,
               oklch(0.8 0.02 85 / 0.45) 56px
             );
+            background-size: 100% 56px;
             background-attachment: local;
           }
 
@@ -643,13 +850,14 @@
             transform: rotateY(180deg);
             z-index: 1;
             background-color: oklch(0.96 0.014 88);
-            background-image: repeating-linear-gradient(
+            background-image: linear-gradient(
               to bottom,
               transparent 0px,
               transparent 55px,
               oklch(0.82 0.02 85 / 0.35) 55px,
               oklch(0.82 0.02 85 / 0.35) 56px
             );
+            background-size: 100% 56px;
             background-attachment: local;
             box-shadow:
               inset -14px 0 22px -8px oklch(0.2 0.014 85 / 0.12),
@@ -746,25 +954,27 @@
              align with the real page content it's standing in for. */
           #page-peel-top {
             background-color: oklch(0.97 0.014 88);
-            background-image: repeating-linear-gradient(
+            background-image: linear-gradient(
               to bottom,
               transparent 0px,
               transparent 55px,
               oklch(0.8 0.02 85 / 0.45) 55px,
               oklch(0.8 0.02 85 / 0.45) 56px
             );
+            background-size: 100% 56px;
           }
 
           /* Matches .leaf-face-back exactly. */
           #page-peel-back {
             background-color: oklch(0.96 0.014 88);
-            background-image: repeating-linear-gradient(
+            background-image: linear-gradient(
               to bottom,
               transparent 0px,
               transparent 55px,
               oklch(0.82 0.02 85 / 0.35) 55px,
               oklch(0.82 0.02 85 / 0.35) 56px
             );
+            background-size: 100% 56px;
           }
 
           #page-peel-bottom {
@@ -817,7 +1027,7 @@
       </helmet>
 
       <div
-        class="book-stage"
+        class="book-stage {{ stageCls }}"
         style="
           font-family: &quot;IBM Plex Sans&quot;, sans-serif;
           color: oklch(0.2 0.014 85);
@@ -1444,6 +1654,181 @@
                     width: 100%;
                   "
                 >
+                  <!-- HERO: Grand Prize Winner — Japan Hackathon II 2021 (Main Highlight) -->
+                  <div
+                    ref="{{ observeHeroReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row hero-banner {{ calmModeCls }}"
+                    style="
+                      position: relative;
+                      display: flex;
+                      flex-direction: column;
+                      padding: clamp(30px, 5vw, 48px) clamp(26px, 5vw, 44px)
+                        clamp(26px, 4vw, 38px);
+                      border-radius: 16px;
+                      background: linear-gradient(
+                        155deg,
+                        oklch(0.97 0.035 92) 0%,
+                        oklch(0.99 0.008 88) 60%
+                      );
+                      border: 1.5px solid oklch(0.8 0.12 88);
+                      box-shadow:
+                        0 22px 46px oklch(0.55 0.13 85 / 0.2),
+                        inset 0 1px 0 oklch(1 0 0 / 0.5);
+                    "
+                  >
+                    <div
+                      class="sticky-date-note reveal-note reveal-l"
+                      style="
+                        position: relative;
+                        align-self: flex-start;
+                        background: oklch(0.88 0.14 90);
+                        border: 1px solid oklch(0.8 0.1 88);
+                        transform: rotate(-2deg);
+                        --rest-rot: -2deg;
+                        margin-bottom: 18px;
+                      "
+                    >
+                      <div class="sticky-tape-strip"></div>
+                      <span
+                        style="
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-size: clamp(26px, 3vw, 36px);
+                          font-weight: 700;
+                          line-height: 0.95;
+                          color: oklch(0.2 0.014 85);
+                        "
+                        >&#129351; 1st Place</span
+                      >
+                      <span
+                        style="
+                          font-family: &quot;IBM Plex Mono&quot;, monospace;
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: oklch(0.42 0.08 80);
+                          font-weight: 600;
+                          margin-top: 2px;
+                        "
+                        >Japan Hackathon II &middot; 2021</span
+                      >
+                    </div>
+
+                    <div class="reveal-text-block">
+                      <h3
+                        style="
+                          margin: 0 0 14px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(2rem, 4vw, 2.8rem);
+                          line-height: 1.1;
+                          color: oklch(0.2 0.014 85);
+                        "
+                      > Grand Prize Winner &mdash; Japan Hackathon II
+                        2021
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 12px;
+                          font-size: 15px;
+                          line-height: 1.7;
+                          color: oklch(0.32 0.014 85);
+                          max-width: 76ch;
+                        "
+                      >
+                        Won the <strong>Grand Prize at Japan Hackathon II</strong>,
+                        an international <strong>&ldquo;SDGs &times; Deep Tech&rdquo;</strong>
+                        competition that drew
+                        <strong>232 participants from 46 countries</strong> down
+                        to <strong>11 finalist teams</strong>.
+                      </p>
+                      <p
+                        style="
+                          margin: 0 0 12px;
+                          font-size: 15px;
+                          line-height: 1.7;
+                          color: oklch(0.32 0.014 85);
+                          max-width: 76ch;
+                        "
+                      >
+                        Teaming up with collaborators from
+                        <strong>Indonesia and Nigeria</strong>, I helped build
+                        <strong>Ubuntu Hub</strong> &mdash; a low-cost system
+                        bringing online education to communities without
+                        reliable internet access. By pairing
+                        <strong>wireless networking</strong> with
+                        <strong>blockchain</strong>, it distributed
+                        educational content over a local, accessible network
+                        with no conventional internet connection required.
+                      </p>
+                      <p
+                        style="
+                          margin: 0 0 22px;
+                          font-size: 15px;
+                          line-height: 1.7;
+                          color: oklch(0.32 0.014 85);
+                          max-width: 76ch;
+                        "
+                      >
+                        Beyond the build itself, the competition was a crash
+                        course in
+                        <strong>international collaboration and teamwork</strong>
+                        &mdash; a reminder that people from vastly different
+                        cultures can turn a global problem into one
+                        impactful, shared solution.
+                      </p>
+                    </div>
+
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        gap: 14px;
+                        border-top: 1px dashed oklch(0.82 0.02 85);
+                        padding-top: 16px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;IBM Plex Mono&quot;, monospace;
+                          font-size: 12px;
+                          color: oklch(0.5 0.02 85);
+                        "
+                      >
+                        Team:
+                        <strong style="color: oklch(0.2 0.014 85)"
+                          >International &mdash; Indonesia &times; Nigeria</strong
+                        >
+                      </div>
+                      <button
+                        onClick="{{ openProject6 }}"
+                        onMouseEnter="{{ onCursorEnter }}"
+                        onMouseLeave="{{ onCursorLeave }}"
+                        style="
+                          display: inline-flex;
+                          align-items: center;
+                          gap: 6px;
+                          background: oklch(0.52 0.16 255);
+                          color: oklch(0.99 0.008 88);
+                          border: none;
+                          border-radius: 24px;
+                          padding: 10px 20px;
+                          font-family: &quot;IBM Plex Mono&quot;, monospace;
+                          font-size: 12.5px;
+                          font-weight: 600;
+                          letter-spacing: 0.02em;
+                          cursor: pointer;
+                          box-shadow: 0 10px 24px oklch(0.52 0.16 255 / 0.3);
+                        "
+                      >
+                        Read the Full Story &rarr;
+                      </button>
+                    </div>
+                  </div>
+
                   <!-- PROJECT 1: HAIKAL MANAGEMENT SYSTEM (2026 - Visual Left, Narrative Right) -->
                   <div
                     ref="{{ observeReveal }}"
@@ -1495,7 +1880,7 @@
                           id="project-haikal"
                           ref="{{ registerParallaxEl }}"
                           placeholder="Haikal Management System — Dashboard &amp; Analytics"
-                          src="./img/haikal-ss1.png"
+                          src="./img/haikal-ss1.jpg"
                           shape="rounded"
                           radius="10"
                           style="
@@ -1947,7 +2332,7 @@
                           id="project-opsileave"
                           ref="{{ registerParallaxEl }}"
                           placeholder="Opsileave — Leave Management &amp; Calendar"
-                          src="./img/opsileave-ss1.png"
+                          src="./img/opsileave-ss1.jpg"
                           shape="rounded"
                           radius="10"
                           style="
@@ -2033,7 +2418,7 @@
                           id="project-kane-kashite"
                           ref="{{ registerParallaxEl }}"
                           placeholder="Kane Kashite — Shared Expense &amp; Split Bill App"
-                          src="./img/okane-ss1.png"
+                          src="./img/okane-ss1.jpg"
                           shape="rounded"
                           radius="10"
                           style="
@@ -3164,7 +3549,7 @@
                             <image-slot
                               id="{{ f.id }}"
                               placeholder="{{ f.placeholder }}"
-                              src="{{ f.imgSrc }}"
+                              src="{{ f.thumbSrc }}"
                               shape="rect"
                               style="width: 100%; flex: 1; min-height: 0"
                             ></image-slot>
@@ -3335,13 +3720,14 @@
                         position: absolute;
                         inset: 0;
                         pointer-events: none;
-                        background-image: repeating-linear-gradient(
+                        background-image: linear-gradient(
                           to bottom,
                           transparent 0px,
                           transparent 37px,
                           oklch(0.8 0.02 85 / 0.5) 37px,
                           oklch(0.8 0.02 85 / 0.5) 38px
                         );
+                        background-size: 100% 38px;
                       "
                     ></div>
 
@@ -3958,15 +4344,8 @@
                       hint-placeholder-count="5"
                     >
                       <span
-                        style="
-                          font-family: &quot;IBM Plex Mono&quot;, monospace;
-                          font-size: 11px;
-                          background: oklch(0.92 0.02 85);
-                          padding: 3px 9px;
-                          border-radius: 4px;
-                          color: oklch(0.3 0.014 85);
-                        "
-                        >{{ tech }}</span
+                        style="font-family:'IBM Plex Mono',monospace;font-size:11px;background:{{ tech.bg }};padding:3px 9px;border-radius:4px;color:{{ tech.fg }};font-weight:600"
+                        >{{ tech.name }}</span
                       >
                     </sc-for>
                   </div>
@@ -4028,6 +4407,94 @@
                     >
                       {{ blk.text }}
                     </p>
+                  </sc-if>
+                  <sc-if
+                    value="{{ blk.heading }}"
+                    hint-placeholder-val="{{ false }}"
+                  >
+                    <h4
+                      style="
+                        margin: 22px 0 10px;
+                        font-family: &quot;IBM Plex Mono&quot;, monospace;
+                        font-size: 12.5px;
+                        letter-spacing: 0.08em;
+                        text-transform: uppercase;
+                        color: oklch(0.2 0.014 85);
+                        font-weight: 700;
+                      "
+                    >
+                      {{ blk.heading }}
+                    </h4>
+                  </sc-if>
+                  <sc-if
+                    value="{{ blk.diagram }}"
+                    hint-placeholder-val="{{ false }}"
+                  >
+                    <pre
+                      style="
+                        margin: 0 0 16px;
+                        padding: 16px 18px;
+                        background: oklch(0.96 0.014 88);
+                        border: 1px solid oklch(0.85 0.02 85);
+                        border-radius: 8px;
+                        overflow-x: auto;
+                        font-family: &quot;IBM Plex Mono&quot;, monospace;
+                        font-size: 12px;
+                        line-height: 1.5;
+                        color: oklch(0.3 0.014 85);
+                      "
+                      >{{ blk.diagram }}</pre
+                    >
+                  </sc-if>
+                  <sc-if
+                    value="{{ blk.table }}"
+                    hint-placeholder-val="{{ false }}"
+                  >
+                    <div
+                      style="
+                        margin: 0 0 16px;
+                        border: 1px solid oklch(0.85 0.02 85);
+                        border-radius: 8px;
+                        overflow: hidden;
+                      "
+                    >
+                      <sc-for
+                        list="{{ blk.table }}"
+                        as="row"
+                        hint-placeholder-count="4"
+                      >
+                        <div
+                          style="
+                            display: flex;
+                            gap: 14px;
+                            padding: 10px 14px;
+                            border-bottom: 1px dashed oklch(0.85 0.02 85);
+                          "
+                        >
+                          <div
+                            style="
+                              flex: 0 0 110px;
+                              font-family: &quot;IBM Plex Mono&quot;, monospace;
+                              font-size: 12px;
+                              font-weight: 700;
+                              color: oklch(0.52 0.16 255);
+                            "
+                          >
+                            {{ row.label }}
+                          </div>
+                          <div
+                            style="
+                              flex: 1;
+                              font-size: 13.5px;
+                              line-height: 1.5;
+                              color: oklch(0.35 0.014 85);
+                            "
+                          >
+                            {{ row.desc }}
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
                   </sc-if>
                 </sc-for>
 
@@ -4226,6 +4693,210 @@
           this._revealObserver.observe(el);
         };
 
+        // The Grand Prize banner reveals on its own observer rather than the
+        // shared one: it needs a higher threshold (so the poppers don't fire
+        // at a card that's only peeking in at the bottom of the viewport) and
+        // a side effect the other rows don't have.
+        observeHeroReveal = (el) => {
+          if (!el) return;
+          if (this.isReduceMotion()) {
+            el.classList.add('is-in-view');
+            return;
+          }
+          if (!this._heroObserver) {
+            this._heroObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in-view');
+                if (this._heroObserver) {
+                  this._heroObserver.disconnect();
+                  this._heroObserver = null;
+                }
+                // Hold until the banner has finished lifting into place. The
+                // confetti should read as celebrating a card that has already
+                // arrived, not as part of its arrival.
+                this._confettiTimer = setTimeout(() => {
+                  this.fireConfetti(entry.target);
+                  this.playPopperSfx();
+                }, 620);
+              });
+            }, { threshold: 0.28 });
+          }
+          this._heroObserver.observe(el);
+        };
+
+        // Two party poppers at the banner's upper corners. Each piece is a
+        // wrapper (horizontal throw + fade) around a bit (up-then-fall arc +
+        // tumble); all the per-piece randomness rides in as custom
+        // properties so the animation itself stays pure CSS on the
+        // compositor. The whole layer is removed once the last piece lands.
+        confettiColors = [
+          'oklch(0.86 0.16 90)',
+          'oklch(0.74 0.15 68)',
+          'oklch(0.52 0.16 255)',
+          'oklch(0.68 0.13 250)',
+          'oklch(0.99 0.008 88)',
+          'oklch(0.7 0.14 25)',
+        ];
+        fireConfetti = (host) => {
+          if (!host || this.isReduceMotion() || this._confettiFired) return;
+          this._confettiFired = true;
+
+          const layer = document.createElement('div');
+          layer.className = 'confetti-layer';
+          layer.setAttribute('aria-hidden', 'true');
+
+          const origins = [
+            { ox: '7%', oy: '15%', dir: 1 },
+            { ox: '93%', oy: '15%', dir: -1 },
+          ];
+          let lastMs = 0;
+
+          origins.forEach((origin, oi) => {
+            const originDelay = oi * 0.1;
+
+            const flash = document.createElement('span');
+            flash.className = 'confetti-flash';
+            flash.style.setProperty('--ox', origin.ox);
+            flash.style.setProperty('--oy', origin.oy);
+            flash.style.animationDelay = `${originDelay}s`;
+            layer.appendChild(flash);
+
+            for (let i = 0; i < 28; i++) {
+              const dur = 1.15 + Math.random() * 0.95;
+              const delay = originDelay + Math.random() * 0.13;
+              const round = Math.random() < 0.26;
+              const w = round ? 6 + Math.random() * 4 : 5 + Math.random() * 5;
+              const h = round ? w : 9 + Math.random() * 9;
+
+              const piece = document.createElement('span');
+              piece.className = 'confetti-piece';
+              const bit = document.createElement('i');
+              bit.className = 'confetti-bit';
+
+              // Math.pow biases the spread toward the popper's mouth, so the
+              // burst is dense near the corner and thins out as it travels.
+              const dx = origin.dir * (30 + Math.pow(Math.random(), 0.75) * 320);
+              const peak = -(70 + Math.random() * 190);
+              const fall = 170 + Math.random() * 260;
+              const rot = (Math.random() * 2 - 1) * (360 + Math.random() * 560);
+              // Set on the wrapper only — custom properties inherit, so the
+              // inner bit reads the same values without a second pass.
+              const spec = {
+                '--ox': origin.ox,
+                '--oy': origin.oy,
+                '--dur': `${dur.toFixed(2)}s`,
+                '--delay': `${delay.toFixed(2)}s`,
+                '--dx': `${dx.toFixed(0)}px`,
+                '--peak': `${peak.toFixed(0)}px`,
+                '--fall': `${fall.toFixed(0)}px`,
+                '--rot': `${rot.toFixed(0)}deg`,
+                '--w': `${w.toFixed(1)}px`,
+                '--h': `${h.toFixed(1)}px`,
+                '--br': round ? '50%' : '1px',
+                '--c': this.confettiColors[(Math.random() * this.confettiColors.length) | 0],
+              };
+              Object.keys(spec).forEach((k) => piece.style.setProperty(k, spec[k]));
+
+              piece.appendChild(bit);
+              layer.appendChild(piece);
+              lastMs = Math.max(lastMs, (dur + delay) * 1000);
+            }
+          });
+
+          host.appendChild(layer);
+          this._confettiCleanupTimer = setTimeout(() => {
+            if (layer.parentNode) layer.parentNode.removeChild(layer);
+          }, lastMs + 300);
+        };
+
+        // Popper SFX, synthesised with WebAudio so the site stays a single
+        // file with no audio asset to fetch: a low pitched thump for the
+        // bang, a filtered noise burst for the paper crack, and a short
+        // scatter of blips for the streamers falling. Browsers only let an
+        // AudioContext make noise after a real user gesture, so the context
+        // is created/resumed on the first pointer or key press and the pop
+        // is simply skipped (visuals still play) if that hasn't happened.
+        unlockAudio = () => {
+          try {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return;
+            if (!this._audioCtx) this._audioCtx = new Ctx();
+            if (this._audioCtx.state === 'suspended') this._audioCtx.resume();
+          } catch (err) {
+            /* Sound is a nicety — never let it break the page. */
+          }
+        };
+        noiseBuffer = (ctx) => {
+          if (this._noiseBuf) return this._noiseBuf;
+          const len = Math.floor(ctx.sampleRate * 0.25);
+          const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+          const data = buf.getChannelData(0);
+          for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+          this._noiseBuf = buf;
+          return buf;
+        };
+        playPopperSfx = () => {
+          if (this.isReduceMotion()) return;
+          const ctx = this._audioCtx;
+          if (!ctx || ctx.state !== 'running') return;
+          try {
+            const master = ctx.createGain();
+            master.gain.value = 0.5;
+            master.connect(ctx.destination);
+            const now = ctx.currentTime;
+
+            [0, 0.1].forEach((offset) => {
+              const t = now + offset;
+
+              // Bang: a fast downward pitch sweep, gone in ~130ms.
+              const thump = ctx.createOscillator();
+              const thumpGain = ctx.createGain();
+              thump.type = 'sine';
+              thump.frequency.setValueAtTime(400 + Math.random() * 80, t);
+              thump.frequency.exponentialRampToValueAtTime(88, t + 0.09);
+              thumpGain.gain.setValueAtTime(0.0001, t);
+              thumpGain.gain.exponentialRampToValueAtTime(0.34, t + 0.006);
+              thumpGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+              thump.connect(thumpGain).connect(master);
+              thump.start(t);
+              thump.stop(t + 0.16);
+
+              // Crack: band-passed white noise, the paper tearing open.
+              const noise = ctx.createBufferSource();
+              noise.buffer = this.noiseBuffer(ctx);
+              const band = ctx.createBiquadFilter();
+              band.type = 'bandpass';
+              band.frequency.value = 1700;
+              band.Q.value = 0.8;
+              const noiseGain = ctx.createGain();
+              noiseGain.gain.setValueAtTime(0.3, t);
+              noiseGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.17);
+              noise.connect(band).connect(noiseGain).connect(master);
+              noise.start(t);
+              noise.stop(t + 0.2);
+
+              // Streamers: a handful of bright blips scattered over the
+              // half-second the confetti spends in the air.
+              for (let i = 0; i < 5; i++) {
+                const bt = t + 0.07 + Math.random() * 0.34;
+                const blip = ctx.createOscillator();
+                const blipGain = ctx.createGain();
+                blip.type = 'triangle';
+                blip.frequency.setValueAtTime(900 + Math.random() * 1400, bt);
+                blipGain.gain.setValueAtTime(0.0001, bt);
+                blipGain.gain.exponentialRampToValueAtTime(0.07, bt + 0.008);
+                blipGain.gain.exponentialRampToValueAtTime(0.0001, bt + 0.1);
+                blip.connect(blipGain).connect(master);
+                blip.start(bt);
+                blip.stop(bt + 0.12);
+              }
+            });
+          } catch (err) {
+            /* Sound is a nicety — never let it break the page. */
+          }
+        };
+
         // Portfolio parallax: project images drift a few px against the
         // page's own scroll, offset from how far each one currently sits
         // from viewport-center. Plain DOM writes (no setState) so scrolling
@@ -4322,9 +4993,11 @@
             const b = posAt(t + look);
             const heading = Math.atan2(b.left - a.left, a.top - b.top) * (180 / Math.PI);
 
-            this.butterflyEl.style.left = `${pos.left}px`;
-            this.butterflyEl.style.top = `${pos.top}px`;
-            this.butterflyEl.style.transform = `rotate(${heading}deg)`;
+            // Offset from where the butterfly already sits rather than
+            // rewriting left/top: a transform stays on the compositor, while
+            // left/top forced a layout + paint on every one of these frames.
+            this.butterflyEl.style.transform =
+              `translate3d(${(pos.left - startLeft).toFixed(1)}px, ${(pos.top - startTop).toFixed(1)}px, 0) rotate(${heading.toFixed(2)}deg)`;
 
             // The trail is a literal record of this same flight: append the
             // butterfly's center to the path it's already drawing, so the
@@ -4339,11 +5012,16 @@
             if (t < 1) {
               this._splashButterflyRaf = requestAnimationFrame(step);
             } else {
-              this.butterflyEl.style.left = `${targetLeft}px`;
-              this.butterflyEl.style.top = `${targetTop}px`;
-              // Facing "up" at rest — a perched pose, not a direction of
-              // travel that no longer applies once it's landed.
-              this.butterflyEl.style.transform = '';
+              // Hand the final offset to the idle perch keyframes as custom
+              // properties so they animate around where it actually landed
+              // instead of snapping back to the pre-flight origin. Facing
+              // "up" at rest — a perched pose, not a direction of travel that
+              // no longer applies once it's landed.
+              const landX = (targetLeft - startLeft).toFixed(1);
+              const landY = (targetTop - startTop).toFixed(1);
+              this.butterflyEl.style.setProperty('--land-x', `${landX}px`);
+              this.butterflyEl.style.setProperty('--land-y', `${landY}px`);
+              this.butterflyEl.style.transform = `translate3d(${landX}px, ${landY}px, 0)`;
               this.butterflyEl.classList.add('is-landed');
               this._splashButterflyLanded = true;
               this.maybeFinishSplash();
@@ -4361,7 +5039,10 @@
           this._splashButterflyRaf = requestAnimationFrame(step);
         };
         onTrackEnter = () => { if (this.trackEl) this.trackEl.style.animationPlayState = 'paused'; };
-        onTrackLeave = () => { if (this.trackEl) this.trackEl.style.animationPlayState = 'running'; };
+        // Clear rather than force 'running' — an inline value would outrank
+        // the .is-offscreen rule and restart the marquee on a page nobody is
+        // looking at.
+        onTrackLeave = () => { if (this.trackEl) this.trackEl.style.animationPlayState = ''; };
 
         componentDidMount() {
           if (!this.canHover) {
@@ -4373,6 +5054,11 @@
           window.addEventListener('wheel', this.onWheel, { passive: true });
           window.addEventListener('touchstart', this.onTouchStart, { passive: true });
           window.addEventListener('touchend', this.onTouchEnd, { passive: true });
+          // First real gesture arms the confetti popper's audio (see
+          // unlockAudio) — scroll alone doesn't count as activation, so
+          // without this the pop would be silently blocked.
+          window.addEventListener('pointerdown', this.unlockAudio, { once: true, passive: true });
+          window.addEventListener('keydown', this.unlockAudio, { once: true });
           this.runSplashSequence();
         }
 
@@ -4474,16 +5160,32 @@
         // animation so it just holds that settled look until the peel
         // carries it away.
         freezeClonedEntrances = (sourceEl, cloneEl) => {
+          // Confetti is a one-shot burst, not a settled state — a snapshot
+          // taken mid-flight would replay the whole burst on the peeling
+          // page, so drop the layer from the clone entirely.
+          cloneEl.querySelectorAll('.confetti-layer').forEach((n) => n.remove());
+          // image-slot renders a translucent .ghost <img> on top of the real
+          // one for its drag-and-drop affordance. The snapshot is inert, so
+          // that's a second full decode of every image on the page being
+          // clipped and repainted each frame for nothing.
+          cloneEl.querySelectorAll('img.ghost').forEach((n) => n.remove());
+
           const selector = '.reveal-card, .reveal-note, .gallery-thread, .gallery-card, .paper-in';
           const sourceMatches = sourceEl.querySelectorAll(selector);
           const cloneMatches = cloneEl.querySelectorAll(selector);
+          // Read every computed style first, then write — interleaving them
+          // forced a synchronous layout per node, right at the frame where
+          // the curl is about to start and can least afford it.
+          const frozen = [];
           sourceMatches.forEach((srcNode, i) => {
-            const cloneNode = cloneMatches[i];
-            if (!cloneNode) return;
+            if (!cloneMatches[i]) return;
             const computed = getComputedStyle(srcNode);
+            frozen.push([cloneMatches[i], computed.opacity, computed.transform]);
+          });
+          frozen.forEach(([cloneNode, opacity, transform]) => {
             cloneNode.style.animation = 'none';
-            cloneNode.style.opacity = computed.opacity;
-            cloneNode.style.transform = computed.transform;
+            cloneNode.style.opacity = opacity;
+            cloneNode.style.transform = transform;
           });
         };
 
@@ -4547,10 +5249,13 @@
               corner: forward ? Peel.Corners.BOTTOM_RIGHT : Peel.Corners.TOP_LEFT,
               topShadow: true,
               topShadowAlpha: 0.45,
-              backReflection: true,
-              backReflectionAlpha: 0.30,
-              backShadow: true,
-              backShadowAlpha: 0.25,
+              // backReflection and backShadow each rebuilt a viewport-sized,
+              // rotating linear-gradient from scratch every frame — three
+              // full-screen gradient re-rasterisations per frame between them
+              // and the bottom shadow. The bottom shadow is the one that
+              // actually sells the curl, so it's the one that stays.
+              backReflection: false,
+              backShadow: false,
               bottomShadow: true,
               bottomShadowDarkAlpha: 0.85,
               bottomShadowLightAlpha: 0.22,
@@ -4623,9 +5328,18 @@
           window.removeEventListener('wheel', this.onWheel);
           window.removeEventListener('touchstart', this.onTouchStart);
           window.removeEventListener('touchend', this.onTouchEnd);
+          window.removeEventListener('pointerdown', this.unlockAudio);
+          window.removeEventListener('keydown', this.unlockAudio);
           if (this._peelAnimId) cancelAnimationFrame(this._peelAnimId);
           if (this._revealObserver) this._revealObserver.disconnect();
+          if (this._heroObserver) this._heroObserver.disconnect();
+          clearTimeout(this._confettiTimer);
+          clearTimeout(this._confettiCleanupTimer);
+          if (this._audioCtx) {
+            try { this._audioCtx.close(); } catch (err) { /* already closed */ }
+          }
           if (this._parallaxRaf) cancelAnimationFrame(this._parallaxRaf);
+          if (this._cursorRaf) cancelAnimationFrame(this._cursorRaf);
           if (this.pageScrollEls[1]) this.pageScrollEls[1].removeEventListener('scroll', this.onPortfolioScroll);
           clearTimeout(this._ct);
           clearTimeout(this._mt);
@@ -4641,8 +5355,18 @@
 
         onMouseMove = (e) => {
           if (!this.cursorEl) return;
+          // A mouse can report well above one move per frame; coalesce them so
+          // the cursor writes once per frame instead of once per event.
+          this._cursorX = e.clientX;
+          this._cursorY = e.clientY;
+          if (this._cursorRaf) return;
+          this._cursorRaf = requestAnimationFrame(this.drawCursor);
+        };
+        drawCursor = () => {
+          this._cursorRaf = null;
+          if (!this.cursorEl) return;
           const active = this.cursorEl.dataset.active === '1';
-          this.cursorEl.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px) scale(${active ? 1.6 : 0.6})`;
+          this.cursorEl.style.transform = `translate3d(${this._cursorX - 8}px, ${this._cursorY - 8}px, 0) scale(${active ? 1.6 : 0.6})`;
           this.cursorEl.style.opacity = '1';
         };
         onCursorEnter = () => {
@@ -4775,6 +5499,49 @@
         openLightbox = (img) => { this.setState({ lightbox: img }); };
         closeLightbox = () => { this.setState({ lightbox: null }); };
 
+        // Brand colors for the Tech Stack pills, keyed by lowercased tech name.
+        techBrandColors = {
+          'html': '#E34F26',
+          'css': '#1572B6',
+          'node.js': '#339933',
+          'mongodb': '#47A248',
+          'mysql': '#4479A1',
+          'react': '#61DAFB',
+          'react js': '#61DAFB',
+          'adobe xd': '#FF61F6',
+          'vue': '#4FC08D',
+          'typescript': '#3178C6',
+          'svelte': '#FF3E00',
+          'javascript': '#F7DF1E',
+          'bootstrap': '#7952B3',
+          'bootstrap 4': '#7952B3',
+          'git': '#F05032',
+          'nuxt': '#00DC82',
+          'illustrator': '#FF9A00',
+          'sass': '#CC6699',
+          'next.js': '#000000',
+          '.net': '#512BD4',
+          '.net core': '#512BD4',
+          'dart': '#0175C2',
+        };
+
+        // Tints the brand hex for the pill background and darkens light
+        // brand colors (JS yellow, React cyan, etc.) for the label text —
+        // used at full brightness they're nearly unreadable on this cream
+        // paper background. Techs with no known brand color keep the
+        // original neutral gray pill.
+        techMeta = (name) => {
+          const brand = this.techBrandColors[name.trim().toLowerCase()];
+          if (!brand) return { name, bg: 'oklch(0.92 0.02 85)', fg: 'oklch(0.3 0.014 85)' };
+          const r = parseInt(brand.slice(1, 3), 16);
+          const g = parseInt(brand.slice(3, 5), 16);
+          const b = parseInt(brand.slice(5, 7), 16);
+          const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          const darken = (v) => Math.round(v * 0.45);
+          const fg = luminance > 0.6 ? `rgb(${darken(r)}, ${darken(g)}, ${darken(b)})` : brand;
+          return { name, bg: `${brand}26`, fg };
+        };
+
         renderVals() {
           const { currentPage, prevPage, isFlipping, revealed, copied, openProject, modalVisible, splashVisible, splashBookOpen, splashExiting, splashFading } = this.state;
           const reduceMotion = this.isReduceMotion();
@@ -4809,11 +5576,11 @@
                 { text: "This project was built from a genuine desire to help my mother-in-law better understand and manage her businesses. I aimed to give her clear visibility into her expenses, earnings, and overall performance. I hope this project reflects my commitment to using my skills to solve real problems and create meaningful, practical solutions that truly help the people around me." },
               ],
               images: [
-                { id: 'project-haikal-1', src: './img/haikal-ss1.png', caption: 'Haikal Management System - Shops Management Report' },
-                { id: 'project-haikal-2', src: './img/haikal-ss2.png', caption: 'Haikal Management System - Dashboard' },
-                { id: 'project-haikal-3', src: './img/haikal-ss3.png', caption: 'Haikal Management System - Inventories' },
+                { id: 'project-haikal-1', src: './img/haikal-ss1.jpg', caption: 'Haikal Management System - Shops Management Report' },
+                { id: 'project-haikal-2', src: './img/haikal-ss2.jpg', caption: 'Haikal Management System - Dashboard' },
+                { id: 'project-haikal-3', src: './img/haikal-ss3.jpg', caption: 'Haikal Management System - Inventories' },
               ],
-              technologies: ['TypeScript', 'Laravel', 'PostgreSQL', 'TailwindCSS', 'shadcn/ui']
+              technologies: ['TypeScript', 'Laravel', 'PostgreSQL', 'TailwindCSS', 'shadcn/ui'].map(this.techMeta)
             },
             {
               title: 'Opsileave',
@@ -4837,11 +5604,11 @@
                 { text: "Building this leave and employee management application gave me the opportunity to create a solution that directly supports both employees and management by improving efficiency and clarity in leave tracking. This experience further strengthened my development skills, and I'm excited to continue delivering meaningful, high-impact systems in future projects." },
               ],
               images: [
-                { id: 'project-opsileave-1', src: './img/opsileave-ss1.png', caption: 'Opsileave - Leave Management System' },
-                { id: 'project-opsileave-2', src: './img/opsileave-ss2.png', caption: 'Opsileave - Admin Dashboard' },
-                { id: 'project-opsileave-3', src: './img/opsileave-ss3.png', caption: 'Opsileave - Employees Management' },
+                { id: 'project-opsileave-1', src: './img/opsileave-ss1.jpg', caption: 'Opsileave - Leave Management System' },
+                { id: 'project-opsileave-2', src: './img/opsileave-ss2.jpg', caption: 'Opsileave - Admin Dashboard' },
+                { id: 'project-opsileave-3', src: './img/opsileave-ss3.jpg', caption: 'Opsileave - Employees Management' },
               ],
-              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui']
+              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui'].map(this.techMeta)
             },
             {
               title: 'Kane Kashite',
@@ -4862,11 +5629,11 @@
                 { text: "It's a lot of funs to make this app as I progress to keep expanding the needed features, there could be more features in the future!" },
               ],
               images: [
-                { id: 'project-kane-kashite-1', src: './img/okane-ss1.png', caption: 'Kane Kashite - Split Bill App' },
-                { id: 'project-kane-kashite-2', src: './img/okane-ss2.png', caption: 'Kane Kashite - Add Trip Item' },
-                { id: 'project-kane-kashite-3', src: './img/okane-ss3.png', caption: 'Kane Kashite - Details Trip Item' },
+                { id: 'project-kane-kashite-1', src: './img/okane-ss1.jpg', caption: 'Kane Kashite - Split Bill App' },
+                { id: 'project-kane-kashite-2', src: './img/okane-ss2.jpg', caption: 'Kane Kashite - Add Trip Item' },
+                { id: 'project-kane-kashite-3', src: './img/okane-ss3.jpg', caption: 'Kane Kashite - Details Trip Item' },
               ],
-              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui']
+              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui'].map(this.techMeta)
             },
             {
               title: 'Opsigo (Opsicorp)',
@@ -4882,9 +5649,9 @@
               ],
               images: [
                 { id: 'project-opsigo-1', src: './img/fotbar-opsigo.jpg', caption: 'Opsigo Team' },
-                { id: 'project-opsigo-2', src: './img/dev-opsicorp.png', caption: 'Corporate Travel Management System' },
+                { id: 'project-opsigo-2', src: './img/dev-opsicorp.jpg', caption: 'Corporate Travel Management System' },
               ],
-              technologies: ['JavaScript', 'jQuery', 'AngularJS', 'C#', '.NET']
+              technologies: ['JavaScript', 'jQuery', 'AngularJS', 'C#', '.NET'].map(this.techMeta)
             },
             {
               title: 'FKH Apps',
@@ -4907,7 +5674,7 @@
                 { id: 'project-fkh-apps-1', src: './img/login_page.jpg', caption: 'Login Page' },
                 { id: 'project-fkh-apps-2', src: './img/dashboard.jpg', caption: 'Dashboard Lecturer' },
               ],
-              technologies: ['JavaScript', 'React JS', 'Laravel', 'MySQL', 'MDBootstrap']
+              technologies: ['JavaScript', 'React JS', 'Laravel', 'MySQL', 'MDBootstrap'].map(this.techMeta)
             },
             {
               title: 'Kampung Desa',
@@ -4929,13 +5696,44 @@
               images: [
                 { id: 'project-kampung-desa-1', src: './img/kampung%20desa.png', caption: 'Kampung Desa — Screenshot' },
               ],
-              technologies: ['JavaScript', 'React JS', 'Express.js', 'Node.js', 'MongoDB', 'Bootstrap 4']
+              technologies: ['JavaScript', 'React JS', 'Express.js', 'Node.js', 'MongoDB', 'Bootstrap 4'].map(this.techMeta)
+            },
+            {
+              title: 'Ubuntu Hub (U-BOX)',
+              tag: 'SDGs × DEEP TECH HACKATHON · 2021',
+              badge: '🥇 Grand Prize',
+              role: 'International Team — Indonesia × Nigeria',
+              link: null,
+              desc: 'A deep dive into how U-BOX combined WLAN and blockchain to deliver offline-friendly access to online education — the project that won the Grand Prize at Japan Hackathon II.',
+              blocks: [
+                { text: 'U-BOX is a "blockchain-powered learning network" that uses WLAN and blockchain to make connectivity cheaper for children in developing countries who couldn’t reliably access the Internet.' },
+                { heading: 'How U-BOX Was Supposed to Work' },
+                { text: 'Think of it as bringing the Internet to the village, rather than requiring every child to have Internet.' },
+                { heading: 'The Problem' },
+                { text: 'The traditional model — student, then Internet, then educational website — breaks down in rural or low-income areas where broadband is expensive or unavailable. The goal was to provide offline access to online education in near-real time, without requiring each user to have a conventional Internet connection.' },
+                { heading: 'U-BOX Flips the Model' },
+                { diagram: '                Internet\n                   │\n             ┌─────▼─────┐\n             │   U-BOX   │\n             │    Hub    │\n             └─────┬─────┘\n                   │\n              Local WLAN\n          ┌────────┼────────┐\n          ▼        ▼        ▼\n       Student   Student  Student\n       device    device   device' },
+                { text: 'A U-BOX node/hub would be placed in or near an underserved community. It would pull educational content through an upstream Internet connection when available, then distribute that content over a local wireless network to nearby students — so one expensive connection could be shared instead of every student independently paying for their own high-bandwidth access.' },
+                { heading: 'Where Blockchain Comes In' },
+                { text: 'Blockchain wasn’t there to magically provide Internet access — its role was managing and coordinating the learning network. The flow was roughly: an Internet connection reaches U-BOX, which distributes it locally to students, while blockchain provides a decentralized mechanism for content and access management and transactions within the network.' },
+                { text: 'The Kyoto report characterizes U-BOX as a blockchain-powered learning network, and the hackathon’s official description identifies its core technologies as WLAN + blockchain.' },
+                { table: [
+                  { label: 'WLAN', desc: 'Physically connects students to the local U-BOX network' },
+                  { label: 'U-BOX', desc: 'Local gateway/node distributing educational resources' },
+                  { label: 'Blockchain', desc: 'Decentralized management and transaction layer' },
+                  { label: 'Internet', desc: 'Supplies content/connectivity to the hub when available' },
+                ] },
+                { heading: 'The Important Innovation' },
+                { text: 'The clever part wasn’t simply building an educational website — it was using one relatively cheap connection to serve an entire underserved community. Instead of 100 students each needing their own Internet connection, U-BOX made it closer to one community connection serving 100 students through a single hub. That’s why contemporary coverage described the project as bringing the Internet to underserved, unconnected regions rather than replacing it.' },
+              ],
+              images: [],
+              technologies: ['WLAN', 'Blockchain'].map(this.techMeta)
             },
           ];
 
           const hasOpenProject = openProject !== null && openProject !== undefined;
           const openProjectData = hasOpenProject ? baseProjects[openProject] : { title: '', tag: '', desc: '', blocks: [], role: '', link: null, images: [], technologies: [], badge: null };
-          const modalOrigins = ['30% 20%', '50% 30%', '70% 40%', '30% 50%', '50% 60%', '70% 70%'];
+          const modalOrigins = ['30% 20%', '50% 30%', '70% 40%', '30% 50%', '50% 60%', '70% 70%', '50% 50%'];
 
           // Modal screenshots — inline thumbnails that open a click-to-preview lightbox
           const thumbnails = (openProjectData.images || []).map((im) => ({
@@ -4955,7 +5753,8 @@
               title: 'Flying Under the Moon Light',
               tools: 'Genshin Impact · Procreate (8h)',
               tilt: -2,
-              imgSrc: './img/amber.jpeg'
+              imgSrc: './img/amber.jpeg',
+              thumbSrc: './img/thumbs/amber.jpeg'
             },
             {
               baseId: 'drawing-senja',
@@ -4963,7 +5762,8 @@
               title: '花びらたちのマーチ',
               tools: 'March of Petals · Procreate (5h)',
               tilt: 2,
-              imgSrc: './img/senja.jpg'
+              imgSrc: './img/senja.jpg',
+              thumbSrc: './img/thumbs/senja.jpg'
             },
             {
               baseId: 'drawing-comet',
@@ -4971,7 +5771,8 @@
               title: 'Comet - 優しい彗星',
               tools: 'Beastars Study · iPad & Apple Pencil',
               tilt: -1.6,
-              imgSrc: './img/yasashii-suishei.f1054ad3.jpeg'
+              imgSrc: './img/yasashii-suishei.f1054ad3.jpeg',
+              thumbSrc: './img/thumbs/yasashii-suishei.f1054ad3.jpeg'
             },
             {
               baseId: 'drawing-koshien',
@@ -4979,14 +5780,19 @@
               title: "Let's go to the Koshien!!",
               tools: 'Original Illustration · Apple Pencil',
               tilt: 1.8,
-              imgSrc: './img/koshien.png'
+              imgSrc: './img/koshien.jpg',
+              thumbSrc: './img/thumbs/koshien.jpg'
             },
           ];
 
-          // 2 identical halves of 16 cards each (>5000px width per half) for seamless infinite -50% marquee loop
+          // 2 identical halves of 12 cards each (~3900px per half, comfortably
+          // wider than any viewport) for the seamless infinite -50% marquee
+          // loop. Each card carries its own infinite sway animation, so the
+          // cycle count is a direct multiplier on how many layers the
+          // compositor has to keep alive.
           const makeHalfSet = (prefix) => {
             const list = [];
-            for (let cycle = 0; cycle < 4; cycle++) {
+            for (let cycle = 0; cycle < 3; cycle++) {
               baseArtworks.forEach((art, idx) => {
                 list.push({
                   ...art,
@@ -5014,7 +5820,10 @@
           // .calm-mode rules next to those keyframes in <style>).
           const calmModeCls = reduceMotion ? 'calm-mode' : '';
           const isGalleryRevealed = !!revealed[2] || currentPage === 2;
-          const galleryTrackCls = `exhibit-track ${isGalleryRevealed ? 'is-in-view' : ''} ${calmModeCls}`;
+          // Hold the marquee and the per-card sway still while the Exhibition
+          // page is occluded by another leaf.
+          const galleryOffscreenCls = currentPage === 2 ? '' : 'is-offscreen';
+          const galleryTrackCls = `exhibit-track ${isGalleryRevealed ? 'is-in-view' : ''} ${calmModeCls} ${galleryOffscreenCls}`;
 
           // About handwriting reveal — each line gets its own clip-path sweep,
           // staggered so lines type out one at a time instead of all at once.
@@ -5133,6 +5942,10 @@
             return { transform, zIndex, transition, pointerEvents };
           };
 
+          // Leaves are only worth promoting to their own GPU layers while a
+          // turn is actually in flight.
+          const stageCls = isFlipping ? 'is-flipping' : '';
+
           const p0 = getPageProps(0);
           const p1 = getPageProps(1);
           const p2 = getPageProps(2);
@@ -5158,6 +5971,7 @@
 
             // Scroll-reveal / parallax entrance system
             observeReveal: this.observeReveal,
+            observeHeroReveal: this.observeHeroReveal,
             registerParallaxEl: this.registerParallaxEl,
             calmModeCls,
 
@@ -5169,6 +5983,7 @@
             refPage4: this.refPage4,
 
             // Page transforms
+            stageCls,
             page0Transform: p0.transform,
             page0ZIndex: p0.zIndex,
             page0Transition: p0.transition,
@@ -5220,6 +6035,7 @@
             openProject3: () => this.openProject(3),
             openProject4: () => this.openProject(4),
             openProject5: () => this.openProject(5),
+            openProject6: () => this.openProject(6),
 
             // Exhibition
             frames,
