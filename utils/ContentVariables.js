@@ -16,6 +16,17 @@
       year: "2026",
       items: [
         {
+          key: "bizniz",
+          cat: "Personal Mobile App",
+          date: "Oct 2026",
+          link: null,
+          images: [
+            { src: IMG + "bizniz-ss1.png", captionKey: "dashboard" },
+            { src: IMG + "bizniz-ss2.png", captionKey: "sales" },
+            { src: IMG + "bizniz-ss3.png", captionKey: "form" },
+          ],
+        },
+        {
           key: "haikalManagement",
           cat: "Business Management System",
           date: "Jan 2026",

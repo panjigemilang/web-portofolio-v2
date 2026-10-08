@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Panji Gemilang — Software Engineer Portfolio</title>
+    <!-- Site copy for each language. Plain head scripts (not <helmet>) so
+         they're loaded synchronously, before support.js mounts the page. -->
+    <script src="./translations/site/en.js"></script>
+    <script src="./translations/site/id.js"></script>
+    <script src="./translations/site/ja.js"></script>
     <script src="./support.js"></script>
   </head>
   <body>
@@ -1010,6 +1015,48 @@
               padding-bottom: 68px;
             }
           }
+
+          /* Japanese: Caveat has no CJK glyphs, so without help the browser
+             falls back to a heavy system font at Caveat's (large) sizes.
+             Chain Klee One — a handwritten Japanese face — behind Caveat so
+             Latin stays Caveat and kana/kanji get a matching hand. The
+             attribute selector catches the many inline Caveat styles;
+             !important is what lets a stylesheet rule beat an inline one. */
+          :lang(ja) [style*="Caveat"] {
+            font-family: "Caveat", "Klee One", cursive !important;
+          }
+          /* Kanji at the journal's Latin size is roughly twice as wide and
+             tall, so shrink it to sit on the same 38px ruled lines. */
+          :lang(ja) .journal-line {
+            font-size: clamp(1.05rem, 1.9vw, 1.3rem) !important;
+          }
+
+          .contact-copied-badge {
+            position: absolute;
+            left: calc(100% + 14px);
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            pointer-events: none;
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 12px;
+            color: oklch(0.52 0.16 255);
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+          }
+          @media (max-width: 640px) {
+            .contact-copied-badge {
+              left: 50% !important;
+              top: auto !important;
+              bottom: calc(100% + 6px) !important;
+              transform: translateX(-50%) !important;
+              background: oklch(0.99 0.008 88 / 0.95);
+              padding: 2px 8px;
+              border-radius: 6px;
+              box-shadow: 0 2px 8px oklch(0.2 0.014 85 / 0.12);
+              border: 1px solid oklch(0.85 0.02 85);
+            }
+          }
         </style>
         <link rel="stylesheet" href="./peel.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1020,7 +1067,7 @@
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Klee+One:wght@400;600&display=swap"
         />
         <script src="./peel.js"></script>
         <script src="./image-slot.js"></script>
@@ -1042,7 +1089,7 @@
               role="status"
               aria-live="polite"
               style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"
-              >Loading the portfolio…</span
+              >{{ t.splashLoading }}</span
             >
 
             <svg class="splash-trail" aria-hidden="true">
@@ -1080,11 +1127,11 @@
             <div class="splash-book" aria-hidden="true">
               <div class="splash-book-page">
                 <div class="splash-book-page-text"
-                  ><span ref="{{ setWelcomeWRef }}">W</span
-                  >elcome — come on in.</div
+                  ><span ref="{{ setWelcomeWRef }}">{{ t.splashWelcomeFirst }}</span
+                  >{{ t.splashWelcomeRest }}</div
                 >
                 <div class="splash-book-loading">
-                  <span>opening the notebook</span
+                  <span>{{ t.splashOpening }}</span
                   ><span class="splash-dot">.</span
                   ><span class="splash-dot">.</span
                   ><span class="splash-dot">.</span>
@@ -1094,7 +1141,7 @@
                 <div class="splash-book-cover-front">
                   <span class="splash-book-title">P.G.</span>
                   <span class="splash-book-badge">Notebook</span>
-                  <span class="splash-book-sub">a little portfolio, well-loved</span>
+                  <span class="splash-book-sub">{{ t.splashSub }}</span>
                 </div>
                 <div class="splash-book-cover-back"></div>
               </div>
@@ -1199,6 +1246,15 @@
           </div>
 
           <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              flex-wrap: wrap;
+              justify-content: flex-end;
+            "
+          >
+          <div
             class="mobile-page-counter"
             style="
               display: none;
@@ -1260,6 +1316,37 @@
             >
               {{ counterLabel }}
             </div>
+          </div>
+
+          <!-- Language switch: EN / ID / JA -->
+          <div
+            role="group"
+            aria-label="{{ t.langLabel }}"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 2px;
+              pointer-events: auto;
+              background: oklch(0.99 0.008 88 / 0.85);
+              padding: 4px;
+              border-radius: 24px;
+              box-shadow: 0 4px 16px oklch(0.2 0.014 85 / 0.08);
+              border: 1px solid oklch(0.85 0.02 85 / 0.7);
+            "
+          >
+            <sc-for list="{{ langItems }}" as="lng" hint-placeholder-count="3">
+              <button
+                onClick="{{ lng.onClick }}"
+                onMouseEnter="{{ onCursorEnter }}"
+                onMouseLeave="{{ onCursorLeave }}"
+                aria-pressed="{{ lng.pressed }}"
+                title="{{ lng.name }}"
+                style="background:{{ lng.bg }};color:{{ lng.color }};border:none;border-radius:20px;padding:5px 9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;font-weight:600;cursor:pointer;transition:background 0.25s ease,color 0.25s ease"
+              >
+                {{ lng.short }}
+              </button>
+            </sc-for>
+          </div>
           </div>
         </nav>
 
@@ -1377,7 +1464,7 @@
                       transform: rotate(2deg);
                     "
                   >
-                    PAGE 01 · COVER
+                    {{ t.coverStamp }}
                   </div>
                 </div>
 
@@ -1410,7 +1497,7 @@
                         background: oklch(0.52 0.16 255);
                       "
                     ></span>
-                    Software Engineer &amp; Builder
+                    {{ t.coverKicker }}
                   </div>
 
                   <h1
@@ -1444,11 +1531,9 @@
                         color: oklch(0.2 0.014 85);
                         font-weight: 600;
                       "
-                      >5+ years</span
+                      >{{ t.coverYears }}</span
                     >
-                    building modern, scalable, and user-focused applications
-                    &mdash; frontend precision by trade, robust systems by
-                    curiosity.
+                    {{ t.coverLead }}
                   </p>
 
                   <div
@@ -1485,7 +1570,7 @@
                       "
                       style-hover="transform:translateY(-2px);box-shadow:0 12px 30px oklch(0.20 0.014 85 / 0.35)"
                     >
-                      <span>Open Project Timeline</span>
+                      <span>{{ t.coverCtaWork }}</span>
                       <span style="font-size: 15px">&rarr;</span>
                     </button>
                     <button
@@ -1509,7 +1594,7 @@
                       "
                       style-hover="background:oklch(0.94 0.015 88)"
                     >
-                      Say Hello &#9993;
+                      {{ t.coverCtaContact }} &#9993;
                     </button>
                   </div>
                 </div>
@@ -1539,7 +1624,7 @@
                     font-weight: 600;
                   "
                 >
-                  PAGE 01 (VERSO) &middot; ARCHIVE
+                  {{ t.coverVersoLabel }}
                 </div>
                 <div
                   style="
@@ -1551,9 +1636,7 @@
                     margin-bottom: 14px;
                   "
                 >
-                  &ldquo;I believe the best products are created where
-                  curiosity, creativity, and human connection come
-                  together.&rdquo;
+                  &ldquo;{{ t.coverVersoQuote }}&rdquo;
                 </div>
                 <div
                   style="
@@ -1562,7 +1645,7 @@
                     color: oklch(0.5 0.02 85);
                   "
                 >
-                  Panji Gemilang &middot; Software Engineer Portfolio
+                  {{ t.coverVersoSign }}
                 </div>
               </div>
             </div>
@@ -1613,7 +1696,7 @@
                         margin-bottom: 4px;
                       "
                     >
-                      PAGE 02 · PROJECT TIMELINE
+                      {{ t.workStamp }}
                     </div>
                     <h2
                       style="
@@ -1625,7 +1708,7 @@
                         color: oklch(0.2 0.014 85);
                       "
                     >
-                      Selected Portfolio
+                      {{ t.workTitle }}
                     </h2>
                   </div>
                   <div
@@ -1639,7 +1722,7 @@
                       border: 1px solid oklch(0.85 0.02 85);
                     "
                   >
-                    6 Featured Works
+                    {{ t.workCount }}
                   </div>
                 </div>
 
@@ -1699,7 +1782,7 @@
                           line-height: 0.95;
                           color: oklch(0.2 0.014 85);
                         "
-                        >&#129351; 1st Place</span
+                        >&#129351; {{ t.heroPlace }}</span
                       >
                       <span
                         style="
@@ -1725,8 +1808,8 @@
                           line-height: 1.1;
                           color: oklch(0.2 0.014 85);
                         "
-                      > Grand Prize Winner &mdash; Japan Hackathon II
-                        2021
+                      >
+                        {{ t.heroTitle }}
                       </h3>
                       <p
                         style="
@@ -1737,11 +1820,7 @@
                           max-width: 76ch;
                         "
                       >
-                        Won the <strong>Grand Prize at Japan Hackathon II</strong>,
-                        an international <strong>&ldquo;SDGs &times; Deep Tech&rdquo;</strong>
-                        competition that drew
-                        <strong>232 participants from 46 countries</strong> down
-                        to <strong>11 finalist teams</strong>.
+                        <sc-for list="{{ t.heroP1 }}" as="seg"><span style="font-weight:{{ seg.weight }}">{{ seg.text }}</span></sc-for>
                       </p>
                       <p
                         style="
@@ -1752,15 +1831,7 @@
                           max-width: 76ch;
                         "
                       >
-                        Teaming up with collaborators from
-                        <strong>Indonesia and Nigeria</strong>, I helped build
-                        <strong>Ubuntu Hub</strong> &mdash; a low-cost system
-                        bringing online education to communities without
-                        reliable internet access. By pairing
-                        <strong>wireless networking</strong> with
-                        <strong>blockchain</strong>, it distributed
-                        educational content over a local, accessible network
-                        with no conventional internet connection required.
+                        <sc-for list="{{ t.heroP2 }}" as="seg"><span style="font-weight:{{ seg.weight }}">{{ seg.text }}</span></sc-for>
                       </p>
                       <p
                         style="
@@ -1771,12 +1842,7 @@
                           max-width: 76ch;
                         "
                       >
-                        Beyond the build itself, the competition was a crash
-                        course in
-                        <strong>international collaboration and teamwork</strong>
-                        &mdash; a reminder that people from vastly different
-                        cultures can turn a global problem into one
-                        impactful, shared solution.
+                        <sc-for list="{{ t.heroP3 }}" as="seg"><span style="font-weight:{{ seg.weight }}">{{ seg.text }}</span></sc-for>
                       </p>
                     </div>
 
@@ -1798,9 +1864,9 @@
                           color: oklch(0.5 0.02 85);
                         "
                       >
-                        Team:
+                        {{ t.teamLabel }}
                         <strong style="color: oklch(0.2 0.014 85)"
-                          >International &mdash; Indonesia &times; Nigeria</strong
+                          >{{ t.heroTeam }}</strong
                         >
                       </div>
                       <button
@@ -1824,8 +1890,324 @@
                           box-shadow: 0 10px 24px oklch(0.52 0.16 255 / 0.3);
                         "
                       >
-                        Read the Full Story &rarr;
+                        {{ t.readFullStory }} &rarr;
                       </button>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT 0: BIZNIZ (2026 - Narrative Left, Phone Mockups Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap-reverse;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
+                      position: relative;
+                    "
+                  >
+                    <!-- Editorial Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-l"
+                        style="
+                          background: oklch(0.92 0.08 150);
+                          transform: rotate(2.5deg);
+                          border: 1px solid oklch(0.86 0.06 150);
+                          --rest-rot: 2.5deg;
+                        "
+                      >
+                        <div
+                          class="sticky-tape-strip"
+                          style="background: oklch(0.82 0.05 150 / 0.7)"
+                        ></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2026</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.4 0.07 150);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.bizniz.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        Bizniz
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.bizniz.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Flutter</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Dart</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Rive</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >flutter_animate</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Firebase Auth</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.87 0.17 95);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.2 0.014 85);
+                            font-weight: 600;
+                          "
+                          >Cloud Firestore</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Mobile Developer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject7 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Mockup Card: two portrait phone screenshots on a tinted panel -->
+                    <div
+                      class="project-card reveal-card reveal-r"
+                      style="
+                        flex: 1 1 340px;
+                        min-width: 280px;
+                        position: relative;
+                        transform: rotate(1.2deg);
+                        --rest-rot: 1.2deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-yellow"
+                        style="
+                          width: 75px;
+                          top: -10px;
+                          right: 24px;
+                          transform: rotate(5deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: linear-gradient(135deg, oklch(0.95 0.06 95), oklch(0.93 0.05 150));
+                          border: 1px solid oklch(0.86 0.02 85);
+                          aspect-ratio: 16/10;
+                        "
+                      >
+                        <div
+                          ref="{{ registerParallaxEl }}"
+                          style="
+                            position: absolute;
+                            inset: 7% 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 6%;
+                          "
+                        >
+                          <image-slot
+                            id="project-bizniz-a"
+                            placeholder="Bizniz — Cover"
+                            src="./img/bizniz-ss1.png"
+                            shape="rounded"
+                            radius="14"
+                            style="
+                              height: 100%;
+                              aspect-ratio: 780/1688;
+                              display: block;
+                              transform: rotate(-3deg);
+                              box-shadow: 0 12px 28px oklch(0.2 0.014 85 / 0.22);
+                            "
+                          ></image-slot>
+                          <image-slot
+                            id="project-bizniz-b"
+                            placeholder="Bizniz — Feasibility Result"
+                            src="./img/bizniz-ss3.png"
+                            shape="rounded"
+                            radius="14"
+                            style="
+                              height: 100%;
+                              aspect-ratio: 780/1688;
+                              display: block;
+                              transform: rotate(2.5deg) translateY(4%);
+                              box-shadow: 0 12px 28px oklch(0.2 0.014 85 / 0.22);
+                            "
+                          ></image-slot>
+                        </div>
+                        <div
+                          style="
+                            position: absolute;
+                            top: 12px;
+                            left: 12px;
+                            display: flex;
+                            align-items: center;
+                            gap: 6px;
+                            background: oklch(0.87 0.17 95);
+                            color: oklch(0.2 0.014 85);
+                            padding: 4px 10px;
+                            border-radius: 20px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            font-weight: 600;
+                            box-shadow: 0 4px 10px oklch(0.2 0.014 85 / 0.2);
+                          "
+                        >
+                          <span>&#9733;</span> Latest 2026
+                        </div>
+                        <button
+                          onClick="{{ openProject7 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          "
+                        >
+                          {{ t.expand }} &#8599;
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -1889,26 +2271,6 @@
                             display: block;
                           "
                         ></image-slot>
-                        <div
-                          style="
-                            position: absolute;
-                            top: 12px;
-                            left: 12px;
-                            display: flex;
-                            align-items: center;
-                            gap: 6px;
-                            background: oklch(0.87 0.17 95);
-                            color: oklch(0.2 0.014 85);
-                            padding: 4px 10px;
-                            border-radius: 20px;
-                            font-family: &quot;IBM Plex Mono&quot;, monospace;
-                            font-size: 11px;
-                            font-weight: 600;
-                            box-shadow: 0 4px 10px oklch(0.2 0.014 85 / 0.2);
-                          "
-                        >
-                          <span>&#9733;</span> Latest 2026
-                        </div>
                         <button
                           onClick="{{ openProject0 }}"
                           onMouseEnter="{{ onCursorEnter }}"
@@ -1929,7 +2291,7 @@
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                           "
                         >
-                          Expand &#8599;
+                          {{ t.expand }} &#8599;
                         </button>
                       </div>
                     </div>
@@ -1967,7 +2329,7 @@
                             font-weight: 600;
                             margin-top: 2px;
                           "
-                          >BUSINESS MANAGEMENT SYSTEM</span
+                          >{{ tp.haikal.cat }}</span
                         >
                       </div>
 
@@ -1991,9 +2353,7 @@
                           max-width: 48ch;
                         "
                       >
-                        This is application for Shops Management Report. I made
-                        this to report, calculate revenues and keep tracking of
-                        my mothers-in-law businesses.
+                        {{ tp.haikal.desc }}
                       </p>
 
                       <div
@@ -2079,7 +2439,7 @@
                             color: oklch(0.5 0.02 85);
                           "
                         >
-                          Role:
+                          {{ t.roleLabel }}
                           <strong style="color: oklch(0.2 0.014 85)"
                             >Fullstack Developer</strong
                           >
@@ -2099,7 +2459,7 @@
                             padding: 0;
                           "
                         >
-                          View Case Study &rarr;
+                          {{ t.viewCaseStudy }} &rarr;
                         </button>
                       </div>
                     </div>
@@ -2157,7 +2517,7 @@
                             font-weight: 600;
                             margin-top: 2px;
                           "
-                          >INTERNAL COMPANY SYSTEM</span
+                          >{{ tp.opsileave.cat }}</span
                         >
                       </div>
 
@@ -2181,12 +2541,7 @@
                           max-width: 48ch;
                         "
                       >
-                        This is application for my company leave management
-                        system. I made this to test my skills and to make it
-                        easier for my company to manage employees leave.
-                        Currently we don't have some reliable leave management
-                        system to manage our leaves, and sometimes it's miss and
-                        we have to do note it manually.
+                        {{ tp.opsileave.desc }}
                       </p>
 
                       <div
@@ -2272,7 +2627,7 @@
                             color: oklch(0.5 0.02 85);
                           "
                         >
-                          Role:
+                          {{ t.roleLabel }}
                           <strong style="color: oklch(0.2 0.014 85)"
                             >Fullstack Developer</strong
                           >
@@ -2292,7 +2647,7 @@
                             padding: 0;
                           "
                         >
-                          View Case Study &rarr;
+                          {{ t.viewCaseStudy }} &rarr;
                         </button>
                       </div>
                     </div>
@@ -2361,7 +2716,7 @@
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                           "
                         >
-                          Expand &#8599;
+                          {{ t.expand }} &#8599;
                         </button>
                       </div>
                     </div>
@@ -2447,7 +2802,7 @@
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                           "
                         >
-                          Expand &#8599;
+                          {{ t.expand }} &#8599;
                         </button>
                       </div>
                     </div>
@@ -2485,7 +2840,7 @@
                             font-weight: 600;
                             margin-top: 2px;
                           "
-                          >PERSONAL SAAS · SPLIT BILL</span
+                          >{{ tp.kaneKashite.cat }}</span
                         >
                       </div>
 
@@ -2509,10 +2864,7 @@
                           max-width: 48ch;
                         "
                       >
-                        This is an app for keeping track of your expenses for
-                        trips with friends! With this app, you can create trip
-                        groups and share outstanding trip payments to see how
-                        much money you're spending on the trip.
+                        {{ tp.kaneKashite.desc }}
                       </p>
 
                       <div
@@ -2598,7 +2950,7 @@
                             color: oklch(0.5 0.02 85);
                           "
                         >
-                          Role:
+                          {{ t.roleLabel }}
                           <strong style="color: oklch(0.2 0.014 85)"
                             >Fullstack Developer</strong
                           >
@@ -2618,7 +2970,7 @@
                             padding: 0;
                           "
                         >
-                          View Case Study &rarr;
+                          {{ t.viewCaseStudy }} &rarr;
                         </button>
                       </div>
                     </div>
@@ -2664,7 +3016,7 @@
                             line-height: 0.9;
                             color: oklch(0.2 0.014 85);
                           "
-                          >2021 — NOW</span
+                          >2021 — {{ t.now }}</span
                         >
                         <span
                           style="
@@ -2676,7 +3028,7 @@
                             font-weight: 600;
                             margin-top: 2px;
                           "
-                          >FULL-TIME EMPLOYMENT</span
+                          >{{ tp.opsigo.cat }}</span
                         >
                       </div>
 
@@ -2700,11 +3052,7 @@
                           max-width: 48ch;
                         "
                       >
-                        I'm working as a fullstack developer on this company.
-                        This company is about corporate travel management
-                        system. If your company needs to travel for business,
-                        need to manage your employees and expenses travel, all
-                        things about traveling becomes easier with Opsicorp!!.
+                        {{ tp.opsigo.desc }}
                       </p>
 
                       <div
@@ -2769,7 +3117,7 @@
                             color: oklch(0.2 0.014 85);
                             font-weight: 600;
                           "
-                          >+67% Perf Boost</span
+                          >{{ tp.opsigo.perf }}</span
                         >
                       </div>
 
@@ -2790,9 +3138,9 @@
                             color: oklch(0.5 0.02 85);
                           "
                         >
-                          Role:
+                          {{ t.roleLabel }}
                           <strong style="color: oklch(0.2 0.014 85)"
-                            >Fullstack Developer (5+ Yrs)</strong
+                            >Fullstack Developer ({{ t.yearsShort }})</strong
                           >
                         </div>
                         <button
@@ -2810,7 +3158,7 @@
                             padding: 0;
                           "
                         >
-                          View Case Study &rarr;
+                          {{ t.viewCaseStudy }} &rarr;
                         </button>
                       </div>
                     </div>
@@ -2879,7 +3227,7 @@
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                           "
                         >
-                          Expand &#8599;
+                          {{ t.expand }} &#8599;
                         </button>
                       </div>
                     </div>
@@ -2965,7 +3313,7 @@
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                           "
                         >
-                          Expand &#8599;
+                          {{ t.expand }} &#8599;
                         </button>
                       </div>
                     </div>
@@ -3003,7 +3351,7 @@
                             font-weight: 600;
                             margin-top: 2px;
                           "
-                          >UNIVERSITY PROJECT · PWA</span
+                          >{{ tp.fkh.cat }}</span
                         >
                       </div>
 
@@ -3027,13 +3375,7 @@
                           max-width: 48ch;
                         "
                       >
-                        I'm working as a frontend engineer on this project. this
-                        project is about skripsi online or research paper
-                        online based inside the Veterinary Medicine Faculty of
-                        Brawijaya University environment. I'm using React JS as
-                        frontend framework. It was a little bit complex project
-                        that has 3 Users (admin, student, and lecturer) and a
-                        business-process feature.
+                        {{ tp.fkh.desc }}
                       </p>
 
                       <div
@@ -3107,7 +3449,7 @@
                             color: oklch(0.5 0.02 85);
                           "
                         >
-                          Role:
+                          {{ t.roleLabel }}
                           <strong style="color: oklch(0.2 0.014 85)"
                             >Frontend Engineer</strong
                           >
@@ -3127,7 +3469,7 @@
                             padding: 0;
                           "
                         >
-                          View Case Study &rarr;
+                          {{ t.viewCaseStudy }} &rarr;
                         </button>
                       </div>
                     </div>
@@ -3198,7 +3540,7 @@
                             text-align: center;
                           "
                         >
-                          Desa Cerdas Bersahaja — village portal
+                          Desa Cerdas Bersahaja — {{ tp.kampungDesa.polaroid }}
                         </div>
                       </div>
                     </div>
@@ -3236,7 +3578,7 @@
                             font-weight: 600;
                             margin-top: 2px;
                           "
-                          >CLIENT PROJECT · VILLAGE PORTAL</span
+                          >{{ tp.kampungDesa.cat }}</span
                         >
                       </div>
 
@@ -3260,10 +3602,7 @@
                           max-width: 48ch;
                         "
                       >
-                        I'm working as a fullstack developer, and this is my
-                        first time working with my team that I created in
-                        college. First time we met the clients and discuss the
-                        problems. The project can be seen at the link below.
+                        {{ tp.kampungDesa.desc }}
                       </p>
 
                       <div
@@ -3337,7 +3676,7 @@
                             color: oklch(0.5 0.02 85);
                           "
                         >
-                          Role:
+                          {{ t.roleLabel }}
                           <strong style="color: oklch(0.2 0.014 85)"
                             >Fullstack Engineer</strong
                           >
@@ -3357,7 +3696,7 @@
                             padding: 0;
                           "
                         >
-                          View Case Study &rarr;
+                          {{ t.viewCaseStudy }} &rarr;
                         </button>
                       </div>
                     </div>
@@ -3389,7 +3728,7 @@
                     font-weight: 600;
                   "
                 >
-                  PAGE 02 (VERSO) &middot; ENGINEERING LOG
+                  {{ t.workVersoLabel }}
                 </div>
                 <div
                   style="
@@ -3401,8 +3740,7 @@
                     margin-bottom: 14px;
                   "
                 >
-                  &ldquo;Simplicity is prerequisite for reliability. Build with
-                  curiosity and care.&rdquo;
+                  &ldquo;{{ t.workVersoQuote }}&rdquo;
                 </div>
                 <div
                   style="
@@ -3411,7 +3749,7 @@
                     color: oklch(0.5 0.02 85);
                   "
                 >
-                  Fullstack Architecture &middot; High Performance Web
+                  {{ t.workVersoSign }}
                 </div>
               </div>
             </div>
@@ -3454,7 +3792,7 @@
                       margin-bottom: 4px;
                     "
                   >
-                    PAGE 03 · SKETCHBOOK &amp; ART
+                    {{ t.exhibitStamp }}
                   </div>
                   <h2
                     style="
@@ -3466,7 +3804,7 @@
                       color: oklch(0.2 0.014 85);
                     "
                   >
-                    Art Exhibition
+                    {{ t.exhibitTitle }}
                   </h2>
                   <p
                     style="
@@ -3476,8 +3814,7 @@
                       color: oklch(0.46 0.014 85);
                     "
                   >
-                    original digital illustrations, anime studies &amp; sketches
-                    created with Procreate &amp; Apple Pencil
+                    {{ t.exhibitSub }}
                   </p>
                 </div>
 
@@ -3611,7 +3948,7 @@
                     font-weight: 600;
                   "
                 >
-                  PAGE 03 (VERSO) &middot; STUDIO NOTE
+                  {{ t.exhibitVersoLabel }}
                 </div>
                 <div
                   style="
@@ -3623,9 +3960,7 @@
                     margin-bottom: 14px;
                   "
                 >
-                  &ldquo;When I'm away from the keyboard, you'll find me
-                  sketching ideas, exploring new places, or creating
-                  cinematic-style visuals.&rdquo;
+                  &ldquo;{{ t.exhibitVersoQuote }}&rdquo;
                 </div>
                 <div
                   style="
@@ -3634,7 +3969,7 @@
                     color: oklch(0.5 0.02 85);
                   "
                 >
-                  Procreate &middot; iPad &middot; Cinematic Illustration
+                  {{ t.exhibitVersoSign }}
                 </div>
               </div>
             </div>
@@ -3673,7 +4008,7 @@
                       margin-bottom: 4px;
                     "
                   >
-                    PAGE 04 · BIOGRAPHY
+                    {{ t.aboutStamp }}
                   </div>
                   <h2
                     style="
@@ -3684,7 +4019,7 @@
                       color: oklch(0.2 0.014 85);
                     "
                   >
-                    About Panji
+                    {{ t.aboutTitle }}
                   </h2>
 
                   <!-- Lined Legal Pad Journal Sheet -->
@@ -3744,6 +4079,7 @@
                             hint-placeholder-count="5"
                           >
                             <div
+                              class="journal-line"
                               style="font-family:'Caveat',cursive;font-weight:600;font-size:clamp(1.35rem,2.5vw,1.75rem);line-height:38px;color:oklch(0.22 0.014 85);clip-path:{{ ln.clipPath }};opacity:{{ ln.opacity }};transition:{{ ln.transition }}"
                             >
                               {{ ln.text }}
@@ -3836,7 +4172,7 @@
                     font-weight: 600;
                   "
                 >
-                  PAGE 04 (VERSO) &middot; ESSAYS
+                  {{ t.aboutVersoLabel }}
                 </div>
                 <div
                   style="
@@ -3848,8 +4184,7 @@
                     margin-bottom: 14px;
                   "
                 >
-                  &ldquo;Cinematic Visuals &middot; Travel &middot; Software
-                  Engineering &middot; Sketching&rdquo;
+                  &ldquo;{{ t.aboutVersoQuote }}&rdquo;
                 </div>
                 <div
                   style="
@@ -3858,7 +4193,7 @@
                     color: oklch(0.5 0.02 85);
                   "
                 >
-                  Panji Gemilang &middot; Persona &amp; Values
+                  {{ t.aboutVersoSign }}
                 </div>
               </div>
             </div>
@@ -3887,7 +4222,7 @@
                     clamp(60px, 8vh, 90px);
                 "
               >
-                <div class="{{ contactPaperCls }}" style="max-width: 640px; width: 100%; text-align: center">
+                <div class="{{ contactPaperCls }}" style="max-width: 720px; width: 100%; text-align: center; margin: 0 auto">
                   <div
                     style="
                       font-family: &quot;IBM Plex Mono&quot;, monospace;
@@ -3896,9 +4231,10 @@
                       text-transform: uppercase;
                       color: oklch(0.52 0.16 255);
                       margin-bottom: 4px;
+                      text-align: center;
                     "
                   >
-                    PAGE 05 · GET IN TOUCH
+                    {{ t.contactStamp }}
                   </div>
                   <h2
                     style="
@@ -3908,9 +4244,10 @@
                       font-size: clamp(3.2rem, 8.5vw, 6.4rem);
                       line-height: 0.95;
                       color: oklch(0.2 0.014 85);
+                      text-align: center;
                     "
                   >
-                    Say Hello
+                    {{ t.contactTitle }}
                   </h2>
 
                   <!-- Copyable Email -->
@@ -3919,50 +4256,58 @@
                       display: flex;
                       align-items: center;
                       justify-content: center;
-                      gap: 14px;
-                      flex-wrap: wrap;
                       margin-bottom: 12px;
                     "
                   >
-                    <button
-                      onClick="{{ copyEmail }}"
-                      onMouseEnter="{{ onCursorEnter }}"
-                      onMouseLeave="{{ onCursorLeave }}"
+                    <div
                       style="
-                        display: flex;
+                        position: relative;
+                        display: inline-flex;
                         align-items: center;
-                        gap: 10px;
-                        background: oklch(0.99 0.008 88);
-                        border: 1px solid oklch(0.85 0.02 85);
-                        border-radius: 30px;
-                        cursor: pointer;
-                        padding: 10px 20px;
-                        font-family: &quot;IBM Plex Mono&quot;, monospace;
-                        font-size: clamp(14px, 1.8vw, 18px);
-                        color: oklch(0.2 0.014 85);
-                        box-shadow: 0 4px 12px oklch(0.2 0.014 85 / 0.06);
-                        transition:
-                          border-color 0.2s ease,
-                          transform 0.2s ease;
+                        justify-content: center;
                       "
-                      style-hover="border-color:oklch(0.52 0.16 255);transform:translateY(-2px)"
                     >
-                      <span>panjigemilang31298@gmail.com</span>
-                      <span
+                      <button
+                        onClick="{{ copyEmail }}"
+                        onMouseEnter="{{ onCursorEnter }}"
+                        onMouseLeave="{{ onCursorLeave }}"
                         style="
-                          width: 14px;
-                          height: 14px;
-                          border: 1.6px solid currentColor;
-                          border-radius: 2px;
-                          flex-shrink: 0;
-                          opacity: 0.7;
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          background: oklch(0.99 0.008 88);
+                          border: 1px solid oklch(0.85 0.02 85);
+                          border-radius: 30px;
+                          cursor: pointer;
+                          padding: 10px 20px;
+                          font-family: &quot;IBM Plex Mono&quot;, monospace;
+                          font-size: clamp(14px, 1.8vw, 18px);
+                          color: oklch(0.2 0.014 85);
+                          box-shadow: 0 4px 12px oklch(0.2 0.014 85 / 0.06);
+                          transition:
+                            border-color 0.2s ease,
+                            transform 0.2s ease;
                         "
-                      ></span>
-                    </button>
-                    <span
-                      style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.52 0.16 255);opacity:{{ emailCopiedOpacity }};transition:opacity 0.3s ease;font-weight:600"
-                      >&#10003; copied</span
-                    >
+                        style-hover="border-color:oklch(0.52 0.16 255);transform:translateY(-2px)"
+                      >
+                        <span>panjigemilang31298@gmail.com</span>
+                        <span
+                          style="
+                            width: 14px;
+                            height: 14px;
+                            border: 1.6px solid currentColor;
+                            border-radius: 2px;
+                            flex-shrink: 0;
+                            opacity: 0.7;
+                          "
+                        ></span>
+                      </button>
+                      <span
+                        class="contact-copied-badge"
+                        style="opacity:{{ emailCopiedOpacity }}"
+                        >&#10003; {{ t.copied }}</span
+                      >
+                    </div>
                   </div>
 
                   <!-- Copyable Phone -->
@@ -3971,50 +4316,58 @@
                       display: flex;
                       align-items: center;
                       justify-content: center;
-                      gap: 14px;
-                      flex-wrap: wrap;
                       margin-bottom: 24px;
                     "
                   >
-                    <button
-                      onClick="{{ copyPhone }}"
-                      onMouseEnter="{{ onCursorEnter }}"
-                      onMouseLeave="{{ onCursorLeave }}"
+                    <div
                       style="
-                        display: flex;
+                        position: relative;
+                        display: inline-flex;
                         align-items: center;
-                        gap: 10px;
-                        background: oklch(0.99 0.008 88);
-                        border: 1px solid oklch(0.85 0.02 85);
-                        border-radius: 30px;
-                        cursor: pointer;
-                        padding: 10px 20px;
-                        font-family: &quot;IBM Plex Mono&quot;, monospace;
-                        font-size: clamp(14px, 1.8vw, 18px);
-                        color: oklch(0.2 0.014 85);
-                        box-shadow: 0 4px 12px oklch(0.2 0.014 85 / 0.06);
-                        transition:
-                          border-color 0.2s ease,
-                          transform 0.2s ease;
+                        justify-content: center;
                       "
-                      style-hover="border-color:oklch(0.52 0.16 255);transform:translateY(-2px)"
                     >
-                      <span>+62 8958 0111 1085</span>
-                      <span
+                      <button
+                        onClick="{{ copyPhone }}"
+                        onMouseEnter="{{ onCursorEnter }}"
+                        onMouseLeave="{{ onCursorLeave }}"
                         style="
-                          width: 14px;
-                          height: 14px;
-                          border: 1.6px solid currentColor;
-                          border-radius: 2px;
-                          flex-shrink: 0;
-                          opacity: 0.7;
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          background: oklch(0.99 0.008 88);
+                          border: 1px solid oklch(0.85 0.02 85);
+                          border-radius: 30px;
+                          cursor: pointer;
+                          padding: 10px 20px;
+                          font-family: &quot;IBM Plex Mono&quot;, monospace;
+                          font-size: clamp(14px, 1.8vw, 18px);
+                          color: oklch(0.2 0.014 85);
+                          box-shadow: 0 4px 12px oklch(0.2 0.014 85 / 0.06);
+                          transition:
+                            border-color 0.2s ease,
+                            transform 0.2s ease;
                         "
-                      ></span>
-                    </button>
-                    <span
-                      style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.52 0.16 255);opacity:{{ phoneCopiedOpacity }};transition:opacity 0.3s ease;font-weight:600"
-                      >&#10003; copied</span
-                    >
+                        style-hover="border-color:oklch(0.52 0.16 255);transform:translateY(-2px)"
+                      >
+                        <span>+62 8958 0111 1085</span>
+                        <span
+                          style="
+                            width: 14px;
+                            height: 14px;
+                            border: 1.6px solid currentColor;
+                            border-radius: 2px;
+                            flex-shrink: 0;
+                            opacity: 0.7;
+                          "
+                        ></span>
+                      </button>
+                      <span
+                        class="contact-copied-badge"
+                        style="opacity:{{ phoneCopiedOpacity }}"
+                        >&#10003; {{ t.copied }}</span
+                      >
+                    </div>
                   </div>
 
                   <!-- Social Links -->
@@ -4022,9 +4375,11 @@
                     style="
                       display: flex;
                       justify-content: center;
+                      align-items: center;
                       gap: 24px;
                       flex-wrap: wrap;
                       margin-bottom: clamp(36px, 6vh, 60px);
+                      text-align: center;
                     "
                   >
                     <a
@@ -4090,17 +4445,18 @@
                       font-size: clamp(1.9rem, 4.4vw, 2.9rem);
                       line-height: 1.2;
                       color: oklch(0.2 0.014 85);
+                      text-align: center;
                     "
                   >
-                    Being a father is the <br/>
+                    {{ t.mottoLead }} <br/>
                     <span
                       style="
                         background: oklch(0.87 0.17 95);
                         padding: 0 6px;
                         border-radius: 3px;
                       "
-                      >best honor</span
-                    >.
+                      >{{ t.mottoHighlight }}</span
+                    >{{ t.mottoEnd }}
                   </p>
 
                   <div
@@ -4108,9 +4464,10 @@
                       font-family: &quot;IBM Plex Mono&quot;, monospace;
                       font-size: 11px;
                       color: oklch(0.6 0.02 85);
+                      text-align: center;
                     "
                   >
-                    Panji Gemilang &middot; 2026 Notebook
+                    {{ t.contactSign }}
                   </div>
                 </div>
               </div>
@@ -4139,7 +4496,7 @@
                     font-weight: 600;
                   "
                 >
-                  PAGE 05 (VERSO) &middot; COLOPHON
+                  {{ t.contactVersoLabel }}
                 </div>
                 <div
                   style="
@@ -4151,7 +4508,7 @@
                     margin-bottom: 14px;
                   "
                 >
-                  &ldquo;End of notebook. Keep crafting &amp; building.&rdquo;
+                  &ldquo;{{ t.contactVersoQuote }}&rdquo;
                 </div>
                 <div
                   style="
@@ -4328,7 +4685,7 @@
                       margin-bottom: 8px;
                     "
                   >
-                    Tech Stack
+                    {{ t.techStack }}
                   </div>
                   <div
                     style="
@@ -4516,7 +4873,7 @@
                       color: oklch(0.5 0.02 85);
                     "
                   >
-                    Role &amp; Scope:
+                    {{ t.roleScope }}
                     <strong style="color: oklch(0.2 0.014 85)"
                       >{{ openProjectData.role }}</strong
                     >
@@ -4536,7 +4893,7 @@
                         font-weight: 600;
                         text-decoration: none;
                       "
-                      >Visit Live App &#8599;</a
+                      >{{ t.visitLive }} &#8599;</a
                     >
                   </sc-if>
                 </div>
@@ -4637,7 +4994,8 @@
           splashVisible: true,
           splashBookOpen: false,
           splashExiting: false,
-          splashFading: false
+          splashFading: false,
+          lang: 'en'
         };
 
         pageScrollEls = {};
@@ -4645,7 +5003,41 @@
         systemReduceMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         isSmallViewport = typeof window !== 'undefined' && window.innerWidth < 640;
         navOrder = ['cover', 'work', 'exhibit', 'about', 'contact'];
-        navLabels = { cover: 'Cover', work: 'Portfolio', exhibit: 'Gallery', about: 'About', contact: 'Say Hello' };
+
+        // Language: EN / ID / JA. Copy lives in translations/site/{lang}.js
+        // (window.SITE_TRANSLATIONS). The choice is remembered per browser;
+        // a ?lang= URL param wins so a link can open in a given language,
+        // and a first visit falls back to the browser's own language.
+        languages = [
+          { code: 'en', short: 'EN', name: 'English' },
+          { code: 'id', short: 'ID', name: 'Bahasa Indonesia' },
+          { code: 'ja', short: 'JA', name: '日本語' },
+        ];
+        langStorageKey = 'pg-lang';
+        isSupportedLang = (code) => this.languages.some((l) => l.code === code) && !!(window.SITE_TRANSLATIONS || {})[code];
+        detectLang = () => {
+          try {
+            const fromUrl = new URLSearchParams(window.location.search).get('lang');
+            if (this.isSupportedLang(fromUrl)) return fromUrl;
+          } catch (err) { /* no URL access — fall through */ }
+          try {
+            const saved = window.localStorage.getItem(this.langStorageKey);
+            if (this.isSupportedLang(saved)) return saved;
+          } catch (err) { /* storage blocked — fall through */ }
+          const browser = ((navigator.languages && navigator.languages[0]) || navigator.language || 'en').slice(0, 2).toLowerCase();
+          return this.isSupportedLang(browser) ? browser : 'en';
+        };
+        applyDocumentLang = (code) => {
+          const L = window.SITE_TRANSLATIONS[code];
+          document.documentElement.lang = code;
+          if (L && L.ui.docTitle) document.title = L.ui.docTitle;
+        };
+        setLang = (code) => {
+          if (!this.isSupportedLang(code) || code === this.state.lang) return;
+          try { window.localStorage.setItem(this.langStorageKey, code); } catch (err) { /* not persisted — still switches */ }
+          this.applyDocumentLang(code);
+          this.setState({ lang: code });
+        };
 
         isReduceMotion = () => this.props?.calmMode || this.systemReduceMotion;
 
@@ -5059,6 +5451,9 @@
           // without this the pop would be silently blocked.
           window.addEventListener('pointerdown', this.unlockAudio, { once: true, passive: true });
           window.addEventListener('keydown', this.unlockAudio, { once: true });
+          const lang = this.detectLang();
+          this.applyDocumentLang(lang);
+          if (lang !== this.state.lang) this.setState({ lang });
           this.runSplashSequence();
         }
 
@@ -5523,6 +5918,9 @@
           '.net': '#512BD4',
           '.net core': '#512BD4',
           'dart': '#0175C2',
+          'flutter': '#02569B',
+          'firebase auth': '#FFCA28',
+          'cloud firestore': '#FFCA28',
         };
 
         // Tints the brand hex for the pill background and darkens light
@@ -5542,198 +5940,163 @@
           return { name, bg: `${brand}26`, fg };
         };
 
+        // Translation files store project blocks compactly (see the header of
+        // translations/site/en.js); the modal template wants the long form.
+        toModalBlock = (b) => {
+          if (typeof b === 'string') return { text: b };
+          if (b.h) return { heading: b.h };
+          if (b.list) return { items: b.list.map((text) => ({ text })) };
+          if (b.table) return { table: b.table.map(([label, desc]) => ({ label, desc })) };
+          return b;
+        };
+        // Rich-text runs: plain strings stay regular weight, { b } goes bold.
+        toRichRuns = (runs) => runs.map((r, i) => (
+          typeof r === 'string' ? { key: i, text: r, weight: 'inherit' } : { key: i, text: r.b, weight: 700 }
+        ));
+
         renderVals() {
-          const { currentPage, prevPage, isFlipping, revealed, copied, openProject, modalVisible, splashVisible, splashBookOpen, splashExiting, splashFading } = this.state;
+          const { currentPage, prevPage, isFlipping, revealed, copied, openProject, modalVisible, splashVisible, splashBookOpen, splashExiting, splashFading, lang } = this.state;
           const reduceMotion = this.isReduceMotion();
+
+          const L = window.SITE_TRANSLATIONS[lang] || window.SITE_TRANSLATIONS.en;
+          const tp = L.projects;
+          const t = {
+            ...L.ui,
+            heroP1: this.toRichRuns(L.ui.heroP1),
+            heroP2: this.toRichRuns(L.ui.heroP2),
+            heroP3: this.toRichRuns(L.ui.heroP3),
+          };
+          const langItems = this.languages.map((l) => ({
+            key: l.code,
+            short: l.short,
+            name: l.name,
+            pressed: l.code === lang ? 'true' : 'false',
+            color: l.code === lang ? 'oklch(0.99 0.008 88)' : 'oklch(0.45 0.02 85)',
+            bg: l.code === lang ? 'oklch(0.2 0.014 85)' : 'transparent',
+            onClick: () => this.setLang(l.code),
+          }));
 
           const navItems = this.navOrder.map((key, idx) => ({
             key,
-            label: this.navLabels[key],
+            label: L.nav[key],
             underline: currentPage === idx ? 1 : 0,
             color: currentPage === idx ? 'oklch(0.20 0.014 85)' : 'oklch(0.55 0.02 85)',
             weight: currentPage === idx ? '600' : '400',
             onClick: () => this.goToPage(idx),
           }));
 
-          // Real Projects from panjigemilang.vercel.app
-          const baseProjects = [
+          // Real Projects from panjigemilang.vercel.app. Only structure lives
+          // here (titles, links, screenshots, stack); every sentence a visitor
+          // reads comes from the active language's projects[key]. Order is the
+          // openProjectN index, so append rather than reorder.
+          const projectMeta = [
             {
+              key: 'haikal',
               title: 'Haikal Management System',
-              tag: 'BUSINESS MANAGEMENT SYSTEM · 2026',
-              badge: 'Jan 2026',
               role: 'Fullstack Developer',
               link: 'https://haikal-management.vercel.app',
-              desc: "This is application for Shops Management Report. I made this to report, calculate revenues and keep tracking of my mothers-in-law businesses.",
-              blocks: [
-                { text: "I built this system to support the management of my mother-in-law's businesses by transforming manual tracking and scattered records into a structured and reliable digital solution. Because she never keep track of her business, I made this system to help her to keep track of her business and calculate how much money she has spent and how much money she has earned." },
-                { text: "Haikal Management System serves as a practical, real-world solution focused on efficiency, clarity, and ease of use. Through this project, I applied my development skills to solve a genuine business need, creating a system that can be helpful for anyone with simple business needs. The core functions is described as below:" },
-                { items: [
-                  { text: 'User can registered only with invitation code for security' },
-                  { text: 'User can create, update, delete and read shops, expenses, transactions, and inventories.' },
-                  { text: 'User can do transactions based on inventory' },
-                  { text: 'User can see their reports and revenues based on transactions and expenses' },
-                ] },
-                { text: "This project was built from a genuine desire to help my mother-in-law better understand and manage her businesses. I aimed to give her clear visibility into her expenses, earnings, and overall performance. I hope this project reflects my commitment to using my skills to solve real problems and create meaningful, practical solutions that truly help the people around me." },
-              ],
               images: [
-                { id: 'project-haikal-1', src: './img/haikal-ss1.jpg', caption: 'Haikal Management System - Shops Management Report' },
-                { id: 'project-haikal-2', src: './img/haikal-ss2.jpg', caption: 'Haikal Management System - Dashboard' },
-                { id: 'project-haikal-3', src: './img/haikal-ss3.jpg', caption: 'Haikal Management System - Inventories' },
+                { id: 'project-haikal-1', src: './img/haikal-ss1.jpg' },
+                { id: 'project-haikal-2', src: './img/haikal-ss2.jpg' },
+                { id: 'project-haikal-3', src: './img/haikal-ss3.jpg' },
               ],
-              technologies: ['TypeScript', 'Laravel', 'PostgreSQL', 'TailwindCSS', 'shadcn/ui'].map(this.techMeta)
+              technologies: ['TypeScript', 'Laravel', 'PostgreSQL', 'TailwindCSS', 'shadcn/ui'],
             },
             {
+              key: 'opsileave',
               title: 'Opsileave',
-              tag: 'INTERNAL COMPANY SYSTEM · 2025',
-              badge: 'Dec 2025',
               role: 'Fullstack Developer',
               link: 'https://opsileave.vercel.app',
-              desc: "This is application for my company leave management system. I made this to test my skills and to make it easier for my company to manage employees leave. Currently we don't have some reliable leave management system to manage our leaves, and sometimes it's miss and we have to do note it manually.",
-              blocks: [
-                { text: "Opsileave is application for my company leave management system. Currently there's no dedicated leave management system to manage employees leave, so I made this app to make it easier for my company to manage employees leave. I also added calendar feature to make it easier for employees to see their leave history and work colleagues leaves." },
-                { text: "The core functions is described as below:" },
-                { items: [
-                  { text: 'User has 2 roles, Admin and Employee' },
-                  { text: 'Admin can add, update, delete and read leave & manage employees' },
-                  { text: 'Admin can create team and assign to employees' },
-                  { text: 'Admin can add their own events on the calendar and employees can also see the events on the calendar.' },
-                  { text: 'Employee can see their leaves quota and leave calendar' },
-                  { text: 'Employee can request leave and see their leave history' },
-                  { text: 'Employee can see their team and their leave days' },
-                ] },
-                { text: "Building this leave and employee management application gave me the opportunity to create a solution that directly supports both employees and management by improving efficiency and clarity in leave tracking. This experience further strengthened my development skills, and I'm excited to continue delivering meaningful, high-impact systems in future projects." },
-              ],
               images: [
-                { id: 'project-opsileave-1', src: './img/opsileave-ss1.jpg', caption: 'Opsileave - Leave Management System' },
-                { id: 'project-opsileave-2', src: './img/opsileave-ss2.jpg', caption: 'Opsileave - Admin Dashboard' },
-                { id: 'project-opsileave-3', src: './img/opsileave-ss3.jpg', caption: 'Opsileave - Employees Management' },
+                { id: 'project-opsileave-1', src: './img/opsileave-ss1.jpg' },
+                { id: 'project-opsileave-2', src: './img/opsileave-ss2.jpg' },
+                { id: 'project-opsileave-3', src: './img/opsileave-ss3.jpg' },
               ],
-              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui'].map(this.techMeta)
+              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui'],
             },
             {
+              key: 'kaneKashite',
               title: 'Kane Kashite',
-              tag: 'PERSONAL SAAS · 2025',
-              badge: 'Dec 2025',
               role: 'Fullstack Developer',
               link: 'https://okane-kashite.vercel.app',
-              desc: "This is an app for keeping track of your expenses for trips with friends! With this app, you can create trip groups and share outstanding trip payments to see how much money you're spending on the trip.",
-              blocks: [
-                { text: "I was thinking about an app that could track our expenses when going on a trip with friends. Often, either my friends or I would pay for expenses first, and it can be difficult to remember who is lending or borrowing money. I thought of an app that could help us keep track of shared expenses and outstanding payments, as well as show how much money we are spending on the trip overall." },
-                { items: [
-                  { text: 'User can Create, Read, Update, Delete Trip or group Trips' },
-                  { text: 'User can split bill based on bills receipt (manually)' },
-                  { text: 'User can add friends!' },
-                  { text: 'Make your trip to be noted everywhere and anywhere!' },
-                ] },
-                { text: "It's really helpful for us as we going to a lot of trips together! It's not even a trip, sometimes just paying someones food or drinks, or even just a movie or concert ticket. It's just a simple app that can help us keep track of our expenses and make it easier to share the cost of the trip." },
-                { text: "It's a lot of funs to make this app as I progress to keep expanding the needed features, there could be more features in the future!" },
-              ],
               images: [
-                { id: 'project-kane-kashite-1', src: './img/okane-ss1.jpg', caption: 'Kane Kashite - Split Bill App' },
-                { id: 'project-kane-kashite-2', src: './img/okane-ss2.jpg', caption: 'Kane Kashite - Add Trip Item' },
-                { id: 'project-kane-kashite-3', src: './img/okane-ss3.jpg', caption: 'Kane Kashite - Details Trip Item' },
+                { id: 'project-kane-kashite-1', src: './img/okane-ss1.jpg' },
+                { id: 'project-kane-kashite-2', src: './img/okane-ss2.jpg' },
+                { id: 'project-kane-kashite-3', src: './img/okane-ss3.jpg' },
               ],
-              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui'].map(this.techMeta)
+              technologies: ['TypeScript', 'Next.js', 'Supabase', 'TailwindCSS', 'shadcn/ui'],
             },
             {
+              key: 'opsigo',
               title: 'Opsigo (Opsicorp)',
-              tag: 'FULL-TIME EMPLOYMENT · 2021-NOW',
-              badge: '5+ Years',
               role: 'Fullstack Developer',
               link: null,
-              desc: "I'm working as a fullstack developer on this company. This company is about corporate travel management system. If your company needs to travel for business, need to manage your employees and expenses travel, all things about traveling becomes easier with Opsicorp!!.",
-              blocks: [
-                { text: "I have hands-on experience significantly improving company web performance — in one project, I successfully increased overall performance by 67%. I achieved this by refactoring the existing codebase to make it more reusable and maintainable, optimizing API calls to reduce load and latency, and fixing workflow logic issues as well as redundant functions. These improvements not only boosted speed but also enhanced stability and scalability for future development." },
-                { text: "I also proposed and initiated a new Group Business Trip feature after identifying that the current app workflow was not efficient for handling batch trips. By analyzing user behavior and operational needs, I saw a clear opportunity to streamline the process, reduce repetitive actions, and improve the overall experience for teams traveling together. This idea is aimed at increasing usability, operational efficiency, and long-term value for the company's product." },
-                { text: "I hope these experiences not only demonstrate my contributions, but also continue to strengthen my skills as a developer in a meaningful and positive way. I'm excited to keep learning, growing, and delivering even greater impact in future projects." },
-              ],
               images: [
-                { id: 'project-opsigo-1', src: './img/fotbar-opsigo.jpg', caption: 'Opsigo Team' },
-                { id: 'project-opsigo-2', src: './img/dev-opsicorp.jpg', caption: 'Corporate Travel Management System' },
+                { id: 'project-opsigo-1', src: './img/fotbar-opsigo.jpg' },
+                { id: 'project-opsigo-2', src: './img/dev-opsicorp.jpg' },
               ],
-              technologies: ['JavaScript', 'jQuery', 'AngularJS', 'C#', '.NET'].map(this.techMeta)
+              technologies: ['JavaScript', 'jQuery', 'AngularJS', 'C#', '.NET'],
             },
             {
+              key: 'fkh',
               title: 'FKH Apps',
-              tag: 'UNIVERSITY SUITE · 2020',
-              badge: 'Faculty Suite',
               role: 'Frontend Engineer',
               link: null,
-              desc: "I'm working as a frontend engineer on this project. this project is about skripsi online or research paper online based inside the Veterinary Medicine Faculty of Brawijaya University environment. I'm using React JS as frontend framework. It was a little bit complex project that has 3 Users (admin, student, and lecturer) and a business-process feature.",
-              blocks: [
-                { text: "Me and my team got a project from the Brawijaya University Faculty of Veterinary Medicine. We build a responsive and progressive web apps for the Veterinary Professional Education thesis. I was assigned to be front-end engineer." },
-                { text: "This application has 3 types of user, it is student, lecturer, and admin. The system workflow described on the points below :" },
-                { items: [
-                  { text: 'Student -> Students can register profession and then upload the proposal or final report document to a selected lecturer' },
-                  { text: 'Lecturer -> Lecturer received the documents and then do validation or revision' },
-                  { text: 'Admin -> Admin can monitoring everything like seeing all histories of the uploaded documents, seeing how many students that every lecturer guided, etc. Admin can also lock access for the students if they were exceeding the deadline.' },
-                ] },
-                { text: "This application will be released in September 2020 and ready to be used for the user." },
-              ],
               images: [
-                { id: 'project-fkh-apps-1', src: './img/login_page.jpg', caption: 'Login Page' },
-                { id: 'project-fkh-apps-2', src: './img/dashboard.jpg', caption: 'Dashboard Lecturer' },
+                { id: 'project-fkh-apps-1', src: './img/login_page.jpg' },
+                { id: 'project-fkh-apps-2', src: './img/dashboard.jpg' },
               ],
-              technologies: ['JavaScript', 'React JS', 'Laravel', 'MySQL', 'MDBootstrap'].map(this.techMeta)
+              technologies: ['JavaScript', 'React JS', 'Laravel', 'MySQL', 'MDBootstrap'],
             },
             {
+              key: 'kampungDesa',
               title: 'Kampung Desa',
-              tag: 'CLIENT PROJECT · 2019',
-              badge: 'Desa Cerdas',
               role: 'Fullstack Engineer',
               link: 'http://kampungcerdasbersahaja.com/',
-              desc: "I'm working as a fullstack developer, and this is my first time working with my team that I created in college. First time we met the clients and discuss the problems. The project can be seen at the link below.",
-              blocks: [
-                { text: "On July 27, 2019 I created a team of 5 members to build a software house that provides making a website and android apps. Desa Cerdas Bersahaja is our first project, this website used for the introduction of a new village for common purposes. I was assigned to be a full-stack engineer. This website has functionality like the following :" },
-                { items: [
-                  { text: 'Authentication with token' },
-                  { text: 'Create a post' },
-                  { text: 'Share a post via Whatsapp, Twitter, Facebook, and share as a link' },
-                ] },
-                { text: "There was a little problem on the process like clients need keep changing, miss-communication with the team. But finally we can manage it to finished it without problem." },
-                { text: "The project can be seen from the link below." },
-              ],
               images: [
-                { id: 'project-kampung-desa-1', src: './img/kampung%20desa.png', caption: 'Kampung Desa — Screenshot' },
+                { id: 'project-kampung-desa-1', src: './img/kampung%20desa.png' },
               ],
-              technologies: ['JavaScript', 'React JS', 'Express.js', 'Node.js', 'MongoDB', 'Bootstrap 4'].map(this.techMeta)
+              technologies: ['JavaScript', 'React JS', 'Express.js', 'Node.js', 'MongoDB', 'Bootstrap 4'],
             },
             {
+              key: 'ubox',
               title: 'Ubuntu Hub (U-BOX)',
-              tag: 'SDGs × DEEP TECH HACKATHON · 2021',
-              badge: '🥇 Grand Prize',
-              role: 'International Team — Indonesia × Nigeria',
+              role: L.ui.heroTeam,
               link: null,
-              desc: 'A deep dive into how U-BOX combined WLAN and blockchain to deliver offline-friendly access to online education — the project that won the Grand Prize at Japan Hackathon II.',
-              blocks: [
-                { text: 'U-BOX is a "blockchain-powered learning network" that uses WLAN and blockchain to make connectivity cheaper for children in developing countries who couldn’t reliably access the Internet.' },
-                { heading: 'How U-BOX Was Supposed to Work' },
-                { text: 'Think of it as bringing the Internet to the village, rather than requiring every child to have Internet.' },
-                { heading: 'The Problem' },
-                { text: 'The traditional model — student, then Internet, then educational website — breaks down in rural or low-income areas where broadband is expensive or unavailable. The goal was to provide offline access to online education in near-real time, without requiring each user to have a conventional Internet connection.' },
-                { heading: 'U-BOX Flips the Model' },
-                { diagram: '                Internet\n                   │\n             ┌─────▼─────┐\n             │   U-BOX   │\n             │    Hub    │\n             └─────┬─────┘\n                   │\n              Local WLAN\n          ┌────────┼────────┐\n          ▼        ▼        ▼\n       Student   Student  Student\n       device    device   device' },
-                { text: 'A U-BOX node/hub would be placed in or near an underserved community. It would pull educational content through an upstream Internet connection when available, then distribute that content over a local wireless network to nearby students — so one expensive connection could be shared instead of every student independently paying for their own high-bandwidth access.' },
-                { heading: 'Where Blockchain Comes In' },
-                { text: 'Blockchain wasn’t there to magically provide Internet access — its role was managing and coordinating the learning network. The flow was roughly: an Internet connection reaches U-BOX, which distributes it locally to students, while blockchain provides a decentralized mechanism for content and access management and transactions within the network.' },
-                { text: 'The Kyoto report characterizes U-BOX as a blockchain-powered learning network, and the hackathon’s official description identifies its core technologies as WLAN + blockchain.' },
-                { table: [
-                  { label: 'WLAN', desc: 'Physically connects students to the local U-BOX network' },
-                  { label: 'U-BOX', desc: 'Local gateway/node distributing educational resources' },
-                  { label: 'Blockchain', desc: 'Decentralized management and transaction layer' },
-                  { label: 'Internet', desc: 'Supplies content/connectivity to the hub when available' },
-                ] },
-                { heading: 'The Important Innovation' },
-                { text: 'The clever part wasn’t simply building an educational website — it was using one relatively cheap connection to serve an entire underserved community. Instead of 100 students each needing their own Internet connection, U-BOX made it closer to one community connection serving 100 students through a single hub. That’s why contemporary coverage described the project as bringing the Internet to underserved, unconnected regions rather than replacing it.' },
-              ],
               images: [],
-              technologies: ['WLAN', 'Blockchain'].map(this.techMeta)
+              technologies: ['WLAN', 'Blockchain'],
+            },
+            {
+              key: 'bizniz',
+              title: 'Bizniz',
+              role: 'Mobile Developer',
+              link: null,
+              images: [
+                { id: 'project-bizniz-1', src: './img/bizniz-ss1.png' },
+                { id: 'project-bizniz-2', src: './img/bizniz-ss2.png' },
+                { id: 'project-bizniz-3', src: './img/bizniz-ss3.png' },
+              ],
+              technologies: ['Flutter', 'Dart', 'Rive', 'flutter_animate', 'Firebase Auth', 'Cloud Firestore'],
             },
           ];
+          const baseProjects = projectMeta.map((p) => {
+            const copy = tp[p.key];
+            return {
+              title: p.title,
+              role: p.role,
+              link: p.link,
+              tag: copy.tag,
+              badge: copy.badge,
+              desc: copy.desc,
+              blocks: copy.blocks.map(this.toModalBlock),
+              images: p.images.map((im, i) => ({ ...im, caption: copy.captions[i] })),
+              technologies: p.technologies.map(this.techMeta),
+            };
+          });
 
           const hasOpenProject = openProject !== null && openProject !== undefined;
           const openProjectData = hasOpenProject ? baseProjects[openProject] : { title: '', tag: '', desc: '', blocks: [], role: '', link: null, images: [], technologies: [], badge: null };
-          const modalOrigins = ['30% 20%', '50% 30%', '70% 40%', '30% 50%', '50% 60%', '70% 70%', '50% 50%'];
+          const modalOrigins = ['30% 20%', '50% 30%', '70% 40%', '30% 50%', '50% 60%', '70% 70%', '50% 50%', '70% 20%'];
 
           // Modal screenshots — inline thumbnails that open a click-to-preview lightbox
           const thumbnails = (openProjectData.images || []).map((im) => ({
@@ -5751,7 +6114,7 @@
               baseId: 'drawing-amber',
               placeholder: 'Flying Under the Moon Light - Liyue Harbor',
               title: 'Flying Under the Moon Light',
-              tools: 'Genshin Impact · Procreate (8h)',
+              tools: L.artworkTools['drawing-amber'],
               tilt: -2,
               imgSrc: './img/amber.jpeg',
               thumbSrc: './img/thumbs/amber.jpeg'
@@ -5760,7 +6123,7 @@
               baseId: 'drawing-senja',
               placeholder: '花びらたちのマーチ (March of Petals)',
               title: '花びらたちのマーチ',
-              tools: 'March of Petals · Procreate (5h)',
+              tools: L.artworkTools['drawing-senja'],
               tilt: 2,
               imgSrc: './img/senja.jpg',
               thumbSrc: './img/thumbs/senja.jpg'
@@ -5769,7 +6132,7 @@
               baseId: 'drawing-comet',
               placeholder: 'Comet - 優しい彗星 (Beastars)',
               title: 'Comet - 優しい彗星',
-              tools: 'Beastars Study · iPad & Apple Pencil',
+              tools: L.artworkTools['drawing-comet'],
               tilt: -1.6,
               imgSrc: './img/yasashii-suishei.f1054ad3.jpeg',
               thumbSrc: './img/thumbs/yasashii-suishei.f1054ad3.jpeg'
@@ -5778,7 +6141,7 @@
               baseId: 'drawing-koshien',
               placeholder: "Let's go to the Koshien!! - 甲子園に夢を叶お！",
               title: "Let's go to the Koshien!!",
-              tools: 'Original Illustration · Apple Pencil',
+              tools: L.artworkTools['drawing-koshien'],
               tilt: 1.8,
               imgSrc: './img/koshien.jpg',
               thumbSrc: './img/thumbs/koshien.jpg'
@@ -5832,37 +6195,29 @@
           const aboutPaperCls = `paper-in ${isAboutRevealed ? 'is-in-view' : ''} ${calmModeCls}`;
           const isContactRevealed = !!revealed[4] || currentPage === 4;
           const contactPaperCls = `paper-in ${isContactRevealed ? 'is-in-view' : ''} ${calmModeCls}`;
-          const aboutParas = [
-            {
-              marginBottom: '14px',
-              lines: [
-                { text: "I'm a Software Engineer with over 5 years of experience building", dur: 570, steps: 34, delay: 200 },
-                { text: 'modern, scalable, and user-focused applications. Beyond writing', dur: 553, steps: 33, delay: 770 },
-                { text: "code, I'm passionate about creating experiences that blend", dur: 510, steps: 30, delay: 1323 },
-                { text: 'technology, creativity, and design.', dur: 306, steps: 18, delay: 1833 },
-              ],
-            },
-            {
-              marginBottom: 'clamp(20px,3.5vh,32px)',
-              lines: [
-                { text: 'Japan has always been a huge source of inspiration for me — I', dur: 536, steps: 32, delay: 2139 },
-                { text: 'admire its aesthetic, rich culture, breathtaking landscapes, and', dur: 561, steps: 33, delay: 2675 },
-                { text: 'blend of tradition and innovation. I believe the best products are', dur: 578, steps: 34, delay: 3236 },
-                { text: 'created where curiosity, creativity, and human connection come', dur: 544, steps: 32, delay: 3814 },
-                { text: 'together.', dur: 180, steps: 5, delay: 4358 },
-              ],
-            },
-          ];
-          // The hardcoded per-line fragments above are measured at desktop
-          // width; on a narrow viewport they'd each wrap onto a second line
-          // and reintroduce the very "multiple lines revealing at once" bug
-          // this was built to fix. Below the breakpoint, skip the line-split
-          // entirely and fade each full paragraph in as one block instead.
-          const aboutFullTexts = [
-            "I'm a Software Engineer with over 5 years of experience building modern, scalable, and user-focused applications. Beyond writing code, I'm passionate about creating experiences that blend technology, creativity, and design.",
-            'Japan has always been a huge source of inspiration for me — I admire its aesthetic, rich culture, breathtaking landscapes, and blend of tradition and innovation. I believe the best products are created where curiosity, creativity, and human connection come together.',
-          ];
-          const aboutContent = this.isSmallViewport
+          // Each line "writes" in with its own clip-path sweep, one after the
+          // other. Duration and step count scale with the line's length (~8.6ms
+          // and one step per ~2 characters, the pace the original hand-tuned
+          // timings used), and each line starts as the previous one finishes.
+          const paraMargins = ['14px', 'clamp(20px,3.5vh,32px)'];
+          let lineDelay = 200;
+          const aboutParas = (L.aboutLines || []).map((lines, pi) => ({
+            marginBottom: paraMargins[pi] || paraMargins[1],
+            lines: lines.map((text) => {
+              const dur = Math.max(180, Math.round(text.length * 8.6));
+              const line = { text, dur, steps: Math.max(5, Math.round(text.length / 1.95)), delay: lineDelay };
+              lineDelay += dur;
+              return line;
+            }),
+          }));
+          // The per-line fragments are measured for the English copy at
+          // desktop width; on a narrow viewport they'd each wrap onto a second
+          // line and reintroduce the very "multiple lines revealing at once"
+          // bug this was built to fix. Below the breakpoint — or in a language
+          // with no measured line split — skip the line-split entirely and
+          // fade each full paragraph in as one block instead.
+          const aboutFullTexts = L.aboutText || (L.aboutLines || []).map((lines) => lines.join(' '));
+          const aboutContent = (this.isSmallViewport || !L.aboutLines)
             ? aboutFullTexts.map((text, i) => ({
                 marginBottom: i === 0 ? '14px' : 'clamp(20px,3.5vh,32px)',
                 lines: [{
@@ -5883,12 +6238,7 @@
               }));
 
           // Real Facts from panjigemilang.vercel.app
-          const facts = [
-            { text: 'Now — Fullstack Developer at Opsigo (5+ Years)' },
-            { text: 'Created Haikal Management, Opsileave & Kane Kashite SaaS' },
-            { text: '2020 — Software Engineer at (有) ホーピング Hoping (Osaka, Japan)' },
-            { text: 'Digital illustration & cinematic visuals with Procreate & iPad' },
-          ];
+          const facts = L.facts.map((text) => ({ text }));
 
           // Dynamic 3D Page transformation calculations
           const getPageProps = (idx) => {
@@ -6009,12 +6359,17 @@
             page4Transition: p4.transition,
             page4PointerEvents: p4.pointerEvents,
 
+            // Language
+            t,
+            tp,
+            langItems,
+
             // Navigation & Page Curl Flip
             navItems,
             counterLabel: `${String(currentPage + 1).padStart(2, '0')} / ${String(this.navOrder.length).padStart(2, '0')}`,
             canPrev: currentPage > 0,
             cornerLabel: currentPage === this.navOrder.length - 1 ? '↺ cover' : 'flip ↗',
-            cornerTitle: currentPage === this.navOrder.length - 1 ? 'Return to Cover' : `Flip to ${this.navLabels[this.navOrder[currentPage + 1]] || 'Next Page'}`,
+            cornerTitle: currentPage === this.navOrder.length - 1 ? L.nav.cover : (L.nav[this.navOrder[currentPage + 1]] || ''),
             onCornerFlip: () => {
               if (currentPage === this.navOrder.length - 1) {
                 this.goToPage(0);
@@ -6036,6 +6391,7 @@
             openProject4: () => this.openProject(4),
             openProject5: () => this.openProject(5),
             openProject6: () => this.openProject(6),
+            openProject7: () => this.openProject(7),
 
             // Exhibition
             frames,

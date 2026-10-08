@@ -310,6 +310,42 @@ const idPortfolioTranslations = {
       src3: "Haikal Management System - Inventaris",
     },
   },
+  bizniz: {
+    title: "Bizniz",
+    job: "Mobile Developer",
+    description:
+      "Hitung dulu, baru buka. Bizniz mengubah rencana usaha menjadi angka yang bisa diputuskan: berapa dana yang dibutuhkan, berapa yang harus terjual per hari, kapan modal kembali, dan apakah rencananya layak dijalankan.",
+    descriptionOne:
+      "Bizniz adalah aplikasi kalkulator bisnis untuk usaha Makanan & Minuman, Retail, dan Jasa. Pengguna memasukkan modal, bahan, harga, dan biaya operasional, lalu aplikasi mengubahnya menjadi hasil kelayakan dan dashboard. Semua yang ditampilkan hanya berdasarkan angka yang benar-benar dimasukkan pengguna, tanpa asumsi tambahan. Tampilannya mengikuti gaya liquid-glass yang minimalis dan membulat dengan mode terang dan gelap. Didukung Firebase agar biaya operasional tetap nol. Saat ini dalam tahap beta untuk Android.",
+    functions: [
+      "Autentikasi dengan Firebase Auth",
+      "Perhitungan kelayakan dan keuntungan usaha sebelum dibuka",
+      "Mendukung usaha Makanan & Minuman, Retail, dan Jasa",
+      "Inventori bahan dengan jumlah dan harga",
+      "Penyusun resep menu dari bahan inventori",
+      "Stok per menu, diblokir jika inventori tidak mencukupi",
+      "Hasil kelayakan dan dashboard dari data nyata pengguna",
+      "Sinkronisasi cloud dengan Cloud Firestore",
+      "Mode terang dan gelap",
+    ],
+    descriptionTwo: "Aplikasi ini memiliki fungsionalitas sebagai berikut :",
+    technologyIntro:
+      "Proyek ini dibangun menggunakan bahasa pemrograman dan framework berikut : ",
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Rive",
+      "flutter_animate",
+      "Firebase Auth",
+      "Cloud Firestore",
+    ],
+    outro: "Proyek ini dapat dilihat dari tautan di bawah.",
+    imageCaptions: {
+      dashboard: "Halaman Cover & Splash",
+      sales: "Halaman Catat Penjualan",
+      form: "Halaman Hasil Kelayakan",
+    },
+  },
 }
 
 window.PORTFOLIO_TRANSLATIONS = window.PORTFOLIO_TRANSLATIONS || {}

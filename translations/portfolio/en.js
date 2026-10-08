@@ -218,7 +218,7 @@ const enPortfolioTranslations = {
     description:
       "This is an app for keeping track of your expenses for trips with friends! With this app, you can create trip groups and share outstanding trip payments to see how much money you're spending on the trip.",
     descriptionOne:
-      "\\I was thinking about an app that could track our expenses when going on a trip with friends. Often, either my friends or I would pay for expenses first, and it can be difficult to remember who is lending or borrowing money. I thought of an app that could help us keep track of shared expenses and outstanding payments, as well as show how much money we are spending on the trip overall.",
+      "I was thinking about an app that could track our expenses when going on a trip with friends. Often, either my friends or I would pay for expenses first, and it can be difficult to remember who is lending or borrowing money. I thought of an app that could help us keep track of shared expenses and outstanding payments, as well as show how much money we are spending on the trip overall.",
     functions: [
       "User can Create, Read, Update, Delete Trip or group Trips",
       "User can split bill based on bills receipt (manually)",
@@ -226,7 +226,7 @@ const enPortfolioTranslations = {
       "Make your trip to be noted everywhere and anywhere!",
     ],
     descriptionTwo:
-      "\\It's really helpful for us as we going to a lot of trips together! It's not even a trip, sometimes just paying someones food or drinks, or even just a movie or concert ticket. It's just a simple app that can help us keep track of our expenses and make it easier to share the cost of the trip.",
+      "It's really helpful for us as we going to a lot of trips together! It's not even a trip, sometimes just paying someones food or drinks, or even just a movie or concert ticket. It's just a simple app that can help us keep track of our expenses and make it easier to share the cost of the trip.",
     technologyIntro:
       "This project was built using the following programming languages and frameworks : ",
     technologies: [
@@ -237,7 +237,7 @@ const enPortfolioTranslations = {
       "UI Shadcn",
     ],
     outro:
-      "\\It's a lot of funs to make this app as I progress to keep expanding the needed features, there could be more features in the future!",
+      "It's a lot of funs to make this app as I progress to keep expanding the needed features, there could be more features in the future!",
     imageCaptions: {
       src: "Kane Kashite - Split Bill App",
       src2: "Kane Kashite - Add Trip Item",
@@ -250,8 +250,8 @@ const enPortfolioTranslations = {
     description:
       "This is application for my company leave management system. I made this to test my skills and to make it easier for my company to manage employees leave. Currently we don't have some reliable leave management system to manage our leaves, and sometimes it's miss and we have to do note it manually.",
     descriptionOne:
-      "\\Opsileave is application for my company leave management system. Currently there's no dedicated leave management system to manage employees leave, so I made this app to make it easier for my company to manage employees leave. I also added calendar feature to make it easier for employees to see their leave history and work colleagues leaves.",
-    descriptionTwo: "\\The core functions is described as below:",
+      "Opsileave is application for my company leave management system. Currently there's no dedicated leave management system to manage employees leave, so I made this app to make it easier for my company to manage employees leave. I also added calendar feature to make it easier for employees to see their leave history and work colleagues leaves.",
+    descriptionTwo: "The core functions is described as below:",
     functions: [
       "User has 2 roles, Admin and Employee",
       "Admin can add, update, delete and read leave & manage employees",
@@ -271,7 +271,7 @@ const enPortfolioTranslations = {
       "UI Shadcn",
     ],
     outro:
-      "\\Building this leave and employee management application gave me the opportunity to create a solution that directly supports both employees and management by improving efficiency and clarity in leave tracking. This experience further strengthened my development skills, and I’m excited to continue delivering meaningful, high-impact systems in future projects.",
+      "Building this leave and employee management application gave me the opportunity to create a solution that directly supports both employees and management by improving efficiency and clarity in leave tracking. This experience further strengthened my development skills, and I’m excited to continue delivering meaningful, high-impact systems in future projects.",
     imageCaptions: {
       src: "Opsileave - Leave Management System",
       src2: "Opsileave - Admin Dashboard",
@@ -284,9 +284,9 @@ const enPortfolioTranslations = {
     description:
       "This is application for Shops Management Report. I made this to report, calculate revenues and keep tracking of my mothers-in-law businesses.",
     descriptionOne:
-      "\\I built this system to support the management of my mother-in-law’s businesses by transforming manual tracking and scattered records into a structured and reliable digital solution. Because she never keep track of her business, I made this system to help her to keep track of her business and calculate how much money she has spent and how much money she has earned.",
+      "I built this system to support the management of my mother-in-law’s businesses by transforming manual tracking and scattered records into a structured and reliable digital solution. Because she never keep track of her business, I made this system to help her to keep track of her business and calculate how much money she has spent and how much money she has earned.",
     descriptionTwo:
-      "\\Haikal Management System serves as a practical, real-world solution focused on efficiency, clarity, and ease of use. Through this project, I applied my development skills to solve a genuine business need, creating a system that can be helpful for anyone with simple business needs. The core functions is described as below:",
+      "Haikal Management System serves as a practical, real-world solution focused on efficiency, clarity, and ease of use. Through this project, I applied my development skills to solve a genuine business need, creating a system that can be helpful for anyone with simple business needs. The core functions is described as below:",
     functions: [
       "User can registered only with invitation code for security",
       "User can create, update, delete and read shops, expenses, transactions, and inventories.",
@@ -303,11 +303,46 @@ const enPortfolioTranslations = {
       "UI Shadcn",
     ],
     outro:
-      "\\This project was built from a genuine desire to help my mother-in-law better understand and manage her businesses. I aimed to give her clear visibility into her expenses, earnings, and overall performance. I hope this project reflects my commitment to using my skills to solve real problems and create meaningful, practical solutions that truly help the people around me.",
+      "This project was built from a genuine desire to help my mother-in-law better understand and manage her businesses. I aimed to give her clear visibility into her expenses, earnings, and overall performance. I hope this project reflects my commitment to using my skills to solve real problems and create meaningful, practical solutions that truly help the people around me.",
     imageCaptions: {
       src: "Haikal Management System - Shops Management Report",
       src2: "Haikal Management System - Dashboard",
       src3: "Haikal Management System - Inventories",
+    },
+  },
+  bizniz: {
+    title: "Bizniz",
+    job: "Mobile Developer",
+    description:
+      "Bizniz is a mobile app that helps aspiring business owners calculate feasibility and projected profit before they open a business.",
+    descriptionOne:
+      "Bizniz is a business calculator app for Food & Beverages, Retail, and Services. Users enter their capital, ingredients, prices, and operating costs, and the app turns them into a feasibility result and dashboards. Everything shown is based only on the numbers the user actually entered, with no added assumptions. The interface follows a minimalist, rounded liquid-glass style with light and dark modes. Powered by Firebase to keep running costs at zero. Currently in beta for Android.",
+    functions: [
+      "Authentication with Firebase Auth",
+      "Business feasibility and profit calculation before opening",
+      "Support for Food & Beverages, Retail, and Services businesses",
+      "Ingredient inventory with quantity and price",
+      "Menu recipe builder from inventory ingredients",
+      "Stock per menu, blocked when inventory is insufficient",
+      "Feasibility result and dashboards from real user data",
+      "Cloud sync with Cloud Firestore",
+    ],
+    descriptionTwo: "This app has functionality like the following :",
+    technologyIntro:
+      "This project was built using the following programming languages and frameworks : ",
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Rive",
+      "flutter_animate",
+      "Firebase Auth",
+      "Cloud Firestore",
+    ],
+    outro: "The project can be seen from the link below.",
+    imageCaptions: {
+      dashboard: "Cover & Splash Screen",
+      sales: "Sales Record Page",
+      form: "Feasibility Result Page",
     },
   },
 }
