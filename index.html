@@ -1042,15 +1042,90 @@
             box-shadow: 0 24px 50px oklch(0.20 0.014 85 / 0.22) !important;
           }
           @media (max-width: 960px) {
+            .book-page-leaf:first-child .leaf-face-front {
+              padding-bottom: 0 !important;
+              overflow-y: hidden !important;
+            }
+            .cover-page-inner {
+              height: 100% !important;
+              min-height: 100% !important;
+              max-height: 100% !important;
+              box-sizing: border-box !important;
+              padding-top: clamp(54px, 7vh, 72px) !important;
+              padding-bottom: clamp(62px, 8vh, 72px) !important;
+              justify-content: flex-start !important;
+            }
+            .cover-header-stamp {
+              display: none !important;
+            }
             .cover-hero-layout {
               flex-direction: column !important;
               align-items: flex-start !important;
-              gap: 36px !important;
+              gap: 8px !important;
             }
             .cover-polaroid-container {
-              align-self: center !important;
+              order: -1 !important;
+              align-self: flex-end !important;
               margin: 12px auto 16px !important;
+              padding: 0 !important;
             }
+            .cover-polaroid-card {
+              width: clamp(140px, 38vw, 175px) !important;
+              padding: 8px 8px 11px 8px !important;
+              transform: rotate(2.8deg) !important;
+              --rest-rot: 2.8deg !important;
+              box-shadow: 0 10px 24px oklch(0.20 0.014 85 / 0.15), 0 2px 6px oklch(0.20 0.014 85 / 0.08) !important;
+            }
+            .cover-polaroid-card .washi-tape-yellow {
+              width: 62px !important;
+              height: 19px !important;
+              top: -8px !important;
+            }
+            .cover-polaroid-caption {
+              font-size: 16px !important;
+            }
+            .cover-polaroid-badge {
+              font-size: 9.5px !important;
+            }
+            .cover-lead-text {
+              margin-top: clamp(10px, 1.8vh, 16px) !important;
+              font-size: clamp(14px, 1.6vw, 17px) !important;
+              line-height: 1.45 !important;
+            }
+            .cover-cta-group {
+              margin-top: clamp(14px, 2.4vh, 24px) !important;
+              gap: 10px !important;
+            }
+            @media (max-height: 600px) {
+              .book-page-leaf:first-child .leaf-face-front {
+                overflow-y: auto !important;
+              }
+              .cover-page-inner {
+                height: auto !important;
+                min-height: 100% !important;
+                max-height: none !important;
+              }
+            }
+          }
+
+          /* Touch scrolling enablement on image slots */
+          image-slot {
+            touch-action: pan-y !important;
+          }
+          image-slot::part(frame),
+          image-slot::part(image) {
+            touch-action: pan-y !important;
+          }
+
+          /* When modal expand card or lightbox is open, freeze outer page scroll */
+          .book-stage.has-modal-open .leaf-face {
+            overflow: hidden !important;
+            touch-action: none !important;
+            pointer-events: none !important;
+          }
+          .book-stage.has-modal-open .bottom-nav-bar,
+          .book-stage.has-modal-open .top-pill-nav {
+            pointer-events: none !important;
           }
         </style>
         <link rel="stylesheet" href="./peel.css" />
@@ -1424,9 +1499,9 @@
               class="leaf-face leaf-face-front ruled-paper"
             >
               <div
+                class="cover-page-inner"
                 style="
                   min-height: 100vh;
-                  min-height: 100dvh;
                   position: relative;
                   display: flex;
                   flex-direction: column;
@@ -1437,6 +1512,7 @@
               >
                 <!-- Notebook Header Stamp -->
                 <div
+                  class="cover-header-stamp"
                   style="
                     position: absolute;
                     top: clamp(75px, 11vh, 95px);
@@ -1524,6 +1600,7 @@
                     </h1>
 
                     <p
+                      class="cover-lead-text"
                       style="
                         margin: clamp(20px, 3.5vh, 32px) 0 0;
                         max-width: 44ch;
@@ -1546,6 +1623,7 @@
                     </p>
 
                     <div
+                      class="cover-cta-group"
                       style="
                         display: flex;
                         align-items: center;
@@ -1692,6 +1770,7 @@
                         "
                       >
                         <span
+                          class="cover-polaroid-caption"
                           style="
                             font-family: &quot;Caveat&quot;, cursive;
                             font-size: 21px;
@@ -1704,6 +1783,7 @@
                           Panji Gemilang
                         </span>
                         <span
+                          class="cover-polaroid-badge"
                           style="
                             font-family: &quot;IBM Plex Mono&quot;, monospace;
                             font-size: 11px;
@@ -6136,18 +6216,18 @@
         <sc-if value="{{ hasOpenProject }}" hint-placeholder-val="{{ false }}">
           <div
             onClick="{{ closeProject }}"
-            style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px)"
+            style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px);touch-action:none;overscroll-behavior:contain"
           >
             <!-- Backdrop fades with opacity on its own layer; transitioning
                  the container's background colour repainted the whole
                  screen on every frame of the open/close. -->
             <div
-              style="position:absolute;inset:0;background:oklch(0.20 0.014 85 / 0.55);opacity:{{ modalBackdropOpacity }};transition:opacity {{ modalDuration }} cubic-bezier(0.22,1,0.36,1)"
+              style="position:absolute;inset:0;background:oklch(0.20 0.014 85 / 0.55);opacity:{{ modalBackdropOpacity }};transition:opacity {{ modalDuration }} cubic-bezier(0.22,1,0.36,1);touch-action:none"
             ></div>
             <div
               onClick="{{ stopPropagation }}"
               class="paper-scroll"
-              style="position:relative;width:min(900px,100%);max-height:88vh;overflow-y:auto;background:oklch(0.99 0.008 88);border-radius:14px;box-shadow:0 40px 80px oklch(0.20 0.014 85 / 0.35);opacity:{{ modalOpacity }};transform:{{ modalTransform }};transform-origin:{{ modalOrigin }};transition:opacity {{ modalDuration }} cubic-bezier(0.22,1,0.36,1), transform {{ modalDuration }} cubic-bezier(0.22,1,0.36,1);border:1px solid oklch(0.85 0.02 85)"
+              style="position:relative;width:min(900px,100%);max-height:88vh;overflow-y:auto;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:oklch(0.99 0.008 88);border-radius:14px;box-shadow:0 40px 80px oklch(0.20 0.014 85 / 0.35);opacity:{{ modalOpacity }};transform:{{ modalTransform }};transform-origin:{{ modalOrigin }};transition:opacity {{ modalDuration }} cubic-bezier(0.22,1,0.36,1), transform {{ modalDuration }} cubic-bezier(0.22,1,0.36,1);border:1px solid oklch(0.85 0.02 85)"
             >
               <button
                 onClick="{{ closeProject }}"
@@ -7473,7 +7553,7 @@
 
         // Silky Smooth Natural Scroll Handling
         onWheel = (e) => {
-          if (this.state.openProject !== null || this.state.isFlipping) return;
+          if (this.state.openProject !== null || this.state.lightbox || this.state.isFlipping) return;
           const curScrollEl = this.pageScrollEls[this.state.currentPage];
           if (curScrollEl) {
             const isScrollable = curScrollEl.scrollHeight > curScrollEl.clientHeight + 15;
@@ -7505,7 +7585,7 @@
           this.touchStartX = e.touches[0].clientX;
         };
         onTouchEnd = (e) => {
-          if (!e.changedTouches || !e.changedTouches[0] || this.state.isFlipping) return;
+          if (!e.changedTouches || !e.changedTouches[0] || this.state.isFlipping || this.state.openProject !== null || this.state.lightbox) return;
           const dy = e.changedTouches[0].clientY - this.touchStartY;
           const dx = e.changedTouches[0].clientX - this.touchStartX;
           const curScrollEl = this.pageScrollEls[this.state.currentPage];
@@ -7557,13 +7637,21 @@
         copyPhone = () => this.copyValue('+62 8958 0111 1085', 'phone');
 
         openProject = (index) => {
+          const curScrollEl = this.pageScrollEls[this.state.currentPage];
+          this._savedScrollTop = curScrollEl ? curScrollEl.scrollTop : 0;
           this.setState({ openProject: index, modalVisible: false, lightbox: null });
           requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ modalVisible: true })));
         };
         closeProject = () => {
           this.setState({ modalVisible: false, lightbox: null });
           clearTimeout(this._mt);
-          this._mt = setTimeout(() => this.setState({ openProject: null }), 300);
+          this._mt = setTimeout(() => {
+            this.setState({ openProject: null });
+            const curScrollEl = this.pageScrollEls[this.state.currentPage];
+            if (curScrollEl && this._savedScrollTop !== undefined) {
+              curScrollEl.scrollTop = this._savedScrollTop;
+            }
+          }, 300);
         };
         stopPropagation = (e) => { e.stopPropagation(); };
 
@@ -8054,8 +8142,12 @@
           };
 
           // Leaves are only worth promoting to their own GPU layers while a
-          // turn is actually in flight.
-          const stageCls = isFlipping ? 'is-flipping' : '';
+          // turn is actually in flight. When a modal or lightbox is open,
+          // freeze outer leaf scrolling.
+          const stageCls = [
+            isFlipping ? 'is-flipping' : '',
+            (hasOpenProject || hasLightbox) ? 'has-modal-open' : '',
+          ].filter(Boolean).join(' ');
 
           const p0 = getPageProps(0);
           const p1 = getPageProps(1);
