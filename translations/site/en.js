@@ -13,7 +13,7 @@ window.SITE_TRANSLATIONS.en = {
     splashOpening: "opening the notebook",
     splashSub: "a little portfolio, well-loved",
     coverStamp: "PAGE 01 · COVER",
-    coverKicker: "Software Engineer & Builder",
+    coverKicker: "Software Engineer & Mobile Dev",
     coverYears: "5+ years",
     coverLead: "building modern, scalable, and user-focused applications — frontend precision by trade, robust systems by curiosity.",
     coverCtaWork: "Open Project Timeline",

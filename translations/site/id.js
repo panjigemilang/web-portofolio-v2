@@ -13,7 +13,7 @@ window.SITE_TRANSLATIONS.id = {
     splashOpening: "membuka buku catatan",
     splashSub: "portofolio kecil, penuh cinta",
     coverStamp: "HALAMAN 01 · SAMPUL",
-    coverKicker: "Software Engineer & Builder",
+    coverKicker: "Software Engineer & Mobile Dev",
     coverYears: "5+ tahun",
     coverLead: "membangun aplikasi yang modern, skalabel, dan berfokus pada pengguna — presisi frontend sebagai keahlian, sistem yang andal karena rasa ingin tahu.",
     coverCtaWork: "Buka Linimasa Proyek",

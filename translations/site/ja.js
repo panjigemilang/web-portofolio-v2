@@ -13,7 +13,7 @@ window.SITE_TRANSLATIONS.ja = {
     splashOpening: "ノートを開いています",
     splashSub: "大切に綴った、小さなポートフォリオ",
     coverStamp: "PAGE 01 · 表紙",
-    coverKicker: "ソフトウェアエンジニア & ビルダー",
+    coverKicker: "ソフトウェアエンジニア & モバイルデベロッパー",
     coverYears: "5年以上",
     coverLead: "モダンでスケーラブル、ユーザー中心のアプリケーションを開発 — 本業はフロントエンドの精度、好奇心から堅牢なシステムまで。",
     coverCtaWork: "プロジェクト年表を開く",
