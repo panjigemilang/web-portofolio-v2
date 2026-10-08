@@ -89,44 +89,47 @@
              tilt instead of flattening it to 0deg. .calm-mode is added
              instead of .is-in-view when calmMode/reduced-motion is active,
              short-circuiting straight to the resting state. */
+          /* No will-change here: a running transform/opacity animation is
+             promoted to its own layer automatically for exactly as long as it
+             runs. Left on in the stylesheet it pinned ~15 layers for the
+             life of the page and made every scrolled frame re-layerize. */
           .reveal-card,
           .reveal-note {
             opacity: 0;
-            will-change: transform, opacity;
           }
           .reveal-text-block h3,
           .reveal-text-block p {
             opacity: 0;
-            transform: translateY(18px);
+            transform: translateY(12px);
             transition:
-              opacity 0.6s ease 0.78s,
-              transform 0.6s ease 0.78s;
+              opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.28s;
           }
           .reveal-row.is-in-view .reveal-text-block h3,
           .reveal-row.is-in-view .reveal-text-block p {
             opacity: 1;
             transform: translateY(0);
           }
-          /* Project rows hold for ~0.5s after crossing the threshold before
-             anything moves, then swing up from well below the line (see
-             worksPop*) — the pause lets the reader arrive at the row first,
-             so the card lands as a beat rather than racing the scroll. The
-             Gallery keeps the shorter, tighter paperPop* pair below. */
+          /* Project rows: card first, then its sticky note, then the text
+             (~80ms apart) — a short settle from just below the line with a
+             soft ease-out landing, no overshoot. Starting almost as soon as
+             the row crosses the threshold keeps the page from sitting empty
+             and then popping, which is what read as a "jump". */
           .reveal-row.is-in-view .reveal-card.reveal-l {
-            animation: worksPopLeft 0.95s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              0.5s forwards;
+            animation: worksPopLeft 0.62s cubic-bezier(0.22, 1, 0.36, 1)
+              0.06s forwards;
           }
           .reveal-row.is-in-view .reveal-card.reveal-r {
-            animation: worksPopRight 0.95s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              0.5s forwards;
+            animation: worksPopRight 0.62s cubic-bezier(0.22, 1, 0.36, 1)
+              0.06s forwards;
           }
           .reveal-row.is-in-view .reveal-note.reveal-l {
-            animation: worksPopLeft 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              0.66s forwards;
+            animation: worksPopLeft 0.56s cubic-bezier(0.22, 1, 0.36, 1)
+              0.14s forwards;
           }
           .reveal-row.is-in-view .reveal-note.reveal-r {
-            animation: worksPopRight 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.1)
-              0.66s forwards;
+            animation: worksPopRight 0.56s cubic-bezier(0.22, 1, 0.36, 1)
+              0.14s forwards;
           }
           .reveal-row.calm-mode .reveal-card,
           .reveal-row.calm-mode .reveal-note,
@@ -138,24 +141,15 @@
             transition: none !important;
           }
 
-          /* Same shape as paperPop*, but with a much longer vertical travel
-             (86px up from below instead of a 28px drop) so the delayed
-             entrance still reads as motion once the row is already on
-             screen. */
+          /* Paper settling onto the page: a small rise (24px max) with a
+             slight leftover tilt that eases out into the element's own
+             resting angle. Two keyframes only — the old wobble passes read
+             as the card bouncing rather than landing. */
           @keyframes worksPopLeft {
             0% {
               opacity: 0;
-              transform: translate(-48px, 86px)
-                rotate(calc(var(--rest-rot, 0deg) - 6deg));
-            }
-            55% {
-              opacity: 1;
-              transform: translate(5px, -7px)
-                rotate(calc(var(--rest-rot, 0deg) + 1.4deg));
-            }
-            76% {
-              transform: translate(-3px, 3px)
-                rotate(calc(var(--rest-rot, 0deg) - 0.5deg));
+              transform: translate(-10px, 24px)
+                rotate(calc(var(--rest-rot, 0deg) - 1.5deg));
             }
             100% {
               opacity: 1;
@@ -165,17 +159,8 @@
           @keyframes worksPopRight {
             0% {
               opacity: 0;
-              transform: translate(48px, 86px)
-                rotate(calc(var(--rest-rot, 0deg) + 6deg));
-            }
-            55% {
-              opacity: 1;
-              transform: translate(-5px, -7px)
-                rotate(calc(var(--rest-rot, 0deg) - 1.4deg));
-            }
-            76% {
-              transform: translate(3px, 3px)
-                rotate(calc(var(--rest-rot, 0deg) + 0.5deg));
+              transform: translate(10px, 24px)
+                rotate(calc(var(--rest-rot, 0deg) + 1.5deg));
             }
             100% {
               opacity: 1;
@@ -186,17 +171,8 @@
           @keyframes paperPopLeft {
             0% {
               opacity: 0;
-              transform: translate(-66px, -28px)
-                rotate(calc(var(--rest-rot, 0deg) - 6deg));
-            }
-            55% {
-              opacity: 1;
-              transform: translate(6px, 5px)
-                rotate(calc(var(--rest-rot, 0deg) + 1.4deg));
-            }
-            76% {
-              transform: translate(-3px, -2px)
-                rotate(calc(var(--rest-rot, 0deg) - 0.5deg));
+              transform: translate(-10px, -14px)
+                rotate(calc(var(--rest-rot, 0deg) - 1.5deg));
             }
             100% {
               opacity: 1;
@@ -206,17 +182,8 @@
           @keyframes paperPopRight {
             0% {
               opacity: 0;
-              transform: translate(66px, -28px)
-                rotate(calc(var(--rest-rot, 0deg) + 6deg));
-            }
-            55% {
-              opacity: 1;
-              transform: translate(-6px, 5px)
-                rotate(calc(var(--rest-rot, 0deg) - 1.4deg));
-            }
-            76% {
-              transform: translate(3px, -2px)
-                rotate(calc(var(--rest-rot, 0deg) + 0.5deg));
+              transform: translate(10px, -14px)
+                rotate(calc(var(--rest-rot, 0deg) + 1.5deg));
             }
             100% {
               opacity: 1;
@@ -233,11 +200,10 @@
              skips the lift, the confetti and the sound entirely. */
           .hero-banner {
             opacity: 0;
-            transform: translateY(52px) scale(0.962);
-            will-change: transform, opacity;
+            transform: translateY(20px) scale(0.98);
           }
           .hero-banner.is-in-view {
-            animation: heroBannerIn 0.88s cubic-bezier(0.22, 0.9, 0.32, 1.06)
+            animation: heroBannerIn 0.7s cubic-bezier(0.22, 1, 0.36, 1)
               forwards;
           }
           .hero-banner.calm-mode {
@@ -248,11 +214,7 @@
           @keyframes heroBannerIn {
             0% {
               opacity: 0;
-              transform: translateY(52px) scale(0.962);
-            }
-            62% {
-              opacity: 1;
-              transform: translateY(-6px) scale(1.008);
+              transform: translateY(20px) scale(0.98);
             }
             100% {
               opacity: 1;
@@ -375,12 +337,12 @@
             opacity: 0;
           }
           .exhibit-track.is-in-view .gallery-thread {
-            animation: threadStretch 0.6s cubic-bezier(0.3, 1.4, 0.4, 1)
+            animation: threadStretch 0.5s cubic-bezier(0.22, 1, 0.36, 1)
               forwards;
             animation-delay: var(--enter-delay, 0s);
           }
           .exhibit-track.is-in-view .gallery-card {
-            animation: paperPopRight 0.85s cubic-bezier(0.22, 0.9, 0.32, 1.1)
+            animation: paperPopRight 0.6s cubic-bezier(0.22, 1, 0.36, 1)
               forwards;
             animation-delay: calc(var(--enter-delay, 0s) + 0.12s);
           }
@@ -397,9 +359,6 @@
             0% {
               transform: scaleY(0);
             }
-            70% {
-              transform: scaleY(1.15);
-            }
             100% {
               transform: scaleY(1);
             }
@@ -411,13 +370,8 @@
           @keyframes paperCalmIn {
             0% {
               opacity: 0;
-              transform: translateY(26px)
-                rotate(calc(var(--rest-rot, 0deg) - 1deg));
-            }
-            70% {
-              opacity: 1;
-              transform: translateY(-4px)
-                rotate(calc(var(--rest-rot, 0deg) + 0.3deg));
+              transform: translateY(16px)
+                rotate(calc(var(--rest-rot, 0deg) - 0.6deg));
             }
             100% {
               opacity: 1;
@@ -428,7 +382,7 @@
             opacity: 0;
           }
           .paper-in.is-in-view {
-            animation: paperCalmIn 0.9s cubic-bezier(0.22, 0.9, 0.32, 1.05)
+            animation: paperCalmIn 0.6s cubic-bezier(0.22, 1, 0.36, 1)
               forwards;
           }
           .paper-in.calm-mode {
@@ -826,15 +780,15 @@
             height: 0;
           }
 
-          /* Dynamic Ruled Lines: attached locally so lines scroll with content */
-          .ruled-paper {
-            /* A plain (non-repeating) gradient tiled via background-size lets
-               Chromium repeat it with ordinary background-repeat instead of
-               computing one giant gradient across the full scroll height —
-               the latter drops rows of lines after scrolling tall
-               .leaf-face content (background-attachment: local + a huge
-               repeating-linear-gradient is a known Chromium rasterization
-               bug). */
+          /* Ruled lines that scroll with the content. They're painted on
+             the page's single full-height content wrapper rather than on the
+             scroller with background-attachment: local — a local background
+             is repainted on every scrolled frame, while a child's background
+             is rasterized once into the scrolling layer and just moves.
+             A plain (non-repeating) gradient tiled via background-size, not
+             one giant repeating-linear-gradient, which Chromium drops rows
+             of over a tall scroll height. */
+          .ruled-paper > * {
             background-image: linear-gradient(
               to bottom,
               transparent 0px,
@@ -843,7 +797,6 @@
               oklch(0.8 0.02 85 / 0.45) 56px
             );
             background-size: 100% 56px;
-            background-attachment: local;
           }
 
           .leaf-face-front {
@@ -863,7 +816,6 @@
               oklch(0.82 0.02 85 / 0.35) 56px
             );
             background-size: 100% 56px;
-            background-attachment: local;
             box-shadow:
               inset -14px 0 22px -8px oklch(0.2 0.014 85 / 0.12),
               -6px 0 35px oklch(0.2 0.014 85 / 0.09);
@@ -890,7 +842,6 @@
             height: 22px;
             background: oklch(0.88 0.14 94 / 0.85);
             box-shadow: 0 1px 4px oklch(0.2 0.014 85 / 0.16);
-            backdrop-filter: blur(1px);
             z-index: 10;
             pointer-events: none;
             border-radius: 1px;
@@ -901,7 +852,6 @@
             height: 22px;
             background: oklch(0.65 0.14 250 / 0.75);
             box-shadow: 0 1px 4px oklch(0.2 0.014 85 / 0.16);
-            backdrop-filter: blur(1px);
             z-index: 10;
             pointer-events: none;
             border-radius: 1px;
@@ -929,10 +879,36 @@
             width: 40px;
             height: 14px;
             background: oklch(0.88 0.04 90 / 0.7);
-            backdrop-filter: blur(1px);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
             border-radius: 1px;
             pointer-events: none;
+          }
+
+          /* Portfolio parallax, driven by the page's own scroll on the
+             compositor (scroll-driven animation) — no JS runs while
+             scrolling. From 22px up as an image enters at the bottom to 22px
+             down as it leaves at the top, matching the old JS drift.
+             Browsers without view timelines fall back to the batched JS
+             version in updateParallax. Added by registerParallaxEl only when
+             motion is allowed. */
+          @keyframes parallaxDrift {
+            from {
+              transform: translateY(-22px);
+            }
+            to {
+              transform: translateY(22px);
+            }
+          }
+          .parallax-drift {
+            animation: parallaxDrift linear both;
+            animation-timeline: view();
+          }
+
+          /* The page-turn snapshot is static for the whole curl: keep it on
+             its own layer so each frame only re-clips it instead of
+             repainting a full page of cards, shadows and images. */
+          .peel-snapshot {
+            will-change: transform;
           }
 
           .project-card {
@@ -1421,7 +1397,7 @@
           <!-- ==================== LEAF 0: COVER ==================== -->
           <div
             class="book-page-leaf"
-            style="transform:{{ page0Transform }};z-index:{{ page0ZIndex }};transition:{{ page0Transition }};pointer-events:{{ page0PointerEvents }}"
+            style="transform:{{ page0Transform }};z-index:{{ page0ZIndex }};transition:{{ page0Transition }};pointer-events:{{ page0PointerEvents }};visibility:{{ page0Visibility }}"
           >
             <!-- FRONT FACE: Cover Page with Dynamic Ruled Paper -->
             <div
@@ -1654,7 +1630,7 @@
           <!-- ==================== LEAF 1: SELECTED WORK (REAL PROJECTS FROM PANJIGEMILANG.VERCEL.APP) ==================== -->
           <div
             class="book-page-leaf"
-            style="transform:{{ page1Transform }};z-index:{{ page1ZIndex }};transition:{{ page1Transition }};pointer-events:{{ page1PointerEvents }}"
+            style="transform:{{ page1Transform }};z-index:{{ page1ZIndex }};transition:{{ page1Transition }};pointer-events:{{ page1PointerEvents }};visibility:{{ page1Visibility }}"
           >
             <!-- FRONT FACE: Selected Work with Dynamic Ruled Paper -->
             <div
@@ -3233,7 +3209,505 @@
                     </div>
                   </div>
 
-                  <!-- PROJECT 5: FKH APPS (2020 - Visual Left, Narrative Right) -->
+                  <!-- PROJECT: INI DIA LO (2020 - Visual Left, Narrative Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
+                      position: relative;
+                    "
+                  >
+                    <!-- Mockup Card with Yellow Washi Tape -->
+                    <div
+                      class="project-card reveal-card reveal-l"
+                      style="
+                        flex: 1 1 340px;
+                        min-width: 280px;
+                        position: relative;
+                        transform: rotate(-1.5deg);
+                        --rest-rot: -1.5deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-yellow"
+                        style="
+                          width: 75px;
+                          top: -10px;
+                          left: 24px;
+                          transform: rotate(-3deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: oklch(0.99 0.006 88);
+                          border: 1px solid oklch(0.86 0.02 85);
+                        "
+                      >
+                        <image-slot
+                          id="project-inidialo"
+                          ref="{{ registerParallaxEl }}"
+                          placeholder="Ini Dia Lo — Personal Blog"
+                          src="./img/Blog%20kita-cropped.jpg"
+                          shape="rounded"
+                          radius="10"
+                          style="
+                            width: 100%;
+                            aspect-ratio: 16/10;
+                            display: block;
+                          "
+                        ></image-slot>
+                        <button
+                          onClick="{{ openProject8 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          "
+                        >
+                          {{ t.expand }} &#8599;
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-r"
+                        style="
+                          background: oklch(0.93 0.1 75);
+                          transform: rotate(-2.5deg);
+                          border: 1px solid oklch(0.87 0.08 72);
+                          --rest-rot: -2.5deg;
+                        "
+                      >
+                        <div class="sticky-tape-strip"></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2020</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.48 0.06 75);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.iniDiaLo.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        Ini Dia Lo
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.iniDiaLo.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Vue.js</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Laravel</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >MySQL</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >JavaScript</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Fullstack Developer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject8 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT: BOLEH DICOBA DIGITAL (2020 - Narrative Left, Visual Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap-reverse;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
+                      position: relative;
+                    "
+                  >
+                    <!-- Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-l"
+                        style="
+                          background: oklch(0.92 0.09 190);
+                          transform: rotate(2deg);
+                          border: 1px solid oklch(0.86 0.07 190);
+                          --rest-rot: 2deg;
+                        "
+                      >
+                        <div
+                          class="sticky-tape-strip"
+                          style="background: oklch(0.82 0.06 190 / 0.7)"
+                        ></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2020</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.42 0.06 190);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.bolehDicobaDigital.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        Boleh Dicoba Digital
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.bolehDicobaDigital.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >CodeIgniter</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >PHP</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >MySQL</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Bootstrap</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >JavaScript</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Fullstack Developer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject9 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Mockup Card with Blue Washi Tape -->
+                    <div
+                      class="project-card reveal-card reveal-r"
+                      style="
+                        flex: 1 1 340px;
+                        min-width: 280px;
+                        position: relative;
+                        transform: rotate(1.4deg);
+                        --rest-rot: 1.4deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-blue"
+                        style="
+                          width: 75px;
+                          top: -10px;
+                          right: 24px;
+                          transform: rotate(4deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: oklch(0.99 0.006 88);
+                          border: 1px solid oklch(0.86 0.02 85);
+                        "
+                      >
+                        <image-slot
+                          id="project-bdd"
+                          ref="{{ registerParallaxEl }}"
+                          placeholder="Boleh Dicoba Digital — Company Profile"
+                          src="./img/bdd.jpg"
+                          shape="rounded"
+                          radius="10"
+                          style="
+                            width: 100%;
+                            aspect-ratio: 16/10;
+                            display: block;
+                          "
+                        ></image-slot>
+                        <button
+                          onClick="{{ openProject9 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          "
+                        >
+                          {{ t.expand }} &#8599;
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT: BLOOM BROWSER (2020 - Visual Left, Narrative Right) -->
                   <div
                     ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
@@ -3281,10 +3755,10 @@
                         "
                       >
                         <image-slot
-                          id="project-fkh-apps"
+                          id="project-bloom"
                           ref="{{ registerParallaxEl }}"
-                          placeholder="Login Page"
-                          src="./img/login_page.jpg"
+                          placeholder="Bloom Browser — Privacy &amp; Search"
+                          src="./img/Bloombrowser.png"
                           shape="rounded"
                           radius="10"
                           style="
@@ -3294,7 +3768,7 @@
                           "
                         ></image-slot>
                         <button
-                          onClick="{{ openProject4 }}"
+                          onClick="{{ openProject10 }}"
                           onMouseEnter="{{ onCursorEnter }}"
                           onMouseLeave="{{ onCursorLeave }}"
                           style="
@@ -3324,10 +3798,172 @@
                       <div
                         class="sticky-date-note reveal-note reveal-r"
                         style="
-                          background: oklch(0.93 0.12 95);
+                          background: oklch(0.93 0.12 120);
                           transform: rotate(-3deg);
-                          border: 1px solid oklch(0.88 0.08 92);
+                          border: 1px solid oklch(0.88 0.08 120);
                           --rest-rot: -3deg;
+                        "
+                      >
+                        <div class="sticky-tape-strip"></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2020</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.44 0.06 120);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.bloomBrowser.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        Bloom Browser
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.bloomBrowser.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >React JS</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >CSS</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >JavaScript</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Frontend Engineer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject10 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT 5: FKH APPS (2020 - Narrative Left, Visual Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap-reverse;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
+                      position: relative;
+                    "
+                  >
+                    <!-- Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-l"
+                        style="
+                          background: oklch(0.93 0.12 95);
+                          transform: rotate(2.5deg);
+                          border: 1px solid oklch(0.88 0.08 92);
+                          --rest-rot: 2.5deg;
                         "
                       >
                         <div class="sticky-tape-strip"></div>
@@ -3473,9 +4109,78 @@
                         </button>
                       </div>
                     </div>
+
+                    <!-- Mockup Card with Blue Washi Tape -->
+                    <div
+                      class="project-card reveal-card reveal-r"
+                      style="
+                        flex: 1 1 340px;
+                        min-width: 280px;
+                        position: relative;
+                        transform: rotate(1.2deg);
+                        --rest-rot: 1.2deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-blue"
+                        style="
+                          width: 75px;
+                          top: -10px;
+                          right: 24px;
+                          transform: rotate(4deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: oklch(0.99 0.006 88);
+                          border: 1px solid oklch(0.86 0.02 85);
+                        "
+                      >
+                        <image-slot
+                          id="project-fkh-apps"
+                          ref="{{ registerParallaxEl }}"
+                          placeholder="Login Page"
+                          src="./img/login_page.jpg"
+                          shape="rounded"
+                          radius="10"
+                          style="
+                            width: 100%;
+                            aspect-ratio: 16/10;
+                            display: block;
+                          "
+                        ></image-slot>
+                        <button
+                          onClick="{{ openProject4 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          "
+                        >
+                          {{ t.expand }} &#8599;
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
-                  <!-- PROJECT 6: KAMPUNG DESA (2019 - Polaroid Mockup Left, Field Narrative Right) -->
+                  <!-- PROJECT: HOPING (2020 - Visual Left, Narrative Right) -->
                   <div
                     ref="{{ observeReveal }}"
                     onMouseEnter="{{ onCursorEnter }}"
@@ -3486,75 +4191,263 @@
                       flex-wrap: wrap;
                       align-items: center;
                       gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
                       position: relative;
                     "
                   >
-                    <!-- Left: Polaroid Framed Mockup with Top Pin Washi Tape -->
+                    <!-- Mockup Card with Yellow Washi Tape -->
                     <div
                       class="project-card reveal-card reveal-l"
                       style="
-                        flex: 1 1 320px;
-                        min-width: 270px;
+                        flex: 1 1 340px;
+                        min-width: 280px;
                         position: relative;
-                        transform: rotate(-1.5deg);
-                        --rest-rot: -1.5deg;
+                        transform: rotate(-1.4deg);
+                        --rest-rot: -1.4deg;
                       "
                     >
                       <div
                         class="washi-tape-yellow"
                         style="
-                          width: 70px;
+                          width: 75px;
                           top: -10px;
-                          left: 50%;
-                          transform: translateX(-50%) rotate(2deg);
+                          left: 24px;
+                          transform: rotate(-5deg);
                         "
                       ></div>
 
                       <div
                         style="
-                          background: oklch(0.99 0.005 88);
-                          padding: 10px 10px 22px 10px;
-                          border-radius: 6px;
-                          box-shadow: 0 18px 36px oklch(0.2 0.014 85 / 0.16);
-                          border: 1px solid oklch(0.85 0.02 85);
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: oklch(0.99 0.006 88);
+                          border: 1px solid oklch(0.86 0.02 85);
                         "
                       >
                         <image-slot
-                          id="project-kampung-desa"
+                          id="project-hoping"
                           ref="{{ registerParallaxEl }}"
-                          placeholder="Kampung Desa — Village Portal"
-                          src="./img/kampung%20desa.png"
-                          shape="rect"
+                          placeholder="(有) ホーピング Hoping — Osaka, Japan"
+                          src="./img/hoping.jpg"
+                          shape="rounded"
+                          radius="10"
                           style="
                             width: 100%;
                             aspect-ratio: 16/10;
                             display: block;
                           "
                         ></image-slot>
-                        <div
+                        <button
+                          onClick="{{ openProject11 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
                           style="
-                            margin-top: 10px;
-                            font-family: &quot;Caveat&quot;, cursive;
-                            font-size: 17px;
-                            color: oklch(0.4 0.014 85);
-                            text-align: center;
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                           "
                         >
-                          Desa Cerdas Bersahaja — {{ tp.kampungDesa.polaroid }}
-                        </div>
+                          {{ t.expand }} &#8599;
+                        </button>
                       </div>
                     </div>
 
-                    <!-- Right: Field Narrative -->
-                    <div class="reveal-text-block" style="flex: 1.2 1 340px; min-width: 280px">
+                    <!-- Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
                       <!-- Large Handwritten Sticky Note for Date -->
                       <div
                         class="sticky-date-note reveal-note reveal-r"
                         style="
+                          background: oklch(0.93 0.1 25);
+                          transform: rotate(-2deg);
+                          border: 1px solid oklch(0.88 0.08 25);
+                          --rest-rot: -2deg;
+                        "
+                      >
+                        <div class="sticky-tape-strip"></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2020</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.48 0.06 25);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.hoping.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        (有) ホーピング Hoping
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.hoping.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Java</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >MySQL</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >JavaScript</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Visual Basic</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Software Engineer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject11 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT 6: KAMPUNG DESA (2019 - Narrative Left, Polaroid Mockup Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap-reverse;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
+                      position: relative;
+                    "
+                  >
+                    <!-- Left: Field Narrative -->
+                    <div class="reveal-text-block" style="flex: 1.2 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-l"
+                        style="
                           background: oklch(0.93 0.11 90);
-                          transform: rotate(-2.5deg);
+                          transform: rotate(2.5deg);
                           border: 1px solid oklch(0.88 0.08 88);
-                          --rest-rot: -2.5deg;
+                          --rest-rot: 2.5deg;
                         "
                       >
                         <div class="sticky-tape-strip"></div>
@@ -3700,6 +4593,569 @@
                         </button>
                       </div>
                     </div>
+
+                    <!-- Right: Polaroid Framed Mockup with Top Pin Washi Tape -->
+                    <div
+                      class="project-card reveal-card reveal-r"
+                      style="
+                        flex: 1 1 320px;
+                        min-width: 270px;
+                        position: relative;
+                        transform: rotate(1.5deg);
+                        --rest-rot: 1.5deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-yellow"
+                        style="
+                          width: 70px;
+                          top: -10px;
+                          left: 50%;
+                          transform: translateX(-50%) rotate(2deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          background: oklch(0.99 0.005 88);
+                          padding: 10px 10px 22px 10px;
+                          border-radius: 6px;
+                          box-shadow: 0 18px 36px oklch(0.2 0.014 85 / 0.16);
+                          border: 1px solid oklch(0.85 0.02 85);
+                        "
+                      >
+                        <image-slot
+                          id="project-kampung-desa"
+                          ref="{{ registerParallaxEl }}"
+                          placeholder="Kampung Desa — Village Portal"
+                          src="./img/kampung%20desa.png"
+                          shape="rect"
+                          style="
+                            width: 100%;
+                            aspect-ratio: 16/10;
+                            display: block;
+                          "
+                        ></image-slot>
+                        <div
+                          style="
+                            margin-top: 10px;
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: 17px;
+                            color: oklch(0.4 0.014 85);
+                            text-align: center;
+                          "
+                        >
+                          Desa Cerdas Bersahaja — {{ tp.kampungDesa.polaroid }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT: PTPN X (2019 - Visual Left, Narrative Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      padding-bottom: clamp(36px, 5vh, 50px);
+                      border-bottom: 1px dashed oklch(0.8 0.02 85 / 0.7);
+                      position: relative;
+                    "
+                  >
+                    <!-- Mockup Card with Blue Washi Tape -->
+                    <div
+                      class="project-card reveal-card reveal-l"
+                      style="
+                        flex: 1 1 340px;
+                        min-width: 280px;
+                        position: relative;
+                        transform: rotate(-1.3deg);
+                        --rest-rot: -1.3deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-blue"
+                        style="
+                          width: 75px;
+                          top: -10px;
+                          left: 24px;
+                          transform: rotate(-4deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: oklch(0.99 0.006 88);
+                          border: 1px solid oklch(0.86 0.02 85);
+                        "
+                      >
+                        <image-slot
+                          id="project-ptpnx"
+                          ref="{{ registerParallaxEl }}"
+                          placeholder="PTPN X Djoembang Baru"
+                          src="./img/Ptpnx.png"
+                          shape="rounded"
+                          radius="10"
+                          style="
+                            width: 100%;
+                            aspect-ratio: 16/10;
+                            display: block;
+                          "
+                        ></image-slot>
+                        <button
+                          onClick="{{ openProject12 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          "
+                        >
+                          {{ t.expand }} &#8599;
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-r"
+                        style="
+                          background: oklch(0.92 0.08 140);
+                          transform: rotate(-2.5deg);
+                          border: 1px solid oklch(0.86 0.06 140);
+                          --rest-rot: -2.5deg;
+                        "
+                      >
+                        <div class="sticky-tape-strip"></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2019</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.42 0.06 140);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.ptpnx.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        PTPN X
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.ptpnx.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >React JS</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Node.js</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Express</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >MongoDB</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Bootstrap 4</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Fullstack Developer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject12 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PROJECT: DEVKAMI (2019 - Narrative Left, Visual Right) -->
+                  <div
+                    ref="{{ observeReveal }}"
+                    onMouseEnter="{{ onCursorEnter }}"
+                    onMouseLeave="{{ onCursorLeave }}"
+                    class="reveal-row {{ calmModeCls }}"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap-reverse;
+                      align-items: center;
+                      gap: clamp(28px, 4.5vw, 56px);
+                      position: relative;
+                    "
+                  >
+                    <!-- Narrative & Stack -->
+                    <div class="reveal-text-block" style="flex: 1 1 340px; min-width: 280px">
+                      <!-- Large Handwritten Sticky Note for Date -->
+                      <div
+                        class="sticky-date-note reveal-note reveal-l"
+                        style="
+                          background: oklch(0.94 0.1 280);
+                          transform: rotate(2deg);
+                          border: 1px solid oklch(0.88 0.07 280);
+                          --rest-rot: 2deg;
+                        "
+                      >
+                        <div
+                          class="sticky-tape-strip"
+                          style="background: oklch(0.84 0.05 280 / 0.7)"
+                        ></div>
+                        <span
+                          style="
+                            font-family: &quot;Caveat&quot;, cursive;
+                            font-size: clamp(32px, 3.8vw, 44px);
+                            font-weight: 700;
+                            line-height: 0.9;
+                            color: oklch(0.2 0.014 85);
+                          "
+                          >2019</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 10px;
+                            letter-spacing: 0.12em;
+                            text-transform: uppercase;
+                            color: oklch(0.44 0.07 280);
+                            font-weight: 600;
+                            margin-top: 2px;
+                          "
+                          >{{ tp.devkami.cat }}</span
+                        >
+                      </div>
+
+                      <h3
+                        style="
+                          margin: 0 0 10px;
+                          font-family: &quot;Caveat&quot;, cursive;
+                          font-weight: 700;
+                          font-size: clamp(28px, 3.6vw, 38px);
+                          color: oklch(0.2 0.014 85);
+                        "
+                      >
+                        Devkami
+                      </h3>
+                      <p
+                        style="
+                          margin: 0 0 14px;
+                          color: oklch(0.35 0.014 85);
+                          font-size: 15px;
+                          line-height: 1.6;
+                          max-width: 48ch;
+                        "
+                      >
+                        {{ tp.devkami.desc }}
+                      </p>
+
+                      <div
+                        style="
+                          display: flex;
+                          flex-wrap: wrap;
+                          gap: 6px;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >React JS</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Node.js</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Express</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >MongoDB</span
+                        >
+                        <span
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            background: oklch(0.92 0.02 85);
+                            padding: 3px 9px;
+                            border-radius: 4px;
+                            color: oklch(0.3 0.014 85);
+                          "
+                          >Bootstrap 4</span
+                        >
+                      </div>
+
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 12px;
+                          border-top: 1px dashed oklch(0.82 0.02 85);
+                          padding-top: 12px;
+                        "
+                      >
+                        <div
+                          style="
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.5 0.02 85);
+                          "
+                        >
+                          {{ t.roleLabel }}
+                          <strong style="color: oklch(0.2 0.014 85)"
+                            >Fullstack Developer</strong
+                          >
+                        </div>
+                        <button
+                          onClick="{{ openProject13 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 12px;
+                            color: oklch(0.52 0.16 255);
+                            font-weight: 600;
+                            padding: 0;
+                          "
+                        >
+                          {{ t.viewCaseStudy }} &rarr;
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Mockup Card with Yellow Washi Tape -->
+                    <div
+                      class="project-card reveal-card reveal-r"
+                      style="
+                        flex: 1 1 340px;
+                        min-width: 280px;
+                        position: relative;
+                        transform: rotate(1.5deg);
+                        --rest-rot: 1.5deg;
+                      "
+                    >
+                      <div
+                        class="washi-tape-yellow"
+                        style="
+                          width: 75px;
+                          top: -10px;
+                          right: 24px;
+                          transform: rotate(3deg);
+                        "
+                      ></div>
+
+                      <div
+                        style="
+                          position: relative;
+                          overflow: hidden;
+                          border-radius: 10px;
+                          box-shadow: 0 18px 40px oklch(0.2 0.014 85 / 0.16);
+                          background: oklch(0.99 0.006 88);
+                          border: 1px solid oklch(0.86 0.02 85);
+                        "
+                      >
+                        <image-slot
+                          id="project-devkami"
+                          ref="{{ registerParallaxEl }}"
+                          placeholder="Devkami — Social Network"
+                          src="./img/Dev%20Kami.png"
+                          shape="rounded"
+                          radius="10"
+                          style="
+                            width: 100%;
+                            aspect-ratio: 16/10;
+                            display: block;
+                          "
+                        ></image-slot>
+                        <button
+                          onClick="{{ openProject13 }}"
+                          onMouseEnter="{{ onCursorEnter }}"
+                          onMouseLeave="{{ onCursorLeave }}"
+                          style="
+                            position: absolute;
+                            right: 12px;
+                            bottom: 12px;
+                            background: oklch(0.99 0.008 88 / 0.94);
+                            border: none;
+                            border-radius: 20px;
+                            padding: 6px 14px;
+                            font-family: &quot;IBM Plex Mono&quot;, monospace;
+                            font-size: 11px;
+                            letter-spacing: 0.04em;
+                            color: oklch(0.2 0.014 85);
+                            cursor: pointer;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          "
+                        >
+                          {{ t.expand }} &#8599;
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -3758,7 +5214,7 @@
           <!-- ==================== LEAF 2: EXHIBITION (REAL ARTWORKS) ==================== -->
           <div
             class="book-page-leaf"
-            style="transform:{{ page2Transform }};z-index:{{ page2ZIndex }};transition:{{ page2Transition }};pointer-events:{{ page2PointerEvents }}"
+            style="transform:{{ page2Transform }};z-index:{{ page2ZIndex }};transition:{{ page2Transition }};pointer-events:{{ page2PointerEvents }};visibility:{{ page2Visibility }}"
           >
             <!-- FRONT FACE: Exhibition with Dynamic Ruled Paper -->
             <div
@@ -3978,7 +5434,7 @@
           <!-- ==================== LEAF 3: ABOUT (REAL BIO FROM PANJIGEMILANG.VERCEL.APP) ==================== -->
           <div
             class="book-page-leaf"
-            style="transform:{{ page3Transform }};z-index:{{ page3ZIndex }};transition:{{ page3Transition }};pointer-events:{{ page3PointerEvents }}"
+            style="transform:{{ page3Transform }};z-index:{{ page3ZIndex }};transition:{{ page3Transition }};pointer-events:{{ page3PointerEvents }};visibility:{{ page3Visibility }}"
           >
             <!-- FRONT FACE: About with Dynamic Ruled Paper -->
             <div
@@ -4202,7 +5658,7 @@
           <!-- ==================== LEAF 4: CONTACT (SAY HELLO) ==================== -->
           <div
             class="book-page-leaf"
-            style="transform:{{ page4Transform }};z-index:{{ page4ZIndex }};transition:{{ page4Transition }};pointer-events:{{ page4PointerEvents }}"
+            style="transform:{{ page4Transform }};z-index:{{ page4ZIndex }};transition:{{ page4Transition }};pointer-events:{{ page4PointerEvents }};visibility:{{ page4Visibility }}"
           >
             <!-- FRONT FACE: Say Hello with Dynamic Ruled Paper -->
             <div
@@ -4291,16 +5747,21 @@
                         style-hover="border-color:oklch(0.52 0.16 255);transform:translateY(-2px)"
                       >
                         <span>panjigemilang31298@gmail.com</span>
-                        <span
-                          style="
-                            width: 14px;
-                            height: 14px;
-                            border: 1.6px solid currentColor;
-                            border-radius: 2px;
-                            flex-shrink: 0;
-                            opacity: 0.7;
-                          "
-                        ></span>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="flex-shrink: 0; opacity: 0.75"
+                          aria-hidden="true"
+                        >
+                          <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
                       </button>
                       <span
                         class="contact-copied-badge"
@@ -4351,16 +5812,20 @@
                         style-hover="border-color:oklch(0.52 0.16 255);transform:translateY(-2px)"
                       >
                         <span>+62 8958 0111 1085</span>
-                        <span
-                          style="
-                            width: 14px;
-                            height: 14px;
-                            border: 1.6px solid currentColor;
-                            border-radius: 2px;
-                            flex-shrink: 0;
-                            opacity: 0.7;
-                          "
-                        ></span>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="flex-shrink: 0; opacity: 0.75"
+                          aria-hidden="true"
+                        >
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
                       </button>
                       <span
                         class="contact-copied-badge"
@@ -4528,12 +5993,18 @@
         <sc-if value="{{ hasOpenProject }}" hint-placeholder-val="{{ false }}">
           <div
             onClick="{{ closeProject }}"
-            style="position:fixed;inset:0;z-index:95;background:oklch(0.20 0.014 85 / {{ modalBackdropOpacity }});transition:background 0.4s ease;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px)"
+            style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px)"
           >
+            <!-- Backdrop fades with opacity on its own layer; transitioning
+                 the container's background colour repainted the whole
+                 screen on every frame of the open/close. -->
+            <div
+              style="position:absolute;inset:0;background:oklch(0.20 0.014 85 / 0.55);opacity:{{ modalBackdropOpacity }};transition:opacity {{ modalDuration }} cubic-bezier(0.22,1,0.36,1)"
+            ></div>
             <div
               onClick="{{ stopPropagation }}"
               class="paper-scroll"
-              style="position:relative;width:min(900px,100%);max-height:88vh;overflow-y:auto;background:oklch(0.99 0.008 88);border-radius:14px;box-shadow:0 40px 80px oklch(0.20 0.014 85 / 0.35);opacity:{{ modalOpacity }};transform:{{ modalTransform }};transform-origin:{{ modalOrigin }};transition:opacity 0.4s cubic-bezier(0.22,1,0.36,1), transform 0.4s cubic-bezier(0.22,1,0.36,1);border:1px solid oklch(0.85 0.02 85)"
+              style="position:relative;width:min(900px,100%);max-height:88vh;overflow-y:auto;background:oklch(0.99 0.008 88);border-radius:14px;box-shadow:0 40px 80px oklch(0.20 0.014 85 / 0.35);opacity:{{ modalOpacity }};transform:{{ modalTransform }};transform-origin:{{ modalOrigin }};transition:opacity {{ modalDuration }} cubic-bezier(0.22,1,0.36,1), transform {{ modalDuration }} cubic-bezier(0.22,1,0.36,1);border:1px solid oklch(0.85 0.02 85)"
             >
               <button
                 onClick="{{ closeProject }}"
@@ -4651,6 +6122,7 @@
                         <img
                           src="{{ thumb.src }}"
                           alt="{{ thumb.caption }}"
+                          decoding="async"
                           style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block"
                         />
                         <span
@@ -5047,7 +6519,7 @@
           // Portfolio's project images drift at a slightly different rate
           // than the page scrolls (parallax). Bind lazily, once, the first
           // time that page's scroll container actually mounts.
-          if (idx === 1 && !this._portfolioScrollBound && !this.isReduceMotion()) {
+          if (idx === 1 && !this._portfolioScrollBound && !this.isReduceMotion() && !this.supportsScrollTimeline) {
             this._portfolioScrollBound = true;
             el.addEventListener('scroll', this.onPortfolioScroll, { passive: true });
             this.updateParallax();
@@ -5293,19 +6765,31 @@
         // page's own scroll, offset from how far each one currently sits
         // from viewport-center. Plain DOM writes (no setState) so scrolling
         // stays cheap; rAF-throttled so it runs at most once per frame.
+        // Where the browser has scroll-driven animations, the drift is pure
+        // CSS on the compositor (.parallax-drift) and none of the JS below
+        // ever runs; the scroll listener is only bound as a fallback.
+        supportsScrollTimeline = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()');
         parallaxEls = [];
         registerParallaxEl = (el) => {
           if (!el || this.isReduceMotion()) return;
-          this.parallaxEls.push(el);
+          if (this.supportsScrollTimeline) {
+            el.classList.add('parallax-drift');
+            return;
+          }
+          if (!this.parallaxEls.includes(el)) this.parallaxEls.push(el);
         };
         updateParallax = () => {
           this._parallaxRaf = null;
           const vh = window.innerHeight;
-          this.parallaxEls.forEach((el) => {
-            const rect = el.getBoundingClientRect();
+          // All reads, then all writes: interleaving getBoundingClientRect()
+          // with style writes forced a synchronous layout per image, per frame.
+          const rects = this.parallaxEls.map((el) => el.getBoundingClientRect());
+          this.parallaxEls.forEach((el, i) => {
+            const rect = rects[i];
+            if (rect.bottom < -60 || rect.top > vh + 60) return; // off screen: leave it be
             const center = rect.top + rect.height / 2;
             const offset = Math.max(-22, Math.min(22, (center - vh / 2) * -0.06));
-            el.style.transform = `translateY(${offset.toFixed(1)}px)`;
+            el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
           });
         };
         onPortfolioScroll = () => {
@@ -5546,42 +7030,78 @@
           }, zoomMs + fadeMs);
         };
 
-        // Elements that pop/settle in via a CSS `animation` (not a
-        // `transition`) once .is-in-view lands — cloneNode copies the class,
-        // but a brand-new element always starts that keyframe animation over
-        // from 0%, so the peel snapshot would replay the entrance instead of
-        // showing the page already at rest. Freeze each clone at the live
-        // element's current computed opacity/transform and kill its
-        // animation so it just holds that settled look until the peel
-        // carries it away.
-        freezeClonedEntrances = (sourceEl, cloneEl) => {
-          // Confetti is a one-shot burst, not a settled state — a snapshot
-          // taken mid-flight would replay the whole burst on the peeling
-          // page, so drop the layer from the clone entirely.
-          cloneEl.querySelectorAll('.confetti-layer').forEach((n) => n.remove());
-          // image-slot renders a translucent .ghost <img> on top of the real
-          // one for its drag-and-drop affordance. The snapshot is inert, so
-          // that's a second full decode of every image on the page being
-          // clipped and repainted each frame for nothing.
-          cloneEl.querySelectorAll('img.ghost').forEach((n) => n.remove());
-
-          const selector = '.reveal-card, .reveal-note, .gallery-thread, .gallery-card, .paper-in';
-          const sourceMatches = sourceEl.querySelectorAll(selector);
-          const cloneMatches = cloneEl.querySelectorAll(selector);
-          // Read every computed style first, then write — interleaving them
-          // forced a synchronous layout per node, right at the frame where
-          // the curl is about to start and can least afford it.
-          const frozen = [];
-          sourceMatches.forEach((srcNode, i) => {
-            if (!cloneMatches[i]) return;
-            const computed = getComputedStyle(srcNode);
-            frozen.push([cloneMatches[i], computed.opacity, computed.transform]);
-          });
-          frozen.forEach(([cloneNode, opacity, transform]) => {
-            cloneNode.style.animation = 'none';
-            cloneNode.style.opacity = opacity;
-            cloneNode.style.transform = transform;
-          });
+        // The page-turn snapshot: a static copy of the outgoing page that
+        // the curl carries away. Built in one pass over the live page, which
+        // only reads (rects, computed styles) and only writes to the detached
+        // copy, so it never forces a re-layout of the real page.
+        //  - Anything more than half a screen outside the viewport becomes an
+        //    empty box of the same size: the curl can't show it, and copying
+        //    the whole Portfolio made the click that starts a turn stall.
+        //  - <image-slot>s become plain divs painting the same image. Cloning
+        //    the real element constructed a fresh custom element per image
+        //    (shadow DOM, stylesheet, ResizeObserver, re-render) — ~0.4s on
+        //    the Gallery's 24 slots.
+        //  - Anything animated (entrances, gallery marquee/sway, parallax) is
+        //    frozen at its current computed opacity/transform. A copied
+        //    element would otherwise restart its animation from 0% — replaying
+        //    an entrance, or snapping the marquee back to its start mid-curl.
+        //  - The confetti burst is dropped rather than replayed.
+        snapshotFrozenSelector = '.reveal-card, .reveal-note, .gallery-thread, .gallery-card, .paper-in, .hero-banner, .exhibit-track, .gallery-frame, .parallax-drift';
+        cloneForSnapshot = (root) => {
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const margin = vh * 0.5;
+          const freeze = (src, copy) => {
+            if (!src.matches(this.snapshotFrozenSelector)) return;
+            const computed = getComputedStyle(src);
+            copy.style.animation = 'none';
+            copy.style.transition = 'none';
+            copy.style.opacity = computed.opacity;
+            copy.style.transform = computed.transform;
+          };
+          const walk = (node, depth) => {
+            if (node.nodeType !== 1) return node.cloneNode(false);
+            if (node.classList.contains('confetti-layer')) return document.createComment('');
+            if (depth >= 2) {
+              const r = node.getBoundingClientRect();
+              if (r.bottom < -margin || r.top > vh + margin || r.right < -margin || r.left > vw + margin) {
+                const box = node.cloneNode(false);
+                box.style.width = node.offsetWidth + 'px';
+                box.style.height = node.offsetHeight + 'px';
+                box.style.minHeight = '0';
+                box.style.visibility = 'hidden';
+                box.style.animation = 'none';
+                return box;
+              }
+            }
+            const copy = node.tagName === 'IMAGE-SLOT' ? this.imageSlotStandIn(node) : node.cloneNode(false);
+            freeze(node, copy);
+            if (node.tagName !== 'IMAGE-SLOT') {
+              for (let child = node.firstChild; child; child = child.nextSibling) {
+                copy.appendChild(walk(child, depth + 1));
+              }
+            }
+            return copy;
+          };
+          return walk(root, 0);
+        };
+        imageSlotStandIn = (slot) => {
+          const div = document.createElement('div');
+          const style = slot.getAttribute('style');
+          if (style) div.setAttribute('style', style);
+          const cls = slot.getAttribute('class');
+          if (cls) div.setAttribute('class', cls);
+          const shown = slot.shadowRoot && slot.shadowRoot.querySelector('.frame img');
+          const src = (shown && (shown.currentSrc || shown.getAttribute('src'))) || slot.getAttribute('src');
+          if (src) {
+            const fit = (slot.getAttribute('fit') || 'cover').toLowerCase() === 'contain' ? 'contain' : 'cover';
+            div.style.background = `url("${src.replace(/"/g, '%22')}") center / ${fit} no-repeat`;
+          }
+          const shape = (slot.getAttribute('shape') || '').toLowerCase();
+          if (shape === 'rounded') div.style.borderRadius = `${slot.getAttribute('radius') || 12}px`;
+          else if (shape === 'circle') div.style.borderRadius = '50%';
+          if (!div.style.display) div.style.display = 'block';
+          return div;
         };
 
         triggerPagePeel = (fromIdx, toIdx, onComplete) => {
@@ -5596,7 +7116,10 @@
             if (this.isReduceMotion()) {
               if (onComplete) onComplete();
             } else {
-              this._flipTimer = setTimeout(() => { if (onComplete) onComplete(); }, 1100);
+              // Each extra leaf in a multi-page jump starts 120ms after the
+              // previous one (see getPageProps), so wait for the last to land.
+              const lastLeafDelay = (Math.abs(toIdx - fromIdx) - 1) * 120;
+              this._flipTimer = setTimeout(() => { if (onComplete) onComplete(); }, 1100 + lastLeafDelay);
             }
             return;
           }
@@ -5628,11 +7151,11 @@
             peelTopEl.innerHTML = '';
             const sourceEl = this.pageScrollEls[fromIdx];
             if (sourceEl) {
-              const snapshot = sourceEl.cloneNode(true);
+              const snapshot = this.cloneForSnapshot(sourceEl);
               snapshot.removeAttribute('ref');
+              snapshot.classList.add('peel-snapshot');
               peelTopEl.appendChild(snapshot);
               snapshot.scrollTop = sourceEl.scrollTop;
-              this.freezeClonedEntrances(sourceEl, snapshot);
             }
           }
 
@@ -5684,7 +7207,12 @@
             );
           }
 
-          let startTime = performance.now();
+          // The first frame after a turn starts is the expensive one (the
+          // snapshot and the newly shown page both paint). Start the clock on
+          // the frame after it, so that cost delays the curl slightly instead
+          // of being skipped over — a jump straight to ~25% of the way through.
+          let startTime = null;
+          let warmupFrames = 0;
           // Faster than a real page turn reads on purpose: the curl's job is
           // to cover the instant swap of the real leaf underneath, and the
           // longer it lingers the more time there is to consciously read
@@ -5694,6 +7222,11 @@
           if (this._peelAnimId) cancelAnimationFrame(this._peelAnimId);
 
           const step = (now) => {
+            if (startTime === null) {
+              p.setTimeAlongPath(0);
+              if (warmupFrames++ < 1) { this._peelAnimId = requestAnimationFrame(step); return; }
+              startTime = now;
+            }
             const elapsed = now - startTime;
             const progress = Math.min(1, elapsed / duration);
             const t = progress < 0.5 
@@ -5887,7 +7420,7 @@
         closeProject = () => {
           this.setState({ modalVisible: false, lightbox: null });
           clearTimeout(this._mt);
-          this._mt = setTimeout(() => this.setState({ openProject: null }), 420);
+          this._mt = setTimeout(() => this.setState({ openProject: null }), 300);
         };
         stopPropagation = (e) => { e.stopPropagation(); };
 
@@ -5921,6 +7454,14 @@
           'flutter': '#02569B',
           'firebase auth': '#FFCA28',
           'cloud firestore': '#FFCA28',
+          'laravel': '#FF2D20',
+          'php': '#777BB4',
+          'vue.js': '#4FC08D',
+          'codeigniter': '#EF4223',
+          'java': '#007396',
+          'visual basic': '#5C2D91',
+          'express.js': '#000000',
+          'jquery': '#0769AD',
         };
 
         // Tints the brand hex for the pill background and darkens light
@@ -6078,6 +7619,75 @@
               ],
               technologies: ['Flutter', 'Dart', 'Rive', 'flutter_animate', 'Firebase Auth', 'Cloud Firestore'],
             },
+            {
+              key: 'iniDiaLo',
+              title: 'Ini Dia Lo',
+              role: 'Fullstack Developer',
+              link: null,
+              images: [
+                { id: 'project-inidialo-1', src: './img/Blog%20kita-cropped.jpg' },
+                { id: 'project-inidialo-2', src: './img/blog.jpg' },
+              ],
+              technologies: ['JavaScript', 'Vue.js', 'Laravel', 'MySQL'],
+            },
+            {
+              key: 'bolehDicobaDigital',
+              title: 'Boleh Dicoba Digital',
+              role: 'Fullstack Developer',
+              link: 'https://bolehdicoba.com',
+              images: [
+                { id: 'project-bdd-1', src: './img/bdd.jpg' },
+                { id: 'project-bdd-2', src: './img/bdd-dashboard.jpg' },
+                { id: 'project-bdd-3', src: './img/bdd-form.jpg' },
+              ],
+              technologies: ['HTML', 'Bootstrap', 'JavaScript', 'CodeIgniter', 'PHP', 'MySQL'],
+            },
+            {
+              key: 'bloomBrowser',
+              title: 'Bloom Browser',
+              role: 'Frontend Engineer',
+              link: 'https://bloombrowser.com/',
+              images: [
+                { id: 'project-bloom-1', src: './img/Bloombrowser.png' },
+              ],
+              technologies: ['JavaScript', 'React JS', 'CSS'],
+            },
+            {
+              key: 'hoping',
+              title: '(有) ホーピング Hoping',
+              role: 'Software Engineer',
+              link: null,
+              images: [
+                { id: 'project-hoping-1', src: './img/hoping.jpg' },
+                { id: 'project-hoping-2', src: './img/company.jpg' },
+                { id: 'project-hoping-3', src: './img/Bandara%20Kansai.jpeg' },
+                { id: 'project-hoping-4', src: './img/Osaka%20castle.jpeg' },
+                { id: 'project-hoping-5', src: './img/jembatan.jpeg' },
+                { id: 'project-hoping-6', src: './img/balik.JPG' },
+              ],
+              technologies: ['Java', 'MySQL', 'JavaScript', 'Visual Basic'],
+            },
+            {
+              key: 'ptpnx',
+              title: 'PTPN X',
+              role: 'Fullstack Developer',
+              link: 'https://ptpnxdjoembang.herokuapp.com/',
+              images: [
+                { id: 'project-ptpnx-1', src: './img/Ptpnx.png' },
+                { id: 'project-ptpnx-2', src: './img/Presentation.jpg' },
+              ],
+              technologies: ['JavaScript', 'React JS', 'Express.js', 'Node.js', 'MongoDB', 'Bootstrap 4'],
+            },
+            {
+              key: 'devkami',
+              title: 'Devkami',
+              role: 'Fullstack Developer',
+              link: 'https://devkami.herokuapp.com/',
+              images: [
+                { id: 'project-devkami-1', src: './img/Dev%20Kami.png' },
+              ],
+              technologies: ['JavaScript', 'React JS', 'Express.js', 'Node.js', 'MongoDB', 'Bootstrap 4'],
+            },
           ];
           const baseProjects = projectMeta.map((p) => {
             const copy = tp[p.key];
@@ -6096,7 +7706,7 @@
 
           const hasOpenProject = openProject !== null && openProject !== undefined;
           const openProjectData = hasOpenProject ? baseProjects[openProject] : { title: '', tag: '', desc: '', blocks: [], role: '', link: null, images: [], technologies: [], badge: null };
-          const modalOrigins = ['30% 20%', '50% 30%', '70% 40%', '30% 50%', '50% 60%', '70% 70%', '50% 50%', '70% 20%'];
+          const modalOrigins = ['30% 20%', '50% 30%', '70% 40%', '30% 50%', '50% 60%', '70% 70%', '50% 50%', '70% 20%', '30% 30%', '60% 40%', '30% 50%', '60% 60%', '30% 70%', '60% 80%'];
 
           // Modal screenshots — inline thumbnails that open a click-to-preview lightbox
           const thumbnails = (openProjectData.images || []).map((im) => ({
@@ -6289,7 +7899,15 @@
               ? 'none'
               : `transform 1.1s cubic-bezier(0.35, 0.0, 0.25, 1) ${delayMs}ms`;
 
-            return { transform, zIndex, transition, pointerEvents };
+            // Pages more than one away from the open page sit fully hidden
+            // (stacked under it, or flipped off to the left) yet were still
+            // composited every frame, so skip rendering them. The immediate
+            // neighbours stay rendered: wheel, keys, swipe and the corner flip
+            // all turn to a neighbour, and a page that's already painted can
+            // be revealed by the curl without a first-paint stall.
+            const visibility = (Math.abs(idx - currentPage) <= 1 || isFlippingLeaf || (isFlipping && idx === prevPage)) ? 'visible' : 'hidden';
+
+            return { transform, zIndex, transition, pointerEvents, visibility };
           };
 
           // Leaves are only worth promoting to their own GPU layers while a
@@ -6338,26 +7956,31 @@
             page0ZIndex: p0.zIndex,
             page0Transition: p0.transition,
             page0PointerEvents: p0.pointerEvents,
+            page0Visibility: p0.visibility,
 
             page1Transform: p1.transform,
             page1ZIndex: p1.zIndex,
             page1Transition: p1.transition,
             page1PointerEvents: p1.pointerEvents,
+            page1Visibility: p1.visibility,
 
             page2Transform: p2.transform,
             page2ZIndex: p2.zIndex,
             page2Transition: p2.transition,
             page2PointerEvents: p2.pointerEvents,
+            page2Visibility: p2.visibility,
 
             page3Transform: p3.transform,
             page3ZIndex: p3.zIndex,
             page3Transition: p3.transition,
             page3PointerEvents: p3.pointerEvents,
+            page3Visibility: p3.visibility,
 
             page4Transform: p4.transform,
             page4ZIndex: p4.zIndex,
             page4Transition: p4.transition,
             page4PointerEvents: p4.pointerEvents,
+            page4Visibility: p4.visibility,
 
             // Language
             t,
@@ -6392,6 +8015,12 @@
             openProject5: () => this.openProject(5),
             openProject6: () => this.openProject(6),
             openProject7: () => this.openProject(7),
+            openProject8: () => this.openProject(8),
+            openProject9: () => this.openProject(9),
+            openProject10: () => this.openProject(10),
+            openProject11: () => this.openProject(11),
+            openProject12: () => this.openProject(12),
+            openProject13: () => this.openProject(13),
 
             // Exhibition
             frames,
@@ -6414,9 +8043,13 @@
             hasOpenProject,
             openProjectData,
             modalOpacity: modalVisible ? 1 : 0,
-            modalTransform: modalVisible ? 'scale(1) translateY(0)' : 'scale(0.84) translateY(30px)',
+            // A small settle (spec: scale 0.96–0.98, ≤24px travel); closing
+            // runs at ~70% of the opening time, since the visitor has already
+            // decided and is waiting on it.
+            modalTransform: modalVisible ? 'scale(1) translateY(0)' : 'scale(0.96) translateY(12px)',
+            modalDuration: modalVisible ? '0.42s' : '0.28s',
             modalOrigin: hasOpenProject ? modalOrigins[openProject] : '50% 50%',
-            modalBackdropOpacity: modalVisible ? 0.55 : 0,
+            modalBackdropOpacity: modalVisible ? 1 : 0,
             closeProject: this.closeProject,
             stopPropagation: this.stopPropagation,
 

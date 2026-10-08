@@ -23,7 +23,7 @@ window.SITE_TRANSLATIONS.id = {
     coverVersoSign: "Panji Gemilang · Portofolio Software Engineer",
     workStamp: "HALAMAN 02 · LINIMASA PROYEK",
     workTitle: "Portofolio Pilihan",
-    workCount: "7 Karya Pilihan",
+    workCount: "13 Karya Pilihan",
     heroPlace: "Juara 1",
     heroTitle: "Pemenang Grand Prize — Japan Hackathon II 2021",
     heroP1: [
@@ -304,6 +304,128 @@ window.SITE_TRANSLATIONS.id = {
         "Bizniz - Halaman Cover & Splash",
         "Bizniz - Halaman Catat Penjualan",
         "Bizniz - Halaman Hasil Kelayakan",
+      ],
+    },
+    iniDiaLo: {
+      cat: "PROYEK PRIBADI",
+      tag: "PROYEK PRIBADI · 2020",
+      badge: "Des 2020",
+      desc: "Inidialo adalah website blog pribadi yang saya bangun untuk ayah saya berbagi pengalaman hidup, pelajaran hidup, dan pengetahuan.",
+      blocks: [
+        "Inidialo adalah website blog pribadi yang saya bangun untuk ayah saya. Beliau ingin berbagi pengalaman tentang berbagai hal, pelajaran hidup, maupun pengetahuan umum kepada sesama.",
+        "Website ini memiliki fungsionalitas utama sebagai berikut:",
+        {
+          list: [
+            "Autentikasi dengan token aman",
+            "Membuat artikel dan berbagi lewat media sosial atau tautan langsung",
+            "Komentar pembaca dan ruang diskusi",
+            "Sistem suka (like) dan interaksi",
+          ],
+        },
+      ],
+      captions: [
+        "Inidialo - Beranda Blog",
+        "Inidialo - Tampilan Artikel",
+      ],
+    },
+    bolehDicobaDigital: {
+      cat: "CMS PERUSAHAAN",
+      tag: "CMS PERUSAHAAN · 2020",
+      badge: "Sep - Des 2020",
+      desc: "BDD CMS adalah website profil perusahaan dengan konten dinamis yang dapat dikelola dari dashboard admin untuk agensi digital marketing.",
+      blocks: [
+        "Boleh Dicoba Digital (BDD) CMS adalah website profil perusahaan dengan konten yang sepenuhnya dapat dikelola dari dashboard admin. BDD menyediakan layanan pemasaran digital untuk pertumbuhan bisnis di ranah online, media sosial, dan penjualan digital.",
+        "Website ini memiliki fungsionalitas sebagai berikut:",
+        {
+          list: [
+            "Autentikasi dengan Passport JWT yang lebih aman",
+            "Pembuatan komponen berita dan studi kasus",
+            "Editor konten visual dan upload gambar",
+            "Manajemen konten terpusat",
+          ],
+        },
+      ],
+      captions: [
+        "BDD - Profil Perusahaan",
+        "BDD - Dashboard Admin",
+        "BDD - Halaman Form Komponen",
+      ],
+    },
+    bloomBrowser: {
+      cat: "PROYEK KLIEN AS",
+      tag: "PROYEK KLIEN AS · 2020",
+      badge: "Mei - Jul 2020",
+      desc: "Bloom adalah proyek landing page browser open-source untuk klien AS yang memblokir iklan dan menyalurkan pendapatan iklan untuk amal.",
+      blocks: [
+        "Mengerjakan proyek untuk klien yang berbasis di Amerika Serikat sebagai front-end engineer. Bloom adalah browser web gratis, cepat, dan open-source yang memblokir pelacak serta menyalurkan pendapatan iklan untuk kegiatan amal.",
+        "Dibangun menggunakan React JS dan modern CSS untuk tampilan yang bersih dan responsif.",
+      ],
+      captions: [
+        "Bloom Browser - Halaman Depan",
+      ],
+    },
+    hoping: {
+      cat: "MAGANG INTERNASIONAL",
+      tag: "MAGANG INTERNASIONAL · 2020",
+      badge: "Feb - Mar 2020",
+      desc: "Magang Software Engineer di (有) ホーピング Hoping di Osaka, Jepang, membangun aplikasi desktop kebutuhan medis rumah sakit.",
+      blocks: [
+        "Pada Februari 2020, saya berangkat ke Osaka, Jepang untuk mengikuti program magang internasional di (有) ホーピング Hoping — mewujudkan impian yang saya dambakan sejak bangku SMA.",
+        "Hoping adalah perusahaan penyedia perangkat lunak medis untuk kebutuhan rumah sakit, seperti pencatatan dialisis, manajemen ranjang rawat inap, dan informasi pasien terpadu. Saya bertugas sebagai software engineer membangun aplikasi desktop dengan Java, MySQL, dan JavaScript.",
+        "Berkomunikasi langsung dalam bahasa Jepang di lingkungan kantor memberikan pengalaman berharga, bekerja sama dengan rekan tim yang suportif serta mengunjungi rumah sakit klien untuk observasi instalasi jaringan dan komputer.",
+        "Pengalaman internasional yang sangat berharga dan berkesan mendalam bagi etos kerja dan filosofi pengembangan saya.",
+      ],
+      captions: [
+        "(有) ホーピング - Foto Bersama Tim & CEO",
+        "Tiba di Bandara Internasional Kansai",
+        "Kantor Perusahaan Hoping",
+        "Taman Istana Osaka (大阪城公園)",
+        "Jalan Filsafat Kyoto (哲学の道)",
+        "Penerbangan Kembali ke Indonesia",
+      ],
+    },
+    ptpnx: {
+      cat: "MAGANG INDUSTRI",
+      tag: "MAGANG INDUSTRI · 2019",
+      badge: "Jul - Agu 2019",
+      desc: "Aplikasi web fullstack untuk manajemen biodata karyawan dan laporan internal di BUMN PT Perkebunan Nusantara X.",
+      blocks: [
+        "Menjalani magang selama 3 bulan sebagai Fullstack Web Developer di pabrik gula PTPN X Djoembang Baru, Jawa Timur — salah satu BUMN sektor perkebunan di Indonesia.",
+        "Membangun website sistem internal untuk pengelolaan biodata karyawan, impor spreadsheet, dan pembuatan laporan siap cetak, langsung berinteraksi dengan kebutuhan stakeholder perusahaan.",
+        {
+          list: [
+            "Autentikasi token dan keamanan sistem",
+            "Impor data Excel (.xlsx) langsung ke basis data",
+            "Direktori biodata karyawan dengan pencarian",
+            "Ekspor dokumen dan laporan siap cetak",
+          ],
+        },
+      ],
+      captions: [
+        "PTPN X - Antarmuka Sistem",
+        "PTPN X - Presentasi Proyek",
+      ],
+    },
+    devkami: {
+      cat: "PROYEK PRIBADI",
+      tag: "PROYEK PRIBADI · 2019",
+      badge: "Mar - Mei 2019",
+      desc: "Aplikasi web fullstack pertama saya — jejaring sosial bagi developer untuk saling terhubung, membuat postingan, dan berdiskusi.",
+      blocks: [
+        "Dev Kami menjadi tonggak awal perjalanan saya sebagai fullstack web engineer. Dibangun sebagai platform jejaring sosial untuk menghubungkan para pengembang perangkat lunak, bertukar ide, dan membangun portofolio.",
+        "Platform ini mencakup fitur-fitur sosial utama:",
+        {
+          list: [
+            "Autentikasi pengguna berbasis JWT token",
+            "Profil pengembang dan pameran portofolio",
+            "Pembuatan postingan, diskusi, dan komentar",
+            "Sistem suka (like) dan interaksi",
+          ],
+        },
+        "Proyek awal yang mengukuhkan dedikasi dan antusiasme saya dalam membangun aplikasi web yang berdampak nyata.",
+      ],
+      captions: [
+        "Dev Kami - Tampilan Platform",
       ],
     },
   },

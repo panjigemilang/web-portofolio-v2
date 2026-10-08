@@ -23,7 +23,7 @@ window.SITE_TRANSLATIONS.en = {
     coverVersoSign: "Panji Gemilang · Software Engineer Portfolio",
     workStamp: "PAGE 02 · PROJECT TIMELINE",
     workTitle: "Selected Portfolio",
-    workCount: "7 Featured Works",
+    workCount: "13 Featured Works",
     heroPlace: "1st Place",
     heroTitle: "Grand Prize Winner — Japan Hackathon II 2021",
     heroP1: [
@@ -326,6 +326,128 @@ window.SITE_TRANSLATIONS.en = {
         "Bizniz - Cover & Splash Screen",
         "Bizniz - Sales Record Page",
         "Bizniz - Feasibility Result Page",
+      ],
+    },
+    iniDiaLo: {
+      cat: "PERSONAL PROJECT",
+      tag: "PERSONAL PROJECT · 2020",
+      badge: "Dec 2020",
+      desc: "Inidialo is a personal blog website built for my father to share his life lessons, experiences, and common knowledge.",
+      blocks: [
+        "Inidialo is a personal blog website built for my father. He wanted to share his experiences about everything, any life lessons he had, or general knowledge with others.",
+        "The website features the following core capabilities:",
+        {
+          list: [
+            "Authentication with secure token",
+            "Create posts and share via social media or shareable links",
+            "Reader comments and discussion",
+            "Like and engagement system",
+          ],
+        },
+      ],
+      captions: [
+        "Inidialo - Blog Homepage",
+        "Inidialo - Article View",
+      ],
+    },
+    bolehDicobaDigital: {
+      cat: "COMPANY CMS",
+      tag: "COMPANY CMS · 2020",
+      badge: "Sep - Dec 2020",
+      desc: "BDD CMS is a company profile website with manageable dynamic content from an administrative dashboard for a digital marketing agency.",
+      blocks: [
+        "Boleh Dicoba Digital (BDD) CMS is a company profile website with fully manageable content from an administrative dashboard. BDD offers services in digital marketing reflecting on businesses' online presence, social media, and online sales.",
+        "The system includes the following key functionality:",
+        {
+          list: [
+            "Authentication with Passport JWT for high security",
+            "Custom components for news and case studies",
+            "Visual content editing and image uploads",
+            "Centralized content management",
+          ],
+        },
+      ],
+      captions: [
+        "BDD - Company Profile",
+        "BDD - Admin Dashboard",
+        "BDD - Component Form Page",
+      ],
+    },
+    bloomBrowser: {
+      cat: "US CLIENT PROJECT",
+      tag: "US CLIENT PROJECT · 2020",
+      badge: "May - Jul 2020",
+      desc: "Bloom is a fast, open-source web browser landing page project for a US client that blocks ads and redirects ad revenue to charity.",
+      blocks: [
+        "Working on a client project based in the USA as a front-end engineer. Bloom is a free, fast, open-source web browser that blocks trackers and gives users inspiring customizable search experiences while directing ad revenue to charities.",
+        "Built with React JS and modern CSS for a responsive, modern presentation.",
+      ],
+      captions: [
+        "Bloom Browser - Landing Page",
+      ],
+    },
+    hoping: {
+      cat: "INTERNATIONAL INTERNSHIP",
+      tag: "INTERNATIONAL INTERNSHIP · 2020",
+      badge: "Feb - Mar 2020",
+      desc: "Software Engineer internship at (有) ホーピング Hoping in Osaka, Japan, building desktop healthcare applications for hospitals.",
+      blocks: [
+        "In February 2020, I traveled to Osaka, Japan for an international internship program at (有) ホーピング Hoping — realizing a dream I had held since high school.",
+        "Hoping provides reliable medical software for hospital needs including dialysis recording, bed management, and comprehensive patient information. I worked as a software engineer developing desktop applications using Java, MySQL, and JavaScript.",
+        "Communicating in Japanese at the office gave me invaluable real-world experience, working closely with supportive colleagues and visiting client hospital facilities to survey network and workstation installation needs.",
+        "A formative international experience that deeply shaped my professional craftsmanship and design philosophy.",
+      ],
+      captions: [
+        "(有) ホーピング - Team & CEO",
+        "Company Office",
+        "Kansai International Airport Arrival",
+        "Osaka Castle (大阪城公園)",
+        "Philosopher's Walk, Kyoto (哲学の道)",
+        "Return Flight to Indonesia",
+      ],
+    },
+    ptpnx: {
+      cat: "INTERNSHIP",
+      tag: "INTERNSHIP · 2019",
+      badge: "Jul - Aug 2019",
+      desc: "Fullstack web application for internal employee biodata and reporting management at state-owned plantation company PT Perkebunan Nusantara X.",
+      blocks: [
+        "Completed a 3-month internship as a Fullstack Web Developer at PTPN X Djoembang Baru, East Java — one of Indonesia's state-owned plantation enterprises.",
+        "Built an internal management website handling employee biodata, spreadsheet imports, and print-ready reporting, directly gathering requirements from company stakeholders.",
+        {
+          list: [
+            "Token authentication and role security",
+            "Excel (.xlsx) data import directly into database",
+            "Employee biodata directory with search",
+            "Printable report export & document generation",
+          ],
+        },
+      ],
+      captions: [
+        "PTPN X - System Interface",
+        "PTPN X - Project Presentation",
+      ],
+    },
+    devkami: {
+      cat: "PERSONAL PROJECT",
+      tag: "PERSONAL PROJECT · 2019",
+      badge: "Mar - May 2019",
+      desc: "My very first fullstack web application — a developer social network connecting coders with profile discovery, posts, and discussions.",
+      blocks: [
+        "Dev Kami marks my journey as a fullstack web engineer. Built as a social networking platform to connect software developers, exchange ideas, and build portfolios.",
+        "The platform incorporates core social features:",
+        {
+          list: [
+            "JWT token-based user authentication",
+            "Developer profiles and portfolio showcases",
+            "Post creation, markdown discussions, and comments",
+            "Like and reaction system",
+          ],
+        },
+        "This foundational project ignited my lifelong passion for building scalable, community-centered digital products.",
+      ],
+      captions: [
+        "Dev Kami - Social Platform",
       ],
     },
   },
