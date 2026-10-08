@@ -1388,7 +1388,7 @@
             </div>
           </div>
 
-          <!-- Language switch: EN / ID / JA -->
+          <!-- Language switch: EN / ID / 日本語 -->
           <div
             role="group"
             aria-label="{{ t.langLabel }}"
@@ -6699,14 +6699,14 @@
         isSmallViewport = typeof window !== 'undefined' && window.innerWidth < 640;
         navOrder = ['cover', 'work', 'exhibit', 'about', 'contact'];
 
-        // Language: EN / ID / JA. Copy lives in translations/site/{lang}.js
+        // Language: EN / ID / 日本語. Copy lives in translations/site/{lang}.js
         // (window.SITE_TRANSLATIONS). The choice is remembered per browser;
         // a ?lang= URL param wins so a link can open in a given language,
         // and a first visit falls back to the browser's own language.
         languages = [
           { code: 'en', short: 'EN', name: 'English' },
           { code: 'id', short: 'ID', name: 'Bahasa Indonesia' },
-          { code: 'ja', short: 'JA', name: '日本語' },
+          { code: 'ja', short: '日本語', name: '日本語' },
         ];
         langStorageKey = 'pg-lang';
         isSupportedLang = (code) => this.languages.some((l) => l.code === code) && !!(window.SITE_TRANSLATIONS || {})[code];
